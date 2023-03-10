@@ -5,7 +5,7 @@
 package сommands;
 
 
-import Result.Result;
+import result.Result;
 import managers.Receiver;
 
 public class RemoveByIdCommand implements Command {

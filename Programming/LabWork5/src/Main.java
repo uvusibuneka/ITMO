@@ -3,7 +3,7 @@
  Главный класс приложения, запускающий интерактивный режим работы с коллекцией музыкальных групп.
  */
 
-import Result.Result;
+import result.Result;
 import managers.Invoker;
 import managers.Loader;
 import managers.Receiver;

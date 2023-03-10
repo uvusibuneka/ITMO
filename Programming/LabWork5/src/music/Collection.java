@@ -1,6 +1,6 @@
 package music;
 
-import Result.Result;
+import result.Result;
 
 import java.time.LocalDate;
 import java.util.TreeSet;

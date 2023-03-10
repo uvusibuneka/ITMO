@@ -1,4 +1,4 @@
-package Result;
+package result;
 
 import java.util.Optional;
 

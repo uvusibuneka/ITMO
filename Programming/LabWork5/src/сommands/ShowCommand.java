@@ -4,7 +4,7 @@
  */
 package сommands;
 
-import Result.Result;
+import result.Result;
 import managers.Receiver;
 
 public class ShowCommand implements Command {

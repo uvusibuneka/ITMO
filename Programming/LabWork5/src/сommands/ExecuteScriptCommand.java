@@ -1,6 +1,6 @@
 package сommands;
 
-import Result.Result;
+import result.Result;
 import managers.Invoker;
 import managers.Receiver;
 

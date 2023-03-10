@@ -7,7 +7,7 @@
  */
 package managers;
 
-import Result.Result;
+import result.Result;
 import сommands.*;
 
 import java.util.*;

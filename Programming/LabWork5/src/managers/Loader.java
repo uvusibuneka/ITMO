@@ -1,6 +1,6 @@
 package managers;
 
-import Result.Result;
+import result.Result;
 import builders.AlbumBuilder;
 import builders.CoordinatesBuilder;
 import builders.MusicBandBuilder;

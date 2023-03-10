@@ -1,6 +1,6 @@
 package managers;
 
-import Result.Result;
+import result.Result;
 import music.Album;
 import music.Collection;
 import music.MusicBand;
