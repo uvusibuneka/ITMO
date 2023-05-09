@@ -1,1 +1,1 @@
-helpinfoshowexecute_scriptF:\Рабочий стол\Программировние\Java\LabWork5\src\Data\OUTPUT.txt
+addhelpinfoshowsaveclearhistoryexecute_scriptF:\Рабочий стол\ITMO\Programming\LabWork5\src\data\OUTPUT.txtexit

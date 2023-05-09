@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../DumbTesting/DumbTesting.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab5Client.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/managers/InteractiveMode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/MusicCommon.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/builders/AlbumBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/builders/CoordinatesBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/builders/MusicBandBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/common/Album.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/common/Collection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/common/CommandDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/common/Coordinates.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/common/IDAccess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/common/MusicBand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/common/MusicGenre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/interfaces/Entry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/result/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/receivers/Receiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Programming/LabWork5Modified/LabWork5.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Data/INPUT.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Data/INPUT.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Data/OUTPUT.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Data/OUTPUT.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Result/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/Result/Result.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/builders/AlbumBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/builders/AlbumBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/builders/CoordinatesBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/builders/CoordinatesBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/builders/MusicBandBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/builders/MusicBandBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/managers/Invoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/managers/Invoker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/managers/Loader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/managers/Loader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/managers/Receiver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/music/Album.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/music/Collection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/music/Coordinates.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/music/MusicBand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/music/MusicGenre.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/AddCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/AddIfMaxCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/ClearCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/CountByBestAlbum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/ExecuteScriptCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/ExitCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/FilterByBestAlbum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/HelpCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/HistoryCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/InfoCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/MaxByBestAlbumCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/RemoveByIdCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/RemoveGreaterCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/SaveCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/ShowCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/out/production/LabWork5/сommands/UpdateCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/Data/INPUT.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/Data/INPUT.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/Data/OUTPUT.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/Data/OUTPUT.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/Result/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/Result/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/builders/AlbumBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/builders/AlbumBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/builders/CoordinatesBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/builders/CoordinatesBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/builders/MusicBandBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/builders/MusicBandBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/managers/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/managers/Invoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/managers/Loader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/LabWork5/src/managers/Loader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/managers/Receiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/music/Album.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/music/Collection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/music/Coordinates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/music/MusicBand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/music/MusicGenre.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/AddCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/AddIfMaxCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/ClearCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/CountByBestAlbum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/ExecuteScriptCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/ExitCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/FilterByBestAlbum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/HelpCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/HistoryCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/InfoCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/MaxByBestAlbumCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/RemoveByIdCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/RemoveGreaterCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/SaveCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/ShowCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/LabWork5/src/сommands/UpdateCommand.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2PWfSQy0hUFkVzgIprVYMD2Mobh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="" />
+      <created>1683577758208</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683577758208</updated>
+      <workItem from="1683577759855" duration="726000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

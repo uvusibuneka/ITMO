@@ -1,14 +1,13 @@
 /**
 
- Invoker - класс, который управляет выполнением команд.
- Хранит список всех доступных команд и их названий, а также историю выполненных команд и стек выполненных скриптов.
- При вызове executeCommand вызывает соответствующую команду.
-
+ Invoker - a class that manages the execution of commands.
+ Stores a list of all available commands and their names, as well as a history of executed commands and a stack of executed scripts.
+ When executeCommand is called, it invokes the corresponding command.
  */
 package managers;
-
+import receivers.*;
 import result.Result;
-import сommands.*;
+import commands.*;
 
 import java.util.*;
 
@@ -16,10 +15,16 @@ public class Invoker {
 
     private Map<String, Command> commands;
     private Deque<String> history;
-    private Stack<String> scriptStack; // добавленное поле
+    private Stack<String> scriptStack;
 
     private Loader loader;
 
+    /**
+     * Constructor for the Invoker class.
+     * Creates object of all available commands and registers them in the command list.
+     *
+     * @param loader - an instance of the Loader class for loading the collection from a file.
+     */
     public Invoker(Loader loader) {
         this.loader = loader;
         commands = new HashMap<>();
@@ -43,12 +48,28 @@ public class Invoker {
         register("save", new SaveCommand());
     }
 
+    /**
+     * Registers a new command in the list of available commands.
+     *
+     * @param name    - the name of the command.
+     * @param command - an instance of the Command class that implements this command.
+     */
     public void register(String name, Command command) {
         commands.put(name, command);
     }
 
+    /**
+     * Executes a command with the given name.
+     *
+     * @param name     - the name of the command.
+     * @param receiver - an instance of the ConsoleReceiver class that executes the command.
+     * @return an instance of the Result class containing information about the result of executing the command.
+     */
     public Result<Void> executeCommand(String name, Receiver receiver) {
         try {
+            if(name == null){
+                return Result.failure(new Exception("Command is not found"), "Input Stream is closed. Run program to continue work.\nExiting...");
+            }
             if (commands.containsKey(name)) {
                 Command command = commands.get(name);
                 Result<Void> executeResult = command.execute(receiver);
@@ -59,27 +80,32 @@ public class Invoker {
                 } catch (Exception e) {
                     return Result.failure(e, "Error while executing command");
                 }
-                history.offerLast(name);
+                history.offerLast(name); // Add the command name to the history of executed commands
                 if (history.size() > 6) {
-                    history.pollFirst();
+                    history.pollFirst(); // If the number of commands in the history exceeds 6, remove the first command from the history
                 }
                 return Result.success(null);
             } else {
-                return Result.failure(new Exception("Command not found"), "Error while executing command");
+                return Result.failure(new Exception("Command not found"), "Command not found");
             }
         } catch (Exception e) {
             return Result.failure(e, "Error while executing command");
         }
     }
 
-    public void printHistory() {
-        for (String command : history) {
-            System.out.println(command);
-        }
-    }
+/**
+ * Method for printing the script stack.
+ */
 
+    /**
+
+     Метод для добавления имени файла скрипта в стек выполненных скриптов.
+     Если имя файла уже есть в стеке, то метод вернет false, иначе - true.
+     @param filename имя файла скрипта
+     @return true, если имя файла успешно добавлено в стек, иначе - false
+     */
     public boolean addExecutedScript(String filename) {
-        if(scriptStack.contains(filename))
+        if (scriptStack.contains(filename))
             return false;
         else {
             scriptStack.push(filename);
@@ -87,15 +113,37 @@ public class Invoker {
         }
     }
 
+    /**
+     Method for removing the last executed script from the script stack.
+     */
     public void removeExecutedScript() {
         if (!scriptStack.empty()) {
             scriptStack.pop();
         }
     }
 
-    public void printStack() {
-        for (var s: scriptStack) {
-            System.out.println(s.toString());
-        }
+    /**
+     * Method for getting the size of the script stack.
+     * @return
+     */
+    public long getScriptStackSize(){
+        return scriptStack.size();
+    }
+
+    /**
+     * Method for setting the Loader object.
+     * @param loader object of the Loader class.
+     */
+
+    public void setLoader(Loader loader) {
+        this.loader = loader;
+    }
+
+    /**
+     * Method for getting the Loader object.
+     * @return object of the Loader class.
+     */
+    public Loader getLoader() {
+        return loader;
     }
 }
