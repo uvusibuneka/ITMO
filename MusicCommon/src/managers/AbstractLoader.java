@@ -7,10 +7,14 @@ public abstract class AbstractLoader {
             enterWrapper(object, message, textReceiver);
         } else if (description.getType().equals(String.class)) {
             enterString((String) object, message, textReceiver);
-        } else {
+        } else if (description.getType().isEnum()){
+            enterEnum(object, message, textReceiver);
+        }
+        else {
             enterComposite(object, message, (LoadDescription<T>) description, textReceiver);
         }
     }
+    public abstract  <T> void enterEnum(T object, String message, BaseTextReceiver textReceiver);
 
     public abstract <T> void enterWrapper(T object, String message, BaseTextReceiver textReceiver);
 
