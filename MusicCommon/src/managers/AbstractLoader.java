@@ -2,27 +2,26 @@ package managers;
 
 public abstract class AbstractLoader {
 
-    public <T> T enter(String message, LoadDescription<T> description, TextReceiver textReceiver){
+    public <T> void enter(T object, String message, LoadDescription<?> description, BaseTextReceiver textReceiver) {
         if (isWrapper(description.getType())) {
-            return (T) enterWrapper(message, description.getType(), textReceiver);
+            enterWrapper(object, message, textReceiver);
         } else if (description.getType().equals(String.class)) {
-            return (T) enterString(message, textReceiver);
+            enterString((String) object, message, textReceiver);
         } else {
-            return enterComposite(message, description, textReceiver);
+            enterComposite(object, message, (LoadDescription<T>) description, textReceiver);
         }
     }
 
-    public abstract <T> T enterWrapper(String message, Class<T> type, TextReceiver textReceiver);
+    public abstract <T> void enterWrapper(T object, String message, BaseTextReceiver textReceiver);
 
-    public abstract String enterString(String message, TextReceiver textReceiver);
+    public abstract void enterString(String s, String message, BaseTextReceiver textReceiver);
 
-    public <T> T enterComposite(String message, LoadDescription<T> description, TextReceiver textReceiver) {
+    public <T> void enterComposite(T object, String message, LoadDescription<T> description, BaseTextReceiver textReceiver) {
         textReceiver.print(message);
+        object = description.builder.build();
         for (var field : description.getFields()) {
-            Object fieldValue = enter(field.getDescription(), field, textReceiver);
-            field.setField(fieldValue);
+            enter((T)object, field.getDescription(), field, textReceiver);
         }
-        return description.build();
     }
 
     private boolean isWrapper(Class<?> type) {
@@ -31,3 +30,4 @@ public abstract class AbstractLoader {
                 || type.equals(Character.class) || type.equals(Boolean.class);
     }
 }
+

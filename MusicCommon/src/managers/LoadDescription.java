@@ -6,25 +6,24 @@ import java.util.List;
 import java.util.function.Function;
 
 public class LoadDescription<T> {
-    private String description;
-    private Class<?> type;
+    protected String description;
+    protected Class<?> type;
+    protected Buildable<T> builder;
+    protected Function<T, ?> fieldSetter;
+    protected Function<Buildable<T>, T> build;
+    protected List<LoadDescription<?>> fields;
 
-    Buildable<T> builder;
-    private Function<T, T> fieldBuilder;
-
-    private Function<Buildable<T>, T> build;
-
-    private List<LoadDescription<?>> fields;
-
-    public LoadDescription(String description, Class<?> type, Function<T, T> fieldBuilder) {
+    public LoadDescription(String description, Function<T, ?> fieldSetter, Buildable<T> builder, Class<?> type) {
         this.description = description;
+        this.fieldSetter = fieldSetter;
+        this.builder = builder;
         this.type = type;
-        this.fieldBuilder = fieldBuilder;
     }
 
-    public void setField(Object object){
-        fieldBuilder.apply(object);
+    public Function<T, ?> getFieldSetter() {
+        return fieldSetter;
     }
+
     public String getDescription() {
         return description;
     }

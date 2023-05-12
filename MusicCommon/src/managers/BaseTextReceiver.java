@@ -1,5 +1,5 @@
 package managers;
 
-public interface TextReceiver {
+public interface BaseTextReceiver {
     void print(String message);
 }
