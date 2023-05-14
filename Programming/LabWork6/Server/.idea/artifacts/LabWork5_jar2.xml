@@ -2,7 +2,7 @@
   <artifact type="jar" name="LabWork5:jar2">
     <output-path>$PROJECT_DIR$/out/artifacts/LabWork5_jar2</output-path>
     <root id="archive" name="LabWork5.jar">
-      <element id="module-output" name="LabWork5" />
+      <element id="module-output" name="Server" />
     </root>
   </artifact>
 </component>
