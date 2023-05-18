@@ -11,19 +11,17 @@ public class ShowCommand extends Command {
     /**
      * Constructor for creating a command object.
      */
-
     public ShowCommand() {
-        super("show : show all elements of the collection", 0);
+        super("show : show all elements of the collection");
     }
 
     /**
      * Method execute calls the showElementsOfCollection() method of the receiver object.
-     * @param receiver receiver for executing the command
      * @return result of executing the command (the result of the showElementsOfCollection() method of the receiver object)
      */
 
     @Override
-    public Result<Void> execute(Receiver receiver, String args[]) {
+    public Result<Void> execute() {
         return receiver.showElementsOfCollection();
     }
 }

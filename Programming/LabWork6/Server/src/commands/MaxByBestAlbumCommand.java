@@ -8,21 +8,19 @@ import result.Result;
  */
 public class MaxByBestAlbumCommand extends Command {
 
-     /**
+    /**
      * Constructor for creating a command object.
      */
-
     public MaxByBestAlbumCommand() {
-        super("max_by_best_album : выводит элемент коллекции с наибольшим значением поля bestAlbum", 0);
+        super("max_by_best_album : выводит элемент коллекции с наибольшим значением поля bestAlbum");
     }
 
     /**
      * Method execute calls the maxByBestAlbum() method of the receiver object.
-     * @param receiver receiver for executing the command
      * @return result of executing the command (the result of the maxByBestAlbum() method of the receiver object)
      */
     @Override
-    public Result<Void> execute(Receiver receiver, String args[]) {
+    public Result<Void> execute() {
         return receiver.maxByBestAlbum();
     }
 }

@@ -2,45 +2,35 @@ package commands;
 
 import receivers.*;
 import result.Result;
-
+/**
+ * Базовый интерфейс для всех возможных команд.
+ */
 public abstract class Command {
+    Receiver receiver;
+    /**
+     * Constructor for creating a command object.
+     */
+    private final String description;
 
     /**
-
-     Constructor for creating a command object.
-     @param description the description of the command
+     *
+     * @param description the description of the command
      */
-    private String description;
-    private int args;
-    public Command(String description, int args) {
+    public Command(String description) {
         this.description = description;
-        this.args = args;
     }
 
     /**
-
-     A method that will be called when executing the command.
-     @param receiver an object that will execute the command
-     @return the result of executing the command
+     * A method that will be called when executing the command.
+     * @return the result of executing the command
      */
-    public abstract Result<Void> execute(Receiver receiver, String args[]);
+    public abstract Result<Void> execute();
 
     /**
-
-     A method that returns the description of the command.
-     @return the description of the command
+     * A method that returns the description of the command.
+     * @return the description of the command
      */
     public String getDescription() {
         return description;
     }
-
-    /**
-     * Returns the number of arguments
-     * @return number of arguments
-     */
-
-    public int getArgs() {
-    	return args;
-    }
-
 }

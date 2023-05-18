@@ -205,6 +205,7 @@ public class Loader {
         try {
             Result<String> result;
             MusicBandBuilder builder = new MusicBandBuilder();
+
             if (this.isConsole()) {
                 System.out.println("Enter band name:");
             }
@@ -214,12 +215,14 @@ public class Loader {
             } else {
                 return Result.failure(result.getError().get(), "Error while entering band name");
             }
+
+
+            CoordinatesBuilder coordinates;
             if (this.isConsole()) {
                 System.out.println("Enter band coordinates:");
                 System.out.print("x = ");
             }
             result = this.readLine();
-            CoordinatesBuilder coordinates;
             if (result.isSuccess()) {
                 try {
                     coordinates = new CoordinatesBuilder().setX(Long.parseLong(result.getValue().get()));
@@ -229,6 +232,7 @@ public class Loader {
             } else {
                 return Result.failure(result.getError().get(), "Error while entering band coordinates. It must be a number more -129.");
             }
+
             if (this.isConsole) {
                 System.out.print("y = ");
             }
@@ -243,6 +247,8 @@ public class Loader {
                 return Result.failure(result.getError().get(), "Error while entering band coordinates. It must be a number more -420.");
             }
             builder.setCoordinates(coordinates.build());
+
+
             if (this.isConsole()) {
                 System.out.println("Enter number of participants:");
             }
@@ -255,6 +261,8 @@ public class Loader {
                 return Result.failure(e, "Error while entering number of participants, number of participants must be number greater than 0");
             }
             builder.setNumberOfParticipants(Long.parseLong(number));
+
+
             if (this.isConsole()) {
                 System.out.println("Enter date of creation with format dd-mm-yyyy:");
             }
@@ -272,6 +280,8 @@ public class Loader {
             } catch (Exception e) {
                 return Result.failure(e, "Error while entering date of creation, it must be dd-mm-yyyy and earlier than current date");
             }
+
+
             MusicGenre genre = null;
             if (this.isConsole()) {
                 System.out.println("Enter genre:");
@@ -297,6 +307,8 @@ public class Loader {
                 return Result.failure(e, "Error while entering genre");
             }
             builder.setGenre(genre);
+
+
             try {
                 Result resultAlbum = this.enterAlbum();
                 if (resultAlbum.isSuccess()) {
