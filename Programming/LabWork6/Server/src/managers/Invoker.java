@@ -5,57 +5,40 @@
  When executeCommand is called, it invokes the corresponding command.
  */
 package managers;
+import common.CommandDescription;
 import receivers.*;
 import result.Result;
 import commands.*;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class Invoker {
 
-    private Map<String, Command> commands;
+    private Map<String, Function<CommandDescription, Command>> command_creators;
     private Deque<String> history;
-    private Stack<String> scriptStack;
-
-    private Loader loader;
 
     /**
      * Constructor for the Invoker class.
      * Creates object of all available commands and registers them in the command list.
-     *
-     * @param loader - an instance of the Loader class for loading the collection from a file.
      */
-    public Invoker(Loader loader) {
-        this.loader = loader;
-        commands = new HashMap<>();
+    public Invoker() {
         history = new LinkedList<>();
-        scriptStack = new Stack<>();
-        register("add", new AddCommand());
-        register("info", new InfoCommand());
-        register("show",  new ShowCommand());
-        register("clear", new ClearCommand());
-        register("help", new HelpCommand(commands));
-        register("update", new UpdateCommand());
-        register("remove_by_id", new RemoveByIdCommand());
-        register("execute_script",  new ExecuteScriptCommand(this));
-        register("exit",  new ExitCommand());
-        register("add_if_max",  new AddIfMaxCommand());
-        register("remove_greater",  new RemoveGreaterCommand());
-        register("history",  new HistoryCommand(history));
-        register("max_by_best_album",  new MaxByBestAlbumCommand());
-        register("count_by_best_album",   new CountByBestAlbum());
-        register("filter_by_best_album",  new FilterByBestAlbum());
-        register("save",  new SaveCommand());
-    }
-
-    /**
-     * Registers a new command in the list of available commands.
-     *
-     * @param name    - the name of the command.
-     * @param command - an instance of the Command class that implements this command.
-     */
-    public void register(String name, Command command) {
-        commands.put(name, command);
+        command_creators = new HashMap<>();
+        command_creators.put("add", this::add);
+        command_creators.put("info", this::info);
+        command_creators.put("show",  this::show);
+        command_creators.put("clear", this::clear);
+        command_creators.put("help", this::help);
+        command_creators.put("update", this::update);
+        command_creators.put("remove_by_id", this::remove_by_id);
+        command_creators.put("exit", this::exit);
+        command_creators.put("add_if_max", this::add_if_max);
+        command_creators.put("remove_greater", this::remove_greater);
+        command_creators.put("history", this::history);
+        command_creators.put("max_by_best_album", this::max_by_best_album);
+        command_creators.put("count_by_best_album", this::count_by_best_album);
+        command_creators.put("filter_by_best_album", this::filter_by_best_album);
     }
 
     /**
@@ -105,53 +88,46 @@ public class Invoker {
         }
     }
 
-    /**
-
-     Метод для добавления имени файла скрипта в стек выполненных скриптов.
-     Если имя файла уже есть в стеке, то метод вернет false, иначе - true.
-     @param filename имя файла скрипта
-     @return true, если имя файла успешно добавлено в стек, иначе - false
-     */
-    public boolean addExecutedScript(String filename) {
-        if (scriptStack.contains(filename))
-            return false;
-        else {
-            scriptStack.push(filename);
-            return true;
-        }
+    public Command add(CommandDescription cd){
+        return new AddCommand();
     }
-
-    /**
-     Method for removing the last executed script from the script stack.
-     */
-    public void removeExecutedScript() {
-        if (!scriptStack.empty()) {
-            scriptStack.pop();
-        }
+    public Command info(CommandDescription cd){
+        return new InfoCommand();
     }
-
-    /**
-     * Method for getting the size of the script stack.
-     * @return the size of the script stack
-     */
-    public long getScriptStackSize(){
-        return scriptStack.size();
+    public Command show(CommandDescription cd){
+        return new ShowCommand();
     }
-
-    /**
-     * Method for setting the Loader object.
-     * @param loader object of the Loader class.
-     */
-
-    public void setLoader(Loader loader) {
-        this.loader = loader;
+    public Command clear(CommandDescription cd){
+        return new ClearCommand();
     }
-
-    /**
-     * Method for getting the Loader object.
-     * @return object of the Loader class.
-     */
-    public Loader getLoader() {
-        return loader;
+    public Command help(CommandDescription cd){
+        return new HelpCommand();
+    }
+    public Command update(CommandDescription cd){
+        return new UpdateCommand();
+    }
+    public Command remove_by_id(CommandDescription cd){
+        return new RemoveByIdCommand();
+    }
+    public Command exit(CommandDescription cd){
+        return new ExitCommand();
+    }
+    public Command add_if_max(CommandDescription cd){
+        return new AddIfMaxCommand();
+    }
+    public Command remove_greater(CommandDescription cd){
+        return new RemoveGreaterCommand();
+    }
+    public Command history(CommandDescription cd){
+        return new HistoryCommand();
+    }
+    public Command max_by_best_album(CommandDescription cd){
+        return new MaxByBestAlbumCommand();
+    }
+    public Command count_by_best_album(CommandDescription cd){
+        return new CountByBestAlbum();
+    }
+    public Command filter_by_best_album(CommandDescription cd){
+        return new FilterByBestAlbum();
     }
 }
