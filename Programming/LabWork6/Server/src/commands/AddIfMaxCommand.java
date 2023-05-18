@@ -25,7 +25,7 @@ public class AddIfMaxCommand extends Command {
      * @return the result of executing the command (the result of the add() method of the receiver object)
      */
     @Override
-    public Result<Void> execute() {
+    public Result<String> execute() {
         return receiver.addIfMax(element);
     }
 }

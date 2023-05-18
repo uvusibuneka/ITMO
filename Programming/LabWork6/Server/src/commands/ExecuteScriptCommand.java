@@ -15,7 +15,7 @@ public class ExecuteScriptCommand extends Command {
      */
     private final Invoker commandManager;
     public ExecuteScriptCommand(Invoker commandManager){
-        super("execute_script file_name : execute script from file. \"file_name is\" is a absolute path of file.", -1);
+        super("execute_script file_name : execute script from file. \"file_name is\" is a absolute path of file.");
         this.commandManager = commandManager;
     }
 

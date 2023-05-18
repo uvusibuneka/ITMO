@@ -8,7 +8,6 @@ import common.MusicBand;
 import managers.InteractiveMode;
 import managers.Invoker;
 import managers.Loader;
-import receivers.ConsoleReceiver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -20,7 +20,7 @@ public class InfoCommand extends Command {
      * @return result of executing the command (the result of the info() method of the receiver object)
      */
     @Override
-    public Result<Void> execute() {
+    public Result<String> execute() {
         return receiver.info();
     }
 }

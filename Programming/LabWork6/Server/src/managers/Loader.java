@@ -115,28 +115,8 @@ public class Loader {
         }
     }
 
-    /**
-     * Parses an array of strings containing music band data and creates a MusicBand object
-     *
-     * @param parts - an array of strings containing music band data
-     * @return Result object containing the created MusicBand object or error message
-     */
-    public Result<MusicBand> parseMusicBand(String[] parts) {
-        try {
-            return Result.success(new MusicBandBuilder()
-                    .setId(Long.parseLong(parts[0]))
-                    .setName(parts[1])
-                    .setCoordinates(new CoordinatesBuilder().setX(Long.parseLong(parts[2])).setY(Float.parseFloat(parts[3])).build())
-                    .setCreationDate(parseDate(parts[4]).getValue().orElseThrow(() -> new IllegalArgumentException("Creation date not specified.")))
-                    .setNumberOfParticipants(Long.parseLong(parts[5]))
-                    .setGenre(MusicGenre.valueOf(parts[6]))
-                    .setBestAlbum(parts.length > 7 ? new Album(parts[7], Integer.parseInt(parts[8]), Long.parseLong(parts[9]), Float.parseFloat(parts[10])) : null)
-                    .build());
-        } catch (Exception e) {
-            return Result.failure(e, "Error while parsing music band");
-        }
 
-    }
+
 
     /**
      * Change object MusicBand to CSV format
@@ -323,41 +303,6 @@ public class Loader {
         } catch (Exception e) {
             return Result.failure(e, "Error while entering band ");
         }
-    }
-
-    /**
-     * Loads collection from file
-     *
-     * @param collection collection to load
-     * @param filename   filename to load from
-     * @return object Result, containing null or error message
-     */
-
-    public Result<Void> load(Collection<MusicBand> collection, String filename) {
-        String line;
-        try {
-            InputStreamReader streamReader = new InputStreamReader(new FileInputStream(filename));
-            BufferedReader reader = new BufferedReader(streamReader);
-            line = reader.readLine();
-            while (line != null) {
-                String[] parts = line.split(",");
-                Result<MusicBand> musicBandResult = parseMusicBand(parts);
-                if (musicBandResult.isSuccess()) {
-                    MusicBand musicBand = musicBandResult.getValue().get();
-                    if (!collection.isUnique(musicBand.getID())) {
-                        collection.clear();
-                        return Result.failure(new IllegalArgumentException("ID must be unique"), "Error with loading file, ID must be unique for every element of collection");
-                    }
-                    collection.add(musicBand);
-                } else {
-                    return Result.failure(musicBandResult.getError().get(), musicBandResult.getMessage());
-                }
-                line = reader.readLine();
-            }
-        } catch (Exception e) {
-            return Result.failure(e, "Error with loading file");
-        }
-        return Result.success(null);
     }
 
     /**

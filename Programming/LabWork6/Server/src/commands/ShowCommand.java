@@ -1,5 +1,6 @@
 package commands;
 
+import common.MusicBand;
 import receivers.Receiver;
 import result.Result;
 
@@ -21,7 +22,7 @@ public class ShowCommand extends Command {
      */
 
     @Override
-    public Result<Void> execute() {
+    public Result<MusicBand[]> execute() {
         return receiver.showElementsOfCollection();
     }
 }

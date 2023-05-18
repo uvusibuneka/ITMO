@@ -6,7 +6,7 @@ import result.Result;
  * Базовый интерфейс для всех возможных команд.
  */
 public abstract class Command {
-    Receiver receiver;
+    Receiver receiver = MusicReceiver.GetInstance();
     /**
      * Constructor for creating a command object.
      */
@@ -24,7 +24,7 @@ public abstract class Command {
      * A method that will be called when executing the command.
      * @return the result of executing the command
      */
-    public abstract Result<Void> execute();
+    public abstract Result<?> execute();
 
     /**
      * A method that returns the description of the command.
