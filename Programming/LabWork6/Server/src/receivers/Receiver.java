@@ -18,7 +18,7 @@ import java.util.Deque;
 import java.util.Map;
 import java.util.TreeSet;
 
-public abstract class Receiver<T extends Comparable & IDAccess> {
+public abstract class Receiver<T extends Comparable<T> & IDAccess> {
     private Collection<T> collection;
 
     /**
