@@ -1,7 +1,5 @@
 /**
-
- The Loader class is used to read data from console or file, write data in CSV format, create Album and MusicBand objects, and convert strings to corresponding data types.
-
+ * The Loader class is used to read data from console or file, write data in CSV format, create Album and MusicBand objects, and convert strings to corresponding data types.
  */
 
 package managers;
@@ -20,19 +18,25 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Loader {
 
-    /** Date formatting object for LocalDate class */
+    /**
+     * Date formatting object for LocalDate class
+     */
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    /** BufferedReader object for reading from input stream */
+    /**
+     * BufferedReader object for reading from input stream
+     */
     private BufferedReader reader;
 
-    private boolean isConsole;
+    private final boolean isConsole;
 
     /**
      * Constructs an instance of Loader class with specified input stream
+     *
      * @param reader - input stream
      */
     public Loader(BufferedReader reader, boolean isConsole) {
@@ -42,6 +46,7 @@ public class Loader {
 
     /**
      * Checks whether the input stream is console
+     *
      * @return true, if the input stream is console, false - otherwise
      */
     public boolean isConsole() {
@@ -54,6 +59,7 @@ public class Loader {
 
     /**
      * Sets a new input stream
+     *
      * @param reader - input stream
      */
 
@@ -63,6 +69,7 @@ public class Loader {
 
     /**
      * Reads album data from input stream
+     *
      * @return Result object containing the created Album object or error message
      */
     public Result<Album> enterAlbum() {
@@ -74,8 +81,8 @@ public class Loader {
                             .setTracks(Long.parseLong(reader.readLine().trim()))
                             .setLength(Long.parseLong(reader.readLine().trim()))
                             .setSales(Float.parseFloat(reader.readLine().trim()))
-                            .createAlbum());
-                }catch (Exception e){
+                            .build());
+                } catch (Exception e) {
                     return Result.failure(e, e.getMessage());
                 }
 
@@ -86,53 +93,54 @@ public class Loader {
                 System.out.println("Enter number of tracks:");
                 try {
                     builder.setTracks(Long.parseLong(reader.readLine().trim()));
-                }catch (Exception e){
+                } catch (Exception e) {
                     return Result.failure(e, "Number of tracks is a number more 0");
                 }
                 System.out.println("Enter album length:");
                 try {
                     builder.setLength(Long.parseLong(reader.readLine().trim()));
-                }catch (Exception e){
+                } catch (Exception e) {
                     return Result.failure(e, "Length is a number more 0");
                 }
                 System.out.println("Enter album sales:");
                 try {
                     builder.setSales(Float.parseFloat(reader.readLine().trim()));
-                }catch (Exception e){
+                } catch (Exception e) {
                     return Result.failure(e, "Sales is a number more 0");
                 }
-                return Result.success(builder.createAlbum());
+                return Result.success(builder.build());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return Result.failure(e, "Error while reading album data.");
         }
     }
 
     /**
      * Parses an array of strings containing music band data and creates a MusicBand object
+     *
      * @param parts - an array of strings containing music band data
      * @return Result object containing the created MusicBand object or error message
      */
-    public Result <MusicBand> parseMusicBand(String[] parts) {
+    public Result<MusicBand> parseMusicBand(String[] parts) {
         try {
             return Result.success(new MusicBandBuilder()
                     .setId(Long.parseLong(parts[0]))
                     .setName(parts[1])
-                    .setCoordinates(new CoordinatesBuilder().setX(Long.parseLong(parts[2])).setY(Float.parseFloat(parts[3])).createCoordinates())
-                    .setCreationDate(parseDate(parts[4]).getValue().orElseGet(() -> {
-                        throw new IllegalArgumentException("Creation date not specified.");
-                    }))
+                    .setCoordinates(new CoordinatesBuilder().setX(Long.parseLong(parts[2])).setY(Float.parseFloat(parts[3])).build())
+                    .setCreationDate(parseDate(parts[4]).getValue().orElseThrow(() -> new IllegalArgumentException("Creation date not specified.")))
                     .setNumberOfParticipants(Long.parseLong(parts[5]))
                     .setGenre(MusicGenre.valueOf(parts[6]))
                     .setBestAlbum(parts.length > 7 ? new Album(parts[7], Integer.parseInt(parts[8]), Long.parseLong(parts[9]), Float.parseFloat(parts[10])) : null)
-                    .createMusicBand());
-        }catch (Exception e){
+                    .build());
+        } catch (Exception e) {
             return Result.failure(e, "Error while parsing music band");
         }
 
     }
+
     /**
      * Change object MusicBand to CSV format
+     *
      * @param band - object MusicBand
      * @return object Result with CSV format or error message
      */
@@ -153,13 +161,14 @@ public class Loader {
                 sb.append(",");
             }
             return Result.success(sb.toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             return Result.failure(e, "Error with parsing CSV format");
         }
     }
 
     /**
      * Change String to LocalDate
+     *
      * @param formattedDate - String with date
      * @return object Result with LocalDate or error message
      */
@@ -167,13 +176,14 @@ public class Loader {
     public Result<LocalDate> parseDate(String formattedDate) {
         try {
             return Result.success(LocalDate.parse(formattedDate, formatter));
-        }catch (Exception e){
-            return Result.failure(e,"Error with date format");
+        } catch (Exception e) {
+            return Result.failure(e, "Error with date format");
         }
     }
 
     /**
      * Reads id from input stream
+     *
      * @return object Result, containing read line or error message
      */
     public Result<Long> enterId() {
@@ -181,25 +191,27 @@ public class Loader {
             System.out.println("Enter ID: ");
         try {
             return Result.success(Long.parseLong(reader.readLine().trim()));
-        }catch (Exception e){
+        } catch (Exception e) {
             return Result.failure(e, "Error with getting ID");
         }
     }
 
     /**
      * Read band from input stream
+     *
      * @return object Result, containing read line or error message
      */
     public Result<MusicBand> enterBand() {
         try {
             Result<String> result;
             MusicBandBuilder builder = new MusicBandBuilder();
-            if (this.isConsole())
+            if (this.isConsole()) {
                 System.out.println("Enter band name:");
+            }
             result = this.readLine();
-            if (result.isSuccess())
+            if (result.isSuccess()) {
                 builder.setName(result.getValue().get());
-            else {
+            } else {
                 return Result.failure(result.getError().get(), "Error while entering band name");
             }
             if (this.isConsole()) {
@@ -211,29 +223,29 @@ public class Loader {
             if (result.isSuccess()) {
                 try {
                     coordinates = new CoordinatesBuilder().setX(Long.parseLong(result.getValue().get()));
-                }catch (Exception e){
+                } catch (Exception e) {
                     return Result.failure(e, "Error while entering band coordinates. It must be a number more -129.");
                 }
-            }
-            else {
+            } else {
                 return Result.failure(result.getError().get(), "Error while entering band coordinates. It must be a number more -129.");
             }
-            if(this.isConsole)
+            if (this.isConsole) {
                 System.out.print("y = ");
+            }
             result = this.readLine();
             if (result.isSuccess()) {
                 try {
                     coordinates.setY(Float.parseFloat(result.getValue().get()));
-                }catch (Exception e){
+                } catch (Exception e) {
                     return Result.failure(e, "Error while entering band coordinates. It must be a number more -420.");
                 }
-            }
-            else {
+            } else {
                 return Result.failure(result.getError().get(), "Error while entering band coordinates. It must be a number more -420.");
             }
-            builder.setCoordinates(coordinates.createCoordinates());
-            if (this.isConsole())
+            builder.setCoordinates(coordinates.build());
+            if (this.isConsole()) {
                 System.out.println("Enter number of participants:");
+            }
             String number = reader.readLine().trim();
             try {
                 if (Long.parseLong(number) <= 0) {
@@ -243,8 +255,9 @@ public class Loader {
                 return Result.failure(e, "Error while entering number of participants, number of participants must be number greater than 0");
             }
             builder.setNumberOfParticipants(Long.parseLong(number));
-            if (this.isConsole())
+            if (this.isConsole()) {
                 System.out.println("Enter date of creation with format dd-mm-yyyy:");
+            }
             result = this.readLine();
             try {
                 if (result.isSuccess()) {
@@ -256,7 +269,7 @@ public class Loader {
                 } else {
                     return Result.failure(result.getError().get(), "Error while entering date of creation");
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 return Result.failure(e, "Error while entering date of creation, it must be dd-mm-yyyy and earlier than current date");
             }
             MusicGenre genre = null;
@@ -275,33 +288,36 @@ public class Loader {
                         System.out.println("Error while entering genre");
                     }
                 }
-            } else
+            } else {
                 result = this.readLine();
-                try {
-                    genre = MusicGenre.valueOf(result.getValue().get().trim().toUpperCase());
-                }catch (Exception e){
-                    return Result.failure(e, "Error while entering genre");
-                }
+            }
+            try {
+                genre = MusicGenre.valueOf(result.getValue().get().trim().toUpperCase());
+            } catch (Exception e) {
+                return Result.failure(e, "Error while entering genre");
+            }
             builder.setGenre(genre);
             try {
                 Result resultAlbum = this.enterAlbum();
-                if (resultAlbum.isSuccess())
+                if (resultAlbum.isSuccess()) {
                     builder.setBestAlbum((Album) resultAlbum.getValue().get());
-                else
+                } else {
                     return resultAlbum;
-            }catch (Exception e){
+                }
+            } catch (Exception e) {
                 return Result.failure(e, "Error while entering band");
             }
-            return Result.success(builder.createMusicBand());
-        }catch (Exception e){
+            return Result.success(builder.build());
+        } catch (Exception e) {
             return Result.failure(e, "Error while entering band ");
         }
     }
 
     /**
      * Loads collection from file
+     *
      * @param collection collection to load
-     * @param filename filename to load from
+     * @param filename   filename to load from
      * @return object Result, containing null or error message
      */
 
@@ -314,19 +330,19 @@ public class Loader {
             while (line != null) {
                 String[] parts = line.split(",");
                 Result<MusicBand> musicBandResult = parseMusicBand(parts);
-                if (musicBandResult.isSuccess()){
+                if (musicBandResult.isSuccess()) {
                     MusicBand musicBand = musicBandResult.getValue().get();
-                    if(!collection.isUnique(musicBand.getID())){
+                    if (!collection.isUnique(musicBand.getID())) {
                         collection.clear();
                         return Result.failure(new IllegalArgumentException("ID must be unique"), "Error with loading file, ID must be unique for every element of collection");
                     }
                     collection.add(musicBand);
-                }else{
-                    return Result.failure(musicBandResult.getError().get(),musicBandResult.getMessage());
+                } else {
+                    return Result.failure(musicBandResult.getError().get(), musicBandResult.getMessage());
                 }
                 line = reader.readLine();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return Result.failure(e, "Error with loading file");
         }
         return Result.success(null);
@@ -334,16 +350,13 @@ public class Loader {
 
     /**
      * Reads line from input stream
+     *
      * @return object Result, containing line or error message
      */
     public Result<String> readLine() {
         try {
             String line = reader.readLine();
-            if (line == null) {
-                return Result.success("");
-            } else {
-                return Result.success(line);
-            }
+            return Result.success(Objects.requireNonNullElse(line, ""));
         } catch (Exception e) {
             return Result.failure(e, "Error with reading");
         }

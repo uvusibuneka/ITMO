@@ -105,10 +105,6 @@ public class Invoker {
         }
     }
 
-/**
- * Method for printing the script stack.
- */
-
     /**
 
      Метод для добавления имени файла скрипта в стек выполненных скриптов.
@@ -136,7 +132,7 @@ public class Invoker {
 
     /**
      * Method for getting the size of the script stack.
-     * @return
+     * @return the size of the script stack
      */
     public long getScriptStackSize(){
         return scriptStack.size();
