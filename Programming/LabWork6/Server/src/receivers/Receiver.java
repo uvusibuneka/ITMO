@@ -40,28 +40,10 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
     public abstract Result<Void> addIfMax(T obj);
 
     /**
-     * Abstract method for counting the number of elements in the collection with the same value for the 'bestAlbum' field.
-     * @return a Result object that indicates the success or failure of the operation.
-     */
-    public abstract Result<Long> countByBestAlbum(Album album);
-
-    /**
-     * Abstract method for filtering the collection by the 'bestAlbum' field.
-     * @return a Result object that indicates the success or failure of the operation.
-     */
-    public abstract Result<TreeSet<MusicBand>> filterByBestAlbum(Album album);
-
-    /**
      * Abstract method for printing information about the collection.
      * @return a Result object that indicates the success or failure of the operation.
      */
     public abstract Result<String> info();
-
-    /**
-     * Abstract method for finding the element in the collection with the maximum value for the 'bestAlbum' field.
-     * @return a Result object that indicates the success or failure of the operation.
-     */
-    public abstract Result<MusicBand> maxByBestAlbum();
 
     /**
      * Abstract method for removing an element from the collection by its ID.
@@ -93,5 +75,5 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      Abstract method for updating an element of the collection by ID.
      @return a Result object that indicates the status of the update operation.
      */
-    public abstract Result<Void> updateById(long id, MusicBand newBand);
+    public abstract Result<Void> updateById(long id, T newElement);
 }

@@ -1,19 +1,17 @@
 package commands;
 
 import common.MusicBand;
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
 /**
  * Class ShowCommand for showing all elements of the collection.
  */
-public class ShowCommand extends Command {
+public class ShowCommand extends Command<MusicReceiver> {
 
-    /**
-     * Constructor for creating a command object.
-     */
     public ShowCommand() {
-        super("show : show all elements of the collection");
+        super(MusicReceiver.GetInstance());
     }
 
     /**

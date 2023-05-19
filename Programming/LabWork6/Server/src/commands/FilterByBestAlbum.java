@@ -2,6 +2,7 @@ package commands;
 
 import common.Album;
 import common.MusicBand;
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
@@ -10,7 +11,7 @@ import java.util.TreeSet;
 /**
  * Class FilterByBestAlbum for filtering the collection by the bestAlbum field.
  */
-public class FilterByBestAlbum extends Command {
+public class FilterByBestAlbum extends Command<MusicReceiver>{
     Album album;
 
     /**
@@ -18,7 +19,7 @@ public class FilterByBestAlbum extends Command {
      * @param album bestAlbum
      */
     public FilterByBestAlbum(Album album) {
-        super("filter_by_best_album {album} : print elements whose bestAlbum field value is equivalent to the specified one");
+        super(MusicReceiver.GetInstance());
         this.album = album;
     }
 

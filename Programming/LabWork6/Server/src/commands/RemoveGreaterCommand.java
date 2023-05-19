@@ -1,20 +1,21 @@
 package commands;
 
 import common.MusicBand;
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
 /**
  * Class RemoveGreaterCommand for removing all elements greater than the specified one.
  */
-public class RemoveGreaterCommand extends Command {
+public class RemoveGreaterCommand extends Command<MusicReceiver>  {
     MusicBand element;
 
     /**
      * Constructor for creating a command object.
      */
     public RemoveGreaterCommand(MusicBand element) {
-        super("remove_greater {element} : remove from the collection all elements greater than the specified one");
+        super(MusicReceiver.GetInstance());
         this.element = element;
     }
 

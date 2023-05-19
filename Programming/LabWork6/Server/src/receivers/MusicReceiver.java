@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  *
  * @author Фролов К.Д.
  */
-public class MusicReceiver extends Receiver<MusicBand> {
+public class MusicReceiver extends Receiver<MusicBand>{
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     /**
      * коллекция, хранящая города

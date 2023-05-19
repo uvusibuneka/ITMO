@@ -1,18 +1,17 @@
 package commands;
 
+import common.MusicBand;
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
 /**
  * Class MaxByBestAlbumCommand for displaying the element with the maximum value of the bestAlbum field.
  */
-public class MaxByBestAlbumCommand extends Command {
+public class MaxByBestAlbumCommand extends Command<MusicReceiver> {
 
-    /**
-     * Constructor for creating a command object.
-     */
     public MaxByBestAlbumCommand() {
-        super("max_by_best_album : выводит элемент коллекции с наибольшим значением поля bestAlbum");
+        super(MusicReceiver.GetInstance());
     }
 
     /**
@@ -20,7 +19,7 @@ public class MaxByBestAlbumCommand extends Command {
      * @return result of executing the command (the result of the maxByBestAlbum() method of the receiver object)
      */
     @Override
-    public Result<Void> execute() {
+    public Result<MusicBand> execute() {
         return receiver.maxByBestAlbum();
     }
 }

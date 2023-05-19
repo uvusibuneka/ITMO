@@ -15,7 +15,7 @@ import java.util.function.Function;
 
 public class Invoker {
 
-    private Map<String, Function<CommandDescription, Command>> command_creators;
+    private final Map<String, Function<CommandDescription, Command<MusicReceiver>>> command_creators;
     private Deque<String> history;
 
     /**
@@ -45,89 +45,60 @@ public class Invoker {
      * Executes a command with the given name.
      *
      * @param name     - the name of the command.
-     * @param receiver - an instance of the ConsoleReceiver class that executes the command.
+     * @param cd
      * @return an instance of the Result class containing information about the result of executing the command.
      */
-    public Result<Void> executeCommand(String name, String[] parts, Receiver receiver) {
-        try {
-            if(name == null){
-                return Result.failure(new Exception("Command is not found"), "Input Stream is closed. Run program to continue work.\nExiting...");
-            }
-            if (commands.containsKey(name)) {
-                Command command = commands.get(name);
-                if (command.getArgs() != parts.length - 1 && command.getArgs() != -1) {
-                    return Result.failure(new Exception("Wrong number of arguments"), "Wrong number of arguments");
-                }
-
-                if(command.getArgs() == -1){
-                    if(parts.length == 0){
-                        return Result.failure(new Exception("Wrong number of arguments"), "Wrong number of arguments");
-                    }
-                    for(int i = 2; i < parts.length; i++){
-                        parts[1] += " " + parts[i];
-                    }
-                }
-                Result<Void> executeResult = command.execute(receiver, parts);
-                try {
-                    if (!executeResult.isSuccess()) {
-                        return Result.failure(executeResult.getError().get(), executeResult.getMessage());
-                    }
-                } catch (Exception e) {
-                    return Result.failure(e, "Error while executing command");
-                }
-                history.offerLast(name); // Add the command name to the history of executed commands
-                if (history.size() > 6) {
-                    history.pollFirst(); // If the number of commands in the history exceeds 6, remove the first command from the history
-                }
-                return Result.success(null);
-            } else {
-                return Result.failure(new Exception("Command not found"), "Command not found");
-            }
-        } catch (Exception e) {
-            return Result.failure(e, "Error while executing command");
+    public Result<?> executeCommand(String name, CommandDescription cd) {
+        Command<MusicReceiver> commandObj = null;
+        if (command_creators.containsKey(name)){
+            commandObj = command_creators.get(name).apply(cd);
         }
+        if (commandObj != null)
+            return commandObj.execute();
+        else
+            return Result.failure(new Exception("Команда не найдена"));
     }
 
-    public Command add(CommandDescription cd){
+    public Command<MusicReceiver> add(CommandDescription cd){
         return new AddCommand();
     }
-    public Command info(CommandDescription cd){
+    public Command<MusicReceiver> info(CommandDescription cd){
         return new InfoCommand();
     }
-    public Command show(CommandDescription cd){
+    public Command<MusicReceiver> show(CommandDescription cd){
         return new ShowCommand();
     }
-    public Command clear(CommandDescription cd){
+    public Command<MusicReceiver> clear(CommandDescription cd){
         return new ClearCommand();
     }
-    public Command help(CommandDescription cd){
+    public Command<MusicReceiver> help(CommandDescription cd){
         return new HelpCommand();
     }
-    public Command update(CommandDescription cd){
+    public Command<MusicReceiver> update(CommandDescription cd){
         return new UpdateCommand();
     }
-    public Command remove_by_id(CommandDescription cd){
+    public Command<MusicReceiver> remove_by_id(CommandDescription cd){
         return new RemoveByIdCommand();
     }
-    public Command exit(CommandDescription cd){
+    public Command<MusicReceiver> exit(CommandDescription cd){
         return new ExitCommand();
     }
-    public Command add_if_max(CommandDescription cd){
+    public Command<MusicReceiver> add_if_max(CommandDescription cd){
         return new AddIfMaxCommand();
     }
-    public Command remove_greater(CommandDescription cd){
+    public Command<MusicReceiver> remove_greater(CommandDescription cd){
         return new RemoveGreaterCommand();
     }
-    public Command history(CommandDescription cd){
+    public Command<MusicReceiver> history(CommandDescription cd){
         return new HistoryCommand();
     }
-    public Command max_by_best_album(CommandDescription cd){
+    public Command<MusicReceiver> max_by_best_album(CommandDescription cd){
         return new MaxByBestAlbumCommand();
     }
-    public Command count_by_best_album(CommandDescription cd){
+    public Command<MusicReceiver> count_by_best_album(CommandDescription cd){
         return new CountByBestAlbum();
     }
-    public Command filter_by_best_album(CommandDescription cd){
+    public Command<MusicReceiver> filter_by_best_album(CommandDescription cd){
         return new FilterByBestAlbum();
     }
 }

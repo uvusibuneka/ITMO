@@ -1,18 +1,16 @@
 package commands;
 
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
 /**
  * Class SaveCommand for saving the collection to a file.
  */
-public class SaveCommand extends Command {
+public class SaveCommand extends Command<MusicReceiver>  {
 
-    /**
-     * Constructor for creating a command object.
-     */
     public SaveCommand() {
-        super("save : save the collection to a file");
+        super(MusicReceiver.GetInstance());
     }
 
     /**

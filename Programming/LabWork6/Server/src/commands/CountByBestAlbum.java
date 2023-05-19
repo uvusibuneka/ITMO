@@ -7,7 +7,7 @@ import result.Result;
 /**
  * Class CountByBestAlbum for counting the number of elements whose bestAlbum field value is equal to the specified one.
  */
-public class CountByBestAlbum extends Command {
+public class CountByBestAlbum extends Command<MusicReceiver>{
     Album album;
 
     /**
@@ -15,7 +15,7 @@ public class CountByBestAlbum extends Command {
      * @param album
      */
     public CountByBestAlbum(Album album) {
-        super("count_by_best_album : print the number of elements whose bestAlbum field value is equal to the specified one");
+        super(MusicReceiver.GetInstance());
         this.album = album;
     }
 
@@ -24,7 +24,7 @@ public class CountByBestAlbum extends Command {
      * @return the result of executing the command (the result of the countByBestAlbum() method of the receiver object)
      */
     @Override
-    public Result<Void> execute() {
+    public Result<Long> execute() {
         return receiver.countByBestAlbum(album);
     }
 }

@@ -1,18 +1,19 @@
 package commands;
 
+import receivers.MusicReceiver;
 import result.Result;
 
 /**
  * Class RemoveByIdCommand for removing an item from the collection by its id.
  */
-public class RemoveByIdCommand extends Command {
+public class RemoveByIdCommand extends Command<MusicReceiver>  {
     long id;
 
     /**
      * Constructor for creating a command object.
      */
     public RemoveByIdCommand(long id) {
-        super("remove_by_id {id} : remove an item from the collection by its id");
+        super(MusicReceiver.GetInstance());
         this.id = id;
     }
 

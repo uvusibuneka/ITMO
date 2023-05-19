@@ -7,7 +7,7 @@ import result.Result;
 /**
  * Class AddIfMaxCommand for adding a new element to the collection if it's greater than the maximum element.
  */
-public class AddIfMaxCommand extends Command {
+public class AddIfMaxCommand extends Command<MusicReceiver>   {
 
     MusicBand element;
 
@@ -16,7 +16,7 @@ public class AddIfMaxCommand extends Command {
      * @param element
      */
     public AddIfMaxCommand(MusicBand element) {
-        super("add_if_max {element} : add a new element to the collection");
+        super(MusicReceiver.GetInstance());
         this.element = element;
     }
 
@@ -25,7 +25,7 @@ public class AddIfMaxCommand extends Command {
      * @return the result of executing the command (the result of the add() method of the receiver object)
      */
     @Override
-    public Result<String> execute() {
+    public Result<Void> execute() {
         return receiver.addIfMax(element);
     }
 }

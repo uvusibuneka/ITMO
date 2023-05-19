@@ -1,6 +1,7 @@
 package commands;
 
 import common.MusicBand;
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
@@ -8,7 +9,7 @@ import result.Result;
  * Class UpdateCommand for updating the value of the collection element whose id is equal to the specified one.
  */
 
-public class UpdateCommand extends Command {
+public class UpdateCommand extends Command<MusicReceiver> {
     long id;
     MusicBand obj;
 
@@ -16,7 +17,7 @@ public class UpdateCommand extends Command {
      * Constructor for creating a command object.
      */
     public UpdateCommand(MusicBand obj) {
-        super("update id {element}: update the value of the collection element whose id is equal to the specified one");
+        super(MusicReceiver.GetInstance());
         this.obj = obj;
     }
 

@@ -5,14 +5,7 @@ import result.Result;
 /**
  * Class ExitCommand for ending the program.
  */
-public class ExitCommand extends Command {
-
-    /**
-     * Constructor for creating a command object.
-     */
-    public ExitCommand() {
-        super("exit : end the program (without saving to file)");
-    }
+public class ExitCommand implements Command {
 
     /**
      * Method of executing the command.
@@ -20,6 +13,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public Result<Void> execute() {
-        return receiver.exit();
+        return receiver.saveCollection();
     }
 }

@@ -1,18 +1,15 @@
 package commands;
 
+import common.MusicBand;
 import receivers.*;
 import result.Result;
 
 /**
  * Class ClearCommand for clearing the collection.
  */
-public class ClearCommand extends Command {
-
-    /**
-     * Constructor for creating a command object.
-     */
+public class ClearCommand extends Command<MusicReceiver> {
     public ClearCommand() {
-        super("clear : clear the collection");
+        super(MusicReceiver.GetInstance());
     }
 
     /**

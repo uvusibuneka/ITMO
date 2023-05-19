@@ -8,7 +8,7 @@ import java.util.Deque;
 /**
  * Class HistoryCommand for displaying the last 7 commands (without their arguments).
  */
-public class HistoryCommand extends Command {
+public class HistoryCommand implements Command {
     /**
      * history - collection of the last 7 commands (without their arguments).
      */
@@ -19,7 +19,6 @@ public class HistoryCommand extends Command {
      */
 
     public HistoryCommand(Deque<String> history) {
-        super("history : display the last 7 commands (without their arguments)", 0);
         this.history = history;
     }
 

@@ -1,13 +1,14 @@
 package commands;
 
 import managers.Invoker;
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
 /**
  * Class ExecuteScriptCommand for executing a script from a file.
  */
-public class ExecuteScriptCommand extends Command {
+public class ExecuteScriptCommand extends Command<MusicReceiver> {
 
     /**
      * Constructor for creating a command object.
@@ -15,7 +16,7 @@ public class ExecuteScriptCommand extends Command {
      */
     private final Invoker commandManager;
     public ExecuteScriptCommand(Invoker commandManager){
-        super("execute_script file_name : execute script from file. \"file_name is\" is a absolute path of file.");
+        super(MusicReceiver.GetInstance());
         this.commandManager = commandManager;
     }
 

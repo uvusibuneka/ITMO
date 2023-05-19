@@ -1,18 +1,16 @@
 package commands;
 
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
 
 /**
  * Class InfoCommand for displaying information about the collection.
  */
-public class InfoCommand extends Command {
+public class InfoCommand extends Command<MusicReceiver> {
 
-    /**
-     * Constructor for creating a command object.
-     */
     public InfoCommand() {
-        super("info : display information about the collection (type, initialization date, number of elements, etc.)");
+        super(MusicReceiver.GetInstance());
     }
 
     /**

@@ -1,12 +1,13 @@
 package commands;
 
 import common.MusicBand;
+import receivers.MusicReceiver;
 import result.Result;
 
 /**
  * Class AddCommand for adding a new element to the collection.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command<MusicReceiver> {
     MusicBand element;
 
     /**
@@ -14,7 +15,7 @@ public class AddCommand extends Command {
      * @param element
      */
     public AddCommand(MusicBand element) {
-        super("add {element} : add a new element to the collection");
+        super(MusicReceiver.GetInstance());
         this.element = element;
     }
 
