@@ -16,8 +16,9 @@ public class UpdateCommand extends Command<MusicReceiver> {
     /**
      * Constructor for creating a command object.
      */
-    public UpdateCommand(MusicBand obj) {
+    public UpdateCommand(long id, MusicBand obj) {
         super(MusicReceiver.GetInstance());
+        this.id = id;
         this.obj = obj;
     }
 

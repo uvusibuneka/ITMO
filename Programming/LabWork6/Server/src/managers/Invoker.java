@@ -5,7 +5,9 @@
  When executeCommand is called, it invokes the corresponding command.
  */
 package managers;
+import common.Album;
 import common.CommandDescription;
+import common.MusicBand;
 import receivers.*;
 import result.Result;
 import commands.*;
@@ -58,7 +60,7 @@ public class Invoker {
     }
 
     public Command<MusicReceiver> add(CommandDescription cd){
-        return new AddCommand();
+        return new AddCommand((MusicBand) (cd.getObjectArgument().get(0)));
     }
     public Command<MusicReceiver> info(CommandDescription cd){
         return new InfoCommand();
@@ -73,24 +75,27 @@ public class Invoker {
         return new HelpCommand();
     }
     public Command<MusicReceiver> update(CommandDescription cd){
-        return new UpdateCommand();
+        return new UpdateCommand(
+                Long.parseLong(cd.getOneLineArguments().get(0)),
+                (MusicBand) (cd.getObjectArgument().get(0))
+        );
     }
     public Command<MusicReceiver> remove_by_id(CommandDescription cd){
-        return new RemoveByIdCommand();
+        return new RemoveByIdCommand(Long.parseLong(cd.getOneLineArguments().get(0)));
     }
     public Command<MusicReceiver> add_if_max(CommandDescription cd){
-        return new AddIfMaxCommand();
+        return new AddIfMaxCommand((MusicBand) (cd.getObjectArgument().get(0)));
     }
     public Command<MusicReceiver> remove_greater(CommandDescription cd){
-        return new RemoveGreaterCommand();
+        return new RemoveGreaterCommand((MusicBand) (cd.getObjectArgument().get(0)));
     }
     public Command<MusicReceiver> max_by_best_album(CommandDescription cd){
         return new MaxByBestAlbumCommand();
     }
     public Command<MusicReceiver> count_by_best_album(CommandDescription cd){
-        return new CountByBestAlbum();
+        return new CountByBestAlbum((Album) (cd.getObjectArgument().get(0)));
     }
     public Command<MusicReceiver> filter_by_best_album(CommandDescription cd){
-        return new FilterByBestAlbum();
+        return new FilterByBestAlbum((Album) (cd.getObjectArgument().get(0)));
     }
 }
