@@ -10,13 +10,13 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Collection<T extends Comparable & IDAccess> {
+public class Collection<T extends Comparable<T> & IDAccess> implements Cloneable{
 
-    private TreeSet<T> collection = new TreeSet<T>();
+    private TreeSet<T> collection;
 
     private static HashSet<Long> ids = new HashSet<Long>();
 
-    private LocalDate initializationDate = LocalDate.now();
+    private LocalDate initializationDate;
 
     /**
      * Adds an element to the collection.
@@ -166,5 +166,27 @@ public class Collection<T extends Comparable & IDAccess> {
      */
     public boolean isUnique(long id) {
         return !ids.contains(id);
+    }
+
+    /**
+     * Method for getting exactly same {@link Collection}. Using private constructor for creating object with same fields.
+     * @see Cloneable
+     * @return cloned object of collection
+     */
+    public Collection<T> clone(){
+        return new Collection<>(collection, initializationDate);
+    }
+
+    private Collection(TreeSet<T> collection, LocalDate initializationDate){
+        this.collection = (TreeSet<T>)collection.clone();
+        this.initializationDate = initializationDate;
+    }
+
+    /**
+     * Base constructor. Creating empty {@link TreeSet} for storing elements and sets initialization date.
+     */
+    public Collection(){
+        collection = new TreeSet<T>();
+        initializationDate = LocalDate.now();
     }
 }
