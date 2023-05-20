@@ -32,10 +32,8 @@ public class Invoker {
         command_creators.put("help", this::help);
         command_creators.put("update", this::update);
         command_creators.put("remove_by_id", this::remove_by_id);
-        command_creators.put("exit", this::exit);
         command_creators.put("add_if_max", this::add_if_max);
         command_creators.put("remove_greater", this::remove_greater);
-        command_creators.put("history", this::history);
         command_creators.put("max_by_best_album", this::max_by_best_album);
         command_creators.put("count_by_best_album", this::count_by_best_album);
         command_creators.put("filter_by_best_album", this::filter_by_best_album);
@@ -80,17 +78,11 @@ public class Invoker {
     public Command<MusicReceiver> remove_by_id(CommandDescription cd){
         return new RemoveByIdCommand();
     }
-    public Command<MusicReceiver> exit(CommandDescription cd){
-        return new ExitCommand();
-    }
     public Command<MusicReceiver> add_if_max(CommandDescription cd){
         return new AddIfMaxCommand();
     }
     public Command<MusicReceiver> remove_greater(CommandDescription cd){
         return new RemoveGreaterCommand();
-    }
-    public Command<MusicReceiver> history(CommandDescription cd){
-        return new HistoryCommand();
     }
     public Command<MusicReceiver> max_by_best_album(CommandDescription cd){
         return new MaxByBestAlbumCommand();
