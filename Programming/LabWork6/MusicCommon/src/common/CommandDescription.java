@@ -59,11 +59,11 @@ public class CommandDescription implements Callable {
         return name;
     }
 
-    public List<?> getOneLineArguments() {
+    public List<String> getOneLineArguments() {
         return oneLineArguments;
     }
 
-    public Object getObjectArgument() {
+    public List<Object> getObjectArgument() {
         return ObjectArgument;
     }
 
