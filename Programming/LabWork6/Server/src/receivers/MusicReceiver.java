@@ -26,15 +26,11 @@ public class MusicReceiver extends Receiver<MusicBand>{
     /**
      * коллекция, хранящая города
      */
-    private common.Collection<MusicBand> collection;
-    /**
-     * Дата инициализации коллекции
-     */
-    private java.time.LocalDateTime initDate;
+    private final common.Collection<MusicBand> collection;
     /**
      * путь к csv файлу, из которого загружены данные в коллекцию в начале работы и будут сохраняться при команде {@link MusicReceiver#saveCollection()} ()}
      */
-    private String fileName;
+    private final String fileName;
     /**
      * Ссылка на текущий {@link Receiver}. Класс реализует паттерн одиночка.
      */
@@ -46,7 +42,6 @@ public class MusicReceiver extends Receiver<MusicBand>{
     private MusicReceiver() {
         fileName = System.getenv("FILE_NAME");
         collection = new common.Collection<>();
-        initDate = LocalDateTime.now();
 
         String fileName = System.getenv("FILE_NAME");
         if (fileName == null) {
@@ -164,7 +159,7 @@ public class MusicReceiver extends Receiver<MusicBand>{
     public Result<String> info() {
         return Result.success("Тип коллекции: " + collection.getClass().getName() +
                 "\nКоличество элементов: " + collection.getSize() +
-                "\nДата инициализации: " + initDate);
+                "\nДата инициализации: " + collection.getInitializationDate());
     }
 
     /**
