@@ -7,19 +7,17 @@
 package receivers;
 
 import commands.Command;
-import common.Album;
-import common.Collection;
-import common.IDAccess;
-import common.MusicBand;
+import common.*;
 import managers.Invoker;
 import result.Result;
 
 import java.util.Deque;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
 public abstract class Receiver<T extends Comparable<T> & IDAccess> {
-    private Collection<T> collection;
+    Collection<T> collection;
 
     /**
      * Abstract method for adding an element to the collection.
@@ -65,15 +63,15 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
     public abstract Result<Void> saveCollection();
 
     /**
-
-     Abstract method for displaying all elements of the collection.
-     @return a Result object that indicates the status of the display operation.
+     * Abstract method for displaying all elements of the collection.
+     * @return a Result object that indicates the status of the display operation.
      */
     public abstract Result<T[]> showElementsOfCollection();
     /**
-
-     Abstract method for updating an element of the collection by ID.
-     @return a Result object that indicates the status of the update operation.
+     * Abstract method for updating an element of the collection by ID.
+     * @return a Result object that indicates the status of the update operation.
      */
     public abstract Result<Void> updateById(long id, T newElement);
+
+    public abstract Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker);
 }

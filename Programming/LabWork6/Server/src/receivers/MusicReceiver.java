@@ -4,6 +4,8 @@ import builders.CoordinatesBuilder;
 import builders.MusicBandBuilder;
 import commands.Command;
 import common.Album;
+import common.Collection;
+import common.CommandDescription;
 import common.MusicBand;
 import common.MusicGenre;
 import managers.Invoker;
@@ -21,12 +23,8 @@ import java.util.stream.Collectors;
  *
  * @author Фролов К.Д.
  */
-public class MusicReceiver extends Receiver<MusicBand>{
+public class MusicReceiver extends Receiver<MusicBand> {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    /**
-     * коллекция, хранящая города
-     */
-    private final common.Collection<MusicBand> collection;
     /**
      * путь к csv файлу, из которого загружены данные в коллекцию в начале работы и будут сохраняться при команде {@link MusicReceiver#saveCollection()} ()}
      */
@@ -249,6 +247,21 @@ public class MusicReceiver extends Receiver<MusicBand>{
         }
     }
 
+    public Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker) {
+        Collection<MusicBand> backUp = collection.clone();
+        List<Result<?>> results = new ArrayList<>();
+        for (CommandDescription cd : queue) {
+            Result<?> tmp_res = invoker.executeCommand(cd.getName(), cd);
+            if (tmp_res.isSuccess()) {
+                results.add(tmp_res);
+            } else {
+                collection = backUp.clone();
+                return Result.failure(tmp_res.getError().get(), tmp_res.getMessage()+"\nСкрипт не исполнен. Загружено состояние коллекции, которое было до начла исполнения.");
+            }
+        }
+        return Result.success(results);
+    }
+
     /**
      * Method for finding element in collection by id
      *
@@ -394,52 +407,4 @@ public class MusicReceiver extends Receiver<MusicBand>{
             return Result.failure(e, "Error with executing countByBestAlbum command");
         }
     }
-/*
-    @Override
-    public Result<Void> executeScript(Invoker invoker, String[] args) {
-        return null;
-    }
-
-    @Override
-    public Result<Void> exit() {
-        try {
-            if (loader.isConsole()) {
-                System.out.println("Exiting...");
-                System.exit(0);
-            }
-            return Result.success(null);
-        } catch (Exception e) {
-            return Result.failure(e, "Error with exiting");
-        }
-    }
-
-    @Override
-    public Result<Void> printHelpInfo(Map<String, Command> commands) {
-        try {
-            if (loader.isConsole())
-                System.out.println("List of commands:");
-            for (String commandName : commands.keySet()) {
-                System.out.println(commands.get(commandName).getDescription());
-            }
-            return Result.success(null);
-        } catch (Exception e) {
-            return Result.failure(e, "Error with printing help info");
-        }
-    }
-
-    @Override
-    public Result<Void> printHistory(Deque<String> history) {
-        try {
-            if (loader.isConsole())
-                System.out.println("History of recent commands:");
-            for (String command : history) {
-                System.out.println(command);
-            }
-            return Result.success(null);
-        } catch (Exception e) {
-            return Result.failure(e, "Error with printing history");
-        }
-    }
-
-*/
 }
