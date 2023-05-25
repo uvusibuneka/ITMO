@@ -1,6 +1,6 @@
 package commands;
 
-import common.CommandDescription;
+import descriptions.CommandDescription;
 import managers.Invoker;
 import receivers.MusicReceiver;
 import result.Result;
@@ -26,6 +26,7 @@ public class ExecuteQueueCommand extends Command<MusicReceiver> {
 
     @Override
     public Result<?> execute() {
-        return receiver.executeQueue(queue, invoker);
+        return null;
+        //return receiver.executeQueue(queue, invoker);
     }
 }
