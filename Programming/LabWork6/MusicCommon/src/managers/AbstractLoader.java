@@ -10,9 +10,16 @@ import java.util.function.Function;
 public abstract class AbstractLoader {
     protected BaseTextReceiver textReceiver;
 
+    protected AbstractParser parser;
+
     public AbstractLoader(BaseTextReceiver textReceiver) {
         this.textReceiver = textReceiver;
     };
+
+    public <T> T parse(String s, Class<?> type){
+        return parser.parse(s, type);
+    }
+
     public <T extends LoadDescription<?>> T enter(T description) {
         if (isWrapper(description.getType())) {
             return (T) enterWrapper((LoadDescription<Number>) description);

@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 public abstract class AbstractParser {
 
-    private static final Map<Class<? extends Number>, Function<String, ? extends Number>> PARSERS = new HashMap<>();
+    private static final Map<Class<?>, Function<String, ?>> PARSERS = new HashMap<>();
 
     static {
         PARSERS.put(Integer.class, Integer::valueOf);
@@ -15,11 +15,13 @@ public abstract class AbstractParser {
         PARSERS.put(Double.class, Double::valueOf);
         PARSERS.put(Byte.class, Byte::valueOf);
         PARSERS.put(Short.class, Short::valueOf);
+        PARSERS.put(Character.class, s -> s.charAt(0));
+        PARSERS.put(Boolean.class, Boolean::valueOf);
     }
 
     public <T> T parse(String s, Class<?> type){
         if (isWrapper(type)) {
-            return (T) parseNumber(s, (Class<? extends Number>) type);
+            return (T) parseWrapper(s, (Class<? extends Number>) type);
         } else if (type.equals(String.class)) {
             return (T) s;
         } else if (type.isEnum()){
@@ -29,8 +31,8 @@ public abstract class AbstractParser {
         }
     }
 
-    public Number parseNumber(String s, Class<? extends Number> type){
-        return PARSERS.get(type).apply(s);
+    public <T> T parseWrapper(String s, Class<?> type){
+        return (T) PARSERS.get(type).apply(s);
     }
 
     public <T extends Enum<T>> Enum<T> parseEnum(String s, Class<T> type){
