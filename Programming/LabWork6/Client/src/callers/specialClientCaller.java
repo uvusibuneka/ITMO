@@ -11,4 +11,10 @@ public class specialClientCaller extends serverCommandCaller {
         this.runnable = runnable;
     }
 
+    @Override
+    public void call() {
+        super.call();
+        runnable.run();
+    }
+
 }

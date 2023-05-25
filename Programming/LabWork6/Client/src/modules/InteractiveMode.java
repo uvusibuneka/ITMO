@@ -1,41 +1,52 @@
 package modules;
 
+import callers.specialClientCaller;
 import descriptions.CommandDescription;
 import descriptions.LoadDescription;
 import loaders.ConsoleLoader;
 import result.Result;
-
+import specialDescriptions.ExecuteScriptDescription;
+import specialDescriptions.ExitDescription;
+import specialDescriptions.HistoryDescription;
 import java.net.DatagramPacket;
 import java.util.ArrayDeque;
+import java.util.List;
 import java.util.Map;
 
 public class InteractiveMode {
     private static InteractiveMode interactiveMode;
-    private static CallableManager callableManager;
-    private static TextReceiver textReceiver;
-    private static ConsoleLoader loader;
+    private CallableManager callableManager;
+    private TextReceiver textReceiver;
+    private ConsoleLoader loader;
+    private ObjectSender objectSender;
+    private RequestHandler requestHandler;
 
-    private static ObjectSender objectSender;
-    private static RequestHandler requestHandler;
-    private static boolean isAuthorized = false;
+    private boolean isAuthorized = false;
 
-    private static Map<String, CommandDescription> commandDescriptionMap;
+    private Map<String, CommandDescription> commandDescriptionMap;
 
     private static Map<String, Runnable> authorizationMap;
+    private static Map<String, CommandDescription> specialCommands;
 
     static {
-        authorizationMap.put("r", InteractiveMode::register);
-        authorizationMap.put("l", InteractiveMode::login);
-        authorizationMap.put("q", InteractiveMode::exit);
+        specialCommands.put("exit", new ExitDescription(interactiveMode.objectSender));
+        specialCommands.put("execute_script", new ExecuteScriptDescription(interactiveMode.callableManager,interactiveMode.objectSender));
+        specialCommands.put("history", new HistoryDescription(interactiveMode.objectSender));
     }
 
-    private static ArrayDeque<String> history;
+    static {
+        authorizationMap.put("r", interactiveMode::register);
+        authorizationMap.put("l", interactiveMode::login);
+        authorizationMap.put("q", interactiveMode::exit);
+    }
+
+    private ArrayDeque<String> history;
 
     private InteractiveMode(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender, CallableManager callableManager) {
-        InteractiveMode.textReceiver = textReceiver;
-        InteractiveMode.loader = loader;
-        InteractiveMode.requestHandler = requestHandler;
-        InteractiveMode.callableManager = callableManager;
+        this.textReceiver = textReceiver;
+        this.loader = loader;
+        this.requestHandler = requestHandler;
+        this.callableManager = callableManager;
 
     }
 
@@ -46,7 +57,11 @@ public class InteractiveMode {
         return interactiveMode;
     }
 
-    private Map<String, CommandDescription> getCommandDescriptionMap() {
+    public static InteractiveMode getInstance() {
+        return interactiveMode;
+    }
+
+    private Map<String, CommandDescription> loadCommandDescriptionMap() {
         for (int i = 0; i < 5; i++) {
             try {
                 DatagramPacket MapOfCommands = requestHandler.receivePacketWithTimeout();
@@ -58,6 +73,10 @@ public class InteractiveMode {
         //десериализовать и получить карту коллекции из MapOfCommands
         Map<String, CommandDescription> commandDescriptionMap = null;
 
+        return commandDescriptionMap;
+    }
+
+    public Map<String, CommandDescription> getCommandDescriptionMap() {
         return commandDescriptionMap;
     }
 
@@ -79,7 +98,7 @@ public class InteractiveMode {
                         (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue()
                 );
                 callableManager.add(command.getCaller());
-                Result<Void> resultOfExecuting = callableManager.callAll();
+                Result<?> resultOfExecuting = callableManager.callAll().get(0);
                 if (!resultOfExecuting.isSuccess()) {
                     textReceiver.println(resultOfExecuting.getMessage());
                 }else{
@@ -89,7 +108,7 @@ public class InteractiveMode {
             }
         }
 
-    private static void register() {
+    private void register() {
         textReceiver.println("Enter your login:");
         String login = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
         textReceiver.println("Enter your password:");
@@ -101,13 +120,11 @@ public class InteractiveMode {
         isAuthorized = true;
     }
 
-    public static void history() {
-        for (String command: history) {
-            textReceiver.println(command);
-        }
+    public void history() {
+        history.stream().limit(6).forEach(textReceiver::println);
     }
 
-    private static void login() {
+    private void login() {
         textReceiver.print("Enter your login:");
         String login = (String) loader.enter(new LoadDescription(String.class)).getValue();
         textReceiver.print("Enter your password:");
@@ -118,11 +135,22 @@ public class InteractiveMode {
         isAuthorized = true;
     }
 
-    private static void exit() {
+    public void exit() {
         System.exit(0);
     }
 
     public boolean isAuthorized () {
         return isAuthorized;
     }
+
+    public void setAuthorized(boolean authorized) {
+        isAuthorized = authorized;
+    }
+
+    public void printHelp() {
+        textReceiver.println("Available commands:");
+        commandDescriptionMap.values().stream()
+                .forEach(commandDescription -> textReceiver.println(commandDescription.getName() + " - " + commandDescription.getDescription()));
+    }
+
 }

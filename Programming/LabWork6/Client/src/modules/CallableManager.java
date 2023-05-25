@@ -11,15 +11,7 @@ import java.util.Map;
 
 public class CallableManager {
     private List<Caller> callers;
-
     private RequestHandler requestHandler;
-    private static Map<String, specialClientCaller> specialCommands;
-
-    static {
-        specialCommands.put("exit", new exitCaller());
-        specialCommands.put("execute_script", new executeScriptCaller());
-        specialCommands.put("history", new specialClientCaller(InteractiveMode::history, new HistoryDescription(), objectSender));
-    }
 
     public CallableManager(RequestHandler requestHandler) {
         this.requestHandler = requestHandler;
@@ -29,16 +21,15 @@ public class CallableManager {
         callers.add(caller);
     }
 
-    public Result<Void> callAll() {
-        for (Caller caller: callers) {
+    public List<Result<?>> callAll() {
+        return callers.stream().map(caller -> {
             caller.call();
             try {
-                requestHandler.receivePacketWithTimeout();
-            } catch (IOException e) {
+                return requestHandler.receiveResult();
+            } catch (Exception e) {
                 return Result.failure(e, "Error with server connection");
             }
-        }
-        return Result.success(null);
+        });
     }
 
     public void clear() {

@@ -2,19 +2,14 @@ package specialDescriptions;
 
 import callers.specialClientCaller;
 import descriptions.CommandDescription;
+import modules.InteractiveMode;
+import modules.ObjectSender;
 
-public class historyDescription extends CommandDescription {
-    public historyDescription() {
+
+public class HistoryDescription extends CommandDescription {
+    public HistoryDescription(ObjectSender objectSender) {
         super("history");
-        this.setCaller(new specialClientCaller(() -> {
-            System.out.println("History:");
-            for (String command: history) {
-                System.out.println(command);
-            }
-        }, this, objectSender));
+        this.setCaller(new specialClientCaller(InteractiveMode.getInstance()::history, this, objectSender));
     }
-
-
-
 
 }

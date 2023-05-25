@@ -4,8 +4,9 @@ import caller.Caller;
 import java.io.Serializable;
 import java.util.List;
 
-public class CommandDescription  implements Serializable{
+public class CommandDescription  implements Serializable, Cloneable{
     private String name;
+    private String description;
     private List<LoadDescription<?>> oneLineArguments;
     private List<LoadDescription<?>> arguments;
     protected transient Caller caller;
@@ -26,6 +27,14 @@ public class CommandDescription  implements Serializable{
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public List<LoadDescription<?>> getOneLineArguments() {
@@ -56,8 +65,10 @@ public class CommandDescription  implements Serializable{
         this.caller = caller;
     }
 
-    public void call() {
-        caller.call();
+    @Override
+    public CommandDescription clone() throws CloneNotSupportedException {
+        CommandDescription clone = (CommandDescription) super.clone();
+        return clone;
     }
 
 }

@@ -28,19 +28,25 @@ public class ConsoleLoader extends AbstractLoader {
             throw new RuntimeException("Command is empty!");
         }
         if (commandDescriptionMap.containsKey(commandParts.get(0))) {
-            CommandDescription commandDescription = commandDescriptionMap.get(commandParts.get(0));
+            CommandDescription commandDescription = null;
+            try {
+                commandDescription = commandDescriptionMap.get(commandParts.get(0)).clone();
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
             if (commandDescription.getOneLineArguments().size() != commandParts.size() - 1) {
                 throw new RuntimeException("Wrong number of arguments!");
             }
             if(commandDescription.getOneLineArguments().size() != commandParts.size()){
                 throw new RuntimeException("Wrong number of arguments!");
             }
+            CommandDescription finalCommandDescription = commandDescription;
             IntStream.range(0, commandDescription.getOneLineArguments().size())
-                    .forEach(i -> commandDescription.getOneLineArguments()
+                    .forEach(i -> finalCommandDescription.getOneLineArguments()
                             .get(i)
                             .setValue(
                                     parse(commandParts.get(i),
-                                            commandDescription.getOneLineArguments()
+                                            finalCommandDescription.getOneLineArguments()
                                             .get(i)
                                             .getType()
                             )
