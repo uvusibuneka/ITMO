@@ -33,12 +33,6 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
     public abstract Result<Void> clear();
 
     /**
-     * Abstract method for adding an element to the collection if its value is greater than the maximum element in the collection.
-     * @return a Result object that indicates the success or failure of the operation.
-     */
-    public abstract Result<Void> addIfMax(T obj);
-
-    /**
      * Abstract method for printing information about the collection.
      * @return a Result object that indicates the success or failure of the operation.
      */
@@ -49,13 +43,6 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      * @return a Result object that indicates the success or failure of the operation.
      */
     public abstract Result<Void> removeById(long id);
-
-    /**
-     * Abstract method for removing all elements from the collection that are greater than the specified element.
-     * @return a Result object that indicates the success or failure of the operation.
-     */
-
-    public abstract Result<Void> removeGreater(T element);
 
     /**
      * Abstract method for saving the collection to a file.
