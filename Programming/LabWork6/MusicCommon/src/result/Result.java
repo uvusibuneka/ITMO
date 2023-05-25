@@ -1,4 +1,5 @@
 package result;
+import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Optional;
 
  @param <T> the type of value that is returned in case of a successful operation.
  */
-public class Result<T> {
+public class Result<T> implements Serializable {
 
     /**
      * A flag indicating the success of the operation.

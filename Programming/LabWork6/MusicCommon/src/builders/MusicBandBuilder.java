@@ -10,9 +10,10 @@ import common.Coordinates;
 import common.MusicBand;
 import common.MusicGenre;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class MusicBandBuilder implements Buildable<MusicBand>{
+public class MusicBandBuilder implements Buildable<MusicBand>, Serializable {
 
     private long id;
     private String name;

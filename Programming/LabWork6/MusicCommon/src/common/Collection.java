@@ -11,13 +11,13 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Collection<T extends Comparable & IDAccess> implements Serializable {
+public class Collection<T extends Comparable<T> & IDAccess> implements Serializable {
 
     private TreeSet<T> collection = new TreeSet<T>();
 
-    private static HashSet<Long> ids = new HashSet<Long>();
+    private static final HashSet<Long> ids = new HashSet<Long>();
 
-    private LocalDate initializationDate = LocalDate.now();
+    private final LocalDate initializationDate = LocalDate.now();
 
     /**
      * Adds an element to the collection.
