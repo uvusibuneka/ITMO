@@ -31,4 +31,12 @@ public class ResultSender {
         }
 
     }
+
+    public int getPort() {
+        return port;
+    }
+
+    public InetAddress getHost() {
+        return host;
+    }
 }
