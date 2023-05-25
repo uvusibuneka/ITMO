@@ -4,10 +4,11 @@ import builders.Buildable;
 import builders.CoordinatesBuilder;
 import common.Coordinates;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class CoordinatesDescription extends LoadDescription<Coordinates> {
+public class CoordinatesDescription extends LoadDescription<Coordinates> implements Serializable {
     {
         build = Buildable::build;
         fields = Arrays.asList(

@@ -4,7 +4,6 @@
  */
 
 import common.Album;
-import common.CommandDescription;
 import common.MusicBand;
 import managers.Invoker;
 

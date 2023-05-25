@@ -4,7 +4,10 @@
  */
 package builders;
 import common.Coordinates;
-public class CoordinatesBuilder implements Buildable<Coordinates> {
+
+import java.io.Serializable;
+
+public class CoordinatesBuilder implements Buildable<Coordinates>, Serializable {
     private Long x; // The x coordinate
     private Float y; // The y coordinate
 

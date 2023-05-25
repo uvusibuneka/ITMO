@@ -2,10 +2,11 @@ package descriptions;
 
 import builders.Buildable;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.function.Function;
 
-public class LoadDescription<T> {
+public class LoadDescription<T> implements Serializable {
 
     protected T value;
     protected String description;

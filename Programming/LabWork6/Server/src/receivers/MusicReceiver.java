@@ -2,12 +2,11 @@ package receivers;
 
 import builders.CoordinatesBuilder;
 import builders.MusicBandBuilder;
-import commands.Command;
 import common.Album;
 import common.Collection;
-import common.CommandDescription;
 import common.MusicBand;
 import common.MusicGenre;
+import descriptions.CommandDescription;
 import managers.Invoker;
 import result.Result;
 
@@ -119,7 +118,6 @@ public class MusicReceiver extends Receiver<MusicBand> {
         } catch (Exception e) {
             return Result.failure(e, "Error while parsing music band");
         }
-
     }
 
     /**
@@ -247,7 +245,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
         }
     }
 
-    public Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker) {
+    /*public Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker) {
         Collection<MusicBand> backUp = collection.clone();
         List<Result<?>> results = new ArrayList<>();
         for (CommandDescription cd : queue) {
@@ -260,7 +258,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
             }
         }
         return Result.success(results);
-    }
+    }*/
 
     /**
      * Method for finding element in collection by id

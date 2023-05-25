@@ -8,11 +8,12 @@ import common.Coordinates;
 import common.MusicBand;
 import common.MusicGenre;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class MusicBandDescription extends LoadDescription<MusicBand> {
+public class MusicBandDescription extends LoadDescription<MusicBand> implements Serializable {
     {
         fields = Arrays.asList(new LoadDescription<String>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
                 new LoadDescription<Coordinates>("Coordinates", (new MusicBandBuilder())::setCoordinates, new CoordinatesBuilder(), Coordinates.class),

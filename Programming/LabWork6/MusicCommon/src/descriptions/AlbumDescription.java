@@ -3,10 +3,11 @@ package descriptions;
 import builders.AlbumBuilder;
 import common.Album;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class AlbumDescription extends LoadDescription<Album> {
+public class AlbumDescription extends LoadDescription<Album> implements Serializable {
     {
         fields = Arrays.asList(
                 new LoadDescription<String>("Name", (new AlbumBuilder())::setName, null, String.class),

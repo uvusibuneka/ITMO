@@ -6,8 +6,8 @@
  */
 package managers;
 import common.Album;
-import common.CommandDescription;
 import common.MusicBand;
+import descriptions.CommandDescription;
 import receivers.*;
 import result.Result;
 import commands.*;
@@ -60,7 +60,7 @@ public class Invoker {
     }
 
     public Command<MusicReceiver> add(CommandDescription cd){
-        return new AddCommand((MusicBand) (cd.getObjectArgument().get(0)));
+        return new AddCommand((MusicBand) cd.getArguments().get(0).getValue());
     }
     public Command<MusicReceiver> info(CommandDescription cd){
         return new InfoCommand();
@@ -76,26 +76,26 @@ public class Invoker {
     }
     public Command<MusicReceiver> update(CommandDescription cd){
         return new UpdateCommand(
-                Long.parseLong(cd.getOneLineArguments().get(0)),
-                (MusicBand) (cd.getObjectArgument().get(0))
+                (Long) cd.getOneLineArguments().get(0).getValue(),
+                (MusicBand) cd.getArguments().get(0).getValue()
         );
     }
     public Command<MusicReceiver> remove_by_id(CommandDescription cd){
-        return new RemoveByIdCommand(Long.parseLong(cd.getOneLineArguments().get(0)));
+        return new RemoveByIdCommand((Long) cd.getOneLineArguments().get(0).getValue());
     }
     public Command<MusicReceiver> add_if_max(CommandDescription cd){
-        return new AddIfMaxCommand((MusicBand) (cd.getObjectArgument().get(0)));
+        return new AddIfMaxCommand((MusicBand) cd.getArguments().get(0).getValue());
     }
     public Command<MusicReceiver> remove_greater(CommandDescription cd){
-        return new RemoveGreaterCommand((MusicBand) (cd.getObjectArgument().get(0)));
+        return new RemoveGreaterCommand((MusicBand) cd.getArguments().get(0).getValue());
     }
     public Command<MusicReceiver> max_by_best_album(CommandDescription cd){
         return new MaxByBestAlbumCommand();
     }
     public Command<MusicReceiver> count_by_best_album(CommandDescription cd){
-        return new CountByBestAlbum((Album) (cd.getObjectArgument().get(0)));
+        return new CountByBestAlbum((Album) cd.getArguments().get(0).getValue());
     }
     public Command<MusicReceiver> filter_by_best_album(CommandDescription cd){
-        return new FilterByBestAlbum((Album) (cd.getObjectArgument().get(0)));
+        return new FilterByBestAlbum((Album) cd.getArguments().get(0).getValue());
     }
 }

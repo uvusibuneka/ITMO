@@ -8,6 +8,7 @@ package receivers;
 
 import commands.Command;
 import common.*;
+import descriptions.CommandDescription;
 import managers.Invoker;
 import result.Result;
 
@@ -73,5 +74,5 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      */
     public abstract Result<Void> updateById(long id, T newElement);
 
-    public abstract Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker);
+    /*public abstract Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker);*/
 }
