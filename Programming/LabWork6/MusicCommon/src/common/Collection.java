@@ -4,6 +4,8 @@
  The collection is implemented as a TreeSet.
  */
 package common;
+import parser.Abstract_file_reader;
+import parser.Abstract_file_writer;
 import result.Result;
 
 import java.io.Serializable;
@@ -13,11 +15,21 @@ import java.util.TreeSet;
 
 public class Collection<T extends Comparable<T> & IDAccess> implements Serializable {
 
-    private TreeSet<T> collection = new TreeSet<T>();
+    private TreeSet<T> collection;
 
     private static final HashSet<Long> ids = new HashSet<Long>();
 
-    private final LocalDate initializationDate = LocalDate.now();
+    private final LocalDate initializationDate;
+
+    public Abstract_file_writer<T> Collection_to_file_writer;
+    public Abstract_file_reader<T> Collection_from_file_loader;
+
+    public Collection(Abstract_file_reader<T> Collection_from_file_loader, Abstract_file_writer<T> Collection_to_file_writer){
+        this.Collection_to_file_writer = Collection_to_file_writer;
+        this.Collection_from_file_loader = Collection_from_file_loader;
+        collection = new TreeSet<T>();
+        initializationDate = LocalDate.now();
+    }
 
     /**
      * Adds an element to the collection.
