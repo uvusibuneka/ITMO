@@ -4,8 +4,8 @@
  The collection is implemented as a TreeSet.
  */
 package common;
-import parser.Abstract_file_reader;
-import parser.Abstract_file_writer;
+import collection_file_managers.Abstract_file_reader;
+import collection_file_managers.Abstract_file_writer;
 import result.Result;
 
 import java.io.Serializable;

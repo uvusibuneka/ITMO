@@ -1,4 +1,4 @@
-package parser;
+package collection_file_managers;
 
 import common.Collection;
 import common.IDAccess;
@@ -6,11 +6,10 @@ import common.IDAccess;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess> {
+public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess> {
     protected Collection<T> collection;
     protected File file;
-
-    public Abstract_file_reader(String fileName) throws FileNotFoundException, NullPointerException, SecurityException {
+    public Abstract_file_writer(String fileName) throws FileNotFoundException, NullPointerException, SecurityException {
         if (fileName == null) {
             throw new NullPointerException("FILE_NAME is not set");
         }
@@ -21,10 +20,11 @@ public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess> {
             throw new FileNotFoundException("File " + fileName + " does not exist");
         }
 
-        if (!file.canRead()) {
-            throw new SecurityException("File " + fileName + " is not readable");
+        if (!file.canWrite()) {
+            throw new SecurityException("File " + fileName + " is not writable");
         }
     }
 
-    public abstract Collection<T> read();
+
+    public abstract void write();
 }

@@ -1,7 +1,7 @@
-package parser.decorators;
+package collection_file_managers.decorators;
 
 import common.IDAccess;
-import parser.Abstract_file_writer;
+import collection_file_managers.Abstract_file_writer;
 
 import java.io.FileNotFoundException;
 

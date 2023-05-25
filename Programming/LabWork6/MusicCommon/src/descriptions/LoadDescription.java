@@ -10,7 +10,7 @@ public class LoadDescription<T> implements Serializable {
 
     protected T value;
     protected String description;
-    protected Class<?> type;
+    protected Class<T> type;
     protected Buildable<T> builder;
     protected Function<T, ?> fieldOfDescriptionSetter;
     protected Function<Buildable<T>, T> build;
@@ -39,7 +39,7 @@ public class LoadDescription<T> implements Serializable {
         return description;
     }
 
-    public Class<?> getType() {
+    public Class<T> getType() {
         return type;
     }
 

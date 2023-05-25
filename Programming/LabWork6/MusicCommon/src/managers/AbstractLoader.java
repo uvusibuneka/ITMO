@@ -22,7 +22,7 @@ public abstract class AbstractLoader {
 
     public <T extends LoadDescription<?>> T enter(T description) {
         if (isWrapper(description.getType())) {
-            return (T) enterWrapper((LoadDescription<Number>) description);
+            return (T) enterWrapper(description);
         } else if (description.getType().equals(String.class)) {
             return (T) enterString((LoadDescription<String>) description);
         } else if (description.getType().isEnum()){
@@ -40,7 +40,7 @@ public abstract class AbstractLoader {
 
     public abstract <T extends LoadDescription<Enum>> T enterEnum(T description);
 
-    public abstract <T extends LoadDescription<Number>> T enterWrapper(T description);
+    public abstract <T extends LoadDescription<?>> T enterWrapper(T description);
     public abstract LoadDescription<String> enterString(LoadDescription<String> description);
 
     protected  <T extends LoadDescription<?>> T enterComposite(T description) {

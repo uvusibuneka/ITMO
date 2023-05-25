@@ -21,7 +21,7 @@ public abstract class AbstractParser {
 
     public <T> T parse(String s, Class<?> type){
         if (isWrapper(type)) {
-            return (T) parseWrapper(s, (Class<? extends Number>) type);
+            return (T) parseWrapper(s, type);
         } else if (type.equals(String.class)) {
             return (T) s;
         } else if (type.isEnum()){
@@ -31,7 +31,7 @@ public abstract class AbstractParser {
         }
     }
 
-    public <T> T parseWrapper(String s, Class<?> type){
+    public <T> T parseWrapper(String s, Class<T> type){
         return (T) PARSERS.get(type).apply(s);
     }
 

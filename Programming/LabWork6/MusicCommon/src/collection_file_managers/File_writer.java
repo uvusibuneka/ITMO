@@ -1,4 +1,4 @@
-package parser;
+package collection_file_managers;
 
 import common.IDAccess;
 
@@ -11,6 +11,6 @@ public class File_writer<T extends Comparable<T> & IDAccess> extends Abstract_fi
 
     @Override
     public void write() {
-
+        System.out.println("Я ничего не умею(( Есть парни из группировки декораторов, каждый из них работает со своим файлом. Обратись к ним.");
     }
 }
