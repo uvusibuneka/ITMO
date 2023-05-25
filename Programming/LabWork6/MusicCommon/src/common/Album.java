@@ -3,31 +3,19 @@
  The Album class represents a music album and contains information about its name, number of tracks, length, and sales.
  */
 package common;
-public class Album {
 
-    /**
-     * This constant is used to compare two floating-point numbers for equality.
-     */
+import java.io.Serializable;
+
+public class Album implements Serializable {
+
     static final float epsilon = 0.01f;
 
-    /**
-     * This field contains the name of the album.
-     */
     private String name;
 
-    /**
-     * This field contains the number of tracks in the album.
-     */
     private long tracks;
 
-    /**
-     * This field contains the duration of the album.
-     */
     private Long length;
 
-    /**
-     * This field contains the sales of the album.
-     */
     private Float sales;
 
     /**

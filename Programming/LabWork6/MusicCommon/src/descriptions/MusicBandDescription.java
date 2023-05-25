@@ -7,7 +7,6 @@ import common.Album;
 import common.Coordinates;
 import common.MusicBand;
 import common.MusicGenre;
-import managers.LoadDescription;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -17,8 +16,8 @@ public class MusicBandDescription extends LoadDescription<MusicBand> {
     {
         fields = Arrays.asList(new LoadDescription<String>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
                 new LoadDescription<Coordinates>("Coordinates", (new MusicBandBuilder())::setCoordinates, new CoordinatesBuilder(), Coordinates.class),
-                new LoadDescription<LocalDate>("Creation Date", (new MusicBandBuilder())::setCreationDate, null, String.class),
-                new LoadDescription<Long>("Number of participants", (new MusicBandBuilder())::setNumberOfParticipants, null, String.class),
+                new LoadDescription<LocalDate>("Creation Date", (new MusicBandBuilder())::setCreationDate, null, LocalDate.class),
+                new LoadDescription<Long>("Number of participants", (new MusicBandBuilder())::setNumberOfParticipants, null, Long.class),
                 new LoadDescription<Album>("Best Album", (new MusicBandBuilder())::setBestAlbum, new AlbumBuilder(), Album.class),
                 new LoadDescription<MusicGenre>("Genre", (new MusicBandBuilder())::setGenre, null, MusicGenre.class));
     }

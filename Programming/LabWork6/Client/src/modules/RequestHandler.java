@@ -28,7 +28,8 @@ public class RequestHandler {
         try {
             socket.receive(packet);
         } catch (SocketTimeoutException e) {
-            // Handle timeout
+            // Handle timeout for waiting server response
+
         } finally {
             socket.setSoTimeout(0);
         }

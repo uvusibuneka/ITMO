@@ -1,9 +1,12 @@
 package common;
+
+import java.io.Serializable;
+
 /**
 
  This enumeration contains a list of music genres.
  */
- public enum MusicGenre {
+ public enum MusicGenre implements Serializable {
  /**
  The genre of psychedelic rock.
  */

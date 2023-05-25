@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/MusicCommon.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/InteractiveMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/Loader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/ObjectSender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/RequestHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/TextReceiver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MusicCommon/.idea/artifacts/MusicCommon_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MusicCommon/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/caller/Callable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MusicCommon/src/managers/CallableManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab5Client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Lab5Client.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/ConnectionModule.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/InteractiveMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/RequestHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/managers/AbstractLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/managers/AbstractLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/managers/LoadDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/managers/LoadDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/managers/TextReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/managers/BaseTextReceiver.java" afterDir="false" />
-    </list>
+    <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="7" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +18,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -51,27 +31,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "F:/Рабочий стол/ITMO/Lab5Client/lib/MusicCommon.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Рабочий стол/ITMO/Programming/LabWork6/Client/lib&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="modules" />
       <recent name="managers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Рабочий стол\ITMO\Programming\LabWork6\Client\lib" />
       <recent name="F:\Рабочий стол\ITMO\Lab5Client\lib" />
     </key>
   </component>
@@ -87,6 +72,29 @@
       <workItem from="1683646384824" duration="1620000" />
       <workItem from="1683655066776" duration="9536000" />
       <workItem from="1683725207934" duration="7149000" />
+      <workItem from="1683904749878" duration="10523000" />
+      <workItem from="1683921245990" duration="978000" />
+      <workItem from="1683923241107" duration="1037000" />
+      <workItem from="1683967395676" duration="805000" />
+      <workItem from="1683968253978" duration="1490000" />
+      <workItem from="1683969765237" duration="2035000" />
+      <workItem from="1683972625726" duration="9463000" />
+      <workItem from="1684521001473" duration="3041000" />
+      <workItem from="1684601794546" duration="2153000" />
+      <workItem from="1684606354016" duration="2252000" />
+      <workItem from="1684608630201" duration="2602000" />
+      <workItem from="1684611761661" duration="870000" />
+      <workItem from="1684612644162" duration="85000" />
+      <workItem from="1684612737661" duration="729000" />
+      <workItem from="1684613669106" duration="779000" />
+      <workItem from="1684615330353" duration="3747000" />
+      <workItem from="1684677252055" duration="2764000" />
+      <workItem from="1684753727882" duration="1169000" />
+      <workItem from="1684755883667" duration="2746000" />
+      <workItem from="1684771014375" duration="4232000" />
+      <workItem from="1684941492949" duration="1762000" />
+      <workItem from="1684943275051" duration="5061000" />
+      <workItem from="1685019669627" duration="866000" />
     </task>
     <servers />
   </component>
@@ -103,5 +111,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="7" />
+    <option name="LAST_COMMIT_MESSAGE" value="7" />
   </component>
 </project>

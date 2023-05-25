@@ -4,12 +4,10 @@
  */
 package common;
 
-import result.Result;
-
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class MusicBand implements Comparable<MusicBand>, IDAccess {
+public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable {
 
     /**
      * This field contains an intermediate value for the unique identifier of the group.
@@ -300,28 +298,4 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess {
                 '}';
     }
 
-    public Result<String> toCSV() {
-        try {
-            StringBuilder sb = new StringBuilder();
-            sb.append(this.getID()).append(",").
-                    append(this.getName()).append(",").
-                    append(this.getCoordinates().getX()).append(",").
-                    append(this.getCoordinates().getY()).append(",").
-                    append(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(",").
-                    append(this.getNumberOfParticipants()).append(",").
-                    append(this.getGenre()).append(",");
-            Album album = this.getBestAlbum();
-            if (this.getBestAlbum() != null) {
-                sb.append(album.getName()).append(",");
-                sb.append(album.getTracks()).append(",");
-                sb.append(album.getLength()).append(",");
-                sb.append(album.getSales());
-            } else {
-                sb.append(",");
-            }
-            return Result.success(sb.toString(), null);
-        } catch (Exception e) {
-            return Result.failure(e, "Error with parsing CSV format");
-        }
-    }
 }

@@ -7,14 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/MusicCommon.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="MusicCommon" level="project" />
+    <orderEntry type="library" name="MusicCommon1" level="project" />
+    <orderEntry type="module" module-name="MusicCommon" />
+    <orderEntry type="module" module-name="Server" />
   </component>
 </module>

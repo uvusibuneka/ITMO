@@ -1,10 +1,12 @@
 package common;
 
+import java.io.Serializable;
+
 /**
 
  The Coordinates class represents coordinates on a plane with x and y values in Long and Float format respectively.
  */
-public class Coordinates {
+public class Coordinates implements Serializable {
 
     /**
 

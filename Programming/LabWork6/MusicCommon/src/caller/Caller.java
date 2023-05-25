@@ -1,5 +1,5 @@
 package caller;
 
-public abstract class Caller implements Callable {
+public abstract class Caller {
     public abstract void call();
 }

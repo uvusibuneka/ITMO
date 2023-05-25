@@ -1,31 +1,80 @@
 package managers;
 
-public abstract class AbstractLoader {
+import descriptions.LoadDescription;
 
-    public <T> void enter(T object, String message, LoadDescription<?> description, BaseTextReceiver textReceiver) {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
+public abstract class AbstractLoader {
+    protected BaseTextReceiver textReceiver;
+
+    public AbstractLoader(BaseTextReceiver textReceiver) {
+        this.textReceiver = textReceiver;
+    }
+    private static final Map<Class<? extends Number>, Function<String, ? extends Number>> PARSERS = new HashMap<>();
+
+    static {
+        PARSERS.put(Integer.class, Integer::valueOf);
+        PARSERS.put(Long.class, Long::valueOf);
+        PARSERS.put(Float.class, Float::valueOf);
+        PARSERS.put(Double.class, Double::valueOf);
+        PARSERS.put(Byte.class, Byte::valueOf);
+        PARSERS.put(Short.class, Short::valueOf);
+    }
+     public <T extends LoadDescription<?>> T enter(T description) {
         if (isWrapper(description.getType())) {
-            enterWrapper(object, message, textReceiver);
+            return (T) enterWrapper((LoadDescription<Number>) description);
         } else if (description.getType().equals(String.class)) {
-            enterString((String) object, message, textReceiver);
+            return (T) enterString((LoadDescription<String>) description);
         } else if (description.getType().isEnum()){
-            enterEnum(object, message, textReceiver);
-        }
-        else {
-            enterComposite(object, message, (LoadDescription<T>) description, textReceiver);
+            return (T) enterEnum((LoadDescription<Enum>) description);
+        } else {
+            return enterComposite(description);
         }
     }
-    public abstract  <T> void enterEnum(T object, String message, BaseTextReceiver textReceiver);
 
-    public abstract <T> void enterWrapper(T object, String message, BaseTextReceiver textReceiver);
-
-    public abstract void enterString(String s, String message, BaseTextReceiver textReceiver);
-
-    public <T> void enterComposite(T object, String message, LoadDescription<T> description, BaseTextReceiver textReceiver) {
-        textReceiver.print(message);
-        object = description.builder.build();
-        for (var field : description.getFields()) {
-            enter((T)object, field.getDescription(), field, textReceiver);
+    public <T> T parse(String s, Class<?> type){
+        if (isWrapper(type)) {
+            return (T) parseNumber(s, (Class<? extends Number>) type);
+        } else if (type.equals(String.class)) {
+            return (T) s;
+        } else if (type.isEnum()){
+            return (T) parseEnum(s, (Class<Enum>) type);
+        } else {
+            return (T) parseComposite(s, type);
         }
+    }
+
+    public <T extends LoadDescription<?>> T enterWithMessage(String message, T description) {
+        textReceiver.print(message);
+        return enter(description);
+    }
+
+    public abstract <T extends LoadDescription<Enum>> T enterEnum(T description);
+
+    public abstract <T extends LoadDescription<Number>> T enterWrapper(T description);
+    public abstract LoadDescription<String> enterString(LoadDescription<String> description);
+
+    public Number parseNumber(String s, Class<? extends Number> type){
+        return PARSERS.get(type).apply(s);
+    }
+
+    public <T extends Enum<T>> Enum<T> parseEnum(String s, Class<T> type){
+        return Enum.valueOf(type, s);
+    }
+
+    public abstract <T> T parseComposite(String s, Class<T> type);
+    protected  <T extends LoadDescription<?>> T enterComposite(T description) {
+        List<LoadDescription<?>> fields = description.getFields();
+        for (var field : description.getFields()) {
+            fields.add(enterWithMessage(field.getDescription(), field));
+        }
+        description.getFields().clear();
+        description.setFieldsOfObject(fields);
+        description.build();
+        return description;
     }
 
     private boolean isWrapper(Class<?> type) {
@@ -33,5 +82,12 @@ public abstract class AbstractLoader {
                 || type.equals(Float.class) || type.equals(Short.class) || type.equals(Byte.class)
                 || type.equals(Character.class) || type.equals(Boolean.class);
     }
-}
 
+    public BaseTextReceiver getTextReceiver() {
+        return textReceiver;
+    }
+
+    public void setTextReceiver(BaseTextReceiver textReceiver) {
+        this.textReceiver = textReceiver;
+    }
+}

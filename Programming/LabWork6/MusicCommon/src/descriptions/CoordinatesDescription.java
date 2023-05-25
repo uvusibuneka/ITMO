@@ -3,7 +3,6 @@ package descriptions;
 import builders.Buildable;
 import builders.CoordinatesBuilder;
 import common.Coordinates;
-import managers.LoadDescription;
 
 import java.util.Arrays;
 import java.util.function.Function;
@@ -12,7 +11,7 @@ public class CoordinatesDescription extends LoadDescription<Coordinates> {
     {
         build = Buildable::build;
         fields = Arrays.asList(
-                new LoadDescription<Long>("X", (new CoordinatesBuilder())::setX, null, Integer.class),
+                new LoadDescription<Long>("X", new CoordinatesBuilder()::setX, null, Long.class),
                 new LoadDescription<Float>("Y", (new CoordinatesBuilder())::setY, null, Float.class));
     }
 
