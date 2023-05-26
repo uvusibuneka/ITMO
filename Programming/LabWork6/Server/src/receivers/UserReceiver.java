@@ -1,6 +1,6 @@
 package receivers;
 
-import common.User;
+import managers.User;
 import result.Result;
 
 public class UserReceiver extends Receiver<User>{
