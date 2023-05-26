@@ -10,9 +10,7 @@ import java.io.*;
 public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess & CSV_savable> {
     protected Collection<T> collection;
     protected BufferedWriter buffered_writer;
-    protected LoadDescription<T> load_description;
-    public Abstract_file_writer(String fileName, LoadDescription<T> load_description) throws IOException, NullPointerException, SecurityException {
-        this.load_description = load_description;
+    public Abstract_file_writer(String fileName) throws IOException, NullPointerException, SecurityException {
 
         if (fileName == null) {
             throw new NullPointerException("FILE_NAME is not set");

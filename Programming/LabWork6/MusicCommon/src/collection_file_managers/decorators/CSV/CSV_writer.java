@@ -9,8 +9,8 @@ import result.Result;
 import java.io.IOException;
 
 public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extends Writer_decorator<T> {
-    public CSV_writer(String fileName, Abstract_file_writer<T> writer, LoadDescription<T> load_description) throws IOException, NullPointerException, SecurityException {
-        super(fileName, writer, load_description);
+    public CSV_writer(String fileName, Abstract_file_writer<T> writer) throws IOException, NullPointerException, SecurityException {
+        super(fileName, writer);
     }
 
     @Override
