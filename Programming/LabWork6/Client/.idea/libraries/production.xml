@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="production">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../MusicCommon/out/production" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

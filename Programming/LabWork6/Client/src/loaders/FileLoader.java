@@ -1,7 +1,7 @@
 package loaders;
 
-import descriptions.CommandDescription;
-import descriptions.LoadDescription;
+import common.descriptions.CommandDescription;
+import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
 
@@ -58,7 +58,7 @@ public class FileLoader extends AbstractLoader {
     }
 
     @Override
-    public <T extends LoadDescription<Number>> T enterWrapper(T t) {
+    public <T extends LoadDescription<?>> T enterWrapper(T t) {
         String s = null;
         try {
             s = reader.readLine();
@@ -75,7 +75,7 @@ public class FileLoader extends AbstractLoader {
     }
 
     @Override
-    public LoadDescription<String> enterString(LoadDescription<String> loadDescription) throws IOException {
+    public LoadDescription<String> enterString(LoadDescription<String> loadDescription) {
         String s = null;
         s = reader.readLine();
         while (true){

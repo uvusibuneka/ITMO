@@ -3,17 +3,14 @@ package loaders;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import descriptions.CommandDescription;
-import descriptions.LoadDescription;
+import common.descriptions.CommandDescription;
+import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
-import modules.TextReceiver;
 
 public class ConsoleLoader extends AbstractLoader {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -81,7 +78,7 @@ public class ConsoleLoader extends AbstractLoader {
     }
 
     @Override
-    public <T extends LoadDescription<Number>> T enterWrapper(T t) {
+    public <T extends LoadDescription<?>> T enterWrapper(T t) {
         String s = null;
         try {
             s = reader.readLine();

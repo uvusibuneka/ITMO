@@ -1,7 +1,7 @@
 package specialDescriptions;
 
 import callers.specialClientCaller;
-import descriptions.CommandDescription;
+import common.descriptions.CommandDescription;
 import modules.InteractiveMode;
 import modules.ObjectSender;
 

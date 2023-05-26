@@ -1,6 +1,6 @@
 package callers;
 
-import descriptions.CommandDescription;
+import common.descriptions.CommandDescription;
 import modules.ObjectSender;
 
 public class specialClientCaller extends serverCommandCaller {

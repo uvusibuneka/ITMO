@@ -1,7 +1,7 @@
 package callers;
 
 import caller.Caller;
-import descriptions.CommandDescription;
+import common.descriptions.CommandDescription;
 import modules.ObjectSender;
 
 import java.io.IOException;

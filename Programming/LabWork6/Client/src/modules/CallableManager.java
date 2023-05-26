@@ -2,7 +2,7 @@ package modules;
 
 import caller.Caller;
 import callers.specialClientCaller;
-import descriptions.CommandDescription;
+import common.descriptions.CommandDescription;
 import result.Result;
 
 import java.io.IOException;

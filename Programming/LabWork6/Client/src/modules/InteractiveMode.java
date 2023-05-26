@@ -1,8 +1,7 @@
 package modules;
 
-import callers.specialClientCaller;
-import descriptions.CommandDescription;
-import descriptions.LoadDescription;
+import common.descriptions.CommandDescription;
+import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
 import result.Result;
 import specialDescriptions.ExecuteScriptDescription;
@@ -10,7 +9,6 @@ import specialDescriptions.ExitDescription;
 import specialDescriptions.HistoryDescription;
 import java.net.DatagramPacket;
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.Map;
 
 public class InteractiveMode {

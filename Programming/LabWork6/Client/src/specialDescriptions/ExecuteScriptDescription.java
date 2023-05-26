@@ -1,8 +1,8 @@
 package specialDescriptions;
 
 import callers.specialClientCaller;
-import descriptions.CommandDescription;
-import descriptions.LoadDescription;
+import common.descriptions.CommandDescription;
+import common.descriptions.LoadDescription;
 import loaders.FileLoader;
 import modules.CallableManager;
 import modules.InteractiveMode;
