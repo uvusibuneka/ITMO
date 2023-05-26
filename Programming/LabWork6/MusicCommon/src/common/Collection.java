@@ -1,9 +1,9 @@
 /**
-
- The Collection class represents a collection of objects parameterized by type T, which must be comparable.
- The collection is implemented as a TreeSet.
+ * The Collection class represents a collection of objects parameterized by type T, which must be comparable.
+ * The collection is implemented as a TreeSet.
  */
 package common;
+
 import collection_file_managers.Abstract_file_reader;
 import collection_file_managers.Abstract_file_writer;
 import collection_file_managers.decorators.CSV.CSV_savable;
@@ -20,16 +20,26 @@ public class Collection<T extends Comparable<T> & IDAccess & CSV_savable> implem
 
     private static final HashSet<Long> ids = new HashSet<Long>();
 
-    private final LocalDate initializationDate;
+    private LocalDate initializationDate;
 
     public Abstract_file_writer<T> Collection_to_file_writer;
     public Abstract_file_reader<T> Collection_from_file_loader;
 
-    public Collection(Abstract_file_reader<T> Collection_from_file_loader, Abstract_file_writer<T> Collection_to_file_writer){
+    public Collection(Abstract_file_reader<T> Collection_from_file_loader, Abstract_file_writer<T> Collection_to_file_writer) throws Exception {
         this.Collection_to_file_writer = Collection_to_file_writer;
         this.Collection_from_file_loader = Collection_from_file_loader;
-        collection = new TreeSet<T>();
-        initializationDate = LocalDate.now();
+        Result<Collection<T>> res = Collection_from_file_loader.read();
+        if (res.isSuccess()) {
+            collection = res.getValue().get().getCollection();
+            Collection_to_file_writer.setCollection(this);
+            initializationDate = LocalDate.now();
+        }else{
+            throw new Exception("Коллекция не инициализирована. "+res.getMessage());
+        }
+    }
+
+    public Collection(){
+        collection = new TreeSet<>();
     }
 
     /**
@@ -41,7 +51,7 @@ public class Collection<T extends Comparable<T> & IDAccess & CSV_savable> implem
      */
     public Result<Void> add(T element) {
         try {
-            if(!ids.contains(element.getID()))
+            if (!ids.contains(element.getID()))
                 ids.add(element.getID());
             else
                 throw new IllegalArgumentException("The id of the element is already in use.");

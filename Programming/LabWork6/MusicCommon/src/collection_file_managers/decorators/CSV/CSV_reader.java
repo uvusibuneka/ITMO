@@ -11,8 +11,8 @@ import result.Result;
 import java.io.FileNotFoundException;
 
 public class CSV_reader<T extends Comparable<T> & IDAccess & CSV_savable> extends Reader_decorator<T> {
-    public CSV_reader(String fileName, LoadDescription<T> load_description, Abstract_file_reader<T> reader) throws FileNotFoundException, NullPointerException, SecurityException {
-        super(fileName, load_description, reader);
+    public CSV_reader(String fileName, LoadDescription<T> load_description, Abstract_file_reader<T> reader, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
+        super(fileName, load_description, reader, collection);
     }
 
     @Override
@@ -28,9 +28,11 @@ public class CSV_reader<T extends Comparable<T> & IDAccess & CSV_savable> extend
                         @Override
                         public void println(String message) {
                         }
-                    },
-                            scanner.nextLine());
-                    collection.add(loader.enter(load_description).getValue());
+                    }, scanner.nextLine());
+                    Result<?> res = collection.add(loader.enter(load_description).getValue());
+                    if (!res.isSuccess()){
+                        return Result.failure(res.getError().get(), res.getMessage());
+                    }
                 } else {
                     break;
                 }

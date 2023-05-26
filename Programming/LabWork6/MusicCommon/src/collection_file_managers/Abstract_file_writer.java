@@ -29,6 +29,8 @@ public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess & 
         buffered_writer = new BufferedWriter(new FileWriter(file));
     }
 
-
+    public void setCollection(Collection<T> collection){
+        this.collection = collection;
+    }
     public abstract void write() throws Exception;
 }

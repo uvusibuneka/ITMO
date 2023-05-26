@@ -1,6 +1,7 @@
 package collection_file_managers;
 
 import collection_file_managers.decorators.CSV.CSV_savable;
+import common.Collection;
 import common.IDAccess;
 import descriptions.LoadDescription;
 

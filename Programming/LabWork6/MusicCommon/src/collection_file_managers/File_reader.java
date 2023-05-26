@@ -9,8 +9,8 @@ import result.Result;
 import java.io.FileNotFoundException;
 
 public class File_reader<T extends Comparable<T> &IDAccess & CSV_savable> extends Abstract_file_reader<T>{
-    public File_reader(String fileName, LoadDescription<T> load_description) throws FileNotFoundException, NullPointerException, SecurityException {
-        super(fileName, load_description);
+    public File_reader(String fileName, LoadDescription<T> load_description, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
+        super(fileName, load_description, collection);
     }
 
     @Override

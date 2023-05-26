@@ -1,6 +1,7 @@
 package collection_file_managers.decorators.CSV;
 
 import collection_file_managers.decorators.Writer_decorator;
+import common.Collection;
 import common.IDAccess;
 import collection_file_managers.Abstract_file_writer;
 import descriptions.LoadDescription;

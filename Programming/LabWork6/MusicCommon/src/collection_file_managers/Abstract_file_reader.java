@@ -15,8 +15,9 @@ public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess & 
     protected Scanner scanner;
     protected LoadDescription<T> load_description;
 
-    public Abstract_file_reader(String fileName, LoadDescription<T> load_description) throws FileNotFoundException, NullPointerException, SecurityException {
+    public Abstract_file_reader(String fileName, LoadDescription<T> load_description, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
         this.load_description = load_description;
+        this.collection = collection;
 
         if (fileName == null) {
             throw new NullPointerException("FILE_NAME is not set");
