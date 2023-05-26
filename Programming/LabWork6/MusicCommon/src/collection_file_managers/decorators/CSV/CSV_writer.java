@@ -7,6 +7,8 @@ import collection_file_managers.Abstract_file_writer;
 import descriptions.LoadDescription;
 import result.Result;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extends Writer_decorator<T> {
@@ -16,6 +18,7 @@ public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extend
 
     @Override
     public void write() throws Exception {
+        BufferedWriter buffered_writer = new BufferedWriter(new FileWriter(file));
         for (T i: collection.getCollection()){
             Result<String> csv_row = i.toCSV();
             if (csv_row.isSuccess())
@@ -23,6 +26,7 @@ public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extend
             else
                 throw new Exception(csv_row.getMessage());
         }
+        buffered_writer.close();
     }
 
 }

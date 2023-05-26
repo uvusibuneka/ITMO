@@ -191,4 +191,13 @@ public class Collection<T extends Comparable<T> & IDAccess & CSV_savable> implem
     public boolean isUnique(long id) {
         return !ids.contains(id);
     }
+
+    public Result<Void> save(){
+        try {
+            Collection_to_file_writer.write();
+            return Result.success(null);
+        } catch (Exception e) {
+            return Result.failure(e, "Коллекция не сохранена");
+        }
+    }
 }

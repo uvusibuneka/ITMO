@@ -9,14 +9,14 @@ import java.io.*;
 
 public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess & CSV_savable> {
     protected Collection<T> collection;
-    protected BufferedWriter buffered_writer;
+    protected File file;
     public Abstract_file_writer(String fileName) throws IOException, NullPointerException, SecurityException {
 
         if (fileName == null) {
             throw new NullPointerException("FILE_NAME is not set");
         }
 
-        File file = new File(fileName);
+        file = new File(fileName);
 
         if (!file.exists()) {
             throw new FileNotFoundException("File " + fileName + " does not exist");
@@ -25,8 +25,6 @@ public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess & 
         if (!file.canWrite()) {
             throw new SecurityException("File " + fileName + " is not writable");
         }
-
-        buffered_writer = new BufferedWriter(new FileWriter(file));
     }
 
     public void setCollection(Collection<T> collection){

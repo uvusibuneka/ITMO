@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess & CSV_savable> {
     protected Collection<T> collection;
-    protected Scanner scanner;
+    protected File file;
     protected LoadDescription<T> load_description;
 
     public Abstract_file_reader(String fileName, LoadDescription<T> load_description, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
@@ -23,7 +23,7 @@ public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess & 
             throw new NullPointerException("FILE_NAME is not set");
         }
 
-        File file = new File(fileName);
+        file = new File(fileName);
 
         if (!file.exists()) {
             throw new FileNotFoundException("File " + fileName + " does not exist");
@@ -32,8 +32,6 @@ public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess & 
         if (!file.canRead()) {
             throw new SecurityException("File " + fileName + " is not readable");
         }
-
-        scanner = new Scanner(file);
     }
 
     public abstract Result<Collection<T>> read();
