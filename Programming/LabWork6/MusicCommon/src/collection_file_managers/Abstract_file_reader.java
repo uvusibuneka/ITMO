@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess & CSV_savable> {
+public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess> {
     protected Collection<T> collection;
     protected File file;
     protected LoadDescription<T> load_description;

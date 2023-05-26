@@ -7,7 +7,7 @@ import descriptions.LoadDescription;
 
 import java.io.*;
 
-public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess & CSV_savable> {
+public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess> {
     protected Collection<T> collection;
     protected File file;
     public Abstract_file_writer(String fileName) throws IOException, NullPointerException, SecurityException {

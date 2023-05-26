@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Collection<T extends Comparable<T> & IDAccess & CSV_savable> implements Serializable {
+public class Collection<T extends Comparable<T> & IDAccess> implements Serializable {
 
     private TreeSet<T> collection;
 

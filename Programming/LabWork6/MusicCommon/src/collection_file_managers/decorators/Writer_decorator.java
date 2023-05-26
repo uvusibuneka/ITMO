@@ -8,7 +8,7 @@ import descriptions.LoadDescription;
 
 import java.io.IOException;
 
-public abstract class Writer_decorator<T extends Comparable<T> & IDAccess & CSV_savable> extends Abstract_file_writer<T>{
+public abstract class Writer_decorator<T extends Comparable<T> & IDAccess> extends Abstract_file_writer<T>{
     Abstract_file_writer<T> writer;
 
     public Writer_decorator(String fileName, Abstract_file_writer<T> writer) throws IOException, NullPointerException, SecurityException {
