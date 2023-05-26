@@ -1,7 +1,5 @@
 package commands;
 
-import common.IDAccess;
-import common.MusicBand;
 import receivers.*;
 import result.Result;
 /**

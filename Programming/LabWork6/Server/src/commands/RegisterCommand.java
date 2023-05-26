@@ -1,6 +1,6 @@
 package commands;
 
-import managers.User;
+import managers.user.User;
 import receivers.UserReceiver;
 import result.Result;
 

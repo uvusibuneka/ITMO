@@ -1,7 +1,6 @@
 package commands;
 
 import receivers.MusicReceiver;
-import receivers.Receiver;
 import result.Result;
 
 /**

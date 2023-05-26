@@ -1,21 +1,8 @@
-/**
-
- The Receiver abstract class provides a template for objects that will receive and handle
- the execution of commands in response to user input.
- It defines a collection attribute and abstract methods for handling specific commands.
- */
 package receivers;
 
-import commands.Command;
 import common.*;
-import descriptions.CommandDescription;
-import managers.Invoker;
-import managers.User;
 import result.Result;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 

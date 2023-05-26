@@ -1,9 +1,9 @@
 package commands;
 
 import common.Album;
-import descriptions.CommandDescription;
+import common.descriptions.CommandDescription;
 import common.MusicBand;
-import descriptions.LoadDescription;
+import common.descriptions.LoadDescription;
 import receivers.MusicReceiver;
 import result.Result;
 

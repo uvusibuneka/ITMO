@@ -1,6 +1,5 @@
 package commands;
 
-import common.MusicBand;
 import receivers.*;
 import result.Result;
 

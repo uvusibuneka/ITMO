@@ -4,7 +4,7 @@
  */
 package common;
 
-import collection_file_managers.decorators.CSV.CSV_savable;
+import managers.file.CSV_savable;
 import result.Result;
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -1,25 +1,18 @@
 package receivers;
 
-import builders.CoordinatesBuilder;
-import builders.MusicBandBuilder;
-import collection_file_managers.Abstract_file_reader;
-import collection_file_managers.Abstract_file_writer;
-import collection_file_managers.File_reader;
-import collection_file_managers.File_writer;
-import collection_file_managers.decorators.CSV.CSV_reader;
-import collection_file_managers.decorators.CSV.CSV_writer;
+import managers.file.Abstract_file_reader;
+import managers.file.Abstract_file_writer;
+import managers.file.File_reader;
+import managers.file.File_writer;
+import managers.file.decorators.CSV.CSV_reader;
+import managers.file.decorators.CSV.CSV_writer;
 import common.Album;
 import common.Collection;
 import common.MusicBand;
-import common.MusicGenre;
-import descriptions.CommandDescription;
-import descriptions.MusicBandDescription;
-import managers.Invoker;
+import common.descriptions.MusicBandDescription;
 import result.Result;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;

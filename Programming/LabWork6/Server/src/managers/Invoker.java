@@ -7,7 +7,7 @@
 package managers;
 import common.Album;
 import common.MusicBand;
-import descriptions.CommandDescription;
+import common.descriptions.CommandDescription;
 import receivers.*;
 import result.Result;
 import commands.*;
@@ -18,14 +18,12 @@ import java.util.function.Function;
 public class Invoker {
 
     private final Map<String, Function<CommandDescription, Command<MusicReceiver>>> command_creators;
-    private Deque<String> history;
 
     /**
      * Constructor for the Invoker class.
      * Creates object of all available commands and registers them in the command list.
      */
     public Invoker() {
-        history = new LinkedList<>();
         command_creators = new HashMap<>();
         command_creators.put("add", this::add);
         command_creators.put("info", this::info);
@@ -45,7 +43,7 @@ public class Invoker {
      * Executes a command with the given name.
      *
      * @param name     - the name of the command.
-     * @param cd
+     * @param cd       - input from client, have to contain all fields of command
      * @return an instance of the Result class containing information about the result of executing the command.
      */
     public Result<?> executeCommand(String name, CommandDescription cd) {

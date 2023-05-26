@@ -3,7 +3,6 @@ package commands;
 import common.Album;
 import common.MusicBand;
 import receivers.MusicReceiver;
-import receivers.Receiver;
 import result.Result;
 
 import java.util.TreeSet;

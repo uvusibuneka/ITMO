@@ -4,9 +4,8 @@
  */
 package common;
 
-import collection_file_managers.Abstract_file_reader;
-import collection_file_managers.Abstract_file_writer;
-import collection_file_managers.decorators.CSV.CSV_savable;
+import managers.file.Abstract_file_reader;
+import managers.file.Abstract_file_writer;
 import result.Result;
 
 import java.io.Serializable;
