@@ -4,12 +4,13 @@
  */
 package common;
 
+import collection_file_managers.decorators.CSV.CSV_savable;
 import result.Result;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable {
+public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable, CSV_savable {
 
     /**
      * This field contains an intermediate value for the unique identifier of the group.

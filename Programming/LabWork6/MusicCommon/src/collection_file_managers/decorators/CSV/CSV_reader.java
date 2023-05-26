@@ -1,5 +1,6 @@
-package collection_file_managers.decorators;
+package collection_file_managers.decorators.CSV;
 
+import collection_file_managers.decorators.Reader_decorator;
 import common.Collection;
 import common.IDAccess;
 import collection_file_managers.Abstract_file_reader;
@@ -9,7 +10,7 @@ import result.Result;
 
 import java.io.FileNotFoundException;
 
-public class CSV_reader<T extends Comparable<T> & IDAccess> extends Reader_decorator<T> {
+public class CSV_reader<T extends Comparable<T> & IDAccess & CSV_savable> extends Reader_decorator<T> {
     public CSV_reader(String fileName, LoadDescription<T> load_description, Abstract_file_reader<T> reader) throws FileNotFoundException, NullPointerException, SecurityException {
         super(fileName, load_description, reader);
     }

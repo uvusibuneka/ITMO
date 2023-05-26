@@ -6,6 +6,7 @@
 package common;
 import collection_file_managers.Abstract_file_reader;
 import collection_file_managers.Abstract_file_writer;
+import collection_file_managers.decorators.CSV.CSV_savable;
 import result.Result;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Collection<T extends Comparable<T> & IDAccess> implements Serializable {
+public class Collection<T extends Comparable<T> & IDAccess & CSV_savable> implements Serializable {
 
     private TreeSet<T> collection;
 

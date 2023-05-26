@@ -1,12 +1,14 @@
 package collection_file_managers;
 
+import collection_file_managers.decorators.CSV.CSV_savable;
 import common.IDAccess;
+import descriptions.LoadDescription;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
-public class File_writer<T extends Comparable<T> & IDAccess> extends Abstract_file_writer<T>{
-    public File_writer(String fileName) throws FileNotFoundException, NullPointerException, SecurityException {
-        super(fileName);
+public class File_writer<T extends Comparable<T> & IDAccess & CSV_savable> extends Abstract_file_writer<T>{
+    public File_writer(String fileName, LoadDescription<T> load_description) throws IOException, NullPointerException, SecurityException {
+        super(fileName, load_description);
     }
 
     @Override

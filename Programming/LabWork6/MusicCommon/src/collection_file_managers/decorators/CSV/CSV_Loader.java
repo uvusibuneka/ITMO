@@ -1,5 +1,6 @@
-package collection_file_managers.decorators;
+package collection_file_managers.decorators.CSV;
 
+import collection_file_managers.decorators.Parser;
 import descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;

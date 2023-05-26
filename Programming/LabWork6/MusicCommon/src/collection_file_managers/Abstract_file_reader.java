@@ -1,5 +1,6 @@
 package collection_file_managers;
 
+import collection_file_managers.decorators.CSV.CSV_savable;
 import common.Collection;
 import common.IDAccess;
 import descriptions.LoadDescription;
@@ -9,7 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess> {
+public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess & CSV_savable> {
     protected Collection<T> collection;
     protected Scanner scanner;
     protected LoadDescription<T> load_description;
