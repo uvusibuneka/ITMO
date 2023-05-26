@@ -1,41 +1,49 @@
 package receivers;
 
+import common.MusicBand;
 import managers.User;
 import result.Result;
 
+import java.util.Objects;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
 public class UserReceiver extends Receiver<User>{
-    @Override
-    public Result<Void> add(User obj) {
-        return null;
+    private static UserReceiver instance;
+
+    public static UserReceiver GetInstance() {
+        if (instance == null) {
+            instance = new UserReceiver();
+        }
+        return instance;
+    }
+
+    private UserReceiver(){
+
+    }
+    public Result<Boolean> check_login(String login, String password){
+        return Result.success(
+                collection.
+                getCollection().
+                stream().
+                anyMatch((User user) -> (user.getLogin().equals(login) && user.getPassword().equals(password))));
+    }
+
+    public Result<Void> register(User user){
+        if (collection.
+                getCollection().
+                stream().
+                anyMatch((User u) -> (u.getLogin().equals(user.getLogin())))){
+            return this.add(user);
+        } else{
+            return Result.failure(new Exception("Логин занят"), "Логин занят");
+        }
     }
 
     @Override
-    public Result<Void> clear() {
-        return null;
-    }
-
-    @Override
-    public Result<String> info() {
-        return null;
-    }
-
-    @Override
-    public Result<Void> removeById(long id) {
-        return null;
-    }
-
-    @Override
-    public Result<Void> saveCollection() {
-        return null;
-    }
-
-    @Override
-    public Result showElementsOfCollection() {
-        return null;
-    }
-
-    @Override
-    public Result<Void> updateById(long id, User newElement) {
-        return null;
+    public Result<User[]> showElementsOfCollection() {
+        User[] arr = new User[0];
+        arr = collection.getCollection().toArray(arr);
+        return Result.success(arr);
     }
 }
