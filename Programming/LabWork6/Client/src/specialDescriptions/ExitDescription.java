@@ -6,8 +6,8 @@ import modules.InteractiveMode;
 import modules.ObjectSender;
 
 public class ExitDescription extends CommandDescription {
-    public ExitDescription(ObjectSender objectSender) {
+    public ExitDescription(ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("exit");
-        this.setCaller(new specialClientCaller(InteractiveMode.getInstance()::exit, this, objectSender));
+        this.setCaller(new specialClientCaller(interactiveMode::exit, this, objectSender));
     }
 }

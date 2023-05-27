@@ -87,7 +87,7 @@ public class ConsoleLoader extends AbstractLoader {
         }
         while (true) {
             try {
-                return (T)t.setValue(parseNumber(s, (Class<? extends Number>)t.getType()));
+                return (T)t.setValue(parse(s, (Class<?>)t.getType()));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }
@@ -112,11 +112,6 @@ public class ConsoleLoader extends AbstractLoader {
     }
 
     @Override
-    public <T> T parseComposite(String s, Class<T> aClass) {
-        throw new RuntimeException("Can't parse composite from console! Incorrect LoadDescription!");
-    }
-
-    @Override
     public <T extends LoadDescription<Enum>> T enterEnum(T t) {
         String s;
         try {
@@ -126,7 +121,7 @@ public class ConsoleLoader extends AbstractLoader {
         }
         while (true) {
             try {
-                return (T) t.setValue(parseEnum(s, (Class<Enum>) t.getType()));
+                return (T) t.setValue(parse(s, (Class<Enum>) t.getType()));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }

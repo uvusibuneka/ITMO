@@ -7,9 +7,9 @@ import modules.ObjectSender;
 
 
 public class HistoryDescription extends CommandDescription {
-    public HistoryDescription(ObjectSender objectSender) {
+    public HistoryDescription(ObjectSender objectSender, InteractiveMode interactiveMode   ) {
         super("history");
-        this.setCaller(new specialClientCaller(InteractiveMode.getInstance()::history, this, objectSender));
+        this.setCaller(new specialClientCaller(interactiveMode::history, this, objectSender));
     }
 
 }

@@ -67,7 +67,7 @@ public class FileLoader extends AbstractLoader {
         }
         while (true) {
             try {
-                return (T)t.setValue(parseNumber(s, (Class<? extends Number>)t.getType()));
+                return (T)t.setValue(parse(s, (Class<?>)t.getType()));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }
@@ -77,7 +77,12 @@ public class FileLoader extends AbstractLoader {
     @Override
     public LoadDescription<String> enterString(LoadDescription<String> loadDescription) {
         String s = null;
-        s = reader.readLine();
+        try {
+            s = reader.readLine();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         while (true){
             try {
                 return loadDescription.setValue(s);
@@ -125,11 +130,6 @@ public class FileLoader extends AbstractLoader {
         } else {
             throw new RuntimeException("Unknown command!");
         }
-    }
-
-    @Override
-    public <T> T parseComposite(String s, Class<T> aClass) {
-        return null;
     }
 
     public String getFilename() {

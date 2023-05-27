@@ -7,8 +7,8 @@ import modules.ObjectSender;
 
 public class HelpDescription extends CommandDescription {
 
-    public HelpDescription(ObjectSender objectSender) {
+    public HelpDescription(ObjectSender objectSender, InteractiveMode InteractiveMode) {
         super("help");
-        this.setCaller(new specialClientCaller(InteractiveMode.getInstance()::printHelp, this, objectSender));
+        this.setCaller(new specialClientCaller(InteractiveMode::printHelp, this, objectSender));
     }
 }

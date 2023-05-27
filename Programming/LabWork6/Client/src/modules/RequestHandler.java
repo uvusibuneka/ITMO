@@ -1,38 +1,57 @@
 package modules;
 
+import result.Result;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
 import java.net.SocketTimeoutException;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.util.Iterator;
+import java.util.Set;
 
 public class RequestHandler {
-    private final DatagramSocket socket;
-    private final byte[] buffer;
+    private final DatagramChannel channel;
+    private final ByteBuffer buffer;
     private final int timeout;
 
-    public RequestHandler(DatagramSocket socket, int bufferSize, int timeout) {
-        this.socket = socket;
-        this.buffer = new byte[bufferSize];
+    public RequestHandler(DatagramChannel channel, int bufferSize, int timeout) {
+        this.channel = channel;
+        this.buffer = ByteBuffer.allocate(bufferSize);
         this.timeout = timeout;
     }
 
     public DatagramPacket receivePacket() throws IOException {
-        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-        socket.receive(packet);
-        return packet;
+        buffer.clear();
+        InetSocketAddress senderAddress = (InetSocketAddress) channel.receive(buffer);
+        buffer.flip();
+        byte[] data = new byte[buffer.remaining()];
+        buffer.get(data);
+        return new DatagramPacket(data, data.length, senderAddress.getAddress(), senderAddress.getPort());
     }
 
     public DatagramPacket receivePacketWithTimeout() throws IOException {
-        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-        socket.setSoTimeout(timeout);
-        try {
-            socket.receive(packet);
-        } catch (SocketTimeoutException e) {
-            // Handle timeout for waiting server response
+        channel.configureBlocking(false);
+        Selector selector = Selector.open();
+        channel.register(selector, SelectionKey.OP_READ);
+        selector.select(timeout);
+        Set<SelectionKey> selectedKeys = selector.selectedKeys();
+        Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
 
-        } finally {
-            socket.setSoTimeout(0);
+        while (keyIterator.hasNext()) {
+            SelectionKey key = keyIterator.next();
+            if (key.isReadable()) {
+                DatagramPacket packet = receivePacket();
+                keyIterator.remove();
+                return packet;
+            }
         }
-        return packet;
+
+        throw new SocketTimeoutException("Timeout waiting for server response");
     }
+
 }
+

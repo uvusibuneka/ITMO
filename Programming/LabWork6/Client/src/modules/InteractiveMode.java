@@ -6,10 +6,16 @@ import loaders.ConsoleLoader;
 import result.Result;
 import specialDescriptions.ExecuteScriptDescription;
 import specialDescriptions.ExitDescription;
+import specialDescriptions.HelpDescription;
 import specialDescriptions.HistoryDescription;
+
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.util.ArrayDeque;
+import java.util.List;
 import java.util.Map;
+
 
 public class InteractiveMode {
     private static InteractiveMode interactiveMode;
@@ -19,33 +25,26 @@ public class InteractiveMode {
     private ObjectSender objectSender;
     private RequestHandler requestHandler;
 
+    private final CommandDescription loginCommandDescription = new CommandDescription("login", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
+
+    private final CommandDescription registerCommandDescription = new CommandDescription("register", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
     private boolean isAuthorized = false;
 
     private Map<String, CommandDescription> commandDescriptionMap;
 
-    private static Map<String, Runnable> authorizationMap;
-    private static Map<String, CommandDescription> specialCommands;
-
-    static {
-        specialCommands.put("exit", new ExitDescription(interactiveMode.objectSender));
-        specialCommands.put("execute_script", new ExecuteScriptDescription(interactiveMode.callableManager,interactiveMode.objectSender));
-        specialCommands.put("history", new HistoryDescription(interactiveMode.objectSender));
-    }
-
-    static {
-        authorizationMap.put("r", interactiveMode::register);
-        authorizationMap.put("l", interactiveMode::login);
-        authorizationMap.put("q", interactiveMode::exit);
-    }
-
+    private Map<String, Runnable> authorizationMap;
+    private Map<String, CommandDescription> specialCommands;
     private ArrayDeque<String> history;
+
 
     private InteractiveMode(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender, CallableManager callableManager) {
         this.textReceiver = textReceiver;
         this.loader = loader;
         this.requestHandler = requestHandler;
         this.callableManager = callableManager;
-
+        this.objectSender = objectSender;
+        authorizationMap = Map.of("l", this::login, "r", this::register, "q", this::exit);
+        specialCommands = Map.of("help", new HelpDescription(objectSender, this), "history", new HistoryDescription(objectSender, this), "execute_script", new ExecuteScriptDescription(callableManager, objectSender, this), "exit", new ExitDescription(objectSender, this));
     }
 
     public static InteractiveMode getInstance(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender, CallableManager callableManager) {
@@ -55,11 +54,11 @@ public class InteractiveMode {
         return interactiveMode;
     }
 
-    public static InteractiveMode getInstance() {
+    public static InteractiveMode getObject() {
         return interactiveMode;
     }
 
-    private Map<String, CommandDescription> loadCommandDescriptionMap() {
+    private Result<Map<String, CommandDescription>> loadCommandDescriptionMap() {
         for (int i = 0; i < 5; i++) {
             try {
                 DatagramPacket MapOfCommands = requestHandler.receivePacketWithTimeout();
@@ -68,10 +67,16 @@ public class InteractiveMode {
                 textReceiver.print("Error while receiving map of commands, error with server connection.\n Wait...");
             }
         }
-        //десериализовать и получить карту коллекции из MapOfCommands
-        Map<String, CommandDescription> commandDescriptionMap = null;
 
-        return commandDescriptionMap;
+        try {
+            DatagramPacket packet = requestHandler.receivePacketWithTimeout();
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            Map<String, CommandDescription> commandDescriptionMap = (Map<String, CommandDescription>) objectInputStream.readObject();
+            return Result.success(commandDescriptionMap);
+        } catch (Exception e) {
+            return Result.failure(e, "Error while receiving map of commands, error with server connection.");
+        }
     }
 
     public Map<String, CommandDescription> getCommandDescriptionMap() {
@@ -79,42 +84,54 @@ public class InteractiveMode {
     }
 
     public void start() {
-            textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
-            while (true) {
-                String command = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
-                if (authorizationMap.containsKey(command)) {
-                    authorizationMap.get(command).run();
-                    break;
-                } else {
-                    textReceiver.println("Unknown command!");
-                }
-            }
-            textReceiver.println("Interactive mode started! Check command help to see available commands.");
-            Map<String, CommandDescription> commandDescriptionMap = getCommandDescriptionMap();
-            while (true) {
-                CommandDescription command = loader.parseCommand(commandDescriptionMap,
-                        (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue()
-                );
-                callableManager.add(command.getCaller());
-                Result<?> resultOfExecuting = callableManager.callAll().get(0);
-                if (!resultOfExecuting.isSuccess()) {
-                    textReceiver.println(resultOfExecuting.getMessage());
-                }else{
-                    history.add(command.getName());
-                }
-                callableManager.clear();
+
+        textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
+        while (true) {
+            String command = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
+            if (authorizationMap.containsKey(command)) {
+                authorizationMap.get(command).run();
+                break;
+            } else {
+                textReceiver.println("Unknown command!");
             }
         }
+        textReceiver.println("Interactive mode started! Check command help to see available commands.");
+        Map<String, CommandDescription> commandDescriptionMap = getCommandDescriptionMap();
+        while (true) {
+            CommandDescription command = loader.parseCommand(commandDescriptionMap,
+                    (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue()
+            );
+            callableManager.add(command.getCaller());
+            Result<?> resultOfExecuting = callableManager.callAll().get(0);
+            if (!resultOfExecuting.isSuccess()) {
+                textReceiver.println(resultOfExecuting.getMessage());
+            } else {
+                history.add(command.getName());
+            }
+            callableManager.clear();
+        }
+    }
 
     private void register() {
-        textReceiver.println("Enter your login:");
-        String login = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
-        textReceiver.println("Enter your password:");
-        String password = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
-        //отправить на сервер
-        //objectSender.sendObject();
-        //получить ответ
-        //если ответ положительный, то
+        textReceiver.print("Enter your login:");
+        LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
+        textReceiver.print("Enter your password:");
+        LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
+        registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
+        try {
+            objectSender.sendObject(registerCommandDescription);
+            DatagramPacket packet = requestHandler.receivePacketWithTimeout();
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            Result<?> registerResult = loadCommandDescriptionMap();
+            if (registerResult.isSuccess()) {
+                textReceiver.println("You have successfully registered!");
+            } else {
+                textReceiver.println("Error while receiving map of commands, error with server connection.");
+            }
+        } catch (Exception e) {
+            textReceiver.println("Error while sending login command to server, error with server connection.");
+        }
         isAuthorized = true;
     }
 
@@ -124,20 +141,24 @@ public class InteractiveMode {
 
     private void login() {
         textReceiver.print("Enter your login:");
-        String login = (String) loader.enter(new LoadDescription(String.class)).getValue();
+        LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
         textReceiver.print("Enter your password:");
-        String password = (String) loader.enter(new LoadDescription(String.class)).getValue();
-        //отправить на сервер
-        //получить ответ
-        //если ответ положительный, то
-        isAuthorized = true;
+        LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
+        loginCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
+        try {
+            objectSender.sendObject(loginCommandDescription);
+            Result<?> commandMapResult = loadCommandDescriptionMap();
+            isAuthorized = true;
+        } catch (Exception e) {
+            textReceiver.println("Error while sending login command to server, error with server connection.");
+        }
     }
 
     public void exit() {
         System.exit(0);
     }
 
-    public boolean isAuthorized () {
+    public boolean isAuthorized() {
         return isAuthorized;
     }
 

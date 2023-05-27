@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ExecuteScriptDescription extends CommandDescription {
-    public ExecuteScriptDescription(CallableManager callableManager, ObjectSender objectSender) {
+    public ExecuteScriptDescription(CallableManager callableManager, ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("execute_script");
 
         this.setCaller(new specialClientCaller(() -> {
@@ -23,10 +23,10 @@ public class ExecuteScriptDescription extends CommandDescription {
                 String s = null;
                 try {
                     s = (String) fileLoader.enterString(new LoadDescription<>(String.class)).getValue();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     break m;
                 }
-                CommandDescription commandDescription = fileLoader.parseCommand(InteractiveMode.getInstance().getCommandDescriptionMap(), s);
+                CommandDescription commandDescription = fileLoader.parseCommand(interactiveMode.getCommandDescriptionMap(), s);
                 callableManager.add(commandDescription.getCaller());
             }
             List<Result<?>> result = callableManager.callAll();

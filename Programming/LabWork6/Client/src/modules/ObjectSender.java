@@ -3,19 +3,17 @@ package modules;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 
 public class ObjectSender {
-    private final DatagramSocket socket;
-    private final InetAddress address;
-    private final int port;
-
-    public ObjectSender(DatagramSocket socket, InetAddress address, int port) {
-        this.socket = socket;
-        this.address = address;
-        this.port = port;
+    SocketAddress addr;
+    public ObjectSender(InetAddress host, int port) {
+        addr = new InetSocketAddress(host,port);
     }
 
     public void sendObject(Object object) throws IOException {
@@ -24,13 +22,10 @@ public class ObjectSender {
         objectStream.writeObject(object);
         objectStream.flush();
         byte[] bytes = byteStream.toByteArray();
-        DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
-        socket.send(packet);
+
+        DatagramChannel dc = DatagramChannel.open();
+
+        ByteBuffer buf = ByteBuffer.wrap(bytes);
+        dc.send(buf, addr);
     }
 }
-
-
-
-
-
-
