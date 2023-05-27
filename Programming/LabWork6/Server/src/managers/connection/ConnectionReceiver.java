@@ -48,7 +48,7 @@ public class ConnectionReceiver {
 
                 inputController.parse(cd, invoker, dp);
             } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
         }
     }
