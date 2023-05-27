@@ -10,7 +10,13 @@ import java.nio.channels.DatagramChannel;
 
 public class Main {
     public static void main(String[] args) {
-        int port = Integer.parseInt(System.getenv("PORT"));
+        int port = 0;
+        try {
+            port = Integer.parseInt(System.getenv("PORT"));
+        }catch (NumberFormatException e){
+            System.out.println("Error while parsing port");
+            System.exit(0);
+        }
         TextReceiver textReceiver = new TextReceiver();
         DatagramChannel channel = null;
         RequestHandler requestHandler = new RequestHandler(channel, 1024, 1000);
