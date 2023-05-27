@@ -65,9 +65,13 @@ public class InteractiveMode {
                 break;
             } catch (Exception e) {
                 textReceiver.print("Error while receiving map of commands, error with server connection.\n Wait...");
+                if(i == 4){
+                    exit();
+                    return Result.failure(e, "Error while receiving map of commands, error with server connection.");
+                }
             }
         }
-        exit();
+
         try {
             DatagramPacket packet = requestHandler.receivePacketWithTimeout();
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());

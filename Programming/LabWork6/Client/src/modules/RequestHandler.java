@@ -38,20 +38,39 @@ public class RequestHandler {
         Selector selector = Selector.open();
         channel.register(selector, SelectionKey.OP_READ);
         selector.select(timeout);
-        Set<SelectionKey> selectedKeys = selector.selectedKeys();
-        Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
 
-        while (keyIterator.hasNext()) {
-            SelectionKey key = keyIterator.next();
-            if (key.isReadable()) {
-                DatagramPacket packet = receivePacket();
-                keyIterator.remove();
-                return packet;
+        long startTime = System.currentTimeMillis();
+
+        while (true) {
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            long remainingTime = timeout - elapsedTime;
+
+            if (remainingTime <= 0) {
+                throw new SocketTimeoutException("Timeout waiting for server response");
+            }
+
+            if (selector.select(remainingTime) > 0) {
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+                while (keyIterator.hasNext()) {
+                    SelectionKey key = keyIterator.next();
+                    if (key.isReadable()) {
+                        DatagramPacket packet = receivePacket();
+                        keyIterator.remove();
+                        return packet;
+                    }
+                }
+            }
+
+            try {
+                Thread.sleep(100); // Добавляем задержку перед следующей итерацией
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-
-        throw new SocketTimeoutException("Timeout waiting for server response");
     }
+    
 
 }
 
