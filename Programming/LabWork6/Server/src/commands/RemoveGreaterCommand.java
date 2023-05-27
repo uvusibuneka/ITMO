@@ -15,6 +15,7 @@ public class RemoveGreaterCommand extends Command<MusicReceiver>  {
      */
     public RemoveGreaterCommand(MusicBand element) {
         super(MusicReceiver.GetInstance());
+        element.setID(MusicBand.getIdCounter());
         this.element = element;
     }
 

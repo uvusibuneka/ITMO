@@ -17,6 +17,7 @@ public class UpdateCommand extends Command<MusicReceiver> {
      */
     public UpdateCommand(long id, MusicBand obj) {
         super(MusicReceiver.GetInstance());
+        obj.setID(MusicBand.getIdCounter());
         this.id = id;
         this.obj = obj;
     }

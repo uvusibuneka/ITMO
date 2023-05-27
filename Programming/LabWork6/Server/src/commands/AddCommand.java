@@ -16,6 +16,7 @@ public class AddCommand extends Command<MusicReceiver> {
      */
     public AddCommand(MusicBand element) {
         super(MusicReceiver.GetInstance());
+        element.setID(MusicBand.getIdCounter());
         this.element = element;
     }
 
