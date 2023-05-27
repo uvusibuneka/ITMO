@@ -57,7 +57,7 @@ public class UserReceiver extends Receiver<User>{
         if (collection.
                 getCollection().
                 stream().
-                anyMatch((User u) -> (u.getLogin().equals(user.getLogin())))){
+                noneMatch((User u) -> (u.getLogin().equals(user.getLogin())))){
             return this.add(user);
         } else{
             return Result.failure(new Exception("Логин занят"), "Логин занят");

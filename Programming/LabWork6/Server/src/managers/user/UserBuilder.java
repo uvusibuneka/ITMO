@@ -38,6 +38,6 @@ public class UserBuilder implements Buildable<User> {
 
     @Override
     public User build() {
-        return new User(id, login, password, host, port);
+        return new User(login, password, host, port);
     }
 }

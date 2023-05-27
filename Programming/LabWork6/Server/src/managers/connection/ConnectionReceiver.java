@@ -1,18 +1,36 @@
 package managers.connection;
 
+import commands.HelpCommand;
+import commands.LoginCommand;
+import commands.RegisterCommand;
+import common.descriptions.CommandDescription;
 import managers.Invoker;
+import managers.user.User;
 import result.Result;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 public class ConnectionReceiver {
 
     ResultSender rs;
-    public void run(Invoker invoker) throws SocketException {
+    private final Map<String, Function<User, Result<?>>> user_commands;
+
+    public ConnectionReceiver() {
+        user_commands = new HashMap<>();
+        user_commands.put("login", this::login);
+        user_commands.put("register", this::register);
+    }
+
+    public void run(Invoker invoker) throws SocketException, NumberFormatException {
         byte[] arr = new byte[1024];
         int len = arr.length;
         DatagramSocket ds;
@@ -30,29 +48,72 @@ public class ConnectionReceiver {
             dp = new DatagramPacket(arr, len);
             try {
                 ds.receive(dp);
-                if (rs == null) {
-                    rs = new ResultSender(dp.getAddress(), dp.getPort());
-                }else{
-                    if (rs.getPort() == dp.getPort() && rs.getHost() == dp.getAddress()){
+                ByteArrayInputStream byteStream = new ByteArrayInputStream(dp.getData());
+                ObjectInputStream ois = new ObjectInputStream(byteStream);
+                CommandDescription cd = (CommandDescription) ois.readObject();
 
-                        //десериализовать
-                        res = invoker.executeCommand();
+                if (user_commands.containsKey(cd.getName())) {
+                    if (cd.getOneLineArguments().size() == 2)
+                        res = user_commands.get(cd.getName()).apply(new User(
+                            (String) cd.getOneLineArguments().get(0).getValue(),
+                            (String) cd.getOneLineArguments().get(1).getValue(),
+                            dp.getAddress(), dp.getPort()));
+                    else
+                        res = Result.failure(new Exception(""), "Ожидается ввод только 2 аргументов: логина и пароля");
+                } else {
+                    if (rs == null) {
+                        res = Result.failure(new Exception(""), "Войдите в систему");
+                    } else
+                    if (rs.user.getPort() == dp.getPort() && rs.user.getHost() == dp.getAddress()) {
+                        if (cd.getName().equals("exit")) {
+                            close_client();
+                            continue;
+                        }
 
-                        if ()//name == exit
-                            rs = null;
-
-                    }else{
+                        res = invoker.executeCommand(cd.getName(), cd);
+                    } else {
                         res = Result.failure(new Exception(""), "Занят занят работой с другим клиентом");
                     }
                 }
-                rs.send(res);
-            } catch (IOException e) {
+                if (rs != null)
+                    rs.send(res);
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    public void close_client(){
+    private Result<HashMap<String, CommandDescription>> login(User user) {
+        if (rs == null) {
+            if ((boolean)
+                    (new LoginCommand( user.getLogin(), user.getPassword())
+                    .execute().getValue().get())
+            ) {
+                try {
+                    rs = new ResultSender(user);
+                    return Result.success(new HelpCommand().execute().getValue().get(),
+                            "Вход выполнен успешно");
+                } catch (SocketException e) {
+                    System.out.println("Он не дождётся ответа...");
+                    return Result.failure(e, "");
+                }
+            }
+            else
+                return Result.failure(new Exception(), "Логин или пароль неверны");
+        }
+        else
+            return Result.failure(new Exception(""), "Занят занят работой с другим клиентом");
+    }
+
+    private Result<Void> register(User user) {
+        Result<Void> r = new RegisterCommand(user).execute();
+        if (r.isSuccess())
+            return Result.success(null, "Регистрация проведена. Теперь можно войти с этим же аккаунтом");
+        else
+            return Result.failure(r.getError().get(), r.getMessage());
+    }
+
+    public void close_client() {
         rs = null;
     }
 }

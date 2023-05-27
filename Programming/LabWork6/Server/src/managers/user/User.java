@@ -8,14 +8,15 @@ import result.Result;
 import java.net.InetAddress;
 
 public class User implements Comparable<User>, IDAccess, CSV_savable {
+    private static long idCounter = 0;
     long id;
     String login;
     String password;
     InetAddress host;
     int port;
 
-    public User(long id, String login, String password, InetAddress host, int port){
-        this.id = id;
+    public User(String login, String password, InetAddress host, int port){
+        this.id = idCounter++;
         this.login = login;
         this.password = password;
         this.host = host;
@@ -30,6 +31,7 @@ public class User implements Comparable<User>, IDAccess, CSV_savable {
     @Override
     public void setID(long id) {
         this.id = id;
+        idCounter = Math.max(idCounter, id + 1);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package commands;
 
-import descriptions.CommandDescription;
+import common.descriptions.CommandDescription;
 import managers.Invoker;
 import receivers.MusicReceiver;
 import result.Result;

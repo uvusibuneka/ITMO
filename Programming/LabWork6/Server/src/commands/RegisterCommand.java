@@ -12,7 +12,7 @@ public class RegisterCommand extends Command<UserReceiver> {
     }
 
     @Override
-    public Result<?> execute() {
+    public Result<Void> execute() {
         return receiver.register(user);
     }
 }
