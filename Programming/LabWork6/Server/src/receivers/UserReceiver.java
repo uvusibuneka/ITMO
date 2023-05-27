@@ -11,9 +11,6 @@ import managers.user.User;
 import managers.user.UserDescription;
 import result.Result;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 public class UserReceiver extends Receiver<User>{
     private static UserReceiver instance;
 
@@ -36,12 +33,8 @@ public class UserReceiver extends Receiver<User>{
             Collection_from_file_loader = new CSV_reader<>(fileName, new UserDescription(), Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e){
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
     }

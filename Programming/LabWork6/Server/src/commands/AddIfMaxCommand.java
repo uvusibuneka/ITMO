@@ -17,6 +17,7 @@ public class AddIfMaxCommand extends Command<MusicReceiver>   {
      */
     public AddIfMaxCommand(MusicBand element) {
         super(MusicReceiver.GetInstance());
+        element.setID(MusicBand.getIdCounter());
         this.element = element;
     }
 
