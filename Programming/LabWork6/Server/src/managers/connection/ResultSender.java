@@ -31,15 +31,16 @@ public class ResultSender {
             byteStream.close();
             dp = new DatagramPacket(arr, arr.length, user.getHost(), user.getPort());
             ds.send(dp);
+            user.refreshLastActivity();
         } catch (IOException e) {
             System.out.println("Ошибка отправки ответа");
             dp = new DatagramPacket("Ошибка отправки ответа".getBytes(), "Ошибка отправки ответа".getBytes().length, user.getHost(), user.getPort());
             try {
                 ds.send(dp);
+                user.refreshLastActivity();
             } catch (IOException ex) {
                 System.out.println("Ошибка отправки сообщения об ошибке((((");
             }
         }
-
     }
 }

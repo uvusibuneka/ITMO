@@ -6,6 +6,7 @@ import common.IDAccess;
 import result.Result;
 
 import java.net.InetAddress;
+import java.time.LocalDateTime;
 
 public class User implements Comparable<User>, IDAccess, CSV_savable {
     private static long idCounter = 0;
@@ -14,6 +15,7 @@ public class User implements Comparable<User>, IDAccess, CSV_savable {
     String password;
     InetAddress host;
     int port;
+    LocalDateTime lastActivity;
 
     public User(String login, String password, InetAddress host, int port){
         this.id = idCounter++;
@@ -21,6 +23,7 @@ public class User implements Comparable<User>, IDAccess, CSV_savable {
         this.password = password;
         this.host = host;
         this.port = port;
+        lastActivity = LocalDateTime.now();
     }
 
     @Override
@@ -58,5 +61,13 @@ public class User implements Comparable<User>, IDAccess, CSV_savable {
 
     public int getPort() {
         return port;
+    }
+
+    public LocalDateTime getLastActivity() {
+        return lastActivity;
+    }
+
+    public void refreshLastActivity() {
+        this.lastActivity = LocalDateTime.now();
     }
 }

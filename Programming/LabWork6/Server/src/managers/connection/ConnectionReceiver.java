@@ -15,11 +15,13 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 public class ConnectionReceiver {
+    private final int DISCONNECTING_TIMEOUT = 5;
 
     ResultSender rs;
     private final Map<String, Function<User, Result<?>>> user_commands;
@@ -84,12 +86,14 @@ public class ConnectionReceiver {
     }
 
     private Result<HashMap<String, CommandDescription>> login(User user) {
-        if (rs == null) {
+        if (rs == null || LocalDateTime.now().minusMinutes(DISCONNECTING_TIMEOUT).isAfter(rs.user.getLastActivity())) {
             if ((boolean)
                     (new LoginCommand( user.getLogin(), user.getPassword())
                     .execute().getValue().get())
             ) {
                 try {
+                    if (rs != null)
+                        rs.send(Result.success(null, "Вы отключены от сервера, так как бездействовали больше " + DISCONNECTING_TIMEOUT + " минут и подключился другой пользователь."));
                     rs = new ResultSender(user);
                     return Result.success(new HelpCommand().execute().getValue().get(),
                             "Вход выполнен успешно");
