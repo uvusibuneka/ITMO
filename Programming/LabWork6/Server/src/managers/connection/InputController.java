@@ -63,8 +63,10 @@ public class InputController {
                             .execute().getValue().get())
             ) {
                 try {
-                    if (rs != null)
+                    if (rs != null) {
                         rs.send(Result.success(null, "Вы отключены от сервера, так как бездействовали больше " + DISCONNECTING_TIMEOUT + " минут и подключился другой пользователь."));
+                        close_client();
+                    }
                     rs = new ResultSender(user);
                     return Result.success(new HelpCommand().execute().getValue().get(),
                             "Вход выполнен успешно");
@@ -89,6 +91,7 @@ public class InputController {
     }
 
     public void close_client() {
+        rs.ds.close();
         rs = null;
     }
 }
