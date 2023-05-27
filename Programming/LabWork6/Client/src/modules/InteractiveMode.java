@@ -67,7 +67,7 @@ public class InteractiveMode {
                 textReceiver.print("Error while receiving map of commands, error with server connection.\n Wait...");
             }
         }
-
+        exit();
         try {
             DatagramPacket packet = requestHandler.receivePacketWithTimeout();
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
