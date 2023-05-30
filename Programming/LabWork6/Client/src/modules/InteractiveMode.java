@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.util.ArrayDeque;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class InteractiveMode {
     private Map<String, CommandDescription> commandDescriptionMap;
 
     private Map<String, Runnable> authorizationMap;
-    private Map<String, CommandDescription> specialCommands;
+    private Map<String, CommandDescription> specialCommands = new HashMap<>();
     private ArrayDeque<String> history;
 
 
@@ -76,7 +77,7 @@ public class InteractiveMode {
             DatagramPacket packet = requestHandler.receivePacketWithTimeout();
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            Map<String, CommandDescription> commandDescriptionMap = (Map<String, CommandDescription>) objectInputStream.readObject();
+            commandDescriptionMap = (Map<String, CommandDescription>) objectInputStream.readObject();
             return Result.success(commandDescriptionMap);
         } catch (Exception e) {
             return Result.failure(e, "Error while receiving map of commands, error with server connection.");
@@ -117,11 +118,7 @@ public class InteractiveMode {
     }
 
     private void register() {
-        textReceiver.print("Enter your login:");
-        LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
-        textReceiver.print("Enter your password:");
-        LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
-        registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
+        enterLoginData(registerCommandDescription);
         try {
             objectSender.sendObject(registerCommandDescription);
             DatagramPacket packet = requestHandler.receivePacketWithTimeout();
@@ -139,16 +136,20 @@ public class InteractiveMode {
         isAuthorized = true;
     }
 
+    private void enterLoginData(CommandDescription registerCommandDescription) {
+        textReceiver.print("Enter your login:");
+        LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
+        textReceiver.print("Enter your password:");
+        LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
+        registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
+    }
+
     public void history() {
         history.stream().limit(6).forEach(textReceiver::println);
     }
 
     private void login() {
-        textReceiver.print("Enter your login:");
-        LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
-        textReceiver.print("Enter your password:");
-        LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
-        loginCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
+        enterLoginData(loginCommandDescription);
         try {
             objectSender.sendObject(loginCommandDescription);
             Result<?> commandMapResult = loadCommandDescriptionMap();
@@ -172,7 +173,7 @@ public class InteractiveMode {
 
     public void printHelp() {
         textReceiver.println("Available commands:");
-        commandDescriptionMap.values().stream()
+        commandDescriptionMap.values()
                 .forEach(commandDescription -> textReceiver.println(commandDescription.getName() + " - " + commandDescription.getDescription()));
     }
 

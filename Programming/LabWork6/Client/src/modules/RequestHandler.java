@@ -1,7 +1,5 @@
 package modules;
 
-import result.Result;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetSocketAddress;

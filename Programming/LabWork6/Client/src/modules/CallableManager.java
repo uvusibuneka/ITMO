@@ -1,8 +1,7 @@
 package modules;
 
 import caller.Caller;
-import callers.specialClientCaller;
-import common.descriptions.CommandDescription;
+
 import result.Result;
 
 import java.io.ByteArrayInputStream;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CallableManager {
-    private List<Caller> callers;
+    private List<Caller> callers = new ArrayList<>();
     private RequestHandler requestHandler;
 
     public CallableManager(RequestHandler requestHandler) {
@@ -28,8 +27,8 @@ public class CallableManager {
     public List<Result<?>> callAll() {
         List<Result<?>> results = new ArrayList<>();
         for(Caller caller : callers){
-            caller.call();
             try {
+                caller.call();
                 DatagramPacket packet = requestHandler.receivePacketWithTimeout();
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
                 ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);

@@ -9,27 +9,39 @@ import modules.InteractiveMode;
 import modules.ObjectSender;
 import result.Result;
 
-import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 public class ExecuteScriptDescription extends CommandDescription {
+    private static Deque<String> fileNameStack = new ArrayDeque<>();
+
     public ExecuteScriptDescription(CallableManager callableManager, ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("execute_script");
 
         this.setCaller(new specialClientCaller(() -> {
             String path = (String) this.getArguments().get(0).getValue();
             FileLoader fileLoader = new FileLoader(path);
-            m:while(true) {
-                String s = null;
+            if (fileNameStack.contains(path)) {
+                throw new RuntimeException("Recursion detected");
+            }
+            fileNameStack.push(path);
+            while(true) {
+                String s;
                 try {
-                    s = (String) fileLoader.enterString(new LoadDescription<>(String.class)).getValue();
+                    s = fileLoader.enterString(new LoadDescription<>(String.class)).getValue();
                 } catch (Exception e) {
-                    break m;
+                    break;
                 }
                 CommandDescription commandDescription = fileLoader.parseCommand(interactiveMode.getCommandDescriptionMap(), s);
                 callableManager.add(commandDescription.getCaller());
             }
             List<Result<?>> result = callableManager.callAll();
+            result.stream()
+                    .map(Result::getMessage)
+                    .forEach(System.out::println);
+            callableManager.clear();
+            fileNameStack.pop();
         }, this, objectSender));
         }
 
