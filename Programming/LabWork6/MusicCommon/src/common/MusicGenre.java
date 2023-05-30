@@ -26,5 +26,5 @@ import java.io.Serializable;
  /**
  The genre of post-punk.
  */
-POST_PUNK;
+POST_PUNK
         }

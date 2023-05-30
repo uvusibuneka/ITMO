@@ -67,8 +67,7 @@ public class CommandDescription  implements Serializable, Cloneable{
 
     @Override
     public CommandDescription clone() throws CloneNotSupportedException {
-        CommandDescription clone = (CommandDescription) super.clone();
-        return clone;
+        return (CommandDescription) super.clone();
     }
 
 }

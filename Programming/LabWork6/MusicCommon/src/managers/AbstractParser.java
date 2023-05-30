@@ -19,6 +19,7 @@ public abstract class AbstractParser {
         PARSERS.put(Boolean.class, Boolean::valueOf);
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T parse(String s, Class<?> type){
         if (isWrapper(type)) {
             return (T) parseWrapper(s, type);
@@ -31,6 +32,7 @@ public abstract class AbstractParser {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T parseWrapper(String s, Class<T> type){
         return (T) PARSERS.get(type).apply(s);
     }

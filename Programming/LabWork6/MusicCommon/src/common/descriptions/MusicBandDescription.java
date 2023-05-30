@@ -15,12 +15,12 @@ import java.util.function.Function;
 
 public class MusicBandDescription extends LoadDescription<MusicBand> implements Serializable {
     {
-        fields = Arrays.asList(new LoadDescription<String>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
-                new LoadDescription<Coordinates>("Coordinates", (new MusicBandBuilder())::setCoordinates, new CoordinatesBuilder(), Coordinates.class),
-                new LoadDescription<LocalDate>("Creation Date", (new MusicBandBuilder())::setCreationDate, null, LocalDate.class),
-                new LoadDescription<Long>("Number of participants", (new MusicBandBuilder())::setNumberOfParticipants, null, Long.class),
-                new LoadDescription<Album>("Best Album", (new MusicBandBuilder())::setBestAlbum, new AlbumBuilder(), Album.class),
-                new LoadDescription<MusicGenre>("Genre", (new MusicBandBuilder())::setGenre, null, MusicGenre.class));
+        fields = Arrays.asList(new LoadDescription<>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
+                new LoadDescription<>("Coordinates", (new MusicBandBuilder())::setCoordinates, new CoordinatesBuilder(), Coordinates.class),
+                new LoadDescription<>("Creation Date", (new MusicBandBuilder())::setCreationDate, null, LocalDate.class),
+                new LoadDescription<>("Number of participants", (new MusicBandBuilder())::setNumberOfParticipants, null, Long.class),
+                new LoadDescription<>("Best Album", (new MusicBandBuilder())::setBestAlbum, new AlbumBuilder(), Album.class),
+                new LoadDescription<>("Genre", (new MusicBandBuilder())::setGenre, null, MusicGenre.class));
     }
 
     public MusicBandDescription(Function<MusicBand, Object> fieldSetter) {

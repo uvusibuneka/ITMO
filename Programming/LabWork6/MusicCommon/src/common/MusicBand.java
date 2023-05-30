@@ -276,11 +276,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
         }
 
         result = this.bestAlbum.compareTo(other.bestAlbum);
-        if (result != 0) {
-            return result;
-        }
-
-        return 0;
+        return result;
     }
 
     /**

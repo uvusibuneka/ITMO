@@ -3,6 +3,7 @@ package managers;
 import common.descriptions.LoadDescription;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractLoader {
     protected BaseTextReceiver textReceiver;
@@ -11,15 +12,16 @@ public abstract class AbstractLoader {
 
     public AbstractLoader(BaseTextReceiver textReceiver) {
         this.textReceiver = textReceiver;
-    };
+    }
 
     public <T> T parse(String s, Class<?> type){
         return parser.parse(s, type);
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends LoadDescription<?>> T enter(T description) {
         if (isWrapper(description.getType())) {
-            return (T) enterWrapper(description);
+            return enterWrapper(description);
         } else if (description.getType().equals(String.class)) {
             return (T) enterString((LoadDescription<String>) description);
         } else if (description.getType().isEnum()){
@@ -28,7 +30,6 @@ public abstract class AbstractLoader {
             return enterComposite(description);
         }
     }
-
 
     public <T extends LoadDescription<?>> T enterWithMessage(String message, T description) {
         textReceiver.print(message);
@@ -40,14 +41,17 @@ public abstract class AbstractLoader {
     public abstract <T extends LoadDescription<?>> T enterWrapper(T description);
     public abstract LoadDescription<String> enterString(LoadDescription<String> description);
 
-    protected  <T extends LoadDescription<?>> T enterComposite(T description) {
-        List<LoadDescription<?>> fields = description.getFields();
-        description.getFields().forEach(field -> field = enterWithMessage(field.getDescription(), field));
-        description.getFields().clear();
-        description.setFieldsOfObject(fields);
+    protected <T extends LoadDescription<?>> T enterComposite(T description) {
+        List<LoadDescription<?>> updatedFields = description.getFields().stream()
+                .map(field -> enterWithMessage(field.getDescription(), field))
+                .collect(Collectors.toList());
+
+        description.setFieldsOfObject(updatedFields);
         description.build();
+
         return description;
     }
+
 
     private boolean isWrapper(Class<?> type) {
         return type.equals(Integer.class) || type.equals(Long.class) || type.equals(Double.class)

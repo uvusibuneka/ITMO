@@ -3,17 +3,16 @@ package common.builders;
 import common.Album;
 
 import java.io.Serializable;
-import java.net.http.WebSocket;
 
 /**
 
  The AlbumBuilder class is a builder class for objects of the Album class.
  */
 public class AlbumBuilder implements Buildable<Album>, Serializable {
-    private String name; // The name of the album
-    private long tracks; // The number of tracks in the album
-    private Long length; // The length of the album in milliseconds
-    private Float sales; // The number of sales of the album
+    private String name;
+    private long tracks;
+    private Long length;
+    private Float sales;
 
     /**
 

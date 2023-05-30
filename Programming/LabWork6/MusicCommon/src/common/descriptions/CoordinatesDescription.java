@@ -12,8 +12,8 @@ public class CoordinatesDescription extends LoadDescription<Coordinates> impleme
     {
         build = Buildable::build;
         fields = Arrays.asList(
-                new LoadDescription<Long>("X", new CoordinatesBuilder()::setX, null, Long.class),
-                new LoadDescription<Float>("Y", (new CoordinatesBuilder())::setY, null, Float.class));
+                new LoadDescription<>("X", new CoordinatesBuilder()::setX, null, Long.class),
+                new LoadDescription<>("Y", (new CoordinatesBuilder())::setY, null, Float.class));
     }
 
     public CoordinatesDescription(Function<Coordinates, Object> fieldSetter) {

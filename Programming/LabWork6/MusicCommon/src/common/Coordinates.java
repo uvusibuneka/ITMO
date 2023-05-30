@@ -108,7 +108,6 @@ public class Coordinates implements Serializable {
             return result;
         }
 
-        result = Float.compare(this.y, coordinates.y);
         if (Math.abs(this.y - coordinates.y) < epsilon) {
             return 0;
         } else if (this.y < coordinates.y) {

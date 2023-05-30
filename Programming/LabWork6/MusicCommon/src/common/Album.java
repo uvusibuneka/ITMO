@@ -142,10 +142,7 @@ public class Album implements Serializable {
         if (this.tracks != otherAlbum.tracks) {
             return false;
         }
-        if (this.length != otherAlbum.length) {
-            return false;
-        }
-        return true;
+        return this.length.equals(otherAlbum.length);
     }
 
     /**

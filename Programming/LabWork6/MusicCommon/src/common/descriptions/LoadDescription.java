@@ -43,6 +43,7 @@ public class LoadDescription<T> implements Serializable {
         return type;
     }
 
+    @SuppressWarnings("unchecked")
     public void setField(Object object){
         if(object.getClass() == type)
             fieldOfDescriptionSetter.apply((T)object);

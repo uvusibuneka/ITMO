@@ -17,13 +17,14 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
 
     private TreeSet<T> collection;
 
-    private static final HashSet<Long> ids = new HashSet<Long>();
+    private static final HashSet<Long> ids = new HashSet<>();
 
     private LocalDate initializationDate;
 
     public Abstract_file_writer<T> Collection_to_file_writer;
     public Abstract_file_reader<T> Collection_from_file_loader;
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public Collection(Abstract_file_reader<T> Collection_from_file_loader, Abstract_file_writer<T> Collection_to_file_writer) throws Exception {
         this.Collection_to_file_writer = Collection_to_file_writer;
         this.Collection_from_file_loader = Collection_from_file_loader;
@@ -101,17 +102,13 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * @return the result of the operation as a Result object. Returns the maximum element of the collection in case of success.
      * Returns a Result object with an exception and an error message in case of failure.
      */
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public Result<T> getMax() {
         if (this.getSize() == 0) {
             return Result.failure(new Exception("Collection is empty"), "Collection is empty");
         }
 
-        T max = collection.first();
-        for (T element : collection) {
-            if (max.compareTo(element) < 0) {
-                max = element;
-            }
-        }
+        T max = collection.stream().max(T::compareTo).get();
 
         return Result.success(max);
     }
@@ -143,13 +140,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      */
     public Result<Void> removeGreater(T element) {
         try {
-            boolean flag = false;
-            for (T element1 : collection) {
-                if (element1.compareTo(element) > 0) {
-                    collection.remove(element1);
-                    flag = true;
-                }
-            }
+            collection.removeIf(element1 -> element1.compareTo(element) > 0);
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Failed to remove greater elements");
