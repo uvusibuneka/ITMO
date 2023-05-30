@@ -41,7 +41,7 @@ public class ConnectionReceiver {
         }
 
         Result<?> res = null;
-        InputController inputController = new InputController();
+        InputController inputController = new InputController(ds);
 
         while (true) {
             dp = new DatagramPacket(arr, len);

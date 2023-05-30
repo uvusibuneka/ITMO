@@ -15,9 +15,9 @@ public class ResultSender {
     User user;
     DatagramSocket ds;
     DatagramPacket dp;
-    public ResultSender(User user) throws SocketException {
+    public ResultSender(User user, DatagramSocket ds) throws SocketException {
         this.user = user;
-        ds = new DatagramSocket(user.getPort());
+        this.ds = ds;
     }
 
     public void send(Result<?> to_send){
