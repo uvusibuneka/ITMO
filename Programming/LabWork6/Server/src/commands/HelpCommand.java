@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class HelpCommand extends Command<MusicReceiver> {
     HashMap<String, CommandDescription> commands;
 
-    public HelpCommand(){
+    public HelpCommand() throws Exception{
         super(MusicReceiver.GetInstance());
         commands = new HashMap<>();
         ArrayList<LoadDescription<?>> inline_arguments = new ArrayList<>();

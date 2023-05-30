@@ -9,7 +9,7 @@ import result.Result;
  */
 public class MaxByBestAlbumCommand extends Command<MusicReceiver> {
 
-    public MaxByBestAlbumCommand() {
+    public MaxByBestAlbumCommand() throws Exception {
         super(MusicReceiver.GetInstance());
     }
 

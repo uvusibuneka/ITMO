@@ -11,17 +11,19 @@ import managers.user.User;
 import managers.user.UserDescription;
 import result.Result;
 
+import java.io.FileNotFoundException;
+
 public class UserReceiver extends Receiver<User>{
     private static UserReceiver instance;
 
-    public static UserReceiver GetInstance() {
+    public static UserReceiver GetInstance() throws Exception{
         if (instance == null) {
             instance = new UserReceiver();
         }
         return instance;
     }
 
-    private UserReceiver(){
+    private UserReceiver() throws Exception{
 
         String fileName = System.getenv("USERS_FILE");
         try {
@@ -33,10 +35,9 @@ public class UserReceiver extends Receiver<User>{
             Collection_from_file_loader = new CSV_reader<>(fileName, new UserDescription(), Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (NullPointerException e){
+            throw new NullPointerException("USERS_FILE is not set");
         }
-
     }
     public Result<Boolean> check_login(String login, String password){
         return Result.success(

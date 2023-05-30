@@ -8,7 +8,7 @@ import result.Result;
  */
 public class SaveCommand extends Command<MusicReceiver>  {
 
-    public SaveCommand() {
+    public SaveCommand() throws Exception {
         super(MusicReceiver.GetInstance());
     }
 

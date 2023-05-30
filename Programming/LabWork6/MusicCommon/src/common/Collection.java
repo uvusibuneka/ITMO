@@ -34,7 +34,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
             Collection_to_file_writer.setCollection(this);
             initializationDate = LocalDate.now();
         }else{
-            throw new Exception("Коллекция не инициализирована. "+res.getMessage());
+            throw res.getError().get();
         }
     }
 

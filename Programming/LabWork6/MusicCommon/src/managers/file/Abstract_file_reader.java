@@ -19,7 +19,7 @@ public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess> {
         this.collection = collection;
 
         if (fileName == null) {
-            throw new NullPointerException("FILE_NAME is not set");
+            throw new NullPointerException("file name is not set");
         }
 
         file = new File(fileName);

@@ -31,9 +31,14 @@ public class ConnectionReceiver {
         DatagramSocket ds;
         DatagramPacket dp;
         InetAddress host;
-        int port = Integer.parseInt(System.getenv("SERVER_PORT"));
-
-        ds = new DatagramSocket(port);
+        try {
+            int port = Integer.parseInt(System.getenv("SERVER_PORT"));
+            ds = new DatagramSocket(port);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Укажите в переменной SERVER_PORT порт, на котором будет работать приложение. Порт должен быть целым числом");
+        } catch (SocketException | SecurityException e) {
+            throw new SocketException("Не удалось получить доступ к указанному порту");
+        }
 
         Result<?> res = null;
         InputController inputController = new InputController();

@@ -13,7 +13,7 @@ import java.util.List;
 public class ExecuteQueueCommand extends Command<MusicReceiver> {
     List<CommandDescription> queue;
     Invoker invoker;
-    public ExecuteQueueCommand(List<CommandDescription> queue, Invoker invoker){
+    public ExecuteQueueCommand(List<CommandDescription> queue, Invoker invoker) throws Exception{
         super(MusicReceiver.GetInstance());
         this.queue = queue;
         this.invoker = invoker;

@@ -34,7 +34,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
      *
      * @return ссылка на существующий объект {@link Receiver}
      */
-    public static MusicReceiver GetInstance() {
+    public static MusicReceiver GetInstance() throws Exception {
         if (instance == null) {
             instance = new MusicReceiver();
         }
@@ -44,7 +44,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
     /**
      * Здесь происходит вся инициализация: инициализация коллекции, подключение к файлу, его чтение и запись данных в коллекцию. Происходит одна один раз - спасибо паттерну одиночка.
      */
-    private MusicReceiver() {
+    private MusicReceiver() throws Exception{
 
         String fileName = System.getenv("FILE_NAME");
         try {
@@ -56,8 +56,8 @@ public class MusicReceiver extends Receiver<MusicBand> {
             Collection_from_file_loader = new CSV_reader<>(fileName, new MusicBandDescription(), Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (NullPointerException e){
+            throw new NullPointerException("FILE_NAME is not set");
         }
     }
 

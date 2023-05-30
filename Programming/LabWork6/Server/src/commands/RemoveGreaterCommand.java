@@ -13,7 +13,7 @@ public class RemoveGreaterCommand extends Command<MusicReceiver>  {
     /**
      * Constructor for creating a command object.
      */
-    public RemoveGreaterCommand(MusicBand element) {
+    public RemoveGreaterCommand(MusicBand element) throws Exception {
         super(MusicReceiver.GetInstance());
         element.setID(MusicBand.getIdCounter());
         this.element = element;

@@ -9,7 +9,7 @@ import result.Result;
  */
 public class ShowCommand extends Command<MusicReceiver> {
 
-    public ShowCommand() {
+    public ShowCommand() throws Exception {
         super(MusicReceiver.GetInstance());
     }
 

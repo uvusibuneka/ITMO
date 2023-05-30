@@ -7,7 +7,7 @@ import result.Result;
  * Class ClearCommand for clearing the collection.
  */
 public class ClearCommand extends Command<MusicReceiver> {
-    public ClearCommand() {
+    public ClearCommand() throws Exception {
         super(MusicReceiver.GetInstance());
     }
 

@@ -14,7 +14,7 @@ public class CountByBestAlbum extends Command<MusicReceiver>{
      * Constructor for creating a command object.
      * @param album
      */
-    public CountByBestAlbum(Album album) {
+    public CountByBestAlbum(Album album) throws Exception {
         super(MusicReceiver.GetInstance());
         this.album = album;
     }

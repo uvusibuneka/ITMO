@@ -8,7 +8,7 @@ import result.Result;
  */
 public class InfoCommand extends Command<MusicReceiver> {
 
-    public InfoCommand() {
+    public InfoCommand() throws Exception {
         super(MusicReceiver.GetInstance());
     }
 

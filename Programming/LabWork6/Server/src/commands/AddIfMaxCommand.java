@@ -15,7 +15,7 @@ public class AddIfMaxCommand extends Command<MusicReceiver>   {
      * Constructor for creating a command object.
      * @param element
      */
-    public AddIfMaxCommand(MusicBand element) {
+    public AddIfMaxCommand(MusicBand element) throws Exception {
         super(MusicReceiver.GetInstance());
         element.setID(MusicBand.getIdCounter());
         this.element = element;

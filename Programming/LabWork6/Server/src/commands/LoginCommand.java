@@ -6,7 +6,7 @@ import result.Result;
 public class LoginCommand extends Command<UserReceiver> {
     String login;
     String password;
-    public LoginCommand(String login, String password) {
+    public LoginCommand(String login, String password) throws Exception{
         super(UserReceiver.GetInstance());
         this.login = login;
         this.password = password;

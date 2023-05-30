@@ -12,7 +12,7 @@ public class RemoveByIdCommand extends Command<MusicReceiver>  {
     /**
      * Constructor for creating a command object.
      */
-    public RemoveByIdCommand(long id) {
+    public RemoveByIdCommand(long id) throws Exception {
         super(MusicReceiver.GetInstance());
         this.id = id;
     }

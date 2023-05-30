@@ -22,7 +22,7 @@ public class InputController {
 
     private final Map<String, Function<User, Result<?>>> user_commands;
 
-    public InputController(){
+    public InputController() {
         user_commands = new HashMap<>();
         user_commands.put("login", this::login);
         user_commands.put("register", this::register);
@@ -57,37 +57,44 @@ public class InputController {
 
 
     private Result<HashMap<String, CommandDescription>> login(User user) {
-        if (rs == null || LocalDateTime.now().minusMinutes(DISCONNECTING_TIMEOUT).isAfter(rs.user.getLastActivity())) {
-            if ((boolean)
-                    (new LoginCommand( user.getLogin(), user.getPassword())
-                            .execute().getValue().get())
-            ) {
-                try {
-                    if (rs != null) {
-                        rs.send(Result.success(null, "Вы отключены от сервера, так как бездействовали больше " + DISCONNECTING_TIMEOUT + " минут и подключился другой пользователь."));
-                        close_client();
+        try {
+            if (rs == null || LocalDateTime.now().minusMinutes(DISCONNECTING_TIMEOUT).isAfter(rs.user.getLastActivity())) {
+                if ((boolean)
+                        (new LoginCommand(user.getLogin(), user.getPassword())
+                                .execute().getValue().get())
+                ) {
+                    try {
+                        if (rs != null) {
+                            rs.send(Result.success(null, "Вы отключены от сервера, так как бездействовали больше " + DISCONNECTING_TIMEOUT + " минут и подключился другой пользователь."));
+                            close_client();
+                        }
+                        rs = new ResultSender(user);
+                        return Result.success(new HelpCommand().execute().getValue().get(),
+                                "Вход выполнен успешно");
+                    } catch (SocketException e) {
+                        System.out.println("Он не дождётся ответа...");
+                        return Result.failure(e, "");
                     }
-                    rs = new ResultSender(user);
-                    return Result.success(new HelpCommand().execute().getValue().get(),
-                            "Вход выполнен успешно");
-                } catch (SocketException e) {
-                    System.out.println("Он не дождётся ответа...");
-                    return Result.failure(e, "");
-                }
-            }
-            else
-                return Result.failure(new Exception(), "Логин или пароль неверны");
+                } else
+                    return Result.failure(new Exception(), "Логин или пароль неверны");
+            } else
+                return Result.failure(new Exception(""), "Занят занят работой с другим клиентом");
+        } catch (Exception e) {
+            return Result.failure(e, e.getMessage());   //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
         }
-        else
-            return Result.failure(new Exception(""), "Занят занят работой с другим клиентом");
     }
 
     private Result<Void> register(User user) {
-        Result<Void> r = new RegisterCommand(user).execute();
-        if (r.isSuccess())
-            return Result.success(null, "Регистрация проведена. Теперь можно войти с этим же аккаунтом");
-        else
-            return Result.failure(r.getError().get(), r.getMessage());
+        try {
+
+            Result<Void> r = new RegisterCommand(user).execute();
+            if (r.isSuccess())
+                return Result.success(null, "Регистрация проведена. Теперь можно войти с этим же аккаунтом");
+            else
+                return Result.failure(r.getError().get(), r.getMessage());
+        } catch (Exception e) {
+            return Result.failure(e, e.getMessage());   //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
+        }
     }
 
     public void close_client() {
