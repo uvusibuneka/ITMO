@@ -1,5 +1,7 @@
 package modules;
 
+import result.Result;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
@@ -31,11 +33,20 @@ public class RequestHandler {
         return new DatagramPacket(data, data.length, senderAddress.getAddress(), senderAddress.getPort());
     }
 
-    public DatagramPacket receivePacketWithTimeout() throws IOException {
-        channel.configureBlocking(false);
-        Selector selector = Selector.open();
-        channel.register(selector, SelectionKey.OP_READ);
-        selector.select(timeout);
+    public Result<DatagramPacket> receivePacketWithTimeout() {
+        Selector selector;
+        try {
+            channel.configureBlocking(false);
+        } catch (IOException e) {
+            return Result.failure(e, "Failed to configure channel to non-blocking");
+        }
+        try {
+            selector = Selector.open();
+            channel.register(selector, SelectionKey.OP_READ);
+            selector.select(timeout);
+        } catch (IOException e) {
+            return Result.failure(e, "Failed to select channel");
+        }
 
         long startTime = System.currentTimeMillis();
 
@@ -44,27 +55,30 @@ public class RequestHandler {
             long remainingTime = timeout - elapsedTime;
 
             if (remainingTime <= 0) {
-                throw new SocketTimeoutException("Timeout waiting for server response");
-            }
-
-            if (selector.select(remainingTime) > 0) {
-                Set<SelectionKey> selectedKeys = selector.selectedKeys();
-                Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
-
-                while (keyIterator.hasNext()) {
-                    SelectionKey key = keyIterator.next();
-                    if (key.isReadable()) {
-                        DatagramPacket packet = receivePacket();
-                        keyIterator.remove();
-                        return packet;
-                    }
-                }
+                return Result.failure(new SocketTimeoutException("Timeout waiting for server response"), "Timeout waiting for server response");
             }
 
             try {
-                Thread.sleep(100); // Добавляем задержку перед следующей итерацией
+                if (selector.select(remainingTime) > 0) {
+                    Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                    Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+                    while (keyIterator.hasNext()) {
+                        SelectionKey key = keyIterator.next();
+                        if (key.isReadable()) {
+                            DatagramPacket packet = receivePacket();
+                            keyIterator.remove();
+                            return Result.success(packet);
+                        }
+                    }
+                }
+            }catch (Exception e){
+                return Result.failure(e, "Failed to select channel");
+            }
+            try {
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }

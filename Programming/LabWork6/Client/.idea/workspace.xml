@@ -28,6 +28,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2PWfSQy0hUFkVzgIprVYMD2Mobh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -67,6 +70,9 @@
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <envs>
+        <env name="PORT" value="2672" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Client" />
       <method v="2">
@@ -115,7 +121,9 @@
       <workItem from="1685047891181" duration="147000" />
       <workItem from="1685048052340" duration="149000" />
       <workItem from="1685048369581" duration="300000" />
-      <workItem from="1685408194501" duration="1840000" />
+      <workItem from="1685408194501" duration="8285000" />
+      <workItem from="1685446026398" duration="1290000" />
+      <workItem from="1685462409953" duration="1392000" />
     </task>
     <servers />
   </component>

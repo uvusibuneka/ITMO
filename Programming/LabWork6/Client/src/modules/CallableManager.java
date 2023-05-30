@@ -24,13 +24,18 @@ public class CallableManager {
         callers.add(caller);
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public List<Result<?>> callAll() {
         List<Result<?>> results = new ArrayList<>();
         for(Caller caller : callers){
             try {
                 caller.call();
-                DatagramPacket packet = requestHandler.receivePacketWithTimeout();
-                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
+                Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
+                if (!packet.isSuccess()){
+                    results.add(Result.failure(packet.getError().get()));
+                    continue;
+                }
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getValue().get().getData());
                 ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
                 Result<?> result = (Result<?>) objectInputStream.readObject();
                 results.add(result);
