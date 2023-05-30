@@ -19,17 +19,21 @@ public class Main {
         }
         TextReceiver textReceiver = new TextReceiver();
         DatagramChannel channel = null;
+        try {
+            channel = DatagramChannel.open();
+        }
+        catch (IOException e){
+            textReceiver.println("Error while opening channel");
+            System.exit(0);
+        }
         RequestHandler requestHandler = new RequestHandler(channel, 1024, 1000);
         ConsoleLoader loader = new ConsoleLoader(textReceiver);
 
         try {
             ObjectSender objectSender = new ObjectSender(InetAddress.getLocalHost(), port);
-            channel = DatagramChannel.open();
             InteractiveMode.getInstance(textReceiver, loader, requestHandler, objectSender, new CallableManager(requestHandler)).start();
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             textReceiver.println("Error while creating object sender");
-        }catch (IOException e){
-            textReceiver.println("Error while opening channel");
         }
     }
 }

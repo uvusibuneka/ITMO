@@ -135,7 +135,7 @@ public class InteractiveMode {
                 isAuthorized = true;
                 return Result.success(null);
             } else {
-                textReceiver.println("Error while receiving map of commands, error with server connection.");
+                textReceiver.println(String.valueOf(registerResult.getError().get()));
                 return Result.failure(registerResult.getError().get(), "Error while receiving map of commands, error with server connection.");
             }
         } catch (Exception e) {
