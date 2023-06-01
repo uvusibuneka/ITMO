@@ -10,6 +10,8 @@ import java.nio.channels.DatagramChannel;
 
 public class Main {
     public static void main(String[] args) {
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("Программа завершает работу.")));
         int port = 0;
         try {
             port = Integer.parseInt(System.getenv("PORT"));
@@ -26,7 +28,7 @@ public class Main {
             textReceiver.println("Error while opening channel");
             System.exit(0);
         }
-        RequestHandler requestHandler = new RequestHandler(channel, 1024, 1000);
+        RequestHandler requestHandler = new RequestHandler(channel, 1024, 6000);
         ConsoleLoader loader = new ConsoleLoader(textReceiver);
 
         try {

@@ -26,63 +26,30 @@ public class RequestHandler {
 
     public DatagramPacket receivePacket() throws IOException {
         buffer.clear();
-        InetSocketAddress senderAddress = (InetSocketAddress) channel.receive(buffer);
+        channel.receive(buffer);
         buffer.flip();
-        byte[] data = new byte[buffer.remaining()];
-        buffer.get(data);
-        return new DatagramPacket(data, data.length, senderAddress.getAddress(), senderAddress.getPort());
+        return new DatagramPacket(buffer.array(), buffer.limit());
     }
 
     public Result<DatagramPacket> receivePacketWithTimeout() {
-        Selector selector;
         try {
             channel.configureBlocking(false);
-        } catch (IOException e) {
-            return Result.failure(e, "Failed to configure channel to non-blocking");
-        }
-        try {
-            selector = Selector.open();
+            Selector selector = Selector.open();
             channel.register(selector, SelectionKey.OP_READ);
             selector.select(timeout);
+            Set<SelectionKey> keys = selector.selectedKeys();
+            if (keys.isEmpty()) {
+                return Result.failure(new SocketTimeoutException());
+            }
+            Iterator<SelectionKey> iterator = keys.iterator();
+            SelectionKey key = iterator.next();
+            DatagramChannel datagramChannel = (DatagramChannel) key.channel();
+            buffer.clear();
+            datagramChannel.receive(buffer);
+            buffer.flip();
+            return Result.success(new DatagramPacket(buffer.array(), buffer.limit()));
         } catch (IOException e) {
-            return Result.failure(e, "Failed to select channel");
-        }
-
-        long startTime = System.currentTimeMillis();
-
-        while (true) {
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            long remainingTime = timeout - elapsedTime;
-
-            if (remainingTime <= 0) {
-                return Result.failure(new SocketTimeoutException("Timeout waiting for server response"), "Timeout waiting for server response");
-            }
-
-            try {
-                if (selector.select(remainingTime) > 0) {
-                    Set<SelectionKey> selectedKeys = selector.selectedKeys();
-                    Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
-
-                    while (keyIterator.hasNext()) {
-                        SelectionKey key = keyIterator.next();
-                        if (key.isReadable()) {
-                            DatagramPacket packet = receivePacket();
-                            keyIterator.remove();
-                            return Result.success(packet);
-                        }
-                    }
-                }
-            }catch (Exception e){
-                return Result.failure(e, "Failed to select channel");
-            }
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            return Result.failure(e);
         }
     }
-
-
 }
-
