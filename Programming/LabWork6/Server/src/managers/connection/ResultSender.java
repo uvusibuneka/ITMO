@@ -13,7 +13,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 public class ResultSender {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(ResultSender.class);
 
     User user;
     DatagramSocket ds;

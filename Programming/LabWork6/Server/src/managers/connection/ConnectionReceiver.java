@@ -16,7 +16,7 @@ import java.net.SocketException;
 
 public class ConnectionReceiver {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(ConnectionReceiver.class);
 
     public void run(Invoker invoker) throws SocketException, NumberFormatException {
         byte[] arr = new byte[1024];

@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.function.Function;
 
 public class Invoker {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(Invoker.class);
 
     private final Map<String, Function<CommandDescription, Result<Command<MusicReceiver>>>> command_creators;
 

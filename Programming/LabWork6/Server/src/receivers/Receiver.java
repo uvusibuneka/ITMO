@@ -9,7 +9,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public abstract class Receiver<T extends Comparable<T> & IDAccess> {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(Receiver.class);
     Collection<T> collection;
 
     /**

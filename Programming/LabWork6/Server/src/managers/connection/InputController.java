@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class InputController {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(InputController.class);
 
     private final int DISCONNECTING_TIMEOUT = 5;
 
