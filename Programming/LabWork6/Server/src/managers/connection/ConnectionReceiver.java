@@ -1,11 +1,9 @@
 package managers.connection;
 
-import commands.HelpCommand;
-import commands.LoginCommand;
-import commands.RegisterCommand;
 import common.descriptions.CommandDescription;
 import managers.Invoker;
-import managers.user.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import result.Result;
 
 import java.io.ByteArrayInputStream;
@@ -15,15 +13,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 public class ConnectionReceiver {
 
-    public ConnectionReceiver() {
-    }
+    private static final Logger logger = LogManager.getLogger();
 
     public void run(Invoker invoker) throws SocketException, NumberFormatException {
         byte[] arr = new byte[1024];
@@ -44,6 +37,7 @@ public class ConnectionReceiver {
         InputController inputController = new InputController(ds);
 
         while (true) {
+            logger.info("Listening started");
             dp = new DatagramPacket(arr, len);
             try {
                 ds.receive(dp);

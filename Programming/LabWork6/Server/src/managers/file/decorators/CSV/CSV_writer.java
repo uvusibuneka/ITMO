@@ -4,6 +4,8 @@ import managers.file.CSV_savable;
 import managers.file.decorators.Writer_decorator;
 import common.IDAccess;
 import managers.file.Abstract_file_writer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import result.Result;
 
 import java.io.BufferedWriter;
@@ -11,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extends Writer_decorator<T> {
+    private static final Logger logger = LogManager.getLogger();
     public CSV_writer(String fileName, Abstract_file_writer<T> writer) throws IOException, NullPointerException, SecurityException {
         super(fileName, writer);
     }
@@ -22,10 +25,12 @@ public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extend
             Result<String> csv_row = i.toCSV();
             if (csv_row.isSuccess())
                 buffered_writer.write(csv_row.getValue().get()+"\n");
-            else
-                throw new Exception(csv_row.getMessage());
+            else{
+                logger.error("Error while saving collection. " + csv_row.getMessage());
+                throw new Exception(csv_row.getMessage());}
         }
         buffered_writer.close();
+        logger.info("Collection saved");
     }
 
 }

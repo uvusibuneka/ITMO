@@ -6,6 +6,8 @@ import commands.RegisterCommand;
 import common.descriptions.CommandDescription;
 import managers.Invoker;
 import managers.user.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import result.Result;
 
 import java.net.DatagramPacket;
@@ -17,6 +19,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class InputController {
+    private static final Logger logger = LogManager.getLogger();
+
     private final int DISCONNECTING_TIMEOUT = 5;
 
     ResultSender rs = null;
@@ -32,6 +36,7 @@ public class InputController {
     }
 
     public void parse(CommandDescription cd, Invoker invoker, DatagramPacket dp) {
+        logger.info("Incoming request");
         Result<?> res = null;
         if (user_commands.containsKey(cd.getName())) {
             if (cd.getOneLineArguments().size() == 2)
@@ -39,10 +44,13 @@ public class InputController {
                         (String) cd.getOneLineArguments().get(0).getValue(),
                         (String) cd.getOneLineArguments().get(1).getValue(),
                         dp.getAddress(), dp.getPort()));
-            else
+            else {
+                logger.error("Incorrect request");
                 res = Result.failure(new Exception(""), "Ожидается ввод только 2 аргументов: логина и пароля");
+            }
         } else {
             if (rs == null) {
+                logger.error("Incorrect request: user didn't login");
                 res = Result.failure(new Exception(""), "Войдите в систему");
             } else if (rs.user.getPort() == dp.getPort() && rs.user.getHost() == dp.getAddress()) {
                 if (cd.getName().equals("exit")) {
@@ -72,16 +80,18 @@ public class InputController {
                             close_client();
                         }
                         rs = new ResultSender(user, ds);
+                        logger.info("New user connected");
                         return Result.success(new HelpCommand().execute().getValue().get(),
                                 "Вход выполнен успешно");
                     } catch (SocketException e) {
+                        logger.error("Something with socket, user wouldn't know");
                         System.out.println("Он не дождётся ответа...");
                         return Result.failure(e, "");
                     }
                 } else
                     return Result.failure(new Exception(), "Логин или пароль неверны");
             } else
-                return Result.failure(new Exception(""), "Занят занят работой с другим клиентом");
+                return Result.failure(new Exception(""), "Сервер занят занят работой с другим клиентом");
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());   //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
         }
@@ -91,17 +101,20 @@ public class InputController {
         try {
 
             Result<Void> r = new RegisterCommand(user).execute();
-            if (r.isSuccess())
+            if (r.isSuccess()) {
+                logger.info("New user registered");
                 return Result.success(null, "Регистрация проведена. Теперь можно войти с этим же аккаунтом");
-            else
+            } else {
+                logger.error(r.getMessage());
                 return Result.failure(r.getError().get(), r.getMessage());
+            }
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());   //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
         }
     }
 
     public void close_client() {
-        rs.ds.close();
+        logger.info("User disconnected");
         rs = null;
     }
 }

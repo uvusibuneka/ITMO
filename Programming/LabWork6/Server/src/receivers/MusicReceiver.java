@@ -10,6 +10,8 @@ import common.Album;
 import common.Collection;
 import common.MusicBand;
 import common.descriptions.MusicBandDescription;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import result.Result;
 
 import java.io.*;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
  * @author Фролов К.Д.
  */
 public class MusicReceiver extends Receiver<MusicBand> {
+    private static final Logger logger = LogManager.getLogger();
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     /**
      * Ссылка на текущий {@link Receiver}. Класс реализует паттерн одиночка.
@@ -89,6 +92,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
         if (maxBand == null || newBand.compareTo(maxBand) > 0) {
             Result<Void> addResult = collection.add(newBand);
             if (addResult.isSuccess()) {
+                logger.info("New element added to MusicBand collection");
                 return Result.success(null, "New band successfully added to collection.");
             } else {
                 return Result.failure(addResult.getError().get(), addResult.getMessage());
