@@ -13,7 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extends Writer_decorator<T> {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(CSV_writer.class);
     public CSV_writer(String fileName, Abstract_file_writer<T> writer) throws IOException, NullPointerException, SecurityException {
         super(fileName, writer);
     }
