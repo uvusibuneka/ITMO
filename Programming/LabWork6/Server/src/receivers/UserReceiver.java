@@ -8,6 +8,7 @@ import managers.file.decorators.CSV.CSV_reader;
 import managers.file.decorators.CSV.CSV_writer;
 import common.Collection;
 import managers.user.User;
+import managers.user.UserBuilder;
 import managers.user.UserDescription;
 import result.Result;
 
@@ -29,14 +30,14 @@ public class UserReceiver extends Receiver<User>{
         try {
             Collection<User> tmp = new Collection<>();
             Abstract_file_writer<User> Collection_to_file_writer = new File_writer<>(fileName);
-            Abstract_file_reader<User> Collection_from_file_loader = new File_reader<>(fileName, new UserDescription(), tmp);
+            Abstract_file_reader<User> Collection_from_file_loader = new File_reader<>(fileName, new UserDescription(new UserBuilder()), tmp);
 
             Collection_to_file_writer = new CSV_writer<>(fileName, Collection_to_file_writer);
-            Collection_from_file_loader = new CSV_reader<>(fileName, new UserDescription(), Collection_from_file_loader, tmp);
+            Collection_from_file_loader = new CSV_reader<>(fileName, new UserDescription(new UserBuilder()), Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
         } catch (NullPointerException e){
-            throw new NullPointerException("USERS_FILE is not set");
+            throw e;
         }
     }
     public Result<Boolean> check_login(String login, String password){

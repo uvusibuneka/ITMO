@@ -4,14 +4,12 @@ import common.descriptions.CommandDescription;
 import managers.Invoker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import result.Result;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
 
 public class ConnectionReceiver {
@@ -23,7 +21,6 @@ public class ConnectionReceiver {
         int len = arr.length;
         DatagramSocket ds;
         DatagramPacket dp;
-        InetAddress host;
         try {
             int port = Integer.parseInt(System.getenv("SERVER_PORT"));
             ds = new DatagramSocket(port);
@@ -33,7 +30,6 @@ public class ConnectionReceiver {
             throw new SocketException("Не удалось получить доступ к указанному порту");
         }
 
-        Result<?> res = null;
         InputController inputController = new InputController(ds);
 
         while (true) {

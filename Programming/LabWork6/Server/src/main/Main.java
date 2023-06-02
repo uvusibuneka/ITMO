@@ -30,30 +30,29 @@ public class Main {
                 });
         saving.start();
 
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                System.out.println("Server is closing. Save collections?\n'Y' - yes\n'N' - no");
-                Scanner s = new Scanner(System.in);
-                if (s.nextLine().equalsIgnoreCase("y")) {
-                    try {
-                        new SaveMusicCommand().execute();
-                        new SaveUserCommand().execute();
-                        logger.info("Collections saved");
-                    } catch (Exception e) {
-                        logger.error("Can't save. " + e.getMessage(), e);
-                    }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Server is closing. Save collections?\n'Y' - yes\n'N' - no");
+            Scanner s = new Scanner(System.in);
+            if (s.nextLine().equalsIgnoreCase("y")) {
+                try {
+                    new SaveMusicCommand().execute();
+                    new SaveUserCommand().execute();
+                    logger.info("Collections saved");
+                } catch (Exception e) {
+                    logger.error("Can't save. " + e.getMessage(), e);
                 }
-                logger.info("Server application stopped");
             }
-        });
+            logger.info("Server application stopped");
+        }));
 
         try {
             UserReceiver.GetInstance();
             MusicReceiver.GetInstance();
+            System.out.println("loaded");
             logger.info("Files loaded");
             (new ConnectionReceiver()).run(new Invoker());
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
     }
 }

@@ -41,7 +41,7 @@ public class CSV_Loader extends AbstractLoader {
     }
 
     public  <T extends LoadDescription<?>> T enterComposite(T description) {
-        description.getFields().forEach(field -> field = enterWithMessage(field.getDescription(), field));
+        description.getFields().forEach(this::enter);
         description.build();
         return description;
     }
