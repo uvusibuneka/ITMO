@@ -6,9 +6,9 @@ import result.Result;
 /**
  * Class SaveCommand for saving the collection to a file.
  */
-public class SaveCommand extends Command<MusicReceiver>  {
+public class SaveMusicCommand extends Command<MusicReceiver>  {
 
-    public SaveCommand() throws Exception {
+    public SaveMusicCommand() throws Exception {
         super(MusicReceiver.GetInstance());
     }
 
