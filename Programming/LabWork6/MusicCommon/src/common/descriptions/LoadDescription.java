@@ -5,6 +5,7 @@ import common.builders.Buildable;
 import java.io.Serializable;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class LoadDescription<T> implements Serializable {
 
@@ -13,7 +14,7 @@ public class LoadDescription<T> implements Serializable {
     protected Class<T> type;
     protected Buildable<T> builder;
     protected Function<T, ?> fieldOfDescriptionSetter;
-    protected Function<Buildable<T>, T> build;
+    protected Supplier<T> build;
     protected List<LoadDescription<?>> fields;
 
     public LoadDescription(String description, Function<T, ?> fieldSetter, Buildable<T> builder, Class<T> type) {
@@ -21,6 +22,8 @@ public class LoadDescription<T> implements Serializable {
         this.fieldOfDescriptionSetter = fieldSetter;
         this.builder = builder;
         this.type = type;
+        if (builder != null)
+            this.build = builder::build;
     }
 
     public LoadDescription(Class<T> type){
@@ -55,7 +58,7 @@ public class LoadDescription<T> implements Serializable {
     }
 
     public void build() {
-        value = build.apply(builder);
+        value = build.get();
     }
 
     public void setFieldsOfObject(List<LoadDescription<?>> fields) {

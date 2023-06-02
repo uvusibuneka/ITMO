@@ -10,7 +10,6 @@ import java.util.function.Function;
 
 public class CoordinatesDescription extends LoadDescription<Coordinates> implements Serializable {
     {
-        build = Buildable::build;
         fields = Arrays.asList(
                 new LoadDescription<>("X", new CoordinatesBuilder()::setX, null, Long.class),
                 new LoadDescription<>("Y", (new CoordinatesBuilder())::setY, null, Float.class));
