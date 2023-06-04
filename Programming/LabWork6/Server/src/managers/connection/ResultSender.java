@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 
 public class ResultSender {
     private static final Logger logger = LogManager.getLogger(ResultSender.class);
@@ -18,7 +17,7 @@ public class ResultSender {
     User user;
     DatagramSocket ds;
     DatagramPacket dp;
-    public ResultSender(User user, DatagramSocket ds) throws SocketException {
+    public ResultSender(User user, DatagramSocket ds) {
         this.user = user;
         this.ds = ds;
     }
