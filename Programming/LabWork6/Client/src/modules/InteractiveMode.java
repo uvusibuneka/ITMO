@@ -103,7 +103,7 @@ public class InteractiveMode {
                 if(result.isSuccess()){
                     break;
                 }
-                textReceiver.println(result.getMessage());
+                textReceiver.println(result.getMessage() + result.getError().get());
             } else {
                 textReceiver.println("Unknown command!");
             }
@@ -131,8 +131,7 @@ public class InteractiveMode {
             objectSender.sendObject(registerCommandDescription);
             Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
             if(!packet.isSuccess()){
-                textReceiver.println(String.valueOf(packet.getError().get()));
-                return Result.failure(packet.getError().get(), "Error while sending register command to server, error with server connection.");
+                return Result.failure(packet.getError().get(), packet.getMessage());
             }
 
             Result<?> registerResult = loadCommandDescriptionMap();
