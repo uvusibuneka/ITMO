@@ -11,8 +11,10 @@ import java.nio.channels.DatagramChannel;
 
 public class ObjectSender {
     SocketAddress addr;
-    public ObjectSender(InetAddress host, int port) {
+    DatagramChannel channel;
+    public ObjectSender(InetAddress host, int port, DatagramChannel channel) {
         addr = new InetSocketAddress(host,port);
+        this.channel = channel;
     }
 
     public void sendObject(Object object) throws IOException {
@@ -21,10 +23,7 @@ public class ObjectSender {
         objectStream.writeObject(object);
         objectStream.flush();
         byte[] bytes = byteStream.toByteArray();
-
-        DatagramChannel dc = DatagramChannel.open();
-
         ByteBuffer buf = ByteBuffer.wrap(bytes);
-        dc.send(buf, addr);
+        channel.send(buf, addr);
     }
 }

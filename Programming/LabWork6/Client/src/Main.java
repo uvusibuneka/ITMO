@@ -3,6 +3,7 @@ import modules.*;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
 
 public class Main {
@@ -28,7 +29,7 @@ public class Main {
 
         RequestHandler requestHandler = null;
         try {
-            requestHandler = new RequestHandler(channel, 1024, 6000);
+            requestHandler = new RequestHandler(channel, 4096, 6000);
         } catch (IOException e) {
             textReceiver.println("Error while creating request handler");
             System.exit(0);
@@ -36,7 +37,7 @@ public class Main {
         ConsoleLoader loader = new ConsoleLoader(textReceiver);
 
         try {
-            ObjectSender objectSender = new ObjectSender(InetAddress.getLocalHost(), port);
+            ObjectSender objectSender = new ObjectSender(InetAddress.getLocalHost(), port, channel);
             InteractiveMode.getInstance(textReceiver, loader, requestHandler, objectSender, new CallableManager(requestHandler)).start();
         } catch (Exception e) {
             textReceiver.println("Error while creating object sender");

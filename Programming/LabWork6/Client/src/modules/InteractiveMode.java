@@ -66,7 +66,6 @@ public class InteractiveMode {
             if (!packet.isSuccess()){
                 return Result.failure(packet.getError().get(), "Error while receiving map of commands, error with server connection.");
             }
-
             Result<HashMap<String, CommandDescription>> commandDescriptionMap = deserializeMap(packet.getValue().get());
             if (!commandDescriptionMap.isSuccess()){
                 return Result.failure(commandDescriptionMap.getError().get(), "It is not correct login and password. Try again or use register command.");
@@ -134,11 +133,6 @@ public class InteractiveMode {
     private Result<Void> register() {
         enterLoginData(registerCommandDescription);
         try {
-            objectSender.sendObject(registerCommandDescription);
-            Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
-            if(!packet.isSuccess()){
-                return Result.failure(packet.getError().get(), packet.getMessage());
-            }
             Result<?> registerResult = loadCommandDescriptionMap();
             if (registerResult.isSuccess()) {
                 textReceiver.println("You have successfully registered!");
@@ -172,10 +166,6 @@ public class InteractiveMode {
         enterLoginData(loginCommandDescription);
         try {
             objectSender.sendObject(loginCommandDescription);
-            Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
-            if(!packet.isSuccess()){
-                return packet;
-            }
 
             Result<?> loginResult = loadCommandDescriptionMap();
             if (loginResult.isSuccess()) {
