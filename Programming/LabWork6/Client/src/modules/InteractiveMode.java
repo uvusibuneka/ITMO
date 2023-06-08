@@ -59,14 +59,14 @@ public class InteractiveMode {
 
 
     @SuppressWarnings({"unchecked","OptionalGetWithoutIsPresent"})
-    private Result<Map<String, CommandDescription>> loadCommandDescriptionMap() {
+    private Result<HashMap<String, CommandDescription>> loadCommandDescriptionMap() {
         try {
             Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
             if (!packet.isSuccess()){
                 return Result.failure(packet.getError().get(), "Error while receiving map of commands, error with server connection.");
             }
 
-            Result<Map<String, CommandDescription>> commandDescriptionMap = (Result<Map<String, CommandDescription>>) deserializeMap(packet.getValue().get());
+            Result<HashMap<String, CommandDescription>> commandDescriptionMap = deserializeMap(packet.getValue().get());
             if (!commandDescriptionMap.isSuccess()){
                 return Result.failure(commandDescriptionMap.getError().get(), "It is not correct login and password. Try again or use register command.");
             }
@@ -78,14 +78,19 @@ public class InteractiveMode {
         }
     }
 
-    private Map<String,CommandDescription>deserializeMap(DatagramPacket datagramPacketResult) {
+    private Result<HashMap<String,CommandDescription>> deserializeMap(DatagramPacket datagramPacketResult) {
         try {
             DatagramPacket packet = datagramPacketResult;
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            return (Map<String, CommandDescription>) objectInputStream.readObject();
+            Result<?> result = (Result<?>) objectInputStream.readObject();
+            if (result.isSuccess()) {
+                return (Result<HashMap<String, CommandDescription>>) result;
+            } else {
+                return Result.failure(result.getError().get(), "It is not correct login and password. Try again or use register command.");
+            }
         } catch (Exception e) {
-            return null;
+            return Result.failure(e, "Error while receiving map of commands, error with server connection.");
         }
     }
 
@@ -133,7 +138,6 @@ public class InteractiveMode {
             if(!packet.isSuccess()){
                 return Result.failure(packet.getError().get(), packet.getMessage());
             }
-
             Result<?> registerResult = loadCommandDescriptionMap();
             if (registerResult.isSuccess()) {
                 textReceiver.println("You have successfully registered!");
