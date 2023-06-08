@@ -25,7 +25,14 @@ public class Main {
             textReceiver.println("Error while opening channel");
             System.exit(0);
         }
-        RequestHandler requestHandler = new RequestHandler(channel, 1024, 6000);
+
+        RequestHandler requestHandler = null;
+        try {
+            requestHandler = new RequestHandler(channel, 1024, 6000);
+        } catch (IOException e) {
+            textReceiver.println("Error while creating request handler");
+            System.exit(0);
+        }
         ConsoleLoader loader = new ConsoleLoader(textReceiver);
 
         try {

@@ -10,6 +10,7 @@ import specialDescriptions.HelpDescription;
 import specialDescriptions.HistoryDescription;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.util.*;
@@ -192,6 +193,11 @@ public class InteractiveMode {
     }
 
     public Result<Void> exit() {
+        try {
+            requestHandler.closeChannel();
+        } catch (IOException e) {
+            textReceiver.println("Error while closing channel.");
+        }
         System.exit(0);
         return Result.success(null);
     }
