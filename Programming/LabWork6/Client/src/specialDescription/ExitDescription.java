@@ -1,4 +1,4 @@
-package specialDescriptions;
+package specialDescription;
 
 import callers.specialClientCaller;
 import common.descriptions.CommandDescription;
@@ -8,6 +8,8 @@ import modules.ObjectSender;
 public class ExitDescription extends CommandDescription {
     public ExitDescription(ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("exit");
-        this.setCaller(new specialClientCaller(interactiveMode::exit, this, objectSender));
+        this.setCaller(new specialClientCaller(()->{
+            System.exit(0);
+            }, this, objectSender));
     }
 }

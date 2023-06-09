@@ -1,13 +1,14 @@
 package modules;
 
+import callers.serverCommandCaller;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
 import result.Result;
-import specialDescriptions.ExecuteScriptDescription;
-import specialDescriptions.ExitDescription;
-import specialDescriptions.HelpDescription;
-import specialDescriptions.HistoryDescription;
+import specialDescription.ExecuteScriptDescription;
+import specialDescription.ExitDescription;
+import specialDescription.HelpDescription;
+import specialDescription.HistoryDescription;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class InteractiveMode {
 
     private Map<String, CommandDescription> commandDescriptionMap;
 
+    private ExitDescription exitDescription;
+
     private Map<String, Supplier<Result<?>>> authorizationMap = new HashMap<>();
     private Map<String, CommandDescription> specialCommands = new HashMap<>();
     private ArrayDeque<String> history;
@@ -45,6 +48,7 @@ public class InteractiveMode {
         this.objectSender = objectSender;
         authorizationMap = Map.of("l", this::login, "r", this::register, "q", this::exit);
         specialCommands = Map.of("help", new HelpDescription(objectSender, this), "history", new HistoryDescription(objectSender, this), "execute_script", new ExecuteScriptDescription(callableManager, objectSender, this), "exit", new ExitDescription(objectSender, this));
+        exitDescription = new ExitDescription(objectSender, this);
     }
 
     public static InteractiveMode getInstance(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender, CallableManager callableManager) {
@@ -71,6 +75,7 @@ public class InteractiveMode {
                 return Result.failure(commandDescriptionMap.getError().get(), "It is not correct login and password. Try again or use register command.");
             }
             textReceiver.println("You are authorized!");
+            this.commandDescriptionMap = commandDescriptionMap.getValue().get();
             return commandDescriptionMap;
         } catch (Exception e) {
             textReceiver.println(e.getMessage());
@@ -116,9 +121,19 @@ public class InteractiveMode {
         textReceiver.println("Interactive mode started! Check command help to see available commands.");
         Map<String, CommandDescription> commandDescriptionMap = getCommandDescriptionMap();
         while (true) {
-            CommandDescription command = loader.parseCommand(commandDescriptionMap,
-                    (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue()
-            );
+            CommandDescription command = null;
+            try {
+                command = loader.parseCommand(commandDescriptionMap,
+                        (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue()
+                );
+            } catch (Exception e) {
+                textReceiver.println(e.getMessage());
+            }
+            if(this.isSpecial(command.getName())){
+                command.setCaller(specialCommands.get(command.getName()).getCaller());
+            }else {
+                command.setCaller(new serverCommandCaller(command, objectSender));
+            }
             callableManager.add(command.getCaller());
             Result<?> resultOfExecuting = callableManager.callAll().get(0);
             if (!resultOfExecuting.isSuccess()) {
@@ -188,7 +203,7 @@ public class InteractiveMode {
         } catch (IOException e) {
             textReceiver.println("Error while closing channel.");
         }
-        System.exit(0);
+        exitDescription.getCaller().call();
         return Result.success(null);
     }
 
@@ -206,4 +221,7 @@ public class InteractiveMode {
                 .forEach(commandDescription -> textReceiver.println(commandDescription.getName() + " - " + commandDescription.getDescription()));
     }
 
+    public boolean isSpecial(String name){
+        return specialCommands.containsKey(name);
+    }
 }

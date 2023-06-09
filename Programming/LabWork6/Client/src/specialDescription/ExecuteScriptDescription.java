@@ -1,4 +1,4 @@
-package specialDescriptions;
+package specialDescription;
 
 import callers.specialClientCaller;
 import common.descriptions.CommandDescription;
@@ -14,7 +14,7 @@ import java.util.Deque;
 import java.util.List;
 
 public class ExecuteScriptDescription extends CommandDescription {
-    private static Deque<String> fileNameStack = new ArrayDeque<>();
+    private transient static Deque<String> fileNameStack = new ArrayDeque<>();
 
     public ExecuteScriptDescription(CallableManager callableManager, ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("execute_script");

@@ -1,4 +1,4 @@
-package specialDescriptions;
+package specialDescription;
 
 import callers.specialClientCaller;
 import common.descriptions.CommandDescription;
