@@ -1,5 +1,6 @@
 package specialDescription;
 
+import caller.Caller;
 import callers.specialClientCaller;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
@@ -9,6 +10,7 @@ import modules.InteractiveMode;
 import modules.ObjectSender;
 import result.Result;
 
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -17,9 +19,14 @@ public class ExecuteScriptDescription extends CommandDescription {
     private transient static Deque<String> fileNameStack = new ArrayDeque<>();
 
     public ExecuteScriptDescription(CallableManager callableManager, ObjectSender objectSender, InteractiveMode interactiveMode) {
-        super("execute_script");
+        super("execute_script","Выполнить скрипт из указанного файла.");
 
         this.setCaller(new specialClientCaller(() -> {
+            try {
+                objectSender.sendObject(interactiveMode.getCommandDescriptionMap().get("execute_script"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             String path = (String) this.getArguments().get(0).getValue();
             FileLoader fileLoader = new FileLoader(path);
             if (fileNameStack.contains(path)) {

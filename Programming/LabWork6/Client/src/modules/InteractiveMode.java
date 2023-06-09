@@ -27,9 +27,9 @@ public class InteractiveMode {
     private ObjectSender objectSender;
     private RequestHandler requestHandler;
 
-    private final CommandDescription loginCommandDescription = new CommandDescription("login", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
+    private final CommandDescription loginCommandDescription = new CommandDescription("login", "Вход пользователя", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
 
-    private final CommandDescription registerCommandDescription = new CommandDescription("register", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
+    private final CommandDescription registerCommandDescription = new CommandDescription("register", "Регистрация пользователя",List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
     private boolean isAuthorized = false;
 
     private Map<String, CommandDescription> commandDescriptionMap;
@@ -38,7 +38,7 @@ public class InteractiveMode {
 
     private Map<String, Supplier<Result<?>>> authorizationMap = new HashMap<>();
     private Map<String, CommandDescription> specialCommands = new HashMap<>();
-    private ArrayDeque<String> history;
+    private ArrayDeque<String> history = new ArrayDeque<>();
 
     private InteractiveMode(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender, CallableManager callableManager) {
         this.textReceiver = textReceiver;
@@ -72,13 +72,13 @@ public class InteractiveMode {
             }
             Result<HashMap<String, CommandDescription>> commandDescriptionMap = deserializeMap(packet.getValue().get());
             if (!commandDescriptionMap.isSuccess()){
-                return Result.failure(commandDescriptionMap.getError().get(), "It is not correct login and password. Try again or use register command.");
+                return commandDescriptionMap;
             }
             textReceiver.println("You are authorized!");
             this.commandDescriptionMap = commandDescriptionMap.getValue().get();
+
             return commandDescriptionMap;
         } catch (Exception e) {
-            textReceiver.println(e.getMessage());
             return Result.failure(e, "Error while receiving map of commands, error with server connection.");
         }
     }
@@ -105,6 +105,16 @@ public class InteractiveMode {
 
     public void start() {
 
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if(InteractiveMode.getObject().isAuthorized())
+                try {
+                    exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            System.out.println("Программа завершает работу.");
+        }));
+
         textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
         while (true) {
             String command = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
@@ -128,6 +138,7 @@ public class InteractiveMode {
                 );
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
+                continue;
             }
             if(this.isSpecial(command.getName())){
                 command.setCaller(specialCommands.get(command.getName()).getCaller());
@@ -136,9 +147,10 @@ public class InteractiveMode {
             }
             callableManager.add(command.getCaller());
             Result<?> resultOfExecuting = callableManager.callAll().get(0);
-            if (!resultOfExecuting.isSuccess()) {
-                textReceiver.println(resultOfExecuting.getMessage());
-            } else {
+            textReceiver.println(resultOfExecuting.getMessage());
+            if (resultOfExecuting.isSuccess()) {
+                if(!command.getName().equals("help") && resultOfExecuting.getValue().isPresent())
+                    textReceiver.println(resultOfExecuting.getValue().get().toString());
                 history.add(command.getName());
             }
             callableManager.clear();
@@ -154,7 +166,6 @@ public class InteractiveMode {
                 isAuthorized = true;
                 return Result.success(null);
             } else {
-                textReceiver.println(String.valueOf(registerResult.getError().get()));
                 return Result.failure(registerResult.getError().get(), "Error while receiving map of commands, error with server connection.");
             }
         } catch (Exception e) {
@@ -188,8 +199,7 @@ public class InteractiveMode {
                 isAuthorized = true;
                 return Result.success(null);
             } else {
-                textReceiver.println(String.valueOf(loginResult.getError().get()));
-                return Result.failure(loginResult.getError().get(), "Error while receiving map of commands, error with server connection.");
+                return loginResult;
             }
         } catch (Exception e) {
             textReceiver.println("Error while sending login command to server, error with server connection.");
@@ -203,7 +213,7 @@ public class InteractiveMode {
         } catch (IOException e) {
             textReceiver.println("Error while closing channel.");
         }
-        exitDescription.getCaller().call();
+        System.exit(0);
         return Result.success(null);
     }
 

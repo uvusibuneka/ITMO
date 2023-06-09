@@ -19,7 +19,7 @@ public class serverCommandCaller extends Caller {
     @Override
     public void call() {
         try {
-            objectSender.sendObject(commandDescription);
+            objectSender.sendObject((CommandDescription)commandDescription);
         } catch (IOException e) {
             throw new RuntimeException("Error while sending command description", e);
         }

@@ -58,6 +58,8 @@ public class ConsoleLoader extends AbstractLoader {
             if(commandDescription.getArguments() == null) {
                 return commandDescription;
             }
+
+
             commandDescription.getArguments()
                     .stream()
                     .forEach(loadDescription -> {

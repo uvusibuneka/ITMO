@@ -1,3 +1,4 @@
+import common.descriptions.CommandDescription;
 import loaders.ConsoleLoader;
 import modules.*;
 
@@ -7,16 +8,7 @@ import java.nio.channels.DatagramChannel;
 
 public class Main {
     public static void main(String[] args) {
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Программа завершает работу.");
-            try {
-                InteractiveMode.getObject().exit();
-            } catch (Exception e) {
-                System.out.println("Программа не смогла корректно завершить работу.");
-            }
-        }));
-            int port = 0;
+        int port = 0;
         try {
             port = Integer.parseInt(System.getenv("PORT"));
         }catch (NumberFormatException e){
