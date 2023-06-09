@@ -213,6 +213,7 @@ public class InteractiveMode {
         } catch (IOException e) {
             textReceiver.println("Error while closing channel.");
         }
+        isAuthorized = false;
         System.exit(0);
         return Result.success(null);
     }
