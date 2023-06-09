@@ -58,10 +58,10 @@ public class InputController {
             } else if (rs.user.getPort() == dp.getPort() && rs.user.getHost() == dp.getAddress()) {
                 if (cd.getName().equals("exit")) {
                     close_client();
+                } else {
+                    RESULT = invoker.executeCommand(cd.getName(), cd);
+                    rs.send(RESULT);
                 }
-
-                RESULT = invoker.executeCommand(cd.getName(), cd);
-                rs.send(RESULT);
             } else {
                 RESULT = Result.failure(new Exception(""), "Занят занят работой с другим клиентом");
                 ResultSender tmp_sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
