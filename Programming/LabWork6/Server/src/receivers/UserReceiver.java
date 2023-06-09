@@ -12,8 +12,6 @@ import managers.user.UserBuilder;
 import managers.user.UserDescription;
 import result.Result;
 
-import java.io.FileNotFoundException;
-
 public class UserReceiver extends Receiver<User>{
     private static UserReceiver instance;
 

@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final Logger logger = LogManager.getLogger(Main.class);
+    public static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
         var saving = new Timer(600000, //every 10 minutes
@@ -48,7 +48,6 @@ public class Main {
         try {
             UserReceiver.GetInstance();
             MusicReceiver.GetInstance();
-            System.out.println("loaded");
             logger.info("Files loaded");
             (new ConnectionReceiver()).run(new Invoker());
         } catch (Exception e) {

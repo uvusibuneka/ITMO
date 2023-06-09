@@ -8,8 +8,7 @@ package managers;
 import common.Album;
 import common.MusicBand;
 import common.descriptions.CommandDescription;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import main.Main;
 import receivers.*;
 import result.Result;
 import commands.*;
@@ -18,7 +17,6 @@ import java.util.*;
 import java.util.function.Function;
 
 public class Invoker {
-    private static final Logger logger = LogManager.getLogger(Invoker.class);
 
     private final Map<String, Function<CommandDescription, Result<Command<MusicReceiver>>>> command_creators;
 
@@ -59,10 +57,10 @@ public class Invoker {
                 return Result.failure(r.getError().get(), r.getMessage()); //если по неизвестной причине MusicReceiver, инициализированный в Main, при GetInstance кинет исключение
         }
         if (commandObj != null) {
-            logger.info("Command " + name + " executing started");
+            Main.logger.info("Command " + name + " executing started");
             return commandObj.execute();
         } else {
-            logger.error("Wrong command income");
+            Main.logger.error("Wrong command income");
             return Result.failure(new Exception("Команда не найдена"));
         }
     }

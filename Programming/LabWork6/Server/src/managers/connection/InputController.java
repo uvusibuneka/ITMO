@@ -4,10 +4,9 @@ import commands.HelpCommand;
 import commands.LoginCommand;
 import commands.RegisterCommand;
 import common.descriptions.CommandDescription;
+import main.Main;
 import managers.Invoker;
 import managers.user.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import result.Result;
 
 import java.net.DatagramPacket;
@@ -18,7 +17,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 public class InputController {
-    private static final Logger logger = LogManager.getLogger(InputController.class);
 
     private final int DISCONNECTING_TIMEOUT = 5;
 
@@ -35,7 +33,7 @@ public class InputController {
     }
 
     public void parse(CommandDescription cd, Invoker invoker, DatagramPacket dp) {
-        logger.info("Incoming request");
+        Main.logger.info("Incoming request");
         Result<?> RESULT = null;
         if (user_connection_commands.containsKey(cd.getName())) {
             if (cd.getOneLineArguments().size() == 2)
@@ -46,14 +44,14 @@ public class InputController {
                         dp.getPort()
                 ), dp);
             else {
-                logger.error("Incorrect request");
+                Main.logger.error("Incorrect request");
                 ResultSender tmp_sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
                 RESULT = Result.failure(new Exception(""), "Ожидается ввод только 2 аргументов: логина и пароля");
                 tmp_sender.send(RESULT);
             }
         } else {
             if (rs == null) {
-                logger.error("Incorrect request: user didn't login");
+                Main.logger.error("Incorrect request: user didn't login");
                 RESULT = Result.failure(new Exception(""), "Войдите в систему");
                 ResultSender tmp_sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
                 tmp_sender.send(RESULT);
@@ -83,7 +81,7 @@ public class InputController {
                         close_client();
                     }
                     rs = new ResultSender(user, ds);
-                    logger.info("New user connected");
+                    Main.logger.info("New user connected");
                     rs.send(Result.success(new HelpCommand().execute().getValue().get(), "Вход выполнен успешно"));
                 } else {
                     sender.send(Result.failure(new Exception(), "Логин или пароль неверны"));
@@ -91,7 +89,7 @@ public class InputController {
             } else
                 sender.send(Result.failure(new Exception(), "Сервер занят занят работой с другим клиентом"));
         } catch (Exception e) {
-            logger.error(e.getMessage(), e); //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
+            Main.logger.error(e.getMessage(), e); //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
         }
         return null;
     }
@@ -101,20 +99,20 @@ public class InputController {
         try {
             Result<Void> r = new RegisterCommand(user).execute();
             if (r.isSuccess()) {
-                logger.info("New user registered");
+                Main.logger.info("New user registered");
                 sender.send(Result.success(null, "Регистрация проведена. Теперь можно войти с этим же аккаунтом"));
             } else {
-                logger.error(r.getMessage());
+                Main.logger.error(r.getMessage());
                 sender.send(Result.failure(r.getError().get(), r.getMessage()));
             }
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);   //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
+            Main.logger.error(e.getMessage(), e);   //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
         }
         return null;
     }
 
     public void close_client() {
-        logger.info("User disconnected");
+        Main.logger.info("User disconnected");
         rs = null;
     }
 }

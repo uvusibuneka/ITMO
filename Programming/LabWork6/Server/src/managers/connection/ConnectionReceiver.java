@@ -1,9 +1,8 @@
 package managers.connection;
 
 import common.descriptions.CommandDescription;
+import main.Main;
 import managers.Invoker;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.net.SocketException;
 
 public class ConnectionReceiver {
 
-    private static final Logger logger = LogManager.getLogger(ConnectionReceiver.class);
 
     public void run(Invoker invoker) throws SocketException, NumberFormatException {
         byte[] arr = new byte[1024];
@@ -33,7 +31,7 @@ public class ConnectionReceiver {
         InputController inputController = new InputController(ds);
 
         while (true) {
-            logger.info("Listening started");
+            Main.logger.info("Listening started");
             dp = new DatagramPacket(arr, len);
             try {
                 ds.receive(dp);
@@ -43,7 +41,7 @@ public class ConnectionReceiver {
 
                 inputController.parse(cd, invoker, dp);
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println(e.getMessage());
+                Main.logger.error(e.getMessage(), e);
             }
         }
     }
