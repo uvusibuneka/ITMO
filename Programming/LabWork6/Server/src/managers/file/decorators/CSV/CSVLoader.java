@@ -5,12 +5,12 @@ import managers.AbstractLoader;
 import managers.AbstractParser;
 import managers.BaseTextReceiver;
 
-public class CSV_Loader extends AbstractLoader {
+public class CSVLoader extends AbstractLoader {
     private final String[] CSV_row;
     private int i;
     private final AbstractParser parser;
 
-    public CSV_Loader(BaseTextReceiver textReceiver, String CSV_row) {
+    public CSVLoader(BaseTextReceiver textReceiver, String CSV_row) {
         super(textReceiver);
         this.CSV_row = CSV_row.split(",");
         i = 0;

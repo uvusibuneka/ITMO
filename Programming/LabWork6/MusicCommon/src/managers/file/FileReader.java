@@ -7,8 +7,8 @@ import result.Result;
 
 import java.io.FileNotFoundException;
 
-public class File_reader<T extends Comparable<T> &IDAccess> extends Abstract_file_reader<T>{
-    public File_reader(String fileName, LoadDescription<T> load_description, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
+public class FileReader<T extends Comparable<T> &IDAccess> extends AbstractFileReader<T> {
+    public FileReader(String fileName, LoadDescription<T> load_description, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
         super(fileName, load_description, collection);
     }
 

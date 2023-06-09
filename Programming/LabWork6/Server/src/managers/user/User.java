@@ -1,14 +1,14 @@
 package managers.user;
 
 
-import managers.file.CSV_savable;
+import managers.file.CSVSavable;
 import common.IDAccess;
 import result.Result;
 
 import java.net.InetAddress;
 import java.time.LocalDateTime;
 
-public class User implements Comparable<User>, IDAccess, CSV_savable {
+public class User implements Comparable<User>, IDAccess, CSVSavable {
     private static long idCounter = 0;
     long id;
     String login;

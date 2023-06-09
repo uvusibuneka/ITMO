@@ -1,10 +1,10 @@
 package managers.file.decorators.CSV;
 
-import managers.file.CSV_savable;
-import managers.file.decorators.Reader_decorator;
+import managers.file.CSVSavable;
+import managers.file.decorators.ReaderDecorator;
 import common.Collection;
 import common.IDAccess;
-import managers.file.Abstract_file_reader;
+import managers.file.AbstractFileReader;
 import common.descriptions.LoadDescription;
 import managers.BaseTextReceiver;
 import result.Result;
@@ -13,8 +13,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class CSV_reader<T extends Comparable<T> & IDAccess & CSV_savable> extends Reader_decorator<T> {
-    public CSV_reader(String fileName, LoadDescription<T> load_description, Abstract_file_reader<T> reader, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
+public class CSVReader<T extends Comparable<T> & IDAccess & CSVSavable> extends ReaderDecorator<T> {
+    public CSVReader(String fileName, LoadDescription<T> load_description, AbstractFileReader<T> reader, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
         super(fileName, load_description, reader, collection);
     }
 
@@ -27,7 +27,7 @@ public class CSV_reader<T extends Comparable<T> & IDAccess & CSV_savable> extend
             while (true) {
                 line = buffered_reader.readLine();
                 if (!(line == null || line.equals(""))) {
-                    CSV_Loader loader = new CSV_Loader(new BaseTextReceiver() {
+                    CSVLoader loader = new CSVLoader(new BaseTextReceiver() {
                         @Override
                         public void print(String message) {
                         }

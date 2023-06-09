@@ -9,12 +9,12 @@ import result.Result;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public abstract class Abstract_file_reader<T extends Comparable<T> & IDAccess> {
+public abstract class AbstractFileReader<T extends Comparable<T> & IDAccess> {
     protected Collection<T> collection;
     protected File file;
     protected LoadDescription<T> load_description;
 
-    public Abstract_file_reader(String fileName, LoadDescription<T> load_description, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
+    public AbstractFileReader(String fileName, LoadDescription<T> load_description, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
         this.load_description = load_description;
         this.collection = collection;
 

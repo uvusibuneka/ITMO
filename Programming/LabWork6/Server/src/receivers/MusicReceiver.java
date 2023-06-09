@@ -1,19 +1,18 @@
 package receivers;
 
 import main.Main;
-import managers.file.Abstract_file_reader;
-import managers.file.Abstract_file_writer;
-import managers.file.File_reader;
-import managers.file.File_writer;
-import managers.file.decorators.CSV.CSV_reader;
-import managers.file.decorators.CSV.CSV_writer;
+import managers.file.AbstractFileReader;
+import managers.file.AbstractFileWriter;
+import managers.file.FileReader;
+import managers.file.FileWriter;
+import managers.file.decorators.CSV.CSVReader;
+import managers.file.decorators.CSV.CSVWriter;
 import common.Album;
 import common.Collection;
 import common.MusicBand;
 import common.descriptions.MusicBandDescription;
 import result.Result;
 
-import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -50,11 +49,11 @@ public class MusicReceiver extends Receiver<MusicBand> {
         String fileName = System.getenv("FILE_NAME");
         try {
             Collection<MusicBand> tmp = new Collection<>();
-            Abstract_file_writer<MusicBand> Collection_to_file_writer = new File_writer<>(fileName);
-            Abstract_file_reader<MusicBand> Collection_from_file_loader = new File_reader<>(fileName, new MusicBandDescription(), tmp);
+            AbstractFileWriter<MusicBand> Collection_to_file_writer = new FileWriter<>(fileName);
+            AbstractFileReader<MusicBand> Collection_from_file_loader = new FileReader<>(fileName, new MusicBandDescription(), tmp);
 
-            Collection_to_file_writer = new CSV_writer<>(fileName, Collection_to_file_writer);
-            Collection_from_file_loader = new CSV_reader<>(fileName, new MusicBandDescription(), Collection_from_file_loader, tmp);
+            Collection_to_file_writer = new CSVWriter<>(fileName, Collection_to_file_writer);
+            Collection_from_file_loader = new CSVReader<>(fileName, new MusicBandDescription(), Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
         } catch (NullPointerException e){

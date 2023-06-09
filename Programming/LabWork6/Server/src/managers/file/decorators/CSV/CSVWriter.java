@@ -1,20 +1,18 @@
 package managers.file.decorators.CSV;
 
 import main.Main;
-import managers.file.CSV_savable;
-import managers.file.decorators.Writer_decorator;
+import managers.file.CSVSavable;
+import managers.file.decorators.WriterDecorator;
 import common.IDAccess;
-import managers.file.Abstract_file_writer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import managers.file.AbstractFileWriter;
 import result.Result;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CSV_writer<T extends Comparable<T> & IDAccess & CSV_savable> extends Writer_decorator<T> {
-    public CSV_writer(String fileName, Abstract_file_writer<T> writer) throws IOException, NullPointerException, SecurityException {
+public class CSVWriter<T extends Comparable<T> & IDAccess & CSVSavable> extends WriterDecorator<T> {
+    public CSVWriter(String fileName, AbstractFileWriter<T> writer) throws IOException, NullPointerException, SecurityException {
         super(fileName, writer);
     }
 

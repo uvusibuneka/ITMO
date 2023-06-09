@@ -5,10 +5,10 @@ import common.IDAccess;
 
 import java.io.*;
 
-public abstract class Abstract_file_writer<T extends Comparable<T> & IDAccess> {
+public abstract class AbstractFileWriter<T extends Comparable<T> & IDAccess> {
     protected Collection<T> collection;
     protected File file;
-    public Abstract_file_writer(String fileName) throws IOException, NullPointerException, SecurityException {
+    public AbstractFileWriter(String fileName) throws IOException, NullPointerException, SecurityException {
 
         if (fileName == null) {
             throw new NullPointerException("FILE_NAME is not set");
