@@ -1,9 +1,11 @@
 package commands;
 
 import common.Album;
+import common.descriptions.AlbumDescription;
 import common.descriptions.CommandDescription;
 import common.MusicBand;
 import common.descriptions.LoadDescription;
+import common.descriptions.MusicBandDescription;
 import receivers.MusicReceiver;
 import result.Result;
 
@@ -27,14 +29,14 @@ public class HelpCommand extends Command<MusicReceiver> {
         commands.put("history", new CommandDescription("history", "История введенных команд"));
         commands.put("max_by_best_album", new CommandDescription("max_by_best_album", "Получить MusicBand за наилучшим Album"));
 
-        object_arguments.add(new LoadDescription<>(MusicBand.class));
+        object_arguments.add(new MusicBandDescription());
         commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, object_arguments));
         commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, object_arguments));
         commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, object_arguments));
         object_arguments.clear();
 
         inline_arguments.add(new LoadDescription<>(Integer.class));
-        object_arguments.add(new LoadDescription<>(MusicBand.class));
+        object_arguments.add(new MusicBandDescription());
         commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", inline_arguments, object_arguments));
         object_arguments.clear();
         inline_arguments.clear();
@@ -47,7 +49,7 @@ public class HelpCommand extends Command<MusicReceiver> {
         commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", inline_arguments, null));
         inline_arguments.clear();
 
-        object_arguments.add(new LoadDescription<>(Album.class));
+        object_arguments.add(new AlbumDescription());
         commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, object_arguments));
         object_arguments.clear();
     }

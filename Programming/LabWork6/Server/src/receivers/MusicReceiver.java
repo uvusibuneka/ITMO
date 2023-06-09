@@ -67,10 +67,8 @@ public class MusicReceiver extends Receiver<MusicBand> {
      *
      * @return объект {@link Result} с ответом
      */
-    public Result<MusicBand[]> showElementsOfCollection() {
-        MusicBand[] arr = new MusicBand[0];
-        arr = collection.getCollection().toArray(arr);
-        return Result.success(arr);
+    public Result<Collection<MusicBand>> showElementsOfCollection() {
+        return Result.success(collection);
     }
 
     /**
