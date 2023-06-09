@@ -11,16 +11,17 @@ public class CommandDescription  implements Serializable, Cloneable{
     private List<LoadDescription<?>> arguments;
     protected transient Caller caller;
 
-    public CommandDescription(String name, List<LoadDescription<?>> oneLineArguments) {
-        this(name, oneLineArguments, null);
+    public CommandDescription(String name, String description, List<LoadDescription<?>> oneLineArguments) {
+        this(name, description, oneLineArguments, null);
     }
 
-    public CommandDescription(String name) {
-        this(name, null, null);
+    public CommandDescription(String name, String description) {
+        this(name, description, null, null);
     }
 
-    public CommandDescription(String name, List<LoadDescription<?>> oneLineArguments, List<LoadDescription<?>> arguments) {
+    public CommandDescription(String name, String description, List<LoadDescription<?>> oneLineArguments, List<LoadDescription<?>> arguments) {
         this.name = name;
+        this.description = description;
         this.oneLineArguments = oneLineArguments;
         this.arguments = arguments;
     }
