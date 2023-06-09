@@ -115,7 +115,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      *
      * @return a Result object that indicates the status of the display operation.
      */
-    public abstract Result<T[]> showElementsOfCollection();
+    public abstract Result<Collection<T>> showElementsOfCollection();
 
     /**
      * Abstract method for updating an element of the collection by ID.

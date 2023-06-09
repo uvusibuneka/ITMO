@@ -58,9 +58,7 @@ public class UserReceiver extends Receiver<User>{
     }
 
     @Override
-    public Result<User[]> showElementsOfCollection() {
-        User[] arr = new User[0];
-        arr = collection.getCollection().toArray(arr);
-        return Result.success(arr);
+    public Result<Collection<User>> showElementsOfCollection() {
+        return Result.success(collection);
     }
 }
