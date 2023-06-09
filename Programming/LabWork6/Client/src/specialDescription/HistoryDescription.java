@@ -16,9 +16,8 @@ public class HistoryDescription extends CommandDescription {
             @Override
             public void call() {
                 try {
-                    objectSender.sendObject(interactiveMode.getCommandDescriptionMap().get("history"));
                     runnable.run();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
 

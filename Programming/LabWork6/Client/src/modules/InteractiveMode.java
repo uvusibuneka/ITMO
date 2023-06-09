@@ -123,7 +123,7 @@ public class InteractiveMode {
                 if(result.isSuccess()){
                     break;
                 }
-                textReceiver.println(result.getMessage() + result.getError().get());
+                textReceiver.println(result.getMessage());
             } else {
                 textReceiver.println("Unknown command!");
             }
