@@ -1,15 +1,13 @@
 package receivers;
 
 import common.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import main.Main;
 import result.Result;
 
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public abstract class Receiver<T extends Comparable<T> & IDAccess> {
-    private static final Logger logger = LogManager.getLogger(Receiver.class);
     Collection<T> collection;
 
     /**
@@ -21,7 +19,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
         try {
             Result<Void> addResult = collection.add(obj);
             if (addResult.isSuccess()) {
-                System.out.println("New element successfully added to collection");
+                Main.logger.info("New element successfully added to collection");
                 return Result.success(null, "New element successfully added to collection");
             } else {
                 return Result.failure(addResult.getError().orElse(null), addResult.getMessage());
@@ -39,10 +37,10 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
     public Result<Void> clear() {
         Result<Void> result = collection.clear();
         if (result.isSuccess()) {
-            logger.info("Collection cleared");
+            Main.logger.info("Collection cleared");
             return Result.success(null, "Collection successfully cleared");
         } else {
-            logger.error("Collection wasn't cleared. " + result.getMessage());
+            Main.logger.error("Collection wasn't cleared. " + result.getMessage());
             return Result.failure(result.getError().orElse(null), result.getMessage());
         }
     }
@@ -72,7 +70,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
                     .filter((T band) -> band.getID() != id)
                     .collect(Collectors.toCollection(TreeSet::new))
             );
-            logger.info("Element removed");
+            Main.logger.info("Element removed");
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Error with removing element");
@@ -88,7 +86,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
     public Result<Void> removeGreater(T element) {
         Result<Void> removeGreaterResult = collection.removeGreater(element);
         if (removeGreaterResult.isSuccess()) {
-            logger.info("Element removed");
+            Main.logger.info("Element removed");
             return Result.success(null);
         } else {
             return Result.failure(new Exception("Greater elements are not found"));
@@ -127,7 +125,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
     public Result<Void> updateById(long id, T newElement) {
         try {
             if (findById(id) == null) {
-                logger.info("No such element");
+                Main.logger.info("No such element");
                 return Result.failure(new Exception("Element with such ID is not found"), "Element with such ID is not found");
             }
 
@@ -136,18 +134,18 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
                 newElement.setID(id);
                 result = collection.add(newElement);
                 if (result.isSuccess()) {
-                    logger.info("Element updated");
+                    Main.logger.info("Element updated");
                     return Result.success(null, "Element successfully updated");
                 } else {
-                    logger.info("Element just removed");
+                    Main.logger.info("Element just removed");
                     return Result.failure(result.getError().get(), result.getMessage());
                 }
             } else {
-                logger.info("Element didn't change");
+                Main.logger.info("Element didn't change");
                 return Result.failure(result.getError().get(), result.getMessage());
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            Main.logger.error(e.getMessage());
             return Result.failure(e, "Error with executing updateById command");
         }
     }

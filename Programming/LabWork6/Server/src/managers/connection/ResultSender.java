@@ -1,8 +1,7 @@
 package managers.connection;
 
+import main.Main;
 import managers.user.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import result.Result;
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +11,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 public class ResultSender {
-    private static final Logger logger = LogManager.getLogger(ResultSender.class);
 
     User user;
     DatagramSocket ds;
@@ -34,15 +32,15 @@ public class ResultSender {
             dp = new DatagramPacket(arr, arr.length, user.getHost(), user.getPort());
             ds.send(dp);
             user.refreshLastActivity();
-            logger.info("Result sent to user");
+            Main.logger.info("Result sent to user. Message: "+to_send.getMessage());
         } catch (IOException e) {
-            logger.error("Error with sending");
+            Main.logger.error(e.getMessage(), e);
             dp = new DatagramPacket("Ошибка отправки ответа".getBytes(), "Ошибка отправки ответа".getBytes().length, user.getHost(), user.getPort());
             try {
                 ds.send(dp);
                 user.refreshLastActivity();
             } catch (IOException ex) {
-                logger.error("Error with sending message about error");
+                Main.logger.error("Error with sending message about error");
             }
         }
     }
