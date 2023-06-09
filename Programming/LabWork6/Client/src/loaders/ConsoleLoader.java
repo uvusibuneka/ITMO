@@ -48,7 +48,7 @@ public class ConsoleLoader extends AbstractLoader {
                         .forEach(i -> finalCommandDescription.getOneLineArguments()
                                 .get(i)
                                 .setValue(
-                                        parse(commandParts.get(i),
+                                        parse(commandParts.get(i+1),
                                                 finalCommandDescription.getOneLineArguments()
                                                         .get(i)
                                                         .getType()
@@ -63,7 +63,7 @@ public class ConsoleLoader extends AbstractLoader {
             commandDescription.getArguments()
                     .stream()
                     .forEach(loadDescription -> {
-                        loadDescription = enterWithMessage("Enter arguments of command according to description:\"" + loadDescription.getDescription() +  "\"",loadDescription);
+                        enterWithMessage("Enter arguments of command according to description:\"" + loadDescription.getDescription() +  "\"",loadDescription);
                     });
             return commandDescription;
         } else {
