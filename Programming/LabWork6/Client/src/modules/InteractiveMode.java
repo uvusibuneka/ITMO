@@ -155,7 +155,7 @@ public class InteractiveMode {
             textReceiver.println(resultOfExecuting.getMessage());
             if (resultOfExecuting.isSuccess()) {
                 if(!command.getName().equals("help") && resultOfExecuting.getValue().isPresent())
-                    textReceiver.println(resultOfExecuting.getValue().get().toString());
+                    textReceiver.println(resultOfExecuting.getValue().get());
                 history.add(command.getName());
             }
             callableManager.clear();

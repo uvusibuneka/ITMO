@@ -40,7 +40,6 @@ public class ConsoleLoader extends AbstractLoader {
                     throw new RuntimeException("Wrong number of arguments!");
                 }
             }
-
             if(commandDescription.getOneLineArguments() != null) {
                 IntStream.range(0, commandDescription.getOneLineArguments().size())
                         .forEach(i -> commandDescription.getOneLineArguments()

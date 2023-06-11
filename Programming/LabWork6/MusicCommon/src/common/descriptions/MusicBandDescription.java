@@ -16,10 +16,10 @@ import java.util.function.Function;
 public class MusicBandDescription extends LoadDescription<MusicBand> implements Serializable {
     {
         fields = Arrays.asList(new LoadDescription<>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
-                new LoadDescription<>("Coordinates", (new MusicBandBuilder())::setCoordinates, new CoordinatesBuilder(), Coordinates.class),
+                new CoordinatesDescription(),
                 new LoadDescription<>("Creation Date", (new MusicBandBuilder())::setCreationDate, null, LocalDate.class),
                 new LoadDescription<>("Number of participants", (new MusicBandBuilder())::setNumberOfParticipants, null, Long.class),
-                new LoadDescription<>("Best Album", (new MusicBandBuilder())::setBestAlbum, new AlbumBuilder(), Album.class),
+                new AlbumDescription(),
                 new LoadDescription<>("Genre", (new MusicBandBuilder())::setGenre, null, MusicGenre.class));
     }
 

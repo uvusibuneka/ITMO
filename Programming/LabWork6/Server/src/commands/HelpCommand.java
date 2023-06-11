@@ -11,6 +11,7 @@ import result.Result;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HelpCommand extends Command<MusicReceiver> {
     HashMap<String, CommandDescription> commands;
@@ -29,29 +30,17 @@ public class HelpCommand extends Command<MusicReceiver> {
         commands.put("history", new CommandDescription("history", "История введенных команд"));
         commands.put("max_by_best_album", new CommandDescription("max_by_best_album", "Получить MusicBand за наилучшим Album"));
 
-        object_arguments.add(new MusicBandDescription());
-        commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, object_arguments));
-        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, object_arguments));
-        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, object_arguments));
-        object_arguments.clear();
+        commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, List.of(new MusicBandDescription())));
+        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, List.of(new MusicBandDescription())));
+        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, List.of(new MusicBandDescription())));
 
-        inline_arguments.add(new LoadDescription<>(Integer.class));
-        object_arguments.add(new MusicBandDescription());
-        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", inline_arguments, object_arguments));
-        object_arguments.clear();
-        inline_arguments.clear();
+        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", List.of(new LoadDescription<>(Integer.class)), List.of(new MusicBandDescription())));
 
-        inline_arguments.add(new LoadDescription<>(Integer.class));
-        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции", inline_arguments, null));
-        inline_arguments.clear();
+        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции",List.of(new LoadDescription<>(Integer.class)), null));
 
-        inline_arguments.add(new LoadDescription<>(String.class));
-        commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", inline_arguments, null));
-        inline_arguments.clear();
+        commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", List.of(new LoadDescription<>(String.class)), null));
 
-        object_arguments.add(new AlbumDescription());
-        commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, object_arguments));
-        object_arguments.clear();
+        commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, List.of(new AlbumDescription())));
     }
     @Override
     public Result<HashMap<String, CommandDescription>> execute() {

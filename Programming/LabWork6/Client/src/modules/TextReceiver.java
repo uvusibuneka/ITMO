@@ -11,6 +11,10 @@ public class TextReceiver implements BaseTextReceiver {
     public void println(String message) {
         print(message + "\n");
     }
+    public void println(Object o) {
+        print(o);
+        println("");
+    }
 
     public void print(Object object) {
         if(object instanceof Collection)
