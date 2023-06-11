@@ -8,8 +8,9 @@ import result.Result;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 
-public abstract class AbstractFileReader<T extends Comparable<T> & IDAccess> {
+public abstract class AbstractFileReader<T extends Comparable<T> & IDAccess> implements Serializable {
     protected Collection<T> collection;
     protected File file;
     protected LoadDescription<T> load_description;

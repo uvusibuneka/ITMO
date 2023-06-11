@@ -5,7 +5,7 @@ import common.IDAccess;
 
 import java.io.*;
 
-public abstract class AbstractFileWriter<T extends Comparable<T> & IDAccess> {
+public abstract class AbstractFileWriter<T extends Comparable<T> & IDAccess> implements Serializable {
     protected Collection<T> collection;
     protected File file;
     public AbstractFileWriter(String fileName) throws IOException, NullPointerException, SecurityException {

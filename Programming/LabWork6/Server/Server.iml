@@ -10,5 +10,6 @@
     <orderEntry type="library" exported="" name="MusicCommon" level="project" />
     <orderEntry type="library" name="apache.logging.log4j.api" level="application" />
     <orderEntry type="library" name="apache.logging.log4j.core" level="application" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
