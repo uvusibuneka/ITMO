@@ -19,8 +19,6 @@ public class HelpCommand extends Command<MusicReceiver> {
     public HelpCommand() throws Exception{
         super(MusicReceiver.GetInstance());
         commands = new HashMap<>();
-        ArrayList<LoadDescription<?>> inline_arguments = new ArrayList<>();
-        ArrayList<LoadDescription<?>> object_arguments = new ArrayList<>();
 
         commands.put("info", new CommandDescription("info", "Получить информацию о коллекции"));
         commands.put("show", new CommandDescription("show", "Получить элементы коллекции"));
