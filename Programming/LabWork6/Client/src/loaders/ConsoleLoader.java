@@ -1,17 +1,16 @@
 package loaders;
 
+import common.descriptions.CommandDescription;
+import common.descriptions.LoadDescription;
+import managers.AbstractLoader;
+import managers.BaseTextReceiver;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
-
-import common.descriptions.CommandDescription;
-import common.descriptions.LoadDescription;
-import managers.AbstractLoader;
-import managers.BaseTextReceiver;
-import modules.InteractiveMode;
 
 public class ConsoleLoader extends AbstractLoader {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -26,7 +25,7 @@ public class ConsoleLoader extends AbstractLoader {
             throw new RuntimeException("Command is empty!");
         }
         if (commandDescriptionMap.containsKey(commandParts.get(0))) {
-            CommandDescription commandDescription = null;
+            CommandDescription commandDescription;
             try {
                 commandDescription = commandDescriptionMap.get(commandParts.get(0)).clone();
             } catch (CloneNotSupportedException e) {
@@ -41,15 +40,14 @@ public class ConsoleLoader extends AbstractLoader {
                     throw new RuntimeException("Wrong number of arguments!");
                 }
             }
-            
+
             if(commandDescription.getOneLineArguments() != null) {
-                CommandDescription finalCommandDescription = commandDescription;
                 IntStream.range(0, commandDescription.getOneLineArguments().size())
-                        .forEach(i -> finalCommandDescription.getOneLineArguments()
+                        .forEach(i -> commandDescription.getOneLineArguments()
                                 .get(i)
                                 .setValue(
                                         parse(commandParts.get(i+1),
-                                                finalCommandDescription.getOneLineArguments()
+                                                commandDescription.getOneLineArguments()
                                                         .get(i)
                                                         .getType()
                                         )
@@ -61,7 +59,6 @@ public class ConsoleLoader extends AbstractLoader {
 
 
             commandDescription.getArguments()
-                    .stream()
                     .forEach(loadDescription -> {
                         enterWithMessage("Enter arguments of command according to description:\"" + loadDescription.getDescription() +  "\"",loadDescription);
                     });
@@ -82,7 +79,7 @@ public class ConsoleLoader extends AbstractLoader {
 
         while (true) {
             try {
-                return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), s));
+                return (T) t.setValue(Enum.valueOf(t.getType(), s));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }

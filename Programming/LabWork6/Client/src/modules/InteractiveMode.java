@@ -142,6 +142,7 @@ public class InteractiveMode {
             }
             if(this.isSpecial(command.getName())){
                 command.setCaller(specialCommands.get(command.getName()).getCaller());
+                callableManager.addSpecial(specialCommands.get(command.getName()).getCaller());
             }else {
                 command.setCaller(new ServerCommandCaller(command, objectSender));
             }
@@ -185,7 +186,9 @@ public class InteractiveMode {
     }
 
     public void history() {
-        history.stream().limit(6).forEach(textReceiver::println);
+        history.stream()
+                .limit(6)
+                .forEach(textReceiver::println);
     }
 
     private Result<?> login() {

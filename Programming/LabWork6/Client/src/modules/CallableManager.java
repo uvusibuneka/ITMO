@@ -15,6 +15,7 @@ import java.util.Map;
 public class CallableManager {
     private List<Caller> callers = new ArrayList<>();
     private RequestHandler requestHandler;
+    private List<Caller> specialCallers;
 
     public CallableManager(RequestHandler requestHandler) {
         this.requestHandler = requestHandler;
@@ -24,12 +25,19 @@ public class CallableManager {
         callers.add(caller);
     }
 
+    public void addSpecial(Caller caller){
+        if(!specialCallers.contains(caller))
+            specialCallers.add(caller);
+    }
+
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public List<Result<?>> callAll() {
         List<Result<?>> results = new ArrayList<>();
         for(Caller caller : callers){
             try {
                 caller.call();
+                if(specialCallers.contains(caller))
+                    continue;
                 Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
                 if (!packet.isSuccess()){
                     results.add(Result.failure(packet.getError().get()));
