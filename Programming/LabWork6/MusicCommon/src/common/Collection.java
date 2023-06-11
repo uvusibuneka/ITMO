@@ -21,8 +21,8 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
 
     private LocalDate initializationDate;
 
-    public AbstractFileWriter<T> Collection_to_file_writer;
-    public AbstractFileReader<T> Collection_from_file_loader;
+    public transient AbstractFileWriter<T> Collection_to_file_writer;
+    public transient AbstractFileReader<T> Collection_from_file_loader;
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public Collection(AbstractFileReader<T> Collection_from_file_loader, AbstractFileWriter<T> Collection_to_file_writer) throws Exception {

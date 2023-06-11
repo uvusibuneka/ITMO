@@ -26,7 +26,6 @@ public class InteractiveMode {
     private ConsoleLoader loader;
     private ObjectSender objectSender;
     private RequestHandler requestHandler;
-
     private final CommandDescription loginCommandDescription = new CommandDescription("login", "Вход пользователя", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
 
     private final CommandDescription registerCommandDescription = new CommandDescription("register", "Регистрация пользователя",List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
@@ -70,19 +69,23 @@ public class InteractiveMode {
             if (!packet.isSuccess()){
                 return Result.failure(packet.getError().get(), "Error while receiving map of commands, error with server connection.");
             }
-            Result<HashMap<String, CommandDescription>> commandDescriptionMap = deserializeMap(packet.getValue().get());
+            Result<HashMap<String, CommandDescription>> commandDescriptionMap = deserialize(packet.getValue().get());
             if (!commandDescriptionMap.isSuccess()){
                 return commandDescriptionMap;
             }
             textReceiver.println("You are authorized!");
             this.commandDescriptionMap = commandDescriptionMap.getValue().get();
-
             return commandDescriptionMap;
         } catch (Exception e) {
             return Result.failure(e, "Error while receiving map of commands, error with server connection.");
         }
     }
 
+    public <T> T deserialize(DatagramPacket packet) throws Exception {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
+        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+        return (T) objectInputStream.readObject();
+    }
     private Result<HashMap<String,CommandDescription>> deserializeMap(DatagramPacket datagramPacketResult) {
         try {
             DatagramPacket packet = datagramPacketResult;
@@ -98,6 +101,7 @@ public class InteractiveMode {
             return Result.failure(e, "Error while receiving map of commands, error with server connection.");
         }
     }
+
 
     public Map<String, CommandDescription> getCommandDescriptionMap() {
         return commandDescriptionMap;
@@ -120,7 +124,7 @@ public class InteractiveMode {
             String command = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
             if (authorizationMap.containsKey(command)) {
                 Result<?> result = authorizationMap.get(command).get();
-                if(result.isSuccess()){
+                if(result.isSuccess() && command.equals("l")){
                     break;
                 }
                 textReceiver.println(result.getMessage());
@@ -161,17 +165,33 @@ public class InteractiveMode {
     private Result<Void> register() {
         enterLoginData(registerCommandDescription);
         try {
-            Result<?> registerResult = loadCommandDescriptionMap();
-            if (registerResult.isSuccess()) {
+            try {
+                objectSender.sendObject(registerCommandDescription);
+            } catch (IOException ex) {
+                throw new RuntimeException("Error while sending answer, error with server connection.");
+            }
+
+            Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
+            if (!packet.isSuccess()){
+                return Result.failure(packet.getError().get(), "Error while receiving answer, error with server connection.");
+            }
+            Result<Void> registerResult;
+            try {
+                registerResult = deserialize(packet.getValue().get());
+            } catch (Exception e) {
+                throw new RuntimeException("Incorrect server answer.");
+            }
+            if(registerResult.isSuccess()) {
                 textReceiver.println("You have successfully registered!");
                 isAuthorized = true;
                 return Result.success(null);
-            } else {
-                return Result.failure(registerResult.getError().get(), "Error while receiving map of commands, error with server connection.");
+            }else{
+                return registerResult;
             }
+
         } catch (Exception e) {
             textReceiver.println("Error while sending register command to server, error with server connection.");
-            return Result.failure(e, "Error while sending register command to server, error with server connection.");
+            return Result.failure(e, "Error while sending login command to server, error with server connection.");
         }
     }
 
@@ -237,5 +257,13 @@ public class InteractiveMode {
 
     public boolean isSpecial(String name){
         return specialCommands.containsKey(name);
+    }
+
+    public void setRequestHandler(RequestHandler requestHandler){
+        this.requestHandler = requestHandler;
+    }
+
+    public RequestHandler getRequestHandler(){
+        return requestHandler;
     }
 }

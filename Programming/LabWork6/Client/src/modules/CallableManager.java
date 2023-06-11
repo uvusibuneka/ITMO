@@ -15,8 +15,7 @@ import java.util.Map;
 public class CallableManager {
     private List<Caller> callers = new ArrayList<>();
     private RequestHandler requestHandler;
-    private List<Caller> specialCallers;
-
+    private List<Caller> specialCallers = new ArrayList<>();
     public CallableManager(RequestHandler requestHandler) {
         this.requestHandler = requestHandler;
     }
@@ -35,9 +34,16 @@ public class CallableManager {
         List<Result<?>> results = new ArrayList<>();
         for(Caller caller : callers){
             try {
-                caller.call();
-                if(specialCallers.contains(caller))
+                if(specialCallers.contains(caller)) {
+                    try{
+                        caller.call();
+                        results.add(Result.success(null));
+                    }catch (Exception e){
+                        results.add(Result.failure(e));
+                    }
                     continue;
+                }
+                caller.call();
                 Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
                 if (!packet.isSuccess()){
                     results.add(Result.failure(packet.getError().get()));

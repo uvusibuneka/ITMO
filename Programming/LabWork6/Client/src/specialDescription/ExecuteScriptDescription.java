@@ -15,18 +15,13 @@ import java.util.Deque;
 import java.util.List;
 
 public class ExecuteScriptDescription extends CommandDescription {
-    private transient static Deque<String> fileNameStack = new ArrayDeque<>();
+    private static Deque<String> fileNameStack = new ArrayDeque<>();
 
     public ExecuteScriptDescription(CallableManager callableManager, ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("execute_script","Выполнить скрипт из указанного файла.");
 
         this.setCaller(new SpecialClientCaller(() -> {
-            try {
-                objectSender.sendObject(interactiveMode.getCommandDescriptionMap().get("execute_script"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            String path = (String) this.getArguments().get(0).getValue();
+            String path = (String) this.getOneLineArguments().get(0).getValue();
             FileLoader fileLoader = new FileLoader(path);
             if (fileNameStack.contains(path)) {
                 throw new RuntimeException("Recursion detected");
