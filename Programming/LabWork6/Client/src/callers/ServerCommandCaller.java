@@ -6,12 +6,12 @@ import modules.ObjectSender;
 
 import java.io.IOException;
 
-public class serverCommandCaller extends Caller {
+public class ServerCommandCaller extends Caller {
 
     private CommandDescription commandDescription;
     private ObjectSender objectSender;
 
-    public serverCommandCaller(CommandDescription commandDescription, ObjectSender objectSender) {
+    public ServerCommandCaller(CommandDescription commandDescription, ObjectSender objectSender) {
         this.commandDescription = commandDescription;
         this.objectSender = objectSender;
     }

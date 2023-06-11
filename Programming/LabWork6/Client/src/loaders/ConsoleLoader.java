@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import callers.serverCommandCaller;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
@@ -42,6 +41,7 @@ public class ConsoleLoader extends AbstractLoader {
                     throw new RuntimeException("Wrong number of arguments!");
                 }
             }
+            
             if(commandDescription.getOneLineArguments() != null) {
                 CommandDescription finalCommandDescription = commandDescription;
                 IntStream.range(0, commandDescription.getOneLineArguments().size())

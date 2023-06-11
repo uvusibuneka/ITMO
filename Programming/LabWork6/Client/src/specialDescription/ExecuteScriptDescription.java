@@ -1,7 +1,6 @@
 package specialDescription;
 
-import caller.Caller;
-import callers.specialClientCaller;
+import callers.SpecialClientCaller;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.FileLoader;
@@ -21,7 +20,7 @@ public class ExecuteScriptDescription extends CommandDescription {
     public ExecuteScriptDescription(CallableManager callableManager, ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("execute_script","Выполнить скрипт из указанного файла.");
 
-        this.setCaller(new specialClientCaller(() -> {
+        this.setCaller(new SpecialClientCaller(() -> {
             try {
                 objectSender.sendObject(interactiveMode.getCommandDescriptionMap().get("execute_script"));
             } catch (IOException e) {
@@ -49,6 +48,7 @@ public class ExecuteScriptDescription extends CommandDescription {
                     .forEach(System.out::println);
             callableManager.clear();
             fileNameStack.pop();
+            return null;
         }, this, objectSender));
         }
 

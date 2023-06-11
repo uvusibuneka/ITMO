@@ -1,6 +1,6 @@
 package modules;
 
-import callers.serverCommandCaller;
+import callers.ServerCommandCaller;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
@@ -143,7 +143,7 @@ public class InteractiveMode {
             if(this.isSpecial(command.getName())){
                 command.setCaller(specialCommands.get(command.getName()).getCaller());
             }else {
-                command.setCaller(new serverCommandCaller(command, objectSender));
+                command.setCaller(new ServerCommandCaller(command, objectSender));
             }
             callableManager.add(command.getCaller());
             Result<?> resultOfExecuting = callableManager.callAll().get(0);
