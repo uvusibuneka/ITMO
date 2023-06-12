@@ -52,7 +52,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
@@ -135,7 +135,8 @@
       <workItem from="1686562926385" duration="2809000" />
       <workItem from="1686565763296" duration="3532000" />
       <workItem from="1686569777539" duration="78000" />
-      <workItem from="1686569908808" duration="2256000" />
+      <workItem from="1686569908808" duration="4753000" />
+      <workItem from="1686586408875" duration="9176000" />
     </task>
     <servers />
   </component>

@@ -16,14 +16,15 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class MusicBandDescription extends LoadDescription<MusicBand> implements Serializable {
-    protected MusicBandBuilder builder = new MusicBandBuilder();
     {
-        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", builder::setName, null, String.class),
-                new CoordinatesDescription(builder::setCoordinates),
-                new LoadDescription<>("Creation Date",builder::setCreationDate, null, LocalDate.class),
-                new LoadDescription<>("Number of participants", builder::setNumberOfParticipants, null, Long.class),
-                new AlbumDescription(builder::setBestAlbum),
-                new LoadDescription<>("Genre", builder::setGenre, null, MusicGenre.class)));
+        MusicBandBuilder musicBandBuilder = new MusicBandBuilder();
+        this.builder = musicBandBuilder;
+        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", musicBandBuilder::setName, null, String.class),
+                new CoordinatesDescription(musicBandBuilder::setCoordinates),
+                new LoadDescription<>("Creation Date",musicBandBuilder::setCreationDate, null, LocalDate.class),
+                new LoadDescription<>("Number of participants", musicBandBuilder::setNumberOfParticipants, null, Long.class),
+                new AlbumDescription(musicBandBuilder::setBestAlbum),
+                new LoadDescription<>("Genre", musicBandBuilder::setGenre, null, MusicGenre.class)));
     }
 
     public MusicBandDescription(SerialFunction<MusicBand, Object> fieldSetter) {
@@ -35,5 +36,6 @@ public class MusicBandDescription extends LoadDescription<MusicBand> implements 
                 (SerialFunction<MusicBand, ?>) null,
                 MusicBand.class);
     }
+
 
 }

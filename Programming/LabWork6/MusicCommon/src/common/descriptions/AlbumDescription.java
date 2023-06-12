@@ -9,13 +9,15 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class AlbumDescription extends LoadDescription<Album> implements Serializable {
-    protected AlbumBuilder builder = new AlbumBuilder();
+
     {
+        AlbumBuilder albumBuilder = new AlbumBuilder();
+        this.builder = albumBuilder;
         fields = new ArrayList<>(Arrays.asList(
-                new LoadDescription<String>("Name", (new AlbumBuilder())::setName, null, String.class),
-                new LoadDescription<Long>("Length of Album", builder::setLength, null, Long.class),
-                new LoadDescription<Long>("Number of tracks", builder::setTracks, null, Long.class),
-                new LoadDescription<Float>("Sales", builder::setSales, null, Float.class)));
+                new LoadDescription<String>("Name", albumBuilder::setName, null, String.class),
+                new LoadDescription<Long>("Length of Album", albumBuilder::setLength, null, Long.class),
+                new LoadDescription<Long>("Number of tracks", albumBuilder::setTracks, null, Long.class),
+                new LoadDescription<Float>("Sales", albumBuilder::setSales, null, Float.class)));
     }
 
     public AlbumDescription(SerialFunction<Album, Object> fieldSetter) {
@@ -25,6 +27,7 @@ public class AlbumDescription extends LoadDescription<Album> implements Serializ
     public AlbumDescription() {
             super("The best album of Music Band", null, Album.class);
     }
+
 }
 
 

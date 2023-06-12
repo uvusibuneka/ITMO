@@ -11,6 +11,6 @@
     <orderEntry type="module" module-name="MusicCommon" />
     <orderEntry type="module" module-name="Server" />
     <orderEntry type="library" name="production" level="project" />
-    <orderEntry type="library" name="MusicCommon" level="project" />
+    <orderEntry type="library" exported="" name="MusicCommon" level="project" />
   </component>
 </module>

@@ -14,9 +14,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
-
 
 
 public class InteractiveMode {
@@ -28,7 +30,7 @@ public class InteractiveMode {
     private RequestHandler requestHandler;
     private final CommandDescription loginCommandDescription = new CommandDescription("login", "Вход пользователя", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
 
-    private final CommandDescription registerCommandDescription = new CommandDescription("register", "Регистрация пользователя",List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
+    private final CommandDescription registerCommandDescription = new CommandDescription("register", "Регистрация пользователя", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
     private boolean isAuthorized = false;
 
     private Map<String, CommandDescription> commandDescriptionMap;
@@ -62,15 +64,21 @@ public class InteractiveMode {
     }
 
 
-    @SuppressWarnings({"unchecked","OptionalGetWithoutIsPresent"})
+    @SuppressWarnings({"unchecked", "OptionalGetWithoutIsPresent"})
     private Result<HashMap<String, CommandDescription>> loadCommandDescriptionMap() {
         try {
             Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
-            if (!packet.isSuccess()){
+            if (!packet.isSuccess()) {
                 return Result.failure(packet.getError().get(), "Error while receiving map of commands, error with server connection.");
             }
-            Result<HashMap<String, CommandDescription>> commandDescriptionMap = deserialize(packet.getValue().get());
-            if (!commandDescriptionMap.isSuccess()){
+            Result<HashMap<String, CommandDescription>> commandDescriptionMap = null;
+            try {
+                commandDescriptionMap = deserialize(packet.getValue().get());
+            } catch (Exception e) {
+                textReceiver.println(e);
+                throw new RuntimeException(e);
+            }
+            if (!commandDescriptionMap.isSuccess()) {
                 return commandDescriptionMap;
             }
             textReceiver.println("You are authorized!");
@@ -94,7 +102,7 @@ public class InteractiveMode {
     public void start() {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if(InteractiveMode.getObject().isAuthorized())
+            if (InteractiveMode.getObject().isAuthorized())
                 try {
                     exit();
                 } catch (Exception e) {
@@ -108,7 +116,7 @@ public class InteractiveMode {
             String command = (String) loader.enterWithMessage(">", new LoadDescription<String>(String.class)).getValue();
             if (authorizationMap.containsKey(command)) {
                 Result<?> result = authorizationMap.get(command).get();
-                if(result.isSuccess() && command.equals("l")){
+                if (result.isSuccess() && command.equals("l")) {
                     break;
                 }
                 textReceiver.println(result.getMessage());
@@ -128,17 +136,17 @@ public class InteractiveMode {
                 textReceiver.println(e.getMessage());
                 continue;
             }
-            if(this.isSpecial(command.getName())){
+            if (this.isSpecial(command.getName())) {
                 command.setCaller(specialCommands.get(command.getName()).getCaller());
                 callableManager.addSpecial(specialCommands.get(command.getName()).getCaller());
-            }else {
+            } else {
                 command.setCaller(new ServerCommandCaller(command, objectSender));
             }
             callableManager.add(command.getCaller());
             Result<?> resultOfExecuting = callableManager.callAll().get(0);
             textReceiver.println(resultOfExecuting.getMessage());
             if (resultOfExecuting.isSuccess()) {
-                if(!command.getName().equals("help") && resultOfExecuting.getValue().isPresent())
+                if (!command.getName().equals("help") && resultOfExecuting.getValue().isPresent())
                     textReceiver.println(resultOfExecuting.getValue().get());
                 history.add(command.getName());
             }
@@ -156,7 +164,7 @@ public class InteractiveMode {
             }
 
             Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
-            if (!packet.isSuccess()){
+            if (!packet.isSuccess()) {
                 return Result.failure(packet.getError().get(), "Error while receiving answer, error with server connection.");
             }
             Result<Void> registerResult;
@@ -165,11 +173,11 @@ public class InteractiveMode {
             } catch (Exception e) {
                 throw new RuntimeException("Incorrect server answer.");
             }
-            if(registerResult.isSuccess()) {
+            if (registerResult.isSuccess()) {
                 textReceiver.println("You have successfully registered!");
                 isAuthorized = true;
                 return Result.success(null);
-            }else{
+            } else {
                 return registerResult;
             }
 
@@ -178,7 +186,6 @@ public class InteractiveMode {
             return Result.failure(e, "Error while sending login command to server, error with server connection.");
         }
     }
-
 
 
     private void enterLoginData(CommandDescription registerCommandDescription) {
@@ -199,7 +206,6 @@ public class InteractiveMode {
         enterLoginData(loginCommandDescription);
         try {
             objectSender.sendObject(loginCommandDescription);
-
             Result<?> loginResult = loadCommandDescriptionMap();
             if (loginResult.isSuccess()) {
                 textReceiver.println("You have successfully logged!");
@@ -209,7 +215,6 @@ public class InteractiveMode {
                 return loginResult;
             }
         } catch (Exception e) {
-            textReceiver.println("Error while sending login command to server, error with server connection.");
             return Result.failure(e, "Error while sending login command to server, error with server connection.");
         }
     }
@@ -239,15 +244,15 @@ public class InteractiveMode {
                 .forEach(commandDescription -> textReceiver.println(commandDescription.getName() + " - " + commandDescription.getDescription()));
     }
 
-    public boolean isSpecial(String name){
+    public boolean isSpecial(String name) {
         return specialCommands.containsKey(name);
     }
 
-    public void setRequestHandler(RequestHandler requestHandler){
+    public void setRequestHandler(RequestHandler requestHandler) {
         this.requestHandler = requestHandler;
     }
 
-    public RequestHandler getRequestHandler(){
+    public RequestHandler getRequestHandler() {
         return requestHandler;
     }
 }

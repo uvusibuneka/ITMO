@@ -22,6 +22,23 @@ public class ConsoleLoader extends AbstractLoader {
         parser = new Parser();
     }
 
+    @Override
+    public <T extends LoadDescription<?>> T enterDate(T t) {
+        String s = null;
+        while (true) {
+            try {
+                s = reader.readLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                return (T) t.setValue(parser.parse(s, t.getType()));
+            } catch (Exception e) {
+                textReceiver.println(e.getMessage());
+            }
+        }
+    }
+
     public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
         List<String> commandParts = List.of(command.split(" "));
         if (commandParts.size() == 0) {
@@ -75,13 +92,13 @@ public class ConsoleLoader extends AbstractLoader {
     public <T extends LoadDescription<Enum>> T enterEnum(String s, T t, BaseTextReceiver baseTextReceiver) {
         baseTextReceiver.print(s);
         String line = null;
+        while (true) {
         try {
             line = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        while (true) {
             try {
                 return (T) t.setValue(Enum.valueOf(t.getType(), line));
             } catch (Exception e) {
@@ -93,12 +110,13 @@ public class ConsoleLoader extends AbstractLoader {
     @Override
     public <T extends LoadDescription<?>> T enterWrapper(T t) {
         String s = null;
+        while (true) {
         try {
             s = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        while (true) {
+
             try {
                 return (T)t.setValue(parse(s, t.getType()));
             } catch (Exception e) {
@@ -110,12 +128,13 @@ public class ConsoleLoader extends AbstractLoader {
     @Override
     public LoadDescription<String> enterString(LoadDescription<String> description) {
         String s;
+        while (true){
         try {
             s = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        while (true){
+
             try {
                 return description.setValue(s);
             } catch (Exception e) {
@@ -127,12 +146,13 @@ public class ConsoleLoader extends AbstractLoader {
     @Override
     public <T extends LoadDescription<Enum>> T enterEnum(T t) {
         String s;
+        while (true) {
         try {
             s = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        while (true) {
+
             try {
                 return (T) t.setValue(parse(s, (Class<Enum>) t.getType()));
             } catch (Exception e) {
@@ -141,11 +161,14 @@ public class ConsoleLoader extends AbstractLoader {
         }
     }
 
-    @Override
-    public <T extends LoadDescription<?>> T enter(T description) {
-        textReceiver.println(description.toString());
-        var res = super.enter(description);
-        textReceiver.println(description.getValue().toString());
-        return res;
+
+    protected <T extends LoadDescription<?>> T enterComposite(T description) {
+        try {
+            var res = super.enterComposite(description);
+            return res;
+        } catch (Exception e) {
+            textReceiver.println(String.valueOf(e.getStackTrace()));
+            throw new RuntimeException(e);
+        }
     }
 }

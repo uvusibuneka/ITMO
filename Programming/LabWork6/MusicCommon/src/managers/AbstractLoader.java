@@ -2,6 +2,7 @@ package managers;
 
 import common.descriptions.LoadDescription;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,11 +28,14 @@ public abstract class AbstractLoader {
             return (T) enterString((LoadDescription<String>) description);
         } else if (description.getType().isEnum()){
             return (T) enterEnum((LoadDescription<Enum>) description);
+        } else if (description.getType().equals(LocalDate.class)) {
+            return (T) enterDate(description);
         } else {
             return enterComposite(description);
         }
     }
 
+    public abstract <T extends LoadDescription<?>> T enterDate(T description);
     public <T extends LoadDescription<?>> T enterWithMessage(String message, T description) {
         textReceiver.print(message);
         return enter(description);
@@ -46,9 +50,8 @@ public abstract class AbstractLoader {
         description.getFields()
                 .forEach(field -> {
                     enterWithMessage(field.getDescription() + ":", field);
+                    field.setField(field.getValue());
                 });
-        if(description.getFieldOfDescriptionSetter() != null)
-            description.setField(description.getValue());
         description.build();
         return description;
     }

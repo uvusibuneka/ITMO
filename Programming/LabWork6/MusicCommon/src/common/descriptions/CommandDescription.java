@@ -2,6 +2,7 @@ package common.descriptions;
 
 import caller.Caller;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandDescription  implements Serializable, Cloneable{
