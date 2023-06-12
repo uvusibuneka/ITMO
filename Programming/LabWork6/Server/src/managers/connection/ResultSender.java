@@ -29,10 +29,19 @@ public class ResultSender {
             byte[] arr = byteStream.toByteArray();
             oos.close();
             byteStream.close();
+
+            System.out.println(arr.length + "\t" + ds.getSendBufferSize() + "\t" + ds.getReceiveBufferSize());
+            if (arr.length > ds.getSendBufferSize()){
+                ds.setSendBufferSize(arr.length);
+                Main.logger.warn("Сообщение очень большое, временно увеличен размер отправляемых сообщений с" + arr.length + " до " + ds.getSendBufferSize());
+            }
+
             dp = new DatagramPacket(arr, arr.length, user.getHost(), user.getPort());
             ds.send(dp);
             user.refreshLastActivity();
             Main.logger.info("Result sent to user. Message: "+to_send.getMessage());
+
+            ds.setSendBufferSize(9216);
         } catch (IOException e) {
             Main.logger.error(e.getMessage(), e);
             dp = new DatagramPacket("Ошибка отправки ответа".getBytes(), "Ошибка отправки ответа".getBytes().length, user.getHost(), user.getPort());

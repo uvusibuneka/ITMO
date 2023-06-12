@@ -2,8 +2,8 @@ package managers;
 
 import common.descriptions.LoadDescription;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class AbstractLoader {
     protected BaseTextReceiver textReceiver;
@@ -42,11 +42,10 @@ public abstract class AbstractLoader {
     public abstract LoadDescription<String> enterString(LoadDescription<String> description);
 
     protected <T extends LoadDescription<?>> T enterComposite(T description) {
-        List<LoadDescription<?>> updatedFields = description.getFields().stream()
-                .map(field -> enterWithMessage(field.getDescription(), field))
-                .collect(Collectors.toList());
+        List<? extends LoadDescription<?>> updatedFields = description.getFields().stream()
+                .map(field -> enterWithMessage(field.getDescription(), field)).toList();
 
-        description.setFieldsOfObject(updatedFields);
+        description.setFieldsOfObject(new ArrayList<>(updatedFields));
         description.build();
 
         return description;

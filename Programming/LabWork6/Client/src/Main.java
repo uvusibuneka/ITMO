@@ -27,7 +27,7 @@ public class Main {
 
         RequestHandler requestHandler = null;
         try {
-            requestHandler = new RequestHandler(channel, 4096, 6000);
+            requestHandler = new RequestHandler(channel, 10*1024, 6000);
         } catch (IOException e) {
             textReceiver.println("Error while creating request handler");
             System.exit(0);

@@ -10,20 +10,21 @@ import common.MusicGenre;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
 
 public class MusicBandDescription extends LoadDescription<MusicBand> implements Serializable {
     {
-        fields = Arrays.asList(new LoadDescription<>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
+        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
                 new CoordinatesDescription(),
                 new LoadDescription<>("Creation Date", (new MusicBandBuilder())::setCreationDate, null, LocalDate.class),
                 new LoadDescription<>("Number of participants", (new MusicBandBuilder())::setNumberOfParticipants, null, Long.class),
                 new AlbumDescription(),
-                new LoadDescription<>("Genre", (new MusicBandBuilder())::setGenre, null, MusicGenre.class));
+                new LoadDescription<>("Genre", (new MusicBandBuilder())::setGenre, null, MusicGenre.class)));
     }
 
-    public MusicBandDescription(Function<MusicBand, Object> fieldSetter) {
+    public MusicBandDescription(SerialFunction<MusicBand, Object> fieldSetter) {
         super("Music Band", fieldSetter, new MusicBandBuilder(), MusicBand.class);
     }
 

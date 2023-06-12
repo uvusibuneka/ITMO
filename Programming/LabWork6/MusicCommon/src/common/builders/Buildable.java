@@ -1,5 +1,7 @@
 package common.builders;
 
-public interface Buildable<T> {
+import java.io.Serializable;
+
+public interface Buildable<T> extends Serializable {
     T build();
 }

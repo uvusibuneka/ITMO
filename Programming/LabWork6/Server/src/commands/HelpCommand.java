@@ -28,17 +28,17 @@ public class HelpCommand extends Command<MusicReceiver> {
         commands.put("history", new CommandDescription("history", "История введенных команд"));
         commands.put("max_by_best_album", new CommandDescription("max_by_best_album", "Получить MusicBand за наилучшим Album"));
 
-        commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, List.of(new MusicBandDescription())));
-        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, List.of(new MusicBandDescription())));
-        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, List.of(new MusicBandDescription())));
+        commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", List.of(new LoadDescription<>(Integer.class)), List.of(new MusicBandDescription())));
+        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", new ArrayList<>(List.of(new LoadDescription<>(Integer.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции",List.of(new LoadDescription<>(Integer.class)), null));
+        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции", new ArrayList<>(List.of(new LoadDescription<>(Integer.class))), null));
 
-        commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", List.of(new LoadDescription<>(String.class)), null));
+        commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", new ArrayList<>(List.of(new LoadDescription<>(String.class))), null));
 
-        commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, List.of(new AlbumDescription())));
+        commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, new ArrayList<>(List.of(new AlbumDescription()))));
     }
     @Override
     public Result<HashMap<String, CommandDescription>> execute() {

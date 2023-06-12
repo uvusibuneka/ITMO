@@ -3,9 +3,9 @@ package common.descriptions;
 import common.builders.Buildable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class LoadDescription<T> implements Serializable {
 
@@ -13,17 +13,14 @@ public class LoadDescription<T> implements Serializable {
     protected String description;
     protected Class<T> type;
     protected Buildable<T> builder;
-    protected Function<T, ?> fieldOfDescriptionSetter;
-    protected Supplier<T> build;
-    protected List<LoadDescription<?>> fields;
+    protected SerialFunction<T, ?> fieldOfDescriptionSetter;
+    protected ArrayList<LoadDescription<?>> fields;
 
-    public LoadDescription(String description, Function<T, ?> fieldSetter, Buildable<T> builder, Class<T> type) {
+    public LoadDescription(String description, SerialFunction<T, ?> fieldSetter, Buildable<T> builder, Class<T> type) {
         this.description = description;
         this.fieldOfDescriptionSetter = fieldSetter;
         this.builder = builder;
         this.type = type;
-        if (builder != null)
-            this.build = builder::build;
     }
 
     public LoadDescription(Class<T> type){
@@ -58,10 +55,10 @@ public class LoadDescription<T> implements Serializable {
     }
 
     public void build() {
-        value = build.get();
+        value = builder.build();
     }
 
-    public void setFieldsOfObject(List<LoadDescription<?>> fields) {
+    public void setFieldsOfObject(ArrayList<LoadDescription<?>> fields) {
         this.fields = fields;
     }
 
@@ -74,7 +71,7 @@ public class LoadDescription<T> implements Serializable {
         return value;
     }
 
-    public void setFieldOfDescriptionSetter(Function<T, ?> fieldOfDescriptionSetter) {
+    public void setFieldOfDescriptionSetter(SerialFunction<T, ?> fieldOfDescriptionSetter) {
         this.fieldOfDescriptionSetter = fieldOfDescriptionSetter;
     }
 
