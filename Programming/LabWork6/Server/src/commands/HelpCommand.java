@@ -32,9 +32,9 @@ public class HelpCommand extends Command<MusicReceiver> {
         commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, new ArrayList<>(List.of(new MusicBandDescription()))));
         commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", new ArrayList<>(List.of(new LoadDescription<>(Integer.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", new ArrayList<>(List.of(new LoadDescription<>(Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции", new ArrayList<>(List.of(new LoadDescription<>(Integer.class))), null));
+        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции", new ArrayList<>(List.of(new LoadDescription<>(Long.class))), null));
 
         commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", new ArrayList<>(List.of(new LoadDescription<>(String.class))), null));
 

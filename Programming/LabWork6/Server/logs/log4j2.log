@@ -409,3 +409,168 @@ java.io.EOFException: null
 2023-06-12 21:48:21,765 INFO m.Main [main] Command add executing started
 2023-06-12 21:48:21,773 INFO m.Main [main] Result sent to user. Message: Error while adding element to collection
 2023-06-12 21:48:21,774 INFO m.Main [main] Listening started
+2023-06-12 21:57:55,292 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 21:57:55,327 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 21:57:55,327 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-12 22:01:22,085 INFO m.Main [main] Files loaded
+2023-06-12 22:01:22,308 INFO m.Main [main] Listening started
+2023-06-12 22:01:26,591 INFO m.Main [main] Incoming request
+2023-06-12 22:01:26,619 INFO m.Main [main] New user connected
+2023-06-12 22:01:26,738 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-12 22:01:26,739 INFO m.Main [main] Listening started
+2023-06-12 22:04:53,548 INFO m.Main [main] Incoming request
+2023-06-12 22:04:53,562 INFO m.Main [main] Command add executing started
+2023-06-12 22:04:53,571 INFO m.Main [main] Result sent to user. Message: Error while adding element to collection
+2023-06-12 22:04:53,571 INFO m.Main [main] Listening started
+2023-06-12 22:05:15,783 INFO m.Main [main] Incoming request
+2023-06-12 22:05:15,783 INFO m.Main [main] Command add executing started
+2023-06-12 22:05:15,784 INFO m.Main [main] Result sent to user. Message: Error while adding element to collection
+2023-06-12 22:05:15,785 INFO m.Main [main] Listening started
+2023-06-12 22:05:22,835 INFO m.Main [main] Incoming request
+2023-06-12 22:05:22,851 INFO m.Main [main] Command show executing started
+2023-06-12 22:05:22,853 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:05:22,854 INFO m.Main [main] Listening started
+2023-06-12 22:06:44,996 INFO m.Main [main] Incoming request
+2023-06-12 22:06:45,011 INFO m.Main [main] Result sent to user. Message: class java.lang.Integer cannot be cast to class java.lang.Long (java.lang.Integer and java.lang.Long are in module java.base of loader 'bootstrap')
+2023-06-12 22:06:45,011 INFO m.Main [main] Listening started
+2023-06-12 22:11:22,015 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:11:22,023 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:11:22,023 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-12 22:21:21,671 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:21:21,672 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:21:21,673 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-12 22:22:25,525 INFO m.Main [main] Files loaded
+2023-06-12 22:22:25,551 INFO m.Main [main] Listening started
+2023-06-12 22:22:34,601 INFO m.Main [main] Incoming request
+2023-06-12 22:22:34,618 INFO m.Main [main] New user connected
+2023-06-12 22:22:34,721 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-12 22:22:34,722 INFO m.Main [main] Listening started
+2023-06-12 22:22:59,405 INFO m.Main [main] Incoming request
+2023-06-12 22:22:59,409 INFO m.Main [main] Command update executing started
+2023-06-12 22:22:59,413 INFO m.Main [main] No such element
+2023-06-12 22:22:59,422 INFO m.Main [main] Result sent to user. Message: Element with such ID is not found
+2023-06-12 22:22:59,422 INFO m.Main [main] Listening started
+2023-06-12 22:23:06,114 INFO m.Main [main] Incoming request
+2023-06-12 22:23:06,115 INFO m.Main [main] Command help executing started
+2023-06-12 22:23:06,121 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-12 22:23:06,122 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:23:06,122 INFO m.Main [main] Listening started
+2023-06-12 22:23:19,985 INFO m.Main [main] Incoming request
+2023-06-12 22:23:19,986 INFO m.Main [main] Command count_by_best_album executing started
+2023-06-12 22:23:20,011 INFO m.Main [main] Result sent to user. Message: Number of elements with best album equal to common.Album{name='1', tracks=1, length=1, sales=1.0} is 0
+2023-06-12 22:23:20,012 INFO m.Main [main] Listening started
+2023-06-12 22:23:29,221 INFO m.Main [main] Incoming request
+2023-06-12 22:23:29,222 INFO m.Main [main] Command help executing started
+2023-06-12 22:23:29,225 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-12 22:23:29,226 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:23:29,226 INFO m.Main [main] Listening started
+2023-06-12 22:23:45,321 INFO m.Main [main] Incoming request
+2023-06-12 22:23:45,322 INFO m.Main [main] Command help executing started
+2023-06-12 22:23:45,326 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-12 22:23:45,326 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:23:45,326 INFO m.Main [main] Listening started
+2023-06-12 22:24:12,020 INFO m.Main [main] Incoming request
+2023-06-12 22:24:12,021 INFO m.Main [main] Command add_if_max executing started
+2023-06-12 22:24:12,022 INFO m.Main [main] Result sent to user. Message: Collection is empty
+2023-06-12 22:24:12,022 INFO m.Main [main] Listening started
+2023-06-12 22:26:27,074 INFO m.Main [main] Incoming request
+2023-06-12 22:26:27,075 INFO m.Main [main] Command add executing started
+2023-06-12 22:26:27,079 INFO m.Main [main] Result sent to user. Message: Error while adding element to collection
+2023-06-12 22:26:27,079 INFO m.Main [main] Listening started
+2023-06-12 22:27:33,763 INFO m.Main [main] Incoming request
+2023-06-12 22:27:33,763 INFO m.Main [main] Command help executing started
+2023-06-12 22:27:33,766 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-12 22:27:33,766 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:27:33,767 INFO m.Main [main] Listening started
+2023-06-12 22:27:52,967 INFO m.Main [main] Incoming request
+2023-06-12 22:27:52,969 INFO m.Main [main] Command remove_by_id executing started
+2023-06-12 22:27:52,973 INFO m.Main [main] Element removed
+2023-06-12 22:27:52,973 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:27:52,974 INFO m.Main [main] Listening started
+2023-06-12 22:28:40,519 INFO m.Main [main] Incoming request
+2023-06-12 22:28:40,520 INFO m.Main [main] Command add executing started
+2023-06-12 22:28:40,521 INFO m.Main [main] Result sent to user. Message: Error while adding element to collection
+2023-06-12 22:28:40,521 INFO m.Main [main] Listening started
+2023-06-12 22:28:45,090 INFO m.Main [main] Incoming request
+2023-06-12 22:28:45,091 INFO m.Main [main] Command show executing started
+2023-06-12 22:28:45,097 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:28:45,098 INFO m.Main [main] Listening started
+2023-06-12 22:29:12,182 INFO m.Main [main] Incoming request
+2023-06-12 22:29:12,182 INFO m.Main [main] Command remove_by_id executing started
+2023-06-12 22:29:12,183 INFO m.Main [main] Element removed
+2023-06-12 22:29:12,184 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:29:12,184 INFO m.Main [main] Listening started
+2023-06-12 22:29:58,838 INFO m.Main [main] Incoming request
+2023-06-12 22:29:58,839 INFO m.Main [main] Command help executing started
+2023-06-12 22:29:58,842 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-12 22:29:58,843 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:29:58,844 INFO m.Main [main] Listening started
+2023-06-12 22:30:25,747 INFO m.Main [main] Incoming request
+2023-06-12 22:30:25,748 INFO m.Main [main] Command remove_greater executing started
+2023-06-12 22:30:25,750 INFO m.Main [main] Element removed
+2023-06-12 22:30:25,751 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:30:25,751 INFO m.Main [main] Listening started
+2023-06-12 22:30:30,471 INFO m.Main [main] Incoming request
+2023-06-12 22:30:30,471 INFO m.Main [main] Command show executing started
+2023-06-12 22:30:30,473 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:30:30,474 INFO m.Main [main] Listening started
+2023-06-12 22:30:33,081 INFO m.Main [main] Incoming request
+2023-06-12 22:30:33,083 INFO m.Main [main] Command clear executing started
+2023-06-12 22:30:33,084 INFO m.Main [main] Collection cleared
+2023-06-12 22:30:33,085 INFO m.Main [main] Result sent to user. Message: Collection successfully cleared
+2023-06-12 22:30:33,085 INFO m.Main [main] Listening started
+2023-06-12 22:30:36,302 INFO m.Main [main] Incoming request
+2023-06-12 22:30:36,302 INFO m.Main [main] Command show executing started
+2023-06-12 22:30:36,303 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:30:36,304 INFO m.Main [main] Listening started
+2023-06-12 22:30:48,499 INFO m.Main [main] Incoming request
+2023-06-12 22:30:48,499 INFO m.Main [main] Command help executing started
+2023-06-12 22:30:48,501 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-12 22:30:48,502 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:30:48,502 INFO m.Main [main] Listening started
+2023-06-12 22:30:54,865 INFO m.Main [main] Incoming request
+2023-06-12 22:30:54,866 INFO m.Main [main] Command max_by_best_album executing started
+2023-06-12 22:30:54,868 INFO m.Main [main] Result sent to user. Message: Collection is empty
+2023-06-12 22:30:54,869 INFO m.Main [main] Listening started
+2023-06-12 22:31:00,572 INFO m.Main [main] Incoming request
+2023-06-12 22:31:00,573 INFO m.Main [main] Command info executing started
+2023-06-12 22:31:00,583 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-12 22:31:00,584 INFO m.Main [main] Listening started
+2023-06-12 22:32:25,568 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:32:25,578 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:32:25,579 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-12 22:42:25,572 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:42:25,574 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:42:25,574 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-12 22:52:25,574 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:52:25,575 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 22:52:25,575 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-12 23:02:25,578 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 23:02:25,580 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-12 23:02:25,581 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-12 23:05:07,984 INFO m.Main [main] Files loaded
+2023-06-12 23:05:08,060 INFO m.Main [main] Listening started
+2023-06-12 23:06:49,066 INFO m.Main [main] Incoming request
+2023-06-12 23:06:49,478 INFO m.Main [main] New user connected
+2023-06-12 23:06:49,585 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-12 23:06:49,587 INFO m.Main [main] Listening started
+2023-06-12 23:07:06,103 INFO m.Main [main] Incoming request
+2023-06-12 23:07:06,181 INFO m.Main [main] Command add executing started
+2023-06-12 23:07:06,192 INFO m.Main [main] Result sent to user. Message: Error while adding element to collection
+2023-06-12 23:07:06,193 INFO m.Main [main] Listening started
+2023-06-12 23:09:37,303 INFO m.Main [main] Files loaded
+2023-06-12 23:09:37,332 INFO m.Main [main] Listening started
+2023-06-12 23:09:46,613 INFO m.Main [main] Incoming request
+2023-06-12 23:09:46,624 INFO m.Main [main] New user connected
+2023-06-12 23:09:46,697 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-12 23:09:46,697 INFO m.Main [main] Listening started
+2023-06-12 23:10:09,430 INFO m.Main [main] Files loaded
+2023-06-12 23:10:09,460 INFO m.Main [main] Listening started
+2023-06-12 23:10:16,312 INFO m.Main [main] Incoming request
+2023-06-12 23:10:16,326 INFO m.Main [main] New user connected
+2023-06-12 23:10:16,419 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-12 23:10:16,420 INFO m.Main [main] Listening started
+2023-06-12 23:10:34,043 INFO m.Main [main] Incoming request
+2023-06-12 23:10:34,045 INFO m.Main [main] Command add executing started
+2023-06-12 23:10:34,057 INFO m.Main [main] Result sent to user. Message: Error while adding element to collection
+2023-06-12 23:10:34,058 INFO m.Main [main] Listening started

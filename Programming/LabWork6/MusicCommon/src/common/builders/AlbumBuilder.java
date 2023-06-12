@@ -30,7 +30,7 @@ public class AlbumBuilder implements Buildable<Album>, Serializable {
      @param tracks - The number of tracks in the album
      @return Returns the current instance of the AlbumBuilder class
      */
-    public AlbumBuilder setTracks(long tracks) {
+    public AlbumBuilder setTracks(Long tracks) {
         if (tracks <= 0)
             throw new IllegalArgumentException("The number of tracks in the album cannot be negative.");
         this.tracks = tracks;
