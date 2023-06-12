@@ -4,6 +4,7 @@ import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
+import parsers.Parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +14,9 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 public class ConsoleLoader extends AbstractLoader {
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    private final Parser parser = new Parser();
     public ConsoleLoader(BaseTextReceiver textReceiver) {
         super(textReceiver);
     }
