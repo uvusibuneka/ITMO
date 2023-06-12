@@ -10,18 +10,16 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class CoordinatesDescription extends LoadDescription<Coordinates> implements Serializable {
+    protected CoordinatesBuilder builder = new CoordinatesBuilder();
     {
         fields = new ArrayList<>(Arrays.asList(
-                new LoadDescription<>("X", new CoordinatesBuilder()::setX, null, Long.class),
-                new LoadDescription<>("Y", (new CoordinatesBuilder())::setY, null, Float.class)));
+                new LoadDescription<Long>("X", builder::setX, null, Long.class),
+                new LoadDescription<Float>("Y", builder::setY, null, Float.class)));
     }
 
     public CoordinatesDescription(SerialFunction<Coordinates, Object> fieldSetter) {
-        super("Coordinates of Music Band", fieldSetter, new CoordinatesBuilder(), Coordinates.class);
+        super("Coordinates of Music Band", fieldSetter, Coordinates.class);
     }
 
-    public CoordinatesDescription() {
-        super("Coordinates of Music Band", null, new CoordinatesBuilder(), Coordinates.class);
-    }
 
 }

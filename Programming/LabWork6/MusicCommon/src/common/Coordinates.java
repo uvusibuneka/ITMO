@@ -27,15 +27,6 @@ public class Coordinates implements Serializable {
      @throws IllegalArgumentException if x or y are null, or if x <= -129 or y <= -420
      */
     public Coordinates(Long x, Float y) throws IllegalArgumentException {
-        if (x == null || y == null) {
-            throw new IllegalArgumentException("Fields x and y cannot be null");
-        }
-        if (x <= -129) {
-            throw new IllegalArgumentException("Field x must be greater than -129");
-        }
-        if (y <= -420) {
-            throw new IllegalArgumentException("Field y must be greater than -420");
-        }
         this.x = x;
         this.y = y;
     }

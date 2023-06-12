@@ -11,11 +11,12 @@ public class ExitDescription extends CommandDescription {
         this.setCaller(new SpecialClientCaller(() -> {
                 try {
                     objectSender.sendObject(interactiveMode.getCommandDescriptionMap().get("exit"));
-                    interactiveMode.exit();
-                    return null;
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
+                interactiveMode.exit();
+                return null;
             }, this, objectSender));
     }
 }

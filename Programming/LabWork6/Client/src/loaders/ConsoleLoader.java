@@ -9,6 +9,7 @@ import parsers.Parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -16,9 +17,9 @@ import java.util.stream.IntStream;
 public class ConsoleLoader extends AbstractLoader {
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private final Parser parser = new Parser();
     public ConsoleLoader(BaseTextReceiver textReceiver) {
         super(textReceiver);
+        parser = new Parser();
     }
 
     public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
@@ -61,7 +62,7 @@ public class ConsoleLoader extends AbstractLoader {
 
             commandDescription.getArguments()
                     .forEach(loadDescription -> {
-                        enterWithMessage("Enter arguments of command according to description:\"" + loadDescription.getDescription() +  "\"",loadDescription);
+                        enterWithMessage("Enter arguments of command according to description \"" + loadDescription.getDescription() +  "\":\n", loadDescription);
                     });
             return commandDescription;
         } else {
@@ -70,17 +71,19 @@ public class ConsoleLoader extends AbstractLoader {
     }
 
 
+
     public <T extends LoadDescription<Enum>> T enterEnum(String s, T t, BaseTextReceiver baseTextReceiver) {
         baseTextReceiver.print(s);
+        String line = null;
         try {
-            String line = reader.readLine();
+            line = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         while (true) {
             try {
-                return (T) t.setValue(Enum.valueOf(t.getType(), s));
+                return (T) t.setValue(Enum.valueOf(t.getType(), line));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }
@@ -97,7 +100,7 @@ public class ConsoleLoader extends AbstractLoader {
         }
         while (true) {
             try {
-                return (T)t.setValue(parse(s, (Class<?>)t.getType()));
+                return (T)t.setValue(parse(s, t.getType()));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }
@@ -136,5 +139,13 @@ public class ConsoleLoader extends AbstractLoader {
                 textReceiver.println(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public <T extends LoadDescription<?>> T enter(T description) {
+        textReceiver.println(description.toString());
+        var res = super.enter(description);
+        textReceiver.println(description.getValue().toString());
+        return res;
     }
 }

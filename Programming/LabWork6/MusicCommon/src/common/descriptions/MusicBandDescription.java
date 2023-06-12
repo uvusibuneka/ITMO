@@ -1,6 +1,7 @@
 package common.descriptions;
 
 import common.builders.AlbumBuilder;
+import common.builders.Buildable;
 import common.builders.CoordinatesBuilder;
 import common.builders.MusicBandBuilder;
 import common.Album;
@@ -15,21 +16,24 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class MusicBandDescription extends LoadDescription<MusicBand> implements Serializable {
+    protected MusicBandBuilder builder = new MusicBandBuilder();
     {
-        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", (new MusicBandBuilder())::setName, null, String.class),
-                new CoordinatesDescription(),
-                new LoadDescription<>("Creation Date", (new MusicBandBuilder())::setCreationDate, null, LocalDate.class),
-                new LoadDescription<>("Number of participants", (new MusicBandBuilder())::setNumberOfParticipants, null, Long.class),
-                new AlbumDescription(),
-                new LoadDescription<>("Genre", (new MusicBandBuilder())::setGenre, null, MusicGenre.class)));
+        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", builder::setName, null, String.class),
+                new CoordinatesDescription(builder::setCoordinates),
+                new LoadDescription<>("Creation Date",builder::setCreationDate, null, LocalDate.class),
+                new LoadDescription<>("Number of participants", builder::setNumberOfParticipants, null, Long.class),
+                new AlbumDescription(builder::setBestAlbum),
+                new LoadDescription<>("Genre", builder::setGenre, null, MusicGenre.class)));
     }
 
     public MusicBandDescription(SerialFunction<MusicBand, Object> fieldSetter) {
-        super("Music Band", fieldSetter, new MusicBandBuilder(), MusicBand.class);
+        super("Music Band", fieldSetter, MusicBand.class);
     }
 
     public MusicBandDescription() {
-        super("Music Band", null, new MusicBandBuilder(), MusicBand.class);
+        super("Music Band",
+                (SerialFunction<MusicBand, ?>) null,
+                MusicBand.class);
     }
 
 }

@@ -14,7 +14,7 @@ public class LoadDescription<T> implements Serializable {
     protected Class<T> type;
     protected Buildable<T> builder;
     protected SerialFunction<T, ?> fieldOfDescriptionSetter;
-    protected ArrayList<LoadDescription<?>> fields;
+    protected ArrayList<LoadDescription<?>> fields = new ArrayList<>();
 
     public LoadDescription(String description, SerialFunction<T, ?> fieldSetter, Buildable<T> builder, Class<T> type) {
         this.description = description;
@@ -22,6 +22,13 @@ public class LoadDescription<T> implements Serializable {
         this.builder = builder;
         this.type = type;
     }
+
+    public LoadDescription(String description, SerialFunction<T, ?> fieldSetter, Class<T> type) {
+        this.description = description;
+        this.fieldOfDescriptionSetter = fieldSetter;
+        this.type = type;
+    }
+
 
     public LoadDescription(Class<T> type){
         this(null, null, null, type);

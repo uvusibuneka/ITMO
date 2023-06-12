@@ -86,22 +86,6 @@ public class InteractiveMode {
         ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
         return (T) objectInputStream.readObject();
     }
-    private Result<HashMap<String,CommandDescription>> deserializeMap(DatagramPacket datagramPacketResult) {
-        try {
-            DatagramPacket packet = datagramPacketResult;
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            Result<?> result = (Result<?>) objectInputStream.readObject();
-            if (result.isSuccess()) {
-                return (Result<HashMap<String, CommandDescription>>) result;
-            } else {
-                return Result.failure(result.getError().get(), "It is not correct login and password. Try again or use register command.");
-            }
-        } catch (Exception e) {
-            return Result.failure(e, "Error while receiving map of commands, error with server connection.");
-        }
-    }
-
 
     public Map<String, CommandDescription> getCommandDescriptionMap() {
         return commandDescriptionMap;
@@ -121,7 +105,7 @@ public class InteractiveMode {
 
         textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
         while (true) {
-            String command = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
+            String command = (String) loader.enterWithMessage(">", new LoadDescription<String>(String.class)).getValue();
             if (authorizationMap.containsKey(command)) {
                 Result<?> result = authorizationMap.get(command).get();
                 if(result.isSuccess() && command.equals("l")){
@@ -199,9 +183,9 @@ public class InteractiveMode {
 
     private void enterLoginData(CommandDescription registerCommandDescription) {
         textReceiver.print("Enter your login:");
-        LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
+        LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<String>(String.class));
         textReceiver.print("Enter your password:");
-        LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
+        LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<String>(String.class));
         registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
     }
 

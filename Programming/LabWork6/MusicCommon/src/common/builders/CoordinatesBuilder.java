@@ -17,6 +17,8 @@ public class CoordinatesBuilder implements Buildable<Coordinates>, Serializable 
      * @return CoordinatesBuilder
      */
     public CoordinatesBuilder setX(Long x) {
+        if(x == null)
+            throw new IllegalArgumentException("The value of the x coordinate cannot be null");
         if (x <= -129)
             throw new IllegalArgumentException("The value of the x coordinate must be greater than -129");
         this.x = x;
@@ -29,6 +31,8 @@ public class CoordinatesBuilder implements Buildable<Coordinates>, Serializable 
      * @return CoordinatesBuilder
      */
     public CoordinatesBuilder setY(Float y) {
+        if(y == null)
+            throw new IllegalArgumentException("The value of the x coordinate cannot be null");
         if (y <= -420)
             throw new IllegalArgumentException("The value of the y coordinate must be greater than -420");
         this.y = y;
