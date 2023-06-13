@@ -70,8 +70,16 @@ public class CallableManager {
     public Result<?> callFirst() {
         try {
             callers.get(0).call();
-            return Result.success(null);
+            Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
+            Thread.sleep(10);
+            if (!packet.isSuccess()){
+                return Result.failure(packet.getError().get());
+            }
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getValue().get().getData());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            return (Result<?>) objectInputStream.readObject();
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return Result.failure(e);
         }
     }

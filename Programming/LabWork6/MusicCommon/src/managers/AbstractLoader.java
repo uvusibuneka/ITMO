@@ -44,6 +44,7 @@ public abstract class AbstractLoader {
     public abstract <T extends LoadDescription<Enum>> T enterEnum(T description);
 
     public abstract <T extends LoadDescription<?>> T enterWrapper(T description);
+
     public abstract LoadDescription<String> enterString(LoadDescription<String> description);
 
     protected <T extends LoadDescription<?>> T enterComposite(T description) {

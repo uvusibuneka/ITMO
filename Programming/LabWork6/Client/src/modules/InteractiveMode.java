@@ -164,7 +164,6 @@ public class InteractiveMode {
                 command.getCaller().call();
                 continue;
             }
-
             var resultOfExecuting = callableManager.callFirst();
             textReceiver.println(resultOfExecuting.getMessage());
             if (resultOfExecuting.isSuccess()) {
