@@ -59,10 +59,11 @@ public class MusicReceiver extends Receiver<MusicBand> {
             ArrayList<LoadDescription<?>> fields = mbd.getFields();
             fields.add(0, new LoadDescription<Integer>("ID", ((MusicBandBuilder) mbd.getBuilder())::setId, Integer.class));
             mbd.setFieldsOfObject(fields);
-            Collection_from_file_loader = new CSVReader<>(fileName, new MusicBandDescription(), Collection_from_file_loader, tmp);
+            Collection_from_file_loader = new CSVReader<>(fileName, mbd, Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
         } catch (NullPointerException e){
+            Main.logger.error(e.getMessage(), e);
             throw new NullPointerException("FILE_NAME is not set");
         }
     }

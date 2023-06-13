@@ -49,6 +49,8 @@ public class CSVLoader extends AbstractLoader {
     public  <T extends LoadDescription<?>> T enterComposite(T description) {
         description.getFields().forEach(this::enter);
         description.build();
+        if (description.getFieldOfDescriptionSetter() != null)
+            description.setField(description.getValue());
         return description;
     }
 }

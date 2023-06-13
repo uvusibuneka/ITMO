@@ -590,3 +590,123 @@ java.lang.NullPointerException: FILE_NAME is not set
 	at main.Main.main(Main.java:49) [Server/:?]
 2023-06-13 12:15:04,945 INFO m.Main [main] Files loaded
 2023-06-13 12:15:04,973 INFO m.Main [main] Listening started
+2023-06-13 14:12:27,379 ERROR m.Main [main] File "C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 6\users.csv" does not exist
+java.io.FileNotFoundException: File "C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 6\users.csv" does not exist
+	at managers.file.AbstractFileWriter.<init>(AbstractFileWriter.java:20) ~[MusicCommon/:?]
+	at managers.file.FileWriter.<init>(FileWriter.java:9) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:30) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:13:07,709 ERROR m.Main [main] File "C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 6\users.csv" does not exist
+java.io.FileNotFoundException: File "C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 6\users.csv" does not exist
+	at managers.file.AbstractFileWriter.<init>(AbstractFileWriter.java:20) ~[MusicCommon/:?]
+	at managers.file.FileWriter.<init>(FileWriter.java:9) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:30) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:13:47,136 ERROR m.Main [main] Cannot invoke "Object.getClass()" because "object" is null
+java.lang.NullPointerException: Cannot invoke "Object.getClass()" because "object" is null
+	at common.descriptions.LoadDescription.setField(LoadDescription.java:55) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVLoader.lambda$enterComposite$0(CSVLoader.java:53) ~[Server/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:36) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:14:34,906 ERROR m.Main [main] Cannot invoke "Object.toString()" because the return value of "common.descriptions.LoadDescription.getValue()" is null
+java.lang.NullPointerException: Cannot invoke "Object.toString()" because the return value of "common.descriptions.LoadDescription.getValue()" is null
+	at managers.file.decorators.CSV.CSVLoader.lambda$enterComposite$0(CSVLoader.java:52) ~[Server/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:36) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:15:08,884 ERROR m.Main [main] Cannot invoke "Object.toString()" because the return value of "common.descriptions.LoadDescription.getValue()" is null
+java.lang.NullPointerException: Cannot invoke "Object.toString()" because the return value of "common.descriptions.LoadDescription.getValue()" is null
+	at managers.file.decorators.CSV.CSVLoader.lambda$enterComposite$0(CSVLoader.java:52) ~[Server/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:36) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:15:34,787 ERROR m.Main [main] Cannot invoke "Object.toString()" because the return value of "common.descriptions.LoadDescription.getValue()" is null
+java.lang.NullPointerException: Cannot invoke "Object.toString()" because the return value of "common.descriptions.LoadDescription.getValue()" is null
+	at managers.file.decorators.CSV.CSVLoader.lambda$enterComposite$0(CSVLoader.java:52) ~[Server/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:36) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:16:08,169 ERROR m.Main [main] Cannot invoke "Object.getClass()" because "object" is null
+java.lang.NullPointerException: Cannot invoke "Object.getClass()" because "object" is null
+	at common.descriptions.LoadDescription.setField(LoadDescription.java:55) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVLoader.lambda$enterComposite$0(CSVLoader.java:53) ~[Server/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:36) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:17:53,980 ERROR m.Main [main] Cannot invoke "common.Coordinates.compareTo(common.Coordinates)" because "this.coordinates" is null
+java.lang.NullPointerException: Cannot invoke "common.Coordinates.compareTo(common.Coordinates)" because "this.coordinates" is null
+	at common.MusicBand.compareTo(MusicBand.java:258) ~[MusicCommon/:?]
+	at common.MusicBand.compareTo(MusicBand.java:13) ~[MusicCommon/:?]
+	at java.util.TreeMap.compare(TreeMap.java:1569) ~[?:?]
+	at java.util.TreeMap.addEntryToEmptyMap(TreeMap.java:776) ~[?:?]
+	at java.util.TreeMap.put(TreeMap.java:785) ~[?:?]
+	at java.util.TreeMap.put(TreeMap.java:534) ~[?:?]
+	at java.util.TreeSet.add(TreeSet.java:255) ~[?:?]
+	at common.Collection.add(Collection.java:61) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:42) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.MusicReceiver.<init>(MusicReceiver.java:64) [Server/:?]
+	at receivers.MusicReceiver.GetInstance(MusicReceiver.java:41) [Server/:?]
+	at main.Main.main(Main.java:50) [Server/:?]
+2023-06-13 14:17:53,994 ERROR m.Main [main] FILE_NAME is not set
+java.lang.NullPointerException: FILE_NAME is not set
+	at receivers.MusicReceiver.<init>(MusicReceiver.java:67) ~[Server/:?]
+	at receivers.MusicReceiver.GetInstance(MusicReceiver.java:41) ~[Server/:?]
+	at main.Main.main(Main.java:50) [Server/:?]
+2023-06-13 14:19:10,483 ERROR m.Main [main] Cannot invoke "common.descriptions.SerialFunction.apply(Object)" because "this.fieldOfDescriptionSetter" is null
+java.lang.NullPointerException: Cannot invoke "common.descriptions.SerialFunction.apply(Object)" because "this.fieldOfDescriptionSetter" is null
+	at common.descriptions.LoadDescription.setField(LoadDescription.java:56) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:52) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.UserReceiver.<init>(UserReceiver.java:36) ~[Server/:?]
+	at receivers.UserReceiver.GetInstance(UserReceiver.java:20) ~[Server/:?]
+	at main.Main.main(Main.java:49) [Server/:?]
+2023-06-13 14:21:41,281 INFO m.Main [main] Files loaded
+2023-06-13 14:21:41,298 INFO m.Main [main] Listening started
+2023-06-13 14:22:49,767 INFO m.Main [main] Incoming request
+2023-06-13 14:22:49,771 INFO m.Main [main] New user connected
+2023-06-13 14:22:49,801 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:22:49,801 INFO m.Main [main] Listening started
+2023-06-13 14:24:34,136 INFO m.Main [main] Incoming request
+2023-06-13 14:24:34,138 INFO m.Main [main] Command show executing started
+2023-06-13 14:24:34,141 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:24:34,141 INFO m.Main [main] Listening started
+2023-06-13 14:24:39,304 INFO m.Main [main] Incoming request
+2023-06-13 14:24:39,305 INFO m.Main [main] Command info executing started
+2023-06-13 14:24:39,308 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:24:39,308 INFO m.Main [main] Listening started
+2023-06-13 14:24:41,480 INFO m.Main [main] Incoming request
+2023-06-13 14:24:41,481 INFO m.Main [main] Command help executing started
+2023-06-13 14:24:41,484 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-13 14:24:41,485 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:24:41,485 INFO m.Main [main] Listening started

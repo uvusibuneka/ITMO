@@ -71,7 +71,7 @@
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
-        <env name="PORT" value="2672" />
+        <env name="PORT" value="4444" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Client" />

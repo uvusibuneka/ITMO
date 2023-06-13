@@ -1,5 +1,6 @@
 package managers.file.decorators.CSV;
 
+import common.MusicBand;
 import managers.file.CSVSavable;
 import managers.file.decorators.ReaderDecorator;
 import common.Collection;
@@ -36,7 +37,9 @@ public class CSVReader<T extends Comparable<T> & IDAccess & CSVSavable> extends 
                         public void println(String message) {
                         }
                     }, line);
-                    Result<?> res = collection.add(loader.enter(load_description).getValue());
+                    T element = (T) loader.enter(load_description).getValue();
+                    System.out.println(element);
+                    Result<?> res = collection.add((T) element);
                     if (!res.isSuccess()) {
                         buffered_reader.close();
                         return Result.failure(res.getError().get(), res.getMessage());
