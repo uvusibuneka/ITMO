@@ -163,7 +163,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
     public Result<Long> countByBestAlbum(Album bestAlbum) {
         try {
             long count = collection.getCollection().stream()
-                    .filter((MusicBand band) -> band.getBestAlbum().compareTo(bestAlbum) == 0).count();
+                    .filter((MusicBand band) -> band.getBestAlbum().equals(bestAlbum)).count();
             return Result.success(count, "Number of elements with best album equal to " + bestAlbum + " is " + count);
         } catch (Exception e) {
             return Result.failure(e, "Error with executing countByBestAlbum command");

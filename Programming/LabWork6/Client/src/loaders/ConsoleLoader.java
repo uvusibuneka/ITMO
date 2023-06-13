@@ -9,6 +9,7 @@ import parsers.Parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -22,7 +23,9 @@ public class ConsoleLoader extends AbstractLoader {
     }
 
     public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
-        List<String> commandParts = List.of(command.split(" "));
+        List<String> commandParts = new ArrayList<String>(List.of(command.split(" ")));
+        for (var commandPart : commandParts)
+            System.out.println(commandPart);
         if (commandParts.size() == 0) {
             throw new RuntimeException("Command is empty!");
         }
@@ -44,15 +47,16 @@ public class ConsoleLoader extends AbstractLoader {
             }
             if(commandDescription.getOneLineArguments() != null) {
                 IntStream.range(0, commandDescription.getOneLineArguments().size())
-                        .forEach(i -> commandDescription.getOneLineArguments()
+                        .forEach(i -> commandDescription
+                                .getOneLineArguments()
                                 .get(i)
                                 .setValue(
                                         parse(commandParts.get(i+1),
                                                 commandDescription.getOneLineArguments()
                                                         .get(i)
                                                         .getType()
-                                        )
-                                ));
+                                )
+                        ));
             }
             if(commandDescription.getArguments() == null) {
                 return commandDescription;
@@ -132,6 +136,23 @@ public class ConsoleLoader extends AbstractLoader {
         while (true) {
             try {
                 return (T) t.setValue(parse(s, (Class<Enum>) t.getType()));
+            } catch (Exception e) {
+                textReceiver.println(e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public <T extends LoadDescription<?>> T enterDate(T t) {
+        String s = null;
+        while (true) {
+            try {
+                s = reader.readLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                return (T) t.setValue(parser.parse(s, t.getType()));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }

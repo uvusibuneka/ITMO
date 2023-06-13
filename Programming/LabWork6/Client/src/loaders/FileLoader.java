@@ -41,54 +41,42 @@ public class FileLoader extends AbstractLoader {
     }
 
     @Override
-    public <T extends LoadDescription<Enum>> T enterEnum(T t) {
-        String s = null;
+    public <T extends LoadDescription<?>> T enterDate(T t) {
         try {
-            s = reader.readLine();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        while (true) {
-        try {
-            return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), s));
+            return (T) t.setValue(parse(reader.readLine(), (Class<?>)t.getType()));
         } catch (Exception e) {
             textReceiver.println(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public <T extends LoadDescription<Enum>> T enterEnum(T t) {
+        try {
+            return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), reader.readLine()));
+        } catch (Exception e) {
+            textReceiver.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public <T extends LoadDescription<?>> T enterWrapper(T t) {
-        String s = null;
         try {
-            s = reader.readLine();
+            return (T)t.setValue(parse(reader.readLine(), (Class<?>)t.getType()));
         } catch (Exception e) {
+            textReceiver.println(e.getMessage());
             throw new RuntimeException(e);
-        }
-        while (true) {
-            try {
-                return (T)t.setValue(parse(s, (Class<?>)t.getType()));
-            } catch (Exception e) {
-                textReceiver.println(e.getMessage());
-            }
         }
     }
 
     @Override
     public LoadDescription<String> enterString(LoadDescription<String> loadDescription) {
-        String s = null;
         try {
-            s = reader.readLine();
+            return loadDescription.setValue(reader.readLine());
         } catch (Exception e) {
+            textReceiver.println(e.getMessage());
             throw new RuntimeException(e);
-        }
-
-        while (true){
-            try {
-                return loadDescription.setValue(s);
-            } catch (Exception e) {
-                textReceiver.println(e.getMessage());
-            }
         }
     }
 

@@ -17,7 +17,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
 
     private TreeSet<T> collection;
 
-    private static final HashSet<Long> ids = new HashSet<>();
+    private HashSet<Long> ids;
 
     private LocalDate initializationDate;
 
@@ -26,11 +26,13 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public Collection(AbstractFileReader<T> Collection_from_file_loader, AbstractFileWriter<T> Collection_to_file_writer) throws Exception {
+        ids = new HashSet<>();
         this.Collection_to_file_writer = Collection_to_file_writer;
         this.Collection_from_file_loader = Collection_from_file_loader;
         Result<Collection<T>> res = Collection_from_file_loader.read();
         if (res.isSuccess()) {
             collection = res.getValue().get().getCollection();
+            ids = res.getValue().get().ids;
             Collection_to_file_writer.setCollection(this);
             initializationDate = LocalDate.now();
         }else{
@@ -40,6 +42,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
 
     public Collection(){
         collection = new TreeSet<>();
+        ids = new HashSet<>();
     }
 
     /**

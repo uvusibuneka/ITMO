@@ -6,7 +6,6 @@ import common.Album;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Function;
 
 public class AlbumDescription extends LoadDescription<Album> implements Serializable {
     {
