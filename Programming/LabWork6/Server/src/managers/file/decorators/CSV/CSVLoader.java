@@ -23,6 +23,12 @@ public class CSVLoader extends AbstractLoader {
     }
 
     @Override
+    public <T extends LoadDescription<?>> T enterDate(T description) {
+        description.setField(parser.parse(CSV_row[i++], description.getType()));
+        return description;
+    }
+
+    @Override
     public <T extends LoadDescription<Enum>> T enterEnum(T description) {
         description.setField(parser.parseEnum(CSV_row[i++], description.getType()));
         return description;

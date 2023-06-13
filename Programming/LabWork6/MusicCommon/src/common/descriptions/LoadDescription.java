@@ -58,7 +58,7 @@ public class LoadDescription<T> implements Serializable {
         else
             throw new IllegalArgumentException("Wrong type of field");
     }
-    public List<LoadDescription<?>> getFields() {
+    public ArrayList<LoadDescription<?>> getFields() {
         return fields;
     }
 

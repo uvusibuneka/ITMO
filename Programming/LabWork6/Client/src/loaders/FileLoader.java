@@ -5,7 +5,6 @@ import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
 
-import javax.imageio.IIOException;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import java.util.stream.IntStream;
 
 public class FileLoader extends AbstractLoader {
     private String filename;
-
     private BufferedReader reader;
 
     public FileLoader(BaseTextReceiver textReceiver, String fileName) {
@@ -34,9 +32,26 @@ public class FileLoader extends AbstractLoader {
             throw new RuntimeException("File is not a file!");
         }
         try {
-        reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
         } catch (Exception e){
             throw new RuntimeException("Error while opening file!");
+        }
+    }
+
+    @Override
+    public <T extends LoadDescription<?>> T enterDate(T t) {
+        String s = null;
+        try {
+            s = reader.readLine();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        while (true) {
+            try {
+                return (T) t.setValue(parser.parse(s, t.getType()));
+            } catch (Exception e) {
+                textReceiver.println(e.getMessage());
+            }
         }
     }
 
@@ -49,12 +64,12 @@ public class FileLoader extends AbstractLoader {
             throw new RuntimeException(e);
         }
         while (true) {
-        try {
-            return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), s));
-        } catch (Exception e) {
-            textReceiver.println(e.getMessage());
+            try {
+                return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), s));
+            } catch (Exception e) {
+                textReceiver.println(e.getMessage());
+            }
         }
-    }
     }
 
     @Override

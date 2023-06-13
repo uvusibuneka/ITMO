@@ -161,7 +161,22 @@ public class ConsoleLoader extends AbstractLoader {
     }
 
     public List<String> splitStringWithQuotes(String input) {
-        
+        List<String> result = new ArrayList<>();
+        boolean inQuotes = false;
+        int start = 0;
+        for (int current = 0; current < input.length(); current++) {
+            if (input.charAt(current) == '\"') {
+                inQuotes = !inQuotes;
+            }
+            boolean atLastChar = (current == input.length() - 1);
+            if (atLastChar) {
+                result.add(input.substring(start));
+            } else if (input.charAt(current) == ' ' && !inQuotes) {
+                result.add(input.substring(start, current));
+                start = current + 1;
+            }
+        }
+        return result;
     }
 
 }
