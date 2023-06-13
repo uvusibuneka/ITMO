@@ -158,7 +158,7 @@ public class InteractiveMode {
             } else {
                 command.setCaller(new ServerCommandCaller(command, objectSender));
             }
-            if(!command.getName().equals("execute_script")) {
+            if(!this.isSpecial(command.getName())) {
                 callableManager.add(command.getCaller());
             }else{
                 command.getCaller().call();

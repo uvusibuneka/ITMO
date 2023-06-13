@@ -3,7 +3,10 @@ package managers.connection;
 import commands.HelpCommand;
 import commands.LoginCommand;
 import commands.RegisterCommand;
+import common.descriptions.AlbumDescription;
 import common.descriptions.CommandDescription;
+import common.descriptions.LoadDescription;
+import common.descriptions.MusicBandDescription;
 import main.Main;
 import managers.Invoker;
 import managers.user.User;
@@ -12,7 +15,9 @@ import result.Result;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -22,6 +27,7 @@ public class InputController {
 
     ResultSender rs = null;
     DatagramSocket ds;
+    HashMap<String, CommandDescription> commands;
 
     private final Map<String, BiFunction<User, DatagramPacket, Void>> user_connection_commands;
 
@@ -30,6 +36,29 @@ public class InputController {
         user_connection_commands.put("login", this::login);
         user_connection_commands.put("register", this::register);
         this.ds = ds;
+
+        commands = new HashMap<>();
+
+        commands.put("info", new CommandDescription("info", "Получить информацию о коллекции"));
+        commands.put("show", new CommandDescription("show", "Получить элементы коллекции"));
+        commands.put("clear", new CommandDescription("clear", "Очистить коллекцию"));
+        commands.put("help", new CommandDescription("help", "Получить справочную информацию"));
+        commands.put("exit", new CommandDescription("exit", "Выйти из приложения"));
+        commands.put("history", new CommandDescription("history", "История введенных команд"));
+        commands.put("max_by_best_album", new CommandDescription("max_by_best_album", "Получить MusicBand за наилучшим Album"));
+
+        commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+
+        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", new ArrayList<>(List.of(new LoadDescription<>(Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
+
+        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции", new ArrayList<>(List.of(new LoadDescription<>(Long.class))), null));
+
+        commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", new ArrayList<>(List.of(new LoadDescription<>(String.class))), null));
+
+        commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, new ArrayList<>(List.of(new AlbumDescription()))));
+
     }
 
     public void parse(CommandDescription cd, Invoker invoker, DatagramPacket dp) {
@@ -82,7 +111,7 @@ public class InputController {
                     }
                     rs = new ResultSender(user, ds);
                     Main.logger.info("New user connected");
-                    rs.send(Result.success(new HelpCommand().execute().getValue().get(), "Вход выполнен успешно"));
+                    rs.send(Result.success(commands, "Вход выполнен успешно"));
                 } else {
                     sender.send(Result.failure(new Exception(), "Логин или пароль неверны"));
                 }

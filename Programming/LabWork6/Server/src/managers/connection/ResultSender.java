@@ -21,6 +21,7 @@ public class ResultSender {
     }
 
     public void send(Result<?> to_send){
+        if (to_send!=null){
         try {
             ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(byteStream);
@@ -51,6 +52,6 @@ public class ResultSender {
             } catch (IOException ex) {
                 Main.logger.error("Error with sending message about error");
             }
-        }
+        }}
     }
 }
