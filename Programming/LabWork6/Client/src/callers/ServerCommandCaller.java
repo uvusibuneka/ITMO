@@ -17,7 +17,7 @@ public class ServerCommandCaller extends Caller {
     }
 
     @Override
-    public void call() {
+    public void call() throws Exception {
         try {
             objectSender.sendObject((CommandDescription)commandDescription);
         } catch (IOException e) {

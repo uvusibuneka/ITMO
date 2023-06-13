@@ -36,20 +36,22 @@ public class CallableManager {
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public List<Result<?>> callAll() throws InterruptedException {
         List<Result<?>> results = new ArrayList<>();
-        System.out.println(callers);
         for(Caller caller : callers){
             try {
                 if(specialCallers.contains(caller)) {
                     try{
                         caller.call();
-                        Thread.sleep(10);
                         results.add(Result.success(null));
                     }catch (Exception e){
                         results.add(Result.failure(e));
                     }
                     continue;
                 }
-                caller.call();
+                try {
+                    caller.call();
+                } catch (Exception e){
+                    System.out.println("Error with calling of command. " + e.getMessage());
+                }
                 Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
                 Thread.sleep(10);
                 if (!packet.isSuccess()){

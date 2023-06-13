@@ -14,15 +14,8 @@ public class HelpDescription extends CommandDescription {
     public HelpDescription(ObjectSender objectSender, InteractiveMode interactiveMode) {
         super("help", "Prints help information");
         this.setCaller(new SpecialClientCaller(() -> {
-                interactiveMode.printHelp();
-                return null;
-            } , this, objectSender){
-            @Override
-            public void call() {
-                supplier.get();
-            }
-            });
+            interactiveMode.printHelp();
+            return null;
+        }, this, objectSender));
     }
-
-
 }

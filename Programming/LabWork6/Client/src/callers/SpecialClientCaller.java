@@ -9,13 +9,13 @@ import java.util.function.Supplier;
 public class SpecialClientCaller extends ServerCommandCaller {
     protected Supplier<Void> supplier;
 
-    public SpecialClientCaller(Supplier supplier, CommandDescription commandDescription, ObjectSender objectSender) {
+    public SpecialClientCaller(Supplier supplier, CommandDescription commandDescription, ObjectSender objectSender){
         super(commandDescription, objectSender);
         this.supplier = supplier;
     }
 
     @Override
-    public void call() {
+    public void call() throws Exception {
         supplier.get();
     }
 

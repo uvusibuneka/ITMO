@@ -31,7 +31,6 @@ public class ResultSender {
             oos.close();
             byteStream.close();
 
-            System.out.println(arr.length + "\t" + ds.getSendBufferSize() + "\t" + ds.getReceiveBufferSize());
             if (arr.length > ds.getSendBufferSize()){
                 ds.setSendBufferSize(arr.length);
                 Main.logger.warn("Сообщение очень большое, временно увеличен размер отправляемых сообщений с" + arr.length + " до " + ds.getSendBufferSize());

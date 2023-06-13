@@ -143,7 +143,8 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      */
     public Result<Void> removeGreater(T element) {
         try {
-            collection.removeIf(element1 -> element1.compareTo(element) > 0);
+            collection.removeIf(element_2 -> element_2.compareTo(element) > 0);
+            ids.removeIf(id -> collection.stream().noneMatch(element_2 -> element_2.getID() == element.getID()));
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Failed to remove greater elements");
@@ -160,6 +161,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
     public Result<Void> remove(T element) {
         try {
             collection.remove(element);
+            ids.remove(element.getID());
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Failed to remove element");

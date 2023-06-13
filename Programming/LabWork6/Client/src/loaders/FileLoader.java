@@ -4,6 +4,7 @@ import callers.ServerCommandCaller;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
+import managers.AbstractParser;
 import managers.BaseTextReceiver;
 import modules.InteractiveMode;
 
@@ -41,6 +42,12 @@ public class FileLoader extends AbstractLoader {
         } catch (Exception e){
             throw new RuntimeException("Error while opening file!");
         }
+        parser = new AbstractParser() {
+            @Override
+            public <T> T parseComposite(String s, Class<T> type) {
+                return null;
+            }
+        };
     }
 
     public boolean hasNext(){
@@ -54,7 +61,8 @@ public class FileLoader extends AbstractLoader {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return (T) t.setValue(parser.parse(s, t.getType()));
+        t.setField(parser.parse(s, t.getType()));
+        return t;
     }
 
     @Override
@@ -65,8 +73,8 @@ public class FileLoader extends AbstractLoader {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), s));
-
+        t.setField(parser.parseEnum(s, t.getType()));
+        return t;
     }
 
     @Override
@@ -77,8 +85,8 @@ public class FileLoader extends AbstractLoader {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return (T)t.setValue(parse(s, (Class<?>)t.getType()));
-
+        t.setField(parser.parseWrapper(s, t.getType()));
+        return t;
     }
 
     @Override
@@ -93,9 +101,21 @@ public class FileLoader extends AbstractLoader {
             throw new RuntimeException(e);
         }
 
-        loadDescription.setValue(s);
+        if (loadDescription.getFieldOfDescriptionSetter() != null)
+            loadDescription.setField(s);
+        else
+            loadDescription.setValue(s);
 
         return loadDescription;
+    }
+
+    @Override
+    public  <T extends LoadDescription<?>> T enterComposite(T description) {
+        description.getFields().forEach(this::enter);
+        description.build();
+        if (description.getFieldOfDescriptionSetter() != null)
+            description.setField(description.getValue());
+        return description;
     }
 
     public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
@@ -111,18 +131,15 @@ public class FileLoader extends AbstractLoader {
                 throw new RuntimeException(e);
             }
             if (commandDescription.getOneLineArguments() != null) {
-            if (commandDescription.getOneLineArguments().size() != commandParts.size() - 1) {
-                throw new RuntimeException("Wrong number of arguments!");
-            }
-            if(commandDescription.getOneLineArguments().size() != commandParts.size()){
-                throw new RuntimeException("Wrong number of arguments!");
-            }
+                if (commandDescription.getOneLineArguments().size() != commandParts.size() - 1) {
+                    throw new RuntimeException("Wrong number of arguments!");
+                }
                 CommandDescription finalCommandDescription = commandDescription;
                 IntStream.range(0, commandDescription.getOneLineArguments().size())
                         .forEach(i -> finalCommandDescription.getOneLineArguments()
                                 .get(i)
                                 .setValue(
-                                        parse(commandParts.get(i),
+                                        parse(commandParts.get(i+1),
                                                 finalCommandDescription.getOneLineArguments()
                                                         .get(i)
                                                         .getType()

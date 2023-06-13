@@ -38,7 +38,6 @@ public class CSVReader<T extends Comparable<T> & IDAccess & CSVSavable> extends 
                         }
                     }, line);
                     T element = (T) loader.enter(load_description).getValue();
-                    System.out.println(element);
                     Result<?> res = collection.add((T) element);
                     if (!res.isSuccess()) {
                         buffered_reader.close();

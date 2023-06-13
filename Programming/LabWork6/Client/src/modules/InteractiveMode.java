@@ -62,7 +62,12 @@ public class InteractiveMode {
         this.callableManager = callableManager;
         this.objectSender = objectSender;
         authorizationMap = Map.of("l", this::login, "r", this::register, "q", this::exit);
-        specialCommands = Map.of("help", new HelpDescription(objectSender, this), "history", new HistoryDescription(objectSender, this), "execute_script", new ExecuteScriptDescription(callableManager, objectSender, this), "exit", new ExitDescription(objectSender, this));
+        specialCommands = Map.of(
+                "help", new HelpDescription(objectSender, this),
+                "history", new HistoryDescription(objectSender, this),
+                "execute_script", new ExecuteScriptDescription(callableManager, objectSender, this),
+                "exit", new ExitDescription(objectSender, this)
+        );
         exitDescription = new ExitDescription(objectSender, this);
     }
 
@@ -139,13 +144,15 @@ public class InteractiveMode {
                 textReceiver.println("Unknown command!");
             }
         }
+
+
         textReceiver.println("Interactive mode started! Check command help to see available commands.");
         Map<String, CommandDescription> commandDescriptionMap = getCommandDescriptionMap();
         while (true) {
             CommandDescription command = null;
             try {
                 command = loader.parseCommand(commandDescriptionMap,
-                        (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue()
+                        (String) loader.enterWithMessage(">", new LoadDescription<String>(String.class)).getValue()
                 );
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
@@ -154,16 +161,17 @@ public class InteractiveMode {
             if (this.isSpecial(command.getName())) {
                 command.setCaller(specialCommands.get(command.getName()).getCaller());
                 callableManager.addSpecial(specialCommands.get(command.getName()).getCaller());
-
+                try {
+                    command.getCaller().call();
+                } catch (Exception e){
+                    System.out.println("Error with calling of command. " + e.getMessage());
+                }
+                continue;
             } else {
                 command.setCaller(new ServerCommandCaller(command, objectSender));
-            }
-            if(!this.isSpecial(command.getName())) {
                 callableManager.add(command.getCaller());
-            }else{
-                command.getCaller().call();
-                continue;
             }
+
             var resultOfExecuting = callableManager.callFirst();
             textReceiver.println(resultOfExecuting.getMessage());
             if (resultOfExecuting.isSuccess()) {

@@ -288,7 +288,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public String toString() {
         return "MusicBand{" +
                 "id=" + id +
-                ", name='" + name + ' ' +
+                ", name='" + name + '\'' +
                 ", coordinates=" + coordinates +
                 ", creationDate=" + creationDate +
                 ", numberOfParticipants=" + numberOfParticipants +
@@ -305,17 +305,17 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
                     append(this.getCoordinates().getX()).append(",").
                     append(this.getCoordinates().getY()).append(",").
                     append(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(",").
-                    append(this.getNumberOfParticipants()).append(",").
-                    append(this.getGenre()).append(",");
+                    append(this.getNumberOfParticipants()).append(",");
             Album album = this.getBestAlbum();
             if (this.getBestAlbum() != null) {
                 sb.append(album.getName()).append(",");
                 sb.append(album.getTracks()).append(",");
                 sb.append(album.getLength()).append(",");
-                sb.append(album.getSales());
+                sb.append(album.getSales()).append(",");
             } else {
                 sb.append(",");
             }
+            sb.append(this.getGenre());
             return Result.success(sb.toString(), null);
         } catch (Exception e) {
             return Result.failure(e, "Error with parsing CSV format");

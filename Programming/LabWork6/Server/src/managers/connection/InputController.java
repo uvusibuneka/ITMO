@@ -45,11 +45,11 @@ public class InputController {
         commands.put("help", new CommandDescription("help", "Получить справочную информацию"));
         commands.put("exit", new CommandDescription("exit", "Выйти из приложения"));
         commands.put("history", new CommandDescription("history", "История введенных команд"));
-        commands.put("max_by_best_album", new CommandDescription("max_by_best_album", "Получить MusicBand за наилучшим Album"));
+        commands.put("max_by_best_album", new CommandDescription("max_by_best_album", "Получить MusicBand с наилучшим Album"));
 
         commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, new ArrayList<>(List.of(new MusicBandDescription()))));
-        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив что больше уже имеющихся", null, new ArrayList<>(List.of(new MusicBandDescription()))));
-        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить элемент из коллекции", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив, что он больше уже имеющихся", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить из коллекции все элементы, превышающие заданный", null, new ArrayList<>(List.of(new MusicBandDescription()))));
 
         commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", new ArrayList<>(List.of(new LoadDescription<>(Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
 
