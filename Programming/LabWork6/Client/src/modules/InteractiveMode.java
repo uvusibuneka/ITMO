@@ -27,6 +27,15 @@ public class InteractiveMode {
     private TextReceiver textReceiver;
     private ConsoleLoader loader;
     private ObjectSender objectSender;
+
+    public ObjectSender getObjectSender() {
+        return objectSender;
+    }
+
+    public void setObjectSender(ObjectSender objectSender) {
+        this.objectSender = objectSender;
+    }
+
     private RequestHandler requestHandler;
     private final CommandDescription loginCommandDescription = new CommandDescription("login", "Вход пользователя", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
 
@@ -38,6 +47,11 @@ public class InteractiveMode {
     private ExitDescription exitDescription;
 
     private Map<String, Supplier<Result<?>>> authorizationMap = new HashMap<>();
+
+    public Map<String, CommandDescription> getSpecialCommands() {
+        return specialCommands;
+    }
+
     private Map<String, CommandDescription> specialCommands = new HashMap<>();
     private ArrayDeque<String> history = new ArrayDeque<>();
 
@@ -62,6 +76,7 @@ public class InteractiveMode {
     public static InteractiveMode getObject() {
         return interactiveMode;
     }
+
 
 
     @SuppressWarnings({"unchecked", "OptionalGetWithoutIsPresent"})
@@ -139,11 +154,18 @@ public class InteractiveMode {
             if (this.isSpecial(command.getName())) {
                 command.setCaller(specialCommands.get(command.getName()).getCaller());
                 callableManager.addSpecial(specialCommands.get(command.getName()).getCaller());
+
             } else {
                 command.setCaller(new ServerCommandCaller(command, objectSender));
             }
-            callableManager.add(command.getCaller());
-            Result<?> resultOfExecuting = callableManager.callAll().get(0);
+            if(!command.getName().equals("execute_script")) {
+                callableManager.add(command.getCaller());
+            }else{
+                command.getCaller().call();
+                continue;
+            }
+
+            var resultOfExecuting = callableManager.callFirst();
             textReceiver.println(resultOfExecuting.getMessage());
             if (resultOfExecuting.isSuccess()) {
                 if (!command.getName().equals("help") && resultOfExecuting.getValue().isPresent())

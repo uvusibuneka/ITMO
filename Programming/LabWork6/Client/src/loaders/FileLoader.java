@@ -1,9 +1,11 @@
 package loaders;
 
+import callers.ServerCommandCaller;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
+import modules.InteractiveMode;
 
 import javax.imageio.IIOException;
 import java.io.*;
@@ -13,6 +15,8 @@ import java.util.stream.IntStream;
 
 public class FileLoader extends AbstractLoader {
     private String filename;
+
+    private boolean hasNext = true;
     private BufferedReader reader;
 
     public FileLoader(BaseTextReceiver textReceiver, String fileName) {
@@ -33,27 +37,24 @@ public class FileLoader extends AbstractLoader {
             throw new RuntimeException("File is not a file!");
         }
         try {
-        reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
         } catch (Exception e){
             throw new RuntimeException("Error while opening file!");
         }
     }
 
+    public boolean hasNext(){
+        return hasNext;
+    }
     @Override
     public <T extends LoadDescription<?>> T enterDate(T t) {
-String s = null;
+        String s = null;
         try {
             s = reader.readLine();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        while (true) {
-            try {
-                return (T) t.setValue(parser.parse(s, t.getType()));
-            } catch (Exception e) {
-                textReceiver.println(e.getMessage());
-            }
-        }
+        return (T) t.setValue(parser.parse(s, t.getType()));
     }
 
     @Override
@@ -64,13 +65,8 @@ String s = null;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        while (true) {
-        try {
-            return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), s));
-        } catch (Exception e) {
-            textReceiver.println(e.getMessage());
-        }
-    }
+        return (T) t.setValue(Enum.valueOf((Class<Enum>) t.getType(), s));
+
     }
 
     @Override
@@ -81,13 +77,8 @@ String s = null;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        while (true) {
-            try {
-                return (T)t.setValue(parse(s, (Class<?>)t.getType()));
-            } catch (Exception e) {
-                textReceiver.println(e.getMessage());
-            }
-        }
+        return (T)t.setValue(parse(s, (Class<?>)t.getType()));
+
     }
 
     @Override
@@ -95,17 +86,16 @@ String s = null;
         String s = null;
         try {
             s = reader.readLine();
+            if(s == null)
+                hasNext = false;
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        while (true){
-            try {
-                return loadDescription.setValue(s);
-            } catch (Exception e) {
-                textReceiver.println(e.getMessage());
-            }
-        }
+        loadDescription.setValue(s);
+
+        return loadDescription;
     }
 
     public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
@@ -120,28 +110,34 @@ String s = null;
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
+            if (commandDescription.getOneLineArguments() != null) {
             if (commandDescription.getOneLineArguments().size() != commandParts.size() - 1) {
                 throw new RuntimeException("Wrong number of arguments!");
             }
             if(commandDescription.getOneLineArguments().size() != commandParts.size()){
                 throw new RuntimeException("Wrong number of arguments!");
             }
-            CommandDescription finalCommandDescription = commandDescription;
-            IntStream.range(0, commandDescription.getOneLineArguments().size())
-                    .forEach(i -> finalCommandDescription.getOneLineArguments()
-                            .get(i)
-                            .setValue(
-                                    parse(commandParts.get(i),
-                                            finalCommandDescription.getOneLineArguments()
-                                                    .get(i)
-                                                    .getType()
-                                    )
-                            ));
-            commandDescription.getArguments()
-                    .stream()
-                    .forEach(loadDescription -> {
-                        loadDescription = enter(loadDescription);
-                    });
+                CommandDescription finalCommandDescription = commandDescription;
+                IntStream.range(0, commandDescription.getOneLineArguments().size())
+                        .forEach(i -> finalCommandDescription.getOneLineArguments()
+                                .get(i)
+                                .setValue(
+                                        parse(commandParts.get(i),
+                                                finalCommandDescription.getOneLineArguments()
+                                                        .get(i)
+                                                        .getType()
+                                        )
+                                ));
+            }
+            if (commandDescription.getArguments() != null) {
+                commandDescription.getArguments()
+                        .forEach(this::enter);
+            }
+            if(InteractiveMode.getObject().isSpecial(commandDescription.getName())){
+                commandDescription.setCaller(InteractiveMode.getObject().getSpecialCommands().get(commandDescription.getName()).getCaller());
+            }else{
+                commandDescription.setCaller(new ServerCommandCaller(commandDescription, InteractiveMode.getObject().getObjectSender()));
+            }
             return commandDescription;
         } else {
             throw new RuntimeException("Unknown command!");
@@ -154,5 +150,9 @@ String s = null;
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public boolean isHasNext() {
+        return hasNext;
     }
 }

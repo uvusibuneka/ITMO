@@ -42,8 +42,7 @@ public class ConsoleLoader extends AbstractLoader {
     public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
         // разбиение по пробелам или отдельных слов в кавычках с помощью регулярного выражения
         List<String> commandParts = splitStringWithQuotes(command);
-        for (var commandPart : commandParts)
-            System.out.println(commandPart);
+
         if (commandParts.size() == 0) {
             throw new RuntimeException("Command is empty!");
         }
@@ -150,11 +149,10 @@ public class ConsoleLoader extends AbstractLoader {
             if (input.charAt(current) == '\"') {
                 inQuotes = !inQuotes;
             }
-            boolean atLastChar = (current == input.length() - 1);
-            if (atLastChar) {
-                result.add(input.substring(start));
+            if (current == input.length() - 1) {
+                result.add(input.substring(start).replace("\"",""));
             } else if (input.charAt(current) == ' ' && !inQuotes) {
-                result.add(input.substring(start, current));
+                result.add(input.substring(start, current).replace("\"",""));
                 start = current + 1;
             }
         }

@@ -24,19 +24,25 @@ public class CallableManager {
         callers.add(caller);
     }
 
+    public void pop(){
+        callers.remove(callers.size() - 1);
+    }
+
     public void addSpecial(Caller caller){
         if(!specialCallers.contains(caller))
             specialCallers.add(caller);
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    public List<Result<?>> callAll() {
+    public List<Result<?>> callAll() throws InterruptedException {
         List<Result<?>> results = new ArrayList<>();
+        System.out.println(callers);
         for(Caller caller : callers){
             try {
                 if(specialCallers.contains(caller)) {
                     try{
                         caller.call();
+                        Thread.sleep(10);
                         results.add(Result.success(null));
                     }catch (Exception e){
                         results.add(Result.failure(e));
@@ -45,6 +51,7 @@ public class CallableManager {
                 }
                 caller.call();
                 Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
+                Thread.sleep(10);
                 if (!packet.isSuccess()){
                     results.add(Result.failure(packet.getError().get()));
                     continue;
@@ -60,6 +67,14 @@ public class CallableManager {
         return results;
     }
 
+    public Result<?> callFirst() {
+        try {
+            callers.get(0).call();
+            return Result.success(null);
+        } catch (Exception e){
+            return Result.failure(e);
+        }
+    }
     public void clear() {
         callers.clear();
     }
