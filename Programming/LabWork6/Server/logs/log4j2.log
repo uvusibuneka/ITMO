@@ -710,3 +710,134 @@ java.lang.NullPointerException: Cannot invoke "common.descriptions.SerialFunctio
 2023-06-13 14:24:41,484 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
 2023-06-13 14:24:41,485 INFO m.Main [main] Result sent to user. Message: Command executed successfully
 2023-06-13 14:24:41,485 INFO m.Main [main] Listening started
+2023-06-13 14:27:43,663 INFO m.Main [main] Files loaded
+2023-06-13 14:27:43,694 INFO m.Main [main] Listening started
+2023-06-13 14:27:51,827 INFO m.Main [main] Files loaded
+2023-06-13 14:27:51,842 INFO m.Main [main] Listening started
+2023-06-13 14:28:52,643 INFO m.Main [main] Files loaded
+2023-06-13 14:28:52,675 INFO m.Main [main] Listening started
+2023-06-13 14:29:08,145 INFO m.Main [main] Incoming request
+2023-06-13 14:29:08,192 INFO m.Main [main] New user connected
+2023-06-13 14:29:08,245 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:29:08,245 INFO m.Main [main] Listening started
+2023-06-13 14:29:11,989 INFO m.Main [main] Incoming request
+2023-06-13 14:29:11,989 INFO m.Main [main] Command help executing started
+2023-06-13 14:29:12,005 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-13 14:29:12,005 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:29:12,005 INFO m.Main [main] Listening started
+2023-06-13 14:30:37,741 INFO m.Main [main] Files loaded
+2023-06-13 14:30:37,773 INFO m.Main [main] Listening started
+2023-06-13 14:30:44,991 INFO m.Main [main] Incoming request
+2023-06-13 14:30:44,991 INFO m.Main [main] New user connected
+2023-06-13 14:30:45,060 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:30:45,060 INFO m.Main [main] Listening started
+2023-06-13 14:32:43,096 INFO m.Main [main] Incoming request
+2023-06-13 14:32:43,096 INFO m.Main [main] Result sent to user. Message: Сервер занят занят работой с другим клиентом
+2023-06-13 14:32:43,096 INFO m.Main [main] Listening started
+2023-06-13 14:32:55,112 INFO m.Main [main] Files loaded
+2023-06-13 14:32:55,144 INFO m.Main [main] Listening started
+2023-06-13 14:32:57,157 INFO m.Main [main] Incoming request
+2023-06-13 14:32:57,161 INFO m.Main [main] New user connected
+2023-06-13 14:32:57,207 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:32:57,207 INFO m.Main [main] Listening started
+2023-06-13 14:32:59,837 INFO m.Main [main] Incoming request
+2023-06-13 14:32:59,837 INFO m.Main [main] Command help executing started
+2023-06-13 14:32:59,863 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-13 14:32:59,863 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:32:59,863 INFO m.Main [main] Listening started
+2023-06-13 14:33:04,928 INFO m.Main [main] Incoming request
+2023-06-13 14:33:05,013 INFO m.Main [main] Command info executing started
+2023-06-13 14:33:05,028 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:33:05,028 INFO m.Main [main] Listening started
+2023-06-13 14:36:15,275 INFO m.Main [main] Files loaded
+2023-06-13 14:36:15,295 INFO m.Main [main] Listening started
+2023-06-13 14:36:35,442 INFO m.Main [main] Incoming request
+2023-06-13 14:36:35,450 INFO m.Main [main] New user connected
+2023-06-13 14:36:35,511 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:36:35,511 INFO m.Main [main] Listening started
+2023-06-13 14:36:38,317 INFO m.Main [main] Incoming request
+2023-06-13 14:36:38,317 INFO m.Main [main] Command help executing started
+2023-06-13 14:36:38,317 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-13 14:36:38,317 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:36:38,317 INFO m.Main [main] Listening started
+2023-06-13 14:38:28,237 INFO m.Main [main] Incoming request
+2023-06-13 14:38:28,237 INFO m.Main [main] Result sent to user. Message: Сервер занят занят работой с другим клиентом
+2023-06-13 14:38:28,237 INFO m.Main [main] Listening started
+2023-06-13 14:38:48,586 INFO m.Main [main] Files loaded
+2023-06-13 14:38:48,617 INFO m.Main [main] Listening started
+2023-06-13 14:38:52,861 INFO m.Main [main] Incoming request
+2023-06-13 14:38:52,861 INFO m.Main [main] New user connected
+2023-06-13 14:38:52,924 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:38:52,930 INFO m.Main [main] Listening started
+2023-06-13 14:48:18,431 INFO m.Main [main] Files loaded
+2023-06-13 14:48:18,453 INFO m.Main [main] Listening started
+2023-06-13 14:48:27,009 INFO m.Main [main] Incoming request
+2023-06-13 14:48:27,009 INFO m.Main [main] New user connected
+2023-06-13 14:48:27,063 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:48:27,063 INFO m.Main [main] Listening started
+2023-06-13 14:48:30,126 INFO m.Main [main] Incoming request
+2023-06-13 14:48:30,126 INFO m.Main [main] Command help executing started
+2023-06-13 14:48:30,142 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-13 14:48:30,142 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:48:30,142 INFO m.Main [main] Listening started
+2023-06-13 14:53:40,385 INFO m.Main [main] Files loaded
+2023-06-13 14:53:40,459 INFO m.Main [main] Listening started
+2023-06-13 14:53:47,971 INFO m.Main [main] Incoming request
+2023-06-13 14:53:47,977 INFO m.Main [main] New user connected
+2023-06-13 14:53:48,024 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:53:48,024 INFO m.Main [main] Listening started
+2023-06-13 14:53:51,506 INFO m.Main [main] Incoming request
+2023-06-13 14:53:51,506 INFO m.Main [main] Command help executing started
+2023-06-13 14:53:51,520 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-13 14:53:51,520 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:53:51,520 INFO m.Main [main] Listening started
+2023-06-13 14:55:12,130 INFO m.Main [main] Files loaded
+2023-06-13 14:55:12,148 INFO m.Main [main] Listening started
+2023-06-13 14:55:17,893 INFO m.Main [main] Incoming request
+2023-06-13 14:55:17,908 INFO m.Main [main] New user connected
+2023-06-13 14:55:17,957 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:55:17,957 INFO m.Main [main] Listening started
+2023-06-13 14:55:20,824 INFO m.Main [main] Incoming request
+2023-06-13 14:55:20,824 INFO m.Main [main] Command help executing started
+2023-06-13 14:55:20,839 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10378 до 10378
+2023-06-13 14:55:20,839 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 14:55:20,839 INFO m.Main [main] Listening started
+2023-06-13 14:56:13,443 INFO m.Main [main] Files loaded
+2023-06-13 14:56:13,477 INFO m.Main [main] Listening started
+2023-06-13 14:56:19,834 INFO m.Main [main] Incoming request
+2023-06-13 14:56:19,834 INFO m.Main [main] New user connected
+2023-06-13 14:56:19,896 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 14:56:19,896 INFO m.Main [main] Listening started
+2023-06-13 14:56:41,739 INFO m.Main [main] Files loaded
+2023-06-13 14:56:41,767 INFO m.Main [main] Listening started
+2023-06-13 15:06:41,813 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-13 15:06:41,829 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-13 15:06:41,829 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-13 15:16:41,828 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-13 15:16:41,828 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-06-13 15:16:41,828 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-06-13 15:17:50,489 INFO m.Main [main] Files loaded
+2023-06-13 15:17:50,505 INFO m.Main [main] Listening started
+2023-06-13 15:18:12,601 INFO m.Main [main] Incoming request
+2023-06-13 15:18:12,601 INFO m.Main [main] New user connected
+2023-06-13 15:18:12,661 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-06-13 15:18:12,661 INFO m.Main [main] Listening started
+2023-06-13 15:18:41,653 INFO m.Main [main] Incoming request
+2023-06-13 15:18:41,653 INFO m.Main [main] Command add executing started
+2023-06-13 15:18:41,653 INFO m.Main [main] New element successfully added to collection
+2023-06-13 15:18:41,653 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-06-13 15:18:41,653 INFO m.Main [main] Listening started
+2023-06-13 15:19:55,703 INFO m.Main [main] Incoming request
+2023-06-13 15:19:55,703 INFO m.Main [main] Command show executing started
+2023-06-13 15:19:55,703 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 15:19:55,703 INFO m.Main [main] Listening started
+2023-06-13 15:20:03,426 INFO m.Main [main] Incoming request
+2023-06-13 15:20:03,426 INFO m.Main [main] Command help executing started
+2023-06-13 15:20:03,426 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10347 до 10347
+2023-06-13 15:20:03,426 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 15:20:03,426 INFO m.Main [main] Listening started
+2023-06-13 15:20:17,095 INFO m.Main [main] Incoming request
+2023-06-13 15:20:17,095 INFO m.Main [main] Command remove_by_id executing started
+2023-06-13 15:20:17,110 INFO m.Main [main] Element removed
+2023-06-13 15:20:17,110 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-06-13 15:20:17,110 INFO m.Main [main] Listening started

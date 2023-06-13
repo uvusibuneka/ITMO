@@ -70,4 +70,6 @@ public abstract class AbstractLoader {
     public void setTextReceiver(BaseTextReceiver textReceiver) {
         this.textReceiver = textReceiver;
     }
+
+
 }

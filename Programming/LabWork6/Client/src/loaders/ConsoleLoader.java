@@ -89,24 +89,6 @@ public class ConsoleLoader extends AbstractLoader {
         }
     }
 
-    public <T extends LoadDescription<Enum>> T enterEnum(String s, T t, BaseTextReceiver baseTextReceiver) {
-        baseTextReceiver.print(s);
-        String line = null;
-        while (true) {
-            try {
-                line = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            try {
-                return (T) t.setValue(Enum.valueOf(t.getType(), line));
-            } catch (Exception e) {
-                textReceiver.println(e.getMessage());
-            }
-        }
-    }
-
     @Override
     public <T extends LoadDescription<?>> T enterWrapper(T t) {
         String s = null;

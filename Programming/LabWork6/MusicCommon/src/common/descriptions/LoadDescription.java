@@ -83,6 +83,15 @@ public class LoadDescription<T> implements Serializable {
         this.fieldOfDescriptionSetter = fieldOfDescriptionSetter;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "LoadDescription{" +
+                "value=" + value +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                ", builder=" + builder +
+                ", fieldOfDescriptionSetter=" + fieldOfDescriptionSetter +
+                ", fields=" + fields +
+                '}';
+    }
 }
