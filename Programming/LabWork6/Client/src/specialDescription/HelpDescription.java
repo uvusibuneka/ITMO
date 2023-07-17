@@ -4,10 +4,6 @@ import callers.SpecialClientCaller;
 import common.descriptions.CommandDescription;
 import modules.InteractiveMode;
 import modules.ObjectSender;
-import result.Result;
-
-import java.io.IOException;
-import java.net.DatagramPacket;
 
 public class HelpDescription extends CommandDescription {
 
