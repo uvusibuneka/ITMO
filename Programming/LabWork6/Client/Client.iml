@@ -7,10 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="MusicCommon1" level="project" />
-    <orderEntry type="module" module-name="MusicCommon" />
+    <orderEntry type="library" name="Client" level="project" />
+    <orderEntry type="library" name="Server" level="project" />
     <orderEntry type="module" module-name="Server" />
-    <orderEntry type="library" name="production" level="project" />
-    <orderEntry type="library" exported="" name="MusicCommon" level="project" />
+    <orderEntry type="module" module-name="MusicCommon" />
+    <orderEntry type="library" name="MusicCommon" level="project" />
   </component>
 </module>
