@@ -39,6 +39,6 @@ public class Main {
         } catch (Exception e) {
             textReceiver.println("Error while creating object sender");
         }
-        InteractiveMode.getInstance(textReceiver, loader, requestHandler, objectSender, new CallableManager(requestHandler)).start();
+        InteractiveMode.getInstance(textReceiver, loader, requestHandler, objectSender).start();
     }
 }

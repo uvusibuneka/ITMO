@@ -1,9 +1,11 @@
 package loaders;
 
+import commandRealization.CommandRealization;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
+import modules.InteractiveMode;
 import parsers.Parser;
 
 import java.io.BufferedReader;
@@ -32,24 +34,24 @@ public class ConsoleLoader extends AbstractLoader {
                 throw new RuntimeException(e);
             }
             try {
-                return (T) t.setValue(parser.parse(s, t.getType()));
+                return (T)t.setValue(parser.parse(s, t.getType()));
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
             }
         }
     }
 
-    public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
+    public CommandDescription parseCommand(InteractiveMode interactiveMode, String command) {
         // разбиение по пробелам или отдельных слов в кавычках с помощью регулярного выражения
         List<String> commandParts = splitStringWithQuotes(command);
 
         if (commandParts.size() == 0) {
             throw new RuntimeException("Command is empty!");
         }
-        if (commandDescriptionMap.containsKey(commandParts.get(0))) {
+        if (interactiveMode.isCommandExist(commandParts.get(0))) {
             CommandDescription commandDescription;
             try {
-                commandDescription = commandDescriptionMap.get(commandParts.get(0)).clone();
+                commandDescription = interactiveMode.getCommandDescription(commandParts.get(0)).clone();
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
@@ -77,11 +79,10 @@ public class ConsoleLoader extends AbstractLoader {
             if (commandDescription.getArguments() == null) {
                 return commandDescription;
             }
-
-            commandDescription.getArguments()
-                    .forEach(loadDescription -> {
-                        enterWithMessage("Enter arguments of command according to description \"" + loadDescription.getDescription() + "\":\n", loadDescription);
-                    });
+            commandDescription.setLoader(this);
+            if(commandDescription.getCaller() instanceof CommandRealization)
+                ((CommandRealization)(commandDescription.getCaller()))
+                        .setCommandDescription(commandDescription);
             return commandDescription;
         } else {
             throw new RuntimeException("Unknown command!");

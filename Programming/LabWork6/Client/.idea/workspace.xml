@@ -23,6 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../../.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -47,15 +52,17 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "F:/Рабочий стол/ITMO_LABS/Programming/LabWork6/Client",
+    "git-widget-placeholder": "fixing",
+    "last_opened_file_path": "C:/Users/alisa/IdeaProjects/ITMO/Programming/LabWork6/MusicCommon",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -64,6 +71,7 @@
       <recent name="managers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\alisa\IdeaProjects\ITMO\Programming\LabWork6\Client\src" />
       <recent name="F:\Рабочий стол\ITMO\Programming\LabWork6\Client\lib" />
       <recent name="F:\Рабочий стол\ITMO\Lab5Client\lib" />
     </key>
@@ -71,7 +79,7 @@
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
-        <env name="PORT" value="4444" />
+        <env name="PORT" value="2672" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Client" />
@@ -132,18 +140,8 @@
       <workItem from="1686395130292" duration="12267000" />
       <workItem from="1686512857298" duration="3177000" />
       <workItem from="1686555305959" duration="2056000" />
-      <workItem from="1686562926385" duration="2809000" />
-      <workItem from="1686565763296" duration="3532000" />
-      <workItem from="1686569777539" duration="78000" />
-      <workItem from="1686569908808" duration="4753000" />
-      <workItem from="1686586408875" duration="13975000" />
-      <workItem from="1686646769510" duration="341000" />
-      <workItem from="1686647229010" duration="675000" />
-      <workItem from="1686655610454" duration="423000" />
-      <workItem from="1686656106949" duration="12290000" />
-      <workItem from="1686680902099" duration="12814000" />
-      <workItem from="1686697535041" duration="17000" />
-      <workItem from="1686913311463" duration="1332000" />
+      <workItem from="1691349838349" duration="261000" />
+      <workItem from="1691350184489" duration="14022000" />
     </task>
     <servers />
   </component>
@@ -165,5 +163,16 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="7" />
     <option name="LAST_COMMIT_MESSAGE" value="7" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

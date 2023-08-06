@@ -1,6 +1,6 @@
 package loaders;
 
-import callers.ServerCommandCaller;
+import commandRealization.CommandRealization;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
@@ -8,10 +8,8 @@ import managers.AbstractParser;
 import managers.BaseTextReceiver;
 import modules.InteractiveMode;
 
-import javax.imageio.IIOException;
 import java.io.*;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.IntStream;
 
 public class FileLoader extends AbstractLoader {
@@ -25,7 +23,13 @@ public class FileLoader extends AbstractLoader {
     }
 
     public FileLoader(String fileName){
-        super(null);
+        super(new BaseTextReceiver() {
+            @Override
+            public void print(String s) {}
+
+            @Override
+            public void println(String s) {}
+        });
         this.filename = fileName;
         File file = new File(fileName);
         if(!file.exists()){
@@ -118,15 +122,15 @@ public class FileLoader extends AbstractLoader {
         return description;
     }
 
-    public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
+    public CommandDescription parseCommand(InteractiveMode interactiveMode, String command) {
         List<String> commandParts = List.of(command.split(" "));
         if (commandParts.size() == 0) {
             throw new RuntimeException("Command is empty!");
         }
-        if (commandDescriptionMap.containsKey(commandParts.get(0))) {
+        if (interactiveMode.isCommandExist(commandParts.get(0))) {
             CommandDescription commandDescription = null;
             try {
-                commandDescription = commandDescriptionMap.get(commandParts.get(0)).clone();
+                commandDescription = interactiveMode.getCommandDescription(commandParts.get(0)).clone();
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
@@ -146,15 +150,10 @@ public class FileLoader extends AbstractLoader {
                                         )
                                 ));
             }
-            if (commandDescription.getArguments() != null) {
-                commandDescription.getArguments()
-                        .forEach(this::enter);
-            }
-            if(InteractiveMode.getObject().isSpecial(commandDescription.getName())){
-                commandDescription.setCaller(InteractiveMode.getObject().getSpecialCommands().get(commandDescription.getName()).getCaller());
-            }else{
-                commandDescription.setCaller(new ServerCommandCaller(commandDescription, InteractiveMode.getObject().getObjectSender()));
-            }
+            commandDescription.setLoader(this);
+            if(commandDescription.getCaller() instanceof CommandRealization)
+                ((CommandRealization)(commandDescription.getCaller()))
+                        .setCommandDescription(commandDescription);
             return commandDescription;
         } else {
             throw new RuntimeException("Unknown command!");

@@ -50,8 +50,17 @@ public abstract class AbstractLoader {
     protected <T extends LoadDescription<?>> T enterComposite(T description) {
         description.getFields()
                 .forEach(field -> {
-                    enterWithMessage(field.getDescription() + ":", field);
-                    field.setField(field.getValue());
+                    String message = field.getDescription() + ":";
+                    while (true) {
+                        enterWithMessage(message, field);
+                        try {
+                            field.setField(field.getValue());
+                        }catch (Exception e) {
+                            message = e.getMessage() + "Try again:\n";
+                            continue;
+                        }
+                        break;
+                    }
                 });
         description.build();
         return description;
