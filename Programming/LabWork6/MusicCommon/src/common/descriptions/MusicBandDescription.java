@@ -1,11 +1,6 @@
 package common.descriptions;
 
-import common.builders.AlbumBuilder;
-import common.builders.Buildable;
-import common.builders.CoordinatesBuilder;
 import common.builders.MusicBandBuilder;
-import common.Album;
-import common.Coordinates;
 import common.MusicBand;
 import common.MusicGenre;
 
@@ -13,7 +8,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Function;
 
 public class MusicBandDescription extends LoadDescription<MusicBand> implements Serializable {
     {

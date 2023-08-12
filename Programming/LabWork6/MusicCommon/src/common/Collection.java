@@ -17,7 +17,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
 
     private TreeSet<T> collection;
 
-    private HashSet<Long> ids = new HashSet<>();
+    private HashSet<Long> ids;
 
     private LocalDate initializationDate;
 

@@ -36,6 +36,7 @@ public abstract class AbstractLoader {
     }
 
     public abstract <T extends LoadDescription<?>> T enterDate(T description);
+
     public <T extends LoadDescription<?>> T enterWithMessage(String message, T description) {
         textReceiver.print(message);
         return enter(description);
