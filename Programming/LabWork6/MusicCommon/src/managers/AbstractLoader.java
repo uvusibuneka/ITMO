@@ -2,8 +2,10 @@ package managers;
 
 import common.descriptions.LoadDescription;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractLoader {
     protected BaseTextReceiver textReceiver;
@@ -26,10 +28,14 @@ public abstract class AbstractLoader {
             return (T) enterString((LoadDescription<String>) description);
         } else if (description.getType().isEnum()){
             return (T) enterEnum((LoadDescription<Enum>) description);
+        } else if (description.getType().equals(LocalDate.class)) {
+            return (T) enterDate(description);
         } else {
             return enterComposite(description);
         }
     }
+
+    public abstract <T extends LoadDescription<?>> T enterDate(T description);
 
     public <T extends LoadDescription<?>> T enterWithMessage(String message, T description) {
         textReceiver.print(message);
@@ -37,18 +43,27 @@ public abstract class AbstractLoader {
     }
 
     public abstract <T extends LoadDescription<Enum>> T enterEnum(T description);
-    public abstract <T extends LoadDescription<?>> T enterDate(T description);
 
     public abstract <T extends LoadDescription<?>> T enterWrapper(T description);
+
     public abstract LoadDescription<String> enterString(LoadDescription<String> description);
 
     protected <T extends LoadDescription<?>> T enterComposite(T description) {
-        List<? extends LoadDescription<?>> updatedFields = description.getFields().stream()
-                .map(field -> enterWithMessage(field.getDescription(), field)).toList();
-
-        description.setFieldsOfObject(new ArrayList<>(updatedFields));
+        description.getFields()
+                .forEach(field -> {
+                    String message = field.getDescription() + ":";
+                    while (true) {
+                        enterWithMessage(message, field);
+                        try {
+                            field.setField(field.getValue());
+                        }catch (Exception e) {
+                            message = e.getMessage() + "Try again:\n";
+                            continue;
+                        }
+                        break;
+                    }
+                });
         description.build();
-
         return description;
     }
 
@@ -66,4 +81,6 @@ public abstract class AbstractLoader {
     public void setTextReceiver(BaseTextReceiver textReceiver) {
         this.textReceiver = textReceiver;
     }
+
+
 }

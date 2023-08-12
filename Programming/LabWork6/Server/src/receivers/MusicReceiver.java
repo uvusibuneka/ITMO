@@ -1,5 +1,7 @@
 package receivers;
 
+import common.builders.MusicBandBuilder;
+import common.descriptions.LoadDescription;
 import main.Main;
 import managers.file.AbstractFileReader;
 import managers.file.AbstractFileWriter;
@@ -53,10 +55,15 @@ public class MusicReceiver extends Receiver<MusicBand> {
             AbstractFileReader<MusicBand> Collection_from_file_loader = new FileReader<>(fileName, new MusicBandDescription(), tmp);
 
             Collection_to_file_writer = new CSVWriter<>(fileName, Collection_to_file_writer);
-            Collection_from_file_loader = new CSVReader<>(fileName, new MusicBandDescription(), Collection_from_file_loader, tmp);
+            MusicBandDescription mbd = new MusicBandDescription();
+            ArrayList<LoadDescription<?>> fields = mbd.getFields();
+            fields.add(0, new LoadDescription<Integer>("ID", ((MusicBandBuilder) mbd.getBuilder())::setId, Integer.class));
+            mbd.setFieldsOfObject(fields);
+            Collection_from_file_loader = new CSVReader<>(fileName, mbd, Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
         } catch (NullPointerException e){
+            Main.logger.error(e.getMessage(), e);
             throw new NullPointerException("FILE_NAME is not set");
         }
     }

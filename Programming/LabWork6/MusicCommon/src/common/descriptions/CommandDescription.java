@@ -1,7 +1,10 @@
 package common.descriptions;
 
 import caller.Caller;
+import managers.AbstractLoader;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandDescription  implements Serializable, Cloneable{
@@ -10,6 +13,7 @@ public class CommandDescription  implements Serializable, Cloneable{
     private List<LoadDescription<?>> oneLineArguments;
     private List<LoadDescription<?>> arguments;
     protected transient Caller caller;
+    protected transient AbstractLoader loader;
 
     public CommandDescription(String name, String description, List<LoadDescription<?>> oneLineArguments) {
         this(name, description, oneLineArguments, null);
@@ -69,6 +73,14 @@ public class CommandDescription  implements Serializable, Cloneable{
     @Override
     public CommandDescription clone() throws CloneNotSupportedException {
         return (CommandDescription) super.clone();
+    }
+
+    public AbstractLoader getLoader() {
+        return loader;
+    }
+
+    public void setLoader(AbstractLoader loader) {
+        this.loader = loader;
     }
 
 }

@@ -1,5 +1,7 @@
 package managers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -17,11 +19,19 @@ public abstract class AbstractParser {
         PARSERS.put(Short.class, Short::valueOf);
         PARSERS.put(Character.class, s -> s.charAt(0));
         PARSERS.put(Boolean.class, Boolean::valueOf);
+        PARSERS.put(LocalDate.class, (String s)->{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            try {
+                return LocalDate.parse(s, formatter);
+            }catch (Exception e){
+                throw new IllegalArgumentException("Date format is not correct. Use dd-MM-yyyy");
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
     public <T> T parse(String s, Class<?> type){
-        if (isWrapper(type)) {
+        if (isWrapper(type) || type.equals(LocalDate.class)) {
             return (T) parseWrapper(s, type);
         } else if (type.equals(String.class)) {
             return (T) s;

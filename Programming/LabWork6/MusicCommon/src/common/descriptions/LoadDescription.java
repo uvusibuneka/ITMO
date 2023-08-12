@@ -14,7 +14,7 @@ public class LoadDescription<T> implements Serializable {
     protected Class<T> type;
     protected Buildable<T> builder;
     protected SerialFunction<T, ?> fieldOfDescriptionSetter;
-    protected ArrayList<LoadDescription<?>> fields;
+    protected ArrayList<LoadDescription<?>> fields = new ArrayList<>();
 
     public LoadDescription(String description, SerialFunction<T, ?> fieldSetter, Buildable<T> builder, Class<T> type) {
         this.description = description;
@@ -22,6 +22,13 @@ public class LoadDescription<T> implements Serializable {
         this.builder = builder;
         this.type = type;
     }
+
+    public LoadDescription(String description, SerialFunction<T, ?> fieldSetter, Class<T> type) {
+        this.description = description;
+        this.fieldOfDescriptionSetter = fieldSetter;
+        this.type = type;
+    }
+
 
     public LoadDescription(Class<T> type){
         this(null, null, null, type);
@@ -45,12 +52,13 @@ public class LoadDescription<T> implements Serializable {
 
     @SuppressWarnings("unchecked")
     public void setField(Object object){
-        if(object.getClass() == type)
-            fieldOfDescriptionSetter.apply((T)object);
+        if(object.getClass() == type) {
+            fieldOfDescriptionSetter.apply((T) object);
+        }
         else
             throw new IllegalArgumentException("Wrong type of field");
     }
-    public List<LoadDescription<?>> getFields() {
+    public ArrayList<LoadDescription<?>> getFields() {
         return fields;
     }
 
@@ -75,6 +83,15 @@ public class LoadDescription<T> implements Serializable {
         this.fieldOfDescriptionSetter = fieldOfDescriptionSetter;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "LoadDescription{" +
+                "value=" + value +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                ", builder=" + builder +
+                ", fieldOfDescriptionSetter=" + fieldOfDescriptionSetter +
+                ", fields=" + fields +
+                '}';
+    }
 }

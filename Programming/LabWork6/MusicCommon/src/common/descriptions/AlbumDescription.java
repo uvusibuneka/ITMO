@@ -8,21 +8,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AlbumDescription extends LoadDescription<Album> implements Serializable {
+
     {
+        AlbumBuilder albumBuilder = new AlbumBuilder();
+        this.builder = albumBuilder;
         fields = new ArrayList<>(Arrays.asList(
-                new LoadDescription<String>("Name", (new AlbumBuilder())::setName, null, String.class),
-                new LoadDescription<Long>("Length of Album", (new AlbumBuilder())::setLength, null, Long.class),
-                new LoadDescription<Long>("Number of tracks", (new AlbumBuilder())::setTracks, null, Long.class),
-                new LoadDescription<Float>("Sales", (new AlbumBuilder())::setSales, null, Float.class)));
+                new LoadDescription<String>("Name", albumBuilder::setName, null, String.class),
+                new LoadDescription<Long>("Length of Album", albumBuilder::setLength, null, Long.class),
+                new LoadDescription<Long>("Number of tracks", albumBuilder::setTracks, null, Long.class),
+                new LoadDescription<Float>("Sales", albumBuilder::setSales, null, Float.class)));
     }
 
     public AlbumDescription(SerialFunction<Album, Object> fieldSetter) {
-        super("The best album of Music Band", fieldSetter, new AlbumBuilder(), Album.class);
+        super("The best album of Music Band", fieldSetter, Album.class);
     }
 
     public AlbumDescription() {
-            super("The best album of Music Band", null, new AlbumBuilder(), Album.class);
+            super("The best album of Music Band", null, Album.class);
     }
+
 }
 
 

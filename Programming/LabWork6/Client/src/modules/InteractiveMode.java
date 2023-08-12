@@ -1,14 +1,15 @@
 package modules;
 
-import callers.ServerCommandCaller;
+import caller.Caller;
+import commandRealization.ServerCommandRealization;
+import commandRealization.specialCommandRealization.ExecuteScriptCommandRealization;
+import commandRealization.specialCommandRealization.ExitCommandRealization;
+import commandRealization.specialCommandRealization.HelpCommandRealization;
+import commandRealization.specialCommandRealization.HistoryCommandRealization;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
 import result.Result;
-import specialDescription.ExecuteScriptDescription;
-import specialDescription.ExitDescription;
-import specialDescription.HelpDescription;
-import specialDescription.HistoryDescription;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -16,53 +17,56 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.util.*;
 import java.util.function.Supplier;
-
+import java.util.stream.Collectors;
 
 
 public class InteractiveMode {
     private static InteractiveMode interactiveMode;
-    private CallableManager callableManager;
-    private TextReceiver textReceiver;
-    private ConsoleLoader loader;
-    private ObjectSender objectSender;
-    private RequestHandler requestHandler;
-    private final CommandDescription loginCommandDescription = new CommandDescription("login", "Вход пользователя", List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
-
-    private final CommandDescription registerCommandDescription = new CommandDescription("register", "Регистрация пользователя",List.of(new LoadDescription(String.class), new LoadDescription(String.class)));
+    private final CallableManager callableManager = new CallableManager();
+    private final TextReceiver textReceiver;
+    private final ConsoleLoader loader;
+    private final ObjectSender objectSender;
+    private final RequestHandler requestHandler;
+    private final CommandDescription loginCommandDescription = new CommandDescription("login", "Вход пользователя",
+            List.of(new LoadDescription<>(String.class),
+                    new LoadDescription<>(String.class)
+            ));
+    private final CommandDescription registerCommandDescription = new CommandDescription("register", "Регистрация пользователя",
+            List.of(new LoadDescription<>(String.class),
+                    new LoadDescription<>(String.class)
+            ));
     private boolean isAuthorized = false;
-
     private Map<String, CommandDescription> commandDescriptionMap;
+    private final Map<String, Supplier<Result<?>>> authorizationMap = Map.of("l", this::login,
+            "r", this::register,
+            "q", this::exit
+    );
+    private static final Map<String, CommandDescription> specialCommands = Map.of("help", new CommandDescription("help","Вывод справки о командах"),
+            "history", new CommandDescription("history","Вывод последних 6 команд"),
+            "execute_script", new CommandDescription("execute_script","Выполнение скрипта из файла"),
+            "exit", new CommandDescription("exit","Завершение работы клиента"));
+    private final ArrayDeque<String> history = new ArrayDeque<>();
 
-    private ExitDescription exitDescription;
-
-    private Map<String, Supplier<Result<?>>> authorizationMap = new HashMap<>();
-    private Map<String, CommandDescription> specialCommands = new HashMap<>();
-    private ArrayDeque<String> history = new ArrayDeque<>();
-
-    private InteractiveMode(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender, CallableManager callableManager) {
+    private InteractiveMode(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender) {
         this.textReceiver = textReceiver;
         this.loader = loader;
         this.requestHandler = requestHandler;
-        this.callableManager = callableManager;
         this.objectSender = objectSender;
-        authorizationMap = Map.of("l", this::login, "r", this::register, "q", this::exit);
-        specialCommands = Map.of("help", new HelpDescription(objectSender, this), "history", new HistoryDescription(objectSender, this), "execute_script", new ExecuteScriptDescription(callableManager, objectSender, this), "exit", new ExitDescription(objectSender, this));
-        exitDescription = new ExitDescription(objectSender, this);
     }
 
-    public static InteractiveMode getInstance(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender, CallableManager callableManager) {
+    public static InteractiveMode getInstance(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender) {
         if (interactiveMode == null) {
-            interactiveMode = new InteractiveMode(textReceiver, loader, requestHandler, objectSender, callableManager);
+            interactiveMode = new InteractiveMode(textReceiver, loader, requestHandler, objectSender);
+            specialCommands.get("help").setCaller(new HelpCommandRealization(interactiveMode));
+            specialCommands.get("history").setCaller(new HistoryCommandRealization(interactiveMode));
+            specialCommands.get("exit").setCaller(new ExitCommandRealization(interactiveMode));
+            specialCommands.get("execute_script").setCaller(new ExecuteScriptCommandRealization(interactiveMode));
+            specialCommands.get("execute_script").setOneLineArguments(List.of(new LoadDescription<>(String.class)));
         }
         return interactiveMode;
     }
 
-    public static InteractiveMode getObject() {
-        return interactiveMode;
-    }
-
-
-    @SuppressWarnings({"unchecked","OptionalGetWithoutIsPresent"})
+    @SuppressWarnings({"OptionalGetWithoutIsPresent"})
     private Result<HashMap<String, CommandDescription>> loadCommandDescriptionMap() {
         try {
             Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
@@ -74,43 +78,46 @@ public class InteractiveMode {
                 return commandDescriptionMap;
             }
             textReceiver.println("You are authorized!");
-            this.commandDescriptionMap = commandDescriptionMap.getValue().get();
+            this.commandDescriptionMap = commandDescriptionMap.getValue().get()
+                    .values()
+                    .stream()
+                    .peek(commandDescription -> {
+                        if (specialCommands.containsKey(commandDescription.getName()))
+                            commandDescription.setCaller(specialCommands.get(commandDescription.getName()).getCaller());
+                        else
+                            commandDescription.setCaller(new ServerCommandRealization(commandDescription, interactiveMode));
+                    }).collect(Collectors.toMap(CommandDescription::getName, commandDescription -> commandDescription));
             return commandDescriptionMap;
         } catch (Exception e) {
             return Result.failure(e, "Error while receiving map of commands, error with server connection.");
         }
     }
 
-    public <T> T deserialize(DatagramPacket packet) throws Exception {
+    public <T> T deserialize(DatagramPacket packet) {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
-        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-        return (T) objectInputStream.readObject();
-    }
-    private Result<HashMap<String,CommandDescription>> deserializeMap(DatagramPacket datagramPacketResult) {
+        ObjectInputStream objectInputStream;
         try {
-            DatagramPacket packet = datagramPacketResult;
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(packet.getData());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            Result<?> result = (Result<?>) objectInputStream.readObject();
-            if (result.isSuccess()) {
-                return (Result<HashMap<String, CommandDescription>>) result;
-            } else {
-                return Result.failure(result.getError().get(), "It is not correct login and password. Try again or use register command.");
-            }
-        } catch (Exception e) {
-            return Result.failure(e, "Error while receiving map of commands, error with server connection.");
+            objectInputStream = new ObjectInputStream(byteArrayInputStream);
+        } catch (IOException e){
+            throw new RuntimeException("Ошибка при сериализации");
+        }
+        try {
+            return (T) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
-
-    public Map<String, CommandDescription> getCommandDescriptionMap() {
-        return commandDescriptionMap;
+    public CommandDescription getCommandDescription(String s) throws NoSuchElementException {
+        if(specialCommands.containsKey(s))
+            return specialCommands.get(s);
+        return commandDescriptionMap.get(s);
     }
 
     public void start() {
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if(InteractiveMode.getObject().isAuthorized())
+            if(isAuthorized())
                 try {
                     exit();
                 } catch (Exception e) {
@@ -121,7 +128,7 @@ public class InteractiveMode {
 
         textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
         while (true) {
-            String command = (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue();
+            String command = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
             if (authorizationMap.containsKey(command)) {
                 Result<?> result = authorizationMap.get(command).get();
                 if(result.isSuccess() && command.equals("l")){
@@ -133,35 +140,27 @@ public class InteractiveMode {
             }
         }
         textReceiver.println("Interactive mode started! Check command help to see available commands.");
-        Map<String, CommandDescription> commandDescriptionMap = getCommandDescriptionMap();
         while (true) {
-            CommandDescription command = null;
+            CommandDescription command;
             try {
-                command = loader.parseCommand(commandDescriptionMap,
-                        (String) loader.enterWithMessage(">", new LoadDescription(String.class)).getValue()
+                command = loader.parseCommand(this,
+                        loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue()
                 );
             } catch (Exception e) {
                 textReceiver.println(e.getMessage());
                 continue;
             }
-            if(this.isSpecial(command.getName())){
-                command.setCaller(specialCommands.get(command.getName()).getCaller());
-                callableManager.addSpecial(specialCommands.get(command.getName()).getCaller());
-            }else {
-                command.setCaller(new ServerCommandCaller(command, objectSender));
+            try {
+                command.getCaller().call();
+            }catch (Exception e) {
+                textReceiver.println(e.getMessage());
             }
-            callableManager.add(command.getCaller());
-            Result<?> resultOfExecuting = callableManager.callAll().get(0);
-            textReceiver.println(resultOfExecuting.getMessage());
-            if (resultOfExecuting.isSuccess()) {
-                if(!command.getName().equals("help") && resultOfExecuting.getValue().isPresent())
-                    textReceiver.println(resultOfExecuting.getValue().get());
-                history.add(command.getName());
-            }
+            history.add(command.getName());
             callableManager.clear();
         }
     }
 
+    @SuppressWarnings({"OptionalGetWithoutIsPresent"})
     private Result<Void> register() {
         enterLoginData(registerCommandDescription);
         try {
@@ -194,8 +193,6 @@ public class InteractiveMode {
             return Result.failure(e, "Error while sending login command to server, error with server connection.");
         }
     }
-
-
 
     private void enterLoginData(CommandDescription registerCommandDescription) {
         textReceiver.print("Enter your login:");
@@ -240,13 +237,8 @@ public class InteractiveMode {
         System.exit(0);
         return Result.success(null);
     }
-
     public boolean isAuthorized() {
         return isAuthorized;
-    }
-
-    public void setAuthorized(boolean authorized) {
-        isAuthorized = authorized;
     }
 
     public void printHelp() {
@@ -255,15 +247,34 @@ public class InteractiveMode {
                 .forEach(commandDescription -> textReceiver.println(commandDescription.getName() + " - " + commandDescription.getDescription()));
     }
 
-    public boolean isSpecial(String name){
-        return specialCommands.containsKey(name);
+    public void sendCommandDescription(CommandDescription commandDescription) throws IOException {
+        objectSender.sendObject(commandDescription);
+    }
+    public Result<?> getResultFromServer(){
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Result<DatagramPacket> result = requestHandler.receivePacketWithTimeout();
+        if(!result.isSuccess())
+            return result;
+        return deserialize(result.getValue().get());
     }
 
-    public void setRequestHandler(RequestHandler requestHandler){
-        this.requestHandler = requestHandler;
+    public void addCommandToQueue(Caller caller) {
+        callableManager.add(caller);
     }
 
-    public RequestHandler getRequestHandler(){
-        return requestHandler;
+    public List<Result<?>> executeAll() {
+        return callableManager.callAll();
+    }
+
+    public void printToUser(Object o){
+        textReceiver.println(o);
+    }
+
+    public boolean isCommandExist(String s) {
+        return commandDescriptionMap.containsKey(s);
     }
 }

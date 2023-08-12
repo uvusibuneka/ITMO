@@ -1,0 +1,286 @@
+\documentclass[6pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{bigints}
+\usepackage[english, russian]{babel}
+\usepackage{multicol}
+\usepackage[left=1cm, right = 1cm, top=1cm, bottom=-30cm, marginparwidth=0.1, headsep=2]{geometry}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+
+\usepackage{tabularx}
+
+%\date{}
+\begin{document}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} % убрать черту под колонтиумом
+\fancyhead[C]{{{\small{К В А Н Т}} \cdot 1995 / № 4}}
+\fancyfoot{}
+
+\begin{multicols}{3}
+
+
+\noindentили наконец,
+
+\ \ Умножив полученное неравенство на $n$, мы и получим неравество (1).
+\begin{center}
+$l_{AC} + l_{A_1C} < \frac{2}{3} AA_1 + \frac{1}{3}LL_1]$
+\end{center}
+\rule{\linewidth}{1pt}
+{\Large{
+\noindentДальнейшее
+
+\noindentисследование основного
+
+\noindentнеравенства
+
+}}
+\noindent\rule{\linewidth}{1pt}
+
+Нами установлено, что число $\pi$ лежит в первой трети интервала $(p_n, q_n)$. Вычисления показывают$^2$(см.таблицы 1, 2), что это отношение длин, т.е. значения дробей
+
+\begin{center}
+$(q_n - \pi)/(\pi - p_n). n - 3, 6, 12, 24.$
+\end{center}
+
+\noindentдостаточно близки к 2. На основании 
+
+\noindentэтих вычислений мы с большой сте-
+
+\noindentпенью уверенности можем предпол-
+
+\noindentожить, что в действительности имеет 
+
+\noindentместо соотношение
+ \begin{center}
+$\lim\limits_{n\to \infty} \frac{(q_n - \pi)}{\pi - p_n}=2$
+\end{center}
+
+\noindentДля доказательства соотношения(5)
+\noindentзаметим, что (рис.9)
+
+$p_n = n \cdot sin \frac{\pi}{n}, q_n = n \cdot tg\frac{\pi}{n}, n \geq 3,$
+\noindent
+и, следовательно,
+\begin{center}$\frac{(q_n - \pi)}{\pi - p_n} = \frac{1}{cos\frac{\pi}{n}} \cdot \frac{n sin \frac{\pi}{n} - cos \frac{\pi}{n}}{\pi - n sin \frac{\pi}{n}}$
+\end{center}
+
+Для анализа полученного выражения нам понядобятся неравенства
+\begin{center}
+$x - \frac{x^3}{6} < sin x < x - \frac{x^3}{6} + \frac{x^5}{120}$.
+\end{center}
+\begin{flushright}
+    $x > 0$. (6)
+\end{flushright}
+значельно улучшающие известное не-
+%\noindent\rule{\linewidth}{1pt}
+\begin{flushright}
+\textit{Таблица 1} 
+\end{flushright}
+\begin{tabularx}{\linewidth} { 
+  | >{\raggedleft\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+\hline
+{$n_{\ \ \ \ \ \ }$ }  &  $p_n$ & $c_n$  \\
+\hline
+  3 &  2,59807621 & 5,19615242 \\
+  6 & 3,0000000 & 3,46410161 \\
+  12 & 3,10582854 & 3,21539030 \\
+  24 & 3,13262861 & 3,15965994 \\
+  48 & 3,13935020 & 3,14608621 \\
+  96 & 3,14103195 & 3,14271459 \\
+  192 & 3,1455760 & 3,14187304 \\
+  384 & 3,14158389 & 3,14161017 \\
+  768 & 3,14158389 & 3,14161017 \\
+  1536 & 3,14159046 & 3,14159703\\
+  3072 & 3,14159210 & 3,14159374 \\
+\hline
+
+\end{tabularx}
+\columnbreak
+
+\begin{Figure}
+\centering
+\includegraphics[width=\linewidth,scale=0.2]{images/pic1.png}
+\captionof{\textit{Рис. 9}}
+\end{Figure}
+
+\noindentравенство $sinx$<$x$ при $x$>$0$.Чтобы до-
+
+\noindentказать левое неравенство в (6), по
+\noindentложим
+\begin{center}
+$f(x) = sin x - x + \frac{x^3}{6}$
+\end{center}
+\noindentТогда имеем
+
+\begin{center}
+\noindent$g_1(x) = f^{'}(x) = cos x - 1 + \frac{x^2}{2}$,
+\newline
+
+\noindent$g_2(x) = g_2^{'}(x) = - sin x + x$.
+\end{center}
+
+\noindentТак как $sinx<x$ при $x>0$ получим
+
+\noindent$g_2(x) > 0$ при $x > 0$. Тем самым функ-
+
+\noindentция $g_1(x)$ возрастает при $x > 0$. Но
+
+\noindent$g_1(x) = 0$ и, следовательно, $g_1(x) > 0$ 
+
+\noindentпри $x > 0$. Функция $g_1(x)$ является
+
+\noindentпроизводной для функции $f(x)$, для
+
+\noindentкоторой также $f(0) = 0$. Но при $x > 0$
+\noindentимеем $g_1(x) > 0$, поэтому функция
+
+\noindent$f(x)$ также возрастает и, следователь-
+
+\noindentно, принимает только положительные
+
+\noindentзначения, т.е. $f(x) > 0$  при $x > 0$, что и 
+
+\noindentутверждалось.
+
+\noindentАналогично устанавливается пра-
+
+\noindentвая часть неравенства (6), а также
+
+\noindentнеравенства
+\begin{center}
+$1 - \frac{x^2}{2} < cos x < 1 - \frac{x^2}{2} + \frac{x^4}{24}$.
+\end{center}
+\begin{flushright}
+$x > 0$, \ \ (7)
+\end{flushright}
+\noindent(Докажите их самостоятельно!)
+\begin{flushright}
+\textit{Таблица 2} 
+\end{flushright}
+\begin{tabularx}{\linewidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+\hline
+$n$  &  $(q_n - \pi)/(\pi - p_n)$   \\
+\hline
+  3 &  3,78012440 \\
+  6 & 2,27772383  \\
+  12 & 2,06345553\\
+  24 & 2,01552959\\
+  48 & 2,00386204 \\
+  96 & 2,00096424 \\
+  192 & 2,00024098 \\
+  384 & 2,0006024\\
+  768 & 2,0000150\\
+  1536 & 2,0000376\\
+  3072 & 2,0000094\\
+\hline
+
+\end{tabularx}
+
+\columnbreak
+
+Из неравенств (6) и (7) вытекают следующие приближенные формулы:
+\begin{center}
+    $sin \frac{\pi}{n} \asymp \frac{\pi}{n} - \frac{\pi^3}{6n^3}, cos \frac{\pi}{n} \ asymp 1 - \frac{\pi^2}{2n^2}$.
+\end{center}
+\noindentСледовательно,
+\begin{center}
+    $\frac{(q_n - \pi)}{\pi - p_n} = 2 \cdot (1 - \frac{\pi^2}{2n^2})^{-1}$
+\end{center}
+\noindent
+\noindentЧто и завершает доказательство соот-
+
+\noindentношения (5), так как $\frac{\pi^2]}{2n^2}$ стремится к
+
+\noindentнулю при $n\to\infty$.
+
+\noindentРавенство (5) позволяет сделать
+\noindentследующий качественный вывод:чис-
+
+\noindentло $\pi$, находясь при любом $n\geq3$ в
+
+\noindentинтервале $(p_n, \frac{2}{3}p_n + \frac{1}{3}q_n)$, при всех
+
+\noindentдостаточно больших значениях $n$ бли-
+
+\noindentже к правому концу этого интервала,
+
+\noindentчем к левому.
+\begin{flushleft}
+\noindent\rule{\linewidth}{1pt}
+\Large{Формула Гюйгенса
+
+и её эффективность}
+\noindent\rule{\linewidth}{1pt}
+\end{flushleft}
+\noindentАрхимед использовал для вычисле-
+
+\noindentния числа $\pi$ приближенную формулу  $\pi = p, n\geq3$ .
+Гюйгенс в своей работе, в частности,
+
+\noindentполучил другую приближенную фор-
+
+\noindentмулу $\pi = \frac{2}{3} p_n + \frac{1}{2} q_n, n\geq3$,т.е. взял в
+
+\noindentкачестве приближения для числа $\pi$
+
+\noindentправую часть неравенства (1).
+
+\noindentБольшую эффективность формулы 
+
+\noindentГюйгенса по сравнению с формулой
+
+\noindentАрхимеда можно обнаружить непос-
+
+\noindentредственными вычислениями на микрокалькуляторе(см.табл.1,3).Отме-
+
+\noindentтим, что провести такие вычисления -
+
+\noindentувлекательная и непростая задача.
+
+\noindentМожно сравнить эффективность
+
+\noindentформулу Архимеда и Гюйгенса другим 
+
+\noindentметодом, не производя конкретных
+
+\noindentвычислений для $p_n$ и $q_n$. Можно ис-
+
+\noindentпользовать так называемые априор-
+
+\noindentные оценки для точности этих формул,
+
+\noindentт.е. такие неравенства, которые позво-
+
+\begin{flushright}
+\textit{Таблица 3} 
+\end{flushright}
+\begin{tabularx}{\linewidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+\hline
+$n$  &  $\frac{2}{3} p_n + \frac{1}{2} q_n, n\geq3$  \\
+\hline
+  3 &  3,464101615137\\
+  6 & 3,154700538379 \\
+  12 & 3,142349130544\\
+  24 & 3,14639056219\\
+  48 & 3,14595540408\\
+  96 & 3,14159283380\\
+  192 & 3,141592664850\\
+  384 & 3,141592654293\\
+  768 & 3,141592653633\\
+  1536 & 3,141592653592\\
+  3072 & 3,141592653589\\
+\hline
+
+\end{tabularx}
+
+\end{multicols}
+\end{document}

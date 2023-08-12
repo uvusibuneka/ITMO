@@ -21,6 +21,7 @@ public class ResultSender {
     }
 
     public void send(Result<?> to_send){
+        if (to_send!=null){
         try {
             ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(byteStream);
@@ -30,7 +31,6 @@ public class ResultSender {
             oos.close();
             byteStream.close();
 
-            System.out.println(arr.length + "\t" + ds.getSendBufferSize() + "\t" + ds.getReceiveBufferSize() + "\t" + to_send.getError().orElse(null));
             if (arr.length > ds.getSendBufferSize()){
                 ds.setSendBufferSize(arr.length);
                 Main.logger.warn("Сообщение очень большое, временно увеличен размер отправляемых сообщений с" + arr.length + " до " + ds.getSendBufferSize());
@@ -51,6 +51,6 @@ public class ResultSender {
             } catch (IOException ex) {
                 Main.logger.error("Error with sending message about error");
             }
-        }
+        }}
     }
 }

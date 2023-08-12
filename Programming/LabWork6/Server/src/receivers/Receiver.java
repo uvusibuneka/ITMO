@@ -64,6 +64,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      */
     public Result<Void> removeById(long id) {
         try {
+            boolean is_present = collection.getCollection().stream().anyMatch(element -> element.getID()==id);
             collection.setCollection(collection
                     .getCollection()
                     .stream()
@@ -71,7 +72,8 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
                     .collect(Collectors.toCollection(TreeSet::new))
             );
             Main.logger.info("Element removed");
-            return Result.success(null);
+
+            return Result.success(null, is_present ? "Element removed" : "No such ID presented");
         } catch (Exception e) {
             return Result.failure(e, "Error with removing element");
         }

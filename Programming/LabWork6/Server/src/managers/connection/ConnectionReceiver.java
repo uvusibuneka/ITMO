@@ -15,7 +15,7 @@ public class ConnectionReceiver {
 
 
     public void run(Invoker invoker) throws SocketException, NumberFormatException {
-        byte[] arr = new byte[1024];
+        byte[] arr = new byte[10*1024];
         int len = arr.length;
         DatagramSocket ds;
         DatagramPacket dp;

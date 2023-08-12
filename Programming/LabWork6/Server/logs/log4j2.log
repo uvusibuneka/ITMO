@@ -1,0 +1,306 @@
+2023-08-07 00:03:33,568 INFO m.Main [main] Incoming request
+2023-08-07 00:03:33,871 INFO m.Main [main] Command add executing started
+2023-08-07 00:03:33,871 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:03:33,871 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:03:33,871 INFO m.Main [main] Listening started
+2023-08-07 00:03:41,416 INFO m.Main [main] Incoming request
+2023-08-07 00:03:41,430 INFO m.Main [main] Command show executing started
+2023-08-07 00:03:41,435 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-08-07 00:03:41,435 INFO m.Main [main] Listening started
+2023-08-07 00:07:12,832 INFO m.Main [main] Incoming request
+2023-08-07 00:07:12,846 INFO m.Main [main] Command add executing started
+2023-08-07 00:07:12,846 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:07:12,846 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:07:12,846 INFO m.Main [main] Listening started
+2023-08-07 00:09:06,218 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:09:06,245 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:09:06,245 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 00:12:47,417 INFO m.Main [main] Incoming request
+2023-08-07 00:12:47,438 INFO m.Main [main] User disconnected
+2023-08-07 00:12:47,438 INFO m.Main [main] Listening started
+2023-08-07 00:13:15,381 INFO m.Main [main] Incoming request
+2023-08-07 00:13:15,417 INFO m.Main [main] New user connected
+2023-08-07 00:13:15,457 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 00:13:15,470 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 00:13:15,470 INFO m.Main [main] Listening started
+2023-08-07 00:13:48,842 INFO m.Main [main] Incoming request
+2023-08-07 00:13:48,842 INFO m.Main [main] Command add executing started
+2023-08-07 00:13:48,855 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:13:48,855 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:13:48,855 INFO m.Main [main] Listening started
+2023-08-07 00:19:03,721 INFO m.Main [main] Incoming request
+2023-08-07 00:19:03,762 INFO m.Main [main] User disconnected
+2023-08-07 00:19:03,762 INFO m.Main [main] Listening started
+2023-08-07 00:19:06,644 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:19:06,765 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:19:06,780 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 00:19:29,037 INFO m.Main [main] Incoming request
+2023-08-07 00:19:29,044 INFO m.Main [main] New user connected
+2023-08-07 00:19:29,092 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 00:19:29,092 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 00:19:29,092 INFO m.Main [main] Listening started
+2023-08-07 00:20:03,745 INFO m.Main [main] Incoming request
+2023-08-07 00:20:03,745 INFO m.Main [main] Command add executing started
+2023-08-07 00:20:03,745 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:20:03,745 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:20:03,745 INFO m.Main [main] Listening started
+2023-08-07 00:21:08,166 INFO m.Main [main] Incoming request
+2023-08-07 00:21:08,166 INFO m.Main [main] User disconnected
+2023-08-07 00:21:08,166 INFO m.Main [main] Listening started
+2023-08-07 00:21:26,491 INFO m.Main [main] Incoming request
+2023-08-07 00:21:26,491 INFO m.Main [main] New user connected
+2023-08-07 00:21:26,491 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 00:21:26,508 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 00:21:26,508 INFO m.Main [main] Listening started
+2023-08-07 00:21:51,641 INFO m.Main [main] Incoming request
+2023-08-07 00:21:51,641 INFO m.Main [main] Command add executing started
+2023-08-07 00:21:51,641 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:21:51,656 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:21:51,656 INFO m.Main [main] Listening started
+2023-08-07 00:23:19,557 INFO m.Main [main] Incoming request
+2023-08-07 00:23:19,557 INFO m.Main [main] User disconnected
+2023-08-07 00:23:19,570 INFO m.Main [main] Listening started
+2023-08-07 00:23:38,336 INFO m.Main [main] Incoming request
+2023-08-07 00:23:38,350 INFO m.Main [main] New user connected
+2023-08-07 00:23:38,390 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 00:23:38,403 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 00:23:38,403 INFO m.Main [main] Listening started
+2023-08-07 00:23:55,695 INFO m.Main [main] Incoming request
+2023-08-07 00:23:55,696 INFO m.Main [main] Command add executing started
+2023-08-07 00:23:55,701 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:23:55,701 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:23:55,701 INFO m.Main [main] Listening started
+2023-08-07 00:29:06,593 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:29:06,609 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:29:06,609 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 00:32:06,179 INFO m.Main [main] Incoming request
+2023-08-07 00:32:06,179 INFO m.Main [main] User disconnected
+2023-08-07 00:32:06,179 INFO m.Main [main] Listening started
+2023-08-07 00:32:36,595 INFO m.Main [main] Incoming request
+2023-08-07 00:32:36,752 INFO m.Main [main] New user connected
+2023-08-07 00:32:37,039 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 00:32:37,066 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 00:32:37,066 INFO m.Main [main] Listening started
+2023-08-07 00:35:20,971 INFO m.Main [main] Incoming request
+2023-08-07 00:35:21,002 INFO m.Main [main] Command add executing started
+2023-08-07 00:35:21,033 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:35:21,033 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:35:21,033 INFO m.Main [main] Listening started
+2023-08-07 00:39:06,760 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:39:06,823 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:39:06,823 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 00:43:10,999 INFO m.Main [main] Incoming request
+2023-08-07 00:43:10,999 INFO m.Main [main] Command add executing started
+2023-08-07 00:43:11,011 INFO m.Main [main] New element successfully added to collection
+2023-08-07 00:43:11,042 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 00:43:11,042 INFO m.Main [main] Listening started
+2023-08-07 00:43:18,307 INFO m.Main [main] Incoming request
+2023-08-07 00:43:18,307 INFO m.Main [main] Command show executing started
+2023-08-07 00:43:18,328 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-08-07 00:43:18,341 INFO m.Main [main] Listening started
+2023-08-07 00:49:08,206 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:49:08,404 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:49:08,404 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 00:59:07,913 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:59:07,977 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 00:59:07,981 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 00:59:10,269 INFO m.Main [main] Incoming request
+2023-08-07 00:59:10,271 INFO m.Main [main] User disconnected
+2023-08-07 00:59:10,271 INFO m.Main [main] Listening started
+2023-08-07 00:59:46,115 INFO m.Main [main] Incoming request
+2023-08-07 00:59:46,141 INFO m.Main [main] New user connected
+2023-08-07 00:59:46,176 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 00:59:46,195 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 00:59:46,198 INFO m.Main [main] Listening started
+2023-08-07 01:00:27,881 INFO m.Main [main] Incoming request
+2023-08-07 01:00:29,331 INFO m.Main [main] Result sent to user. Message: Сервер занят занят работой с другим клиентом
+2023-08-07 01:00:29,331 INFO m.Main [main] Listening started
+2023-08-07 01:00:50,181 INFO m.Main [main] Files loaded
+2023-08-07 01:00:50,231 INFO m.Main [main] Listening started
+2023-08-07 01:00:59,801 INFO m.Main [main] Incoming request
+2023-08-07 01:00:59,812 INFO m.Main [main] New user connected
+2023-08-07 01:00:59,956 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 01:00:59,997 INFO m.Main [main] Listening started
+2023-08-07 01:10:51,708 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:10:51,872 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:10:51,873 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 01:15:51,186 INFO m.Main [main] Incoming request
+2023-08-07 01:15:51,207 INFO m.Main [main] User disconnected
+2023-08-07 01:15:51,207 INFO m.Main [main] Listening started
+2023-08-07 01:16:16,508 INFO m.Main [main] Incoming request
+2023-08-07 01:16:16,617 INFO m.Main [main] New user connected
+2023-08-07 01:16:16,741 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 01:16:16,746 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 01:16:16,746 INFO m.Main [main] Listening started
+2023-08-07 01:20:51,753 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:20:51,854 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:20:51,854 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 01:30:51,822 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:30:51,932 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:30:51,942 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 01:32:38,652 INFO m.Main [main] Incoming request
+2023-08-07 01:32:39,647 INFO m.Main [main] Command add executing started
+2023-08-07 01:32:39,682 INFO m.Main [main] New element successfully added to collection
+2023-08-07 01:32:39,707 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 01:32:39,707 INFO m.Main [main] Listening started
+2023-08-07 01:32:45,117 INFO m.Main [main] Incoming request
+2023-08-07 01:32:45,117 INFO m.Main [main] User disconnected
+2023-08-07 01:32:45,117 INFO m.Main [main] Listening started
+2023-08-07 01:37:07,272 INFO m.Main [main] Incoming request
+2023-08-07 01:37:07,432 INFO m.Main [main] New user connected
+2023-08-07 01:37:07,587 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 01:37:07,593 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 01:37:07,602 INFO m.Main [main] Listening started
+2023-08-07 01:37:53,302 INFO m.Main [main] Incoming request
+2023-08-07 01:37:53,312 INFO m.Main [main] Command add executing started
+2023-08-07 01:37:53,312 INFO m.Main [main] New element successfully added to collection
+2023-08-07 01:37:53,312 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 01:37:53,312 INFO m.Main [main] Listening started
+2023-08-07 01:40:53,302 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:40:53,432 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:40:53,432 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 01:41:06,763 INFO m.Main [main] Incoming request
+2023-08-07 01:41:06,773 INFO m.Main [main] User disconnected
+2023-08-07 01:41:06,773 INFO m.Main [main] Listening started
+2023-08-07 01:41:38,463 INFO m.Main [main] Incoming request
+2023-08-07 01:41:38,481 INFO m.Main [main] New user connected
+2023-08-07 01:41:38,621 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 01:41:38,719 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 01:41:38,723 INFO m.Main [main] Listening started
+2023-08-07 01:47:48,313 INFO m.Main [main] Incoming request
+2023-08-07 01:47:48,326 INFO m.Main [main] User disconnected
+2023-08-07 01:47:48,326 INFO m.Main [main] Listening started
+2023-08-07 01:48:08,608 INFO m.Main [main] Incoming request
+2023-08-07 01:48:08,698 INFO m.Main [main] New user connected
+2023-08-07 01:48:08,763 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 01:48:08,768 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 01:48:08,781 INFO m.Main [main] Listening started
+2023-08-07 01:50:53,063 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:50:53,093 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 01:50:53,094 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 01:53:30,538 INFO m.Main [main] Incoming request
+2023-08-07 01:53:30,554 INFO m.Main [main] User disconnected
+2023-08-07 01:53:30,578 INFO m.Main [main] Listening started
+2023-08-07 01:53:52,803 INFO m.Main [main] Incoming request
+2023-08-07 01:53:52,813 INFO m.Main [main] New user connected
+2023-08-07 01:53:52,868 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 01:53:52,873 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 01:53:52,876 INFO m.Main [main] Listening started
+2023-08-07 02:00:14,958 INFO m.Main [main] Incoming request
+2023-08-07 02:00:14,981 INFO m.Main [main] User disconnected
+2023-08-07 02:00:14,981 INFO m.Main [main] Listening started
+2023-08-07 02:00:53,728 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 02:00:53,744 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 02:00:53,744 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 02:03:43,748 ERROR m.Main [main] The value of the y coordinate is integer between -420 and 3.4028235E38
+java.lang.IllegalArgumentException: The value of the y coordinate is integer between -420 and 3.4028235E38
+	at common.builders.CoordinatesBuilder.setY(CoordinatesBuilder.java:37) ~[MusicCommon/:?]
+	at common.descriptions.LoadDescription.setField(LoadDescription.java:56) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVLoader.enterWrapper(CSVLoader.java:39) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:26) ~[MusicCommon/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.MusicReceiver.<init>(MusicReceiver.java:64) ~[Server/:?]
+	at receivers.MusicReceiver.GetInstance(MusicReceiver.java:41) ~[Server/:?]
+	at main.Main.main(Main.java:50) [Server/:?]
+2023-08-07 02:04:47,418 ERROR m.Main [main] The value of the y coordinate is integer between -420 and 3.4028235E38
+java.lang.IllegalArgumentException: The value of the y coordinate is integer between -420 and 3.4028235E38
+	at common.builders.CoordinatesBuilder.setY(CoordinatesBuilder.java:37) ~[MusicCommon/:?]
+	at common.descriptions.LoadDescription.setField(LoadDescription.java:56) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVLoader.enterWrapper(CSVLoader.java:39) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:26) ~[MusicCommon/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) ~[?:?]
+	at managers.file.decorators.CSV.CSVLoader.enterComposite(CSVLoader.java:50) ~[Server/:?]
+	at managers.AbstractLoader.enter(AbstractLoader.java:34) ~[MusicCommon/:?]
+	at managers.file.decorators.CSV.CSVReader.read(CSVReader.java:40) ~[Server/:?]
+	at common.Collection.<init>(Collection.java:32) ~[MusicCommon/:?]
+	at receivers.MusicReceiver.<init>(MusicReceiver.java:64) ~[Server/:?]
+	at receivers.MusicReceiver.GetInstance(MusicReceiver.java:41) ~[Server/:?]
+	at main.Main.main(Main.java:50) [Server/:?]
+2023-08-07 02:06:49,054 INFO m.Main [main] Files loaded
+2023-08-07 02:06:49,331 INFO m.Main [main] Listening started
+2023-08-07 02:07:01,387 INFO m.Main [main] Incoming request
+2023-08-07 02:07:01,426 INFO m.Main [main] New user connected
+2023-08-07 02:07:01,943 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 02:07:01,946 INFO m.Main [main] Listening started
+2023-08-07 02:17:05,788 INFO m.Main [main] Files loaded
+2023-08-07 02:17:06,206 INFO m.Main [main] Listening started
+2023-08-07 02:17:55,195 INFO m.Main [main] Incoming request
+2023-08-07 02:17:55,214 INFO m.Main [main] New user connected
+2023-08-07 02:17:55,389 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 02:17:55,390 INFO m.Main [main] Listening started
+2023-08-07 02:18:04,687 INFO m.Main [main] Incoming request
+2023-08-07 02:18:04,711 INFO m.Main [main] Command info executing started
+2023-08-07 02:18:04,754 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-08-07 02:18:04,757 INFO m.Main [main] Listening started
+2023-08-07 02:21:26,052 INFO m.Main [main] Incoming request
+2023-08-07 02:21:26,063 INFO m.Main [main] User disconnected
+2023-08-07 02:21:26,063 INFO m.Main [main] Listening started
+2023-08-07 02:21:41,894 INFO m.Main [main] Incoming request
+2023-08-07 02:21:42,271 INFO m.Main [main] New user connected
+2023-08-07 02:21:42,437 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 02:21:42,438 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 02:21:42,438 INFO m.Main [main] Listening started
+2023-08-07 02:22:51,787 INFO m.Main [main] Incoming request
+2023-08-07 02:22:51,789 INFO m.Main [main] User disconnected
+2023-08-07 02:22:51,789 INFO m.Main [main] Listening started
+2023-08-07 02:23:26,476 INFO m.Main [main] Incoming request
+2023-08-07 02:23:26,827 INFO m.Main [main] New user connected
+2023-08-07 02:23:26,900 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 02:23:26,902 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 02:23:27,251 INFO m.Main [main] Listening started
+2023-08-07 02:27:04,656 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 02:27:04,736 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 02:27:04,736 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 02:29:51,760 INFO m.Main [main] Incoming request
+2023-08-07 02:29:51,814 INFO m.Main [main] User disconnected
+2023-08-07 02:29:51,814 INFO m.Main [main] Listening started
+2023-08-07 02:31:11,009 INFO m.Main [main] Incoming request
+2023-08-07 02:31:11,049 INFO m.Main [main] New user connected
+2023-08-07 02:31:11,254 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 02:31:11,268 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 02:31:11,268 INFO m.Main [main] Listening started
+2023-08-07 02:34:16,594 INFO m.Main [main] Incoming request
+2023-08-07 02:34:16,614 INFO m.Main [main] Command info executing started
+2023-08-07 02:34:16,659 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-08-07 02:34:16,660 INFO m.Main [main] Listening started
+2023-08-07 02:34:22,699 INFO m.Main [main] Incoming request
+2023-08-07 02:34:22,784 INFO m.Main [main] Command show executing started
+2023-08-07 02:34:22,974 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-08-07 02:34:22,984 INFO m.Main [main] Listening started
+2023-08-07 02:36:14,184 INFO m.Main [main] Incoming request
+2023-08-07 02:36:14,194 INFO m.Main [main] User disconnected
+2023-08-07 02:36:14,194 INFO m.Main [main] Listening started
+2023-08-07 02:37:04,734 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 02:37:04,764 INFO m.Main [AWT-EventQueue-0] Collection saved
+2023-08-07 02:37:04,764 INFO m.Main [AWT-EventQueue-0] Collections saved
+2023-08-07 02:38:59,719 INFO m.Main [main] Incoming request
+2023-08-07 02:38:59,790 INFO m.Main [main] New user connected
+2023-08-07 02:38:59,944 WARN m.Main [main] Сообщение очень большое, временно увеличен размер отправляемых сообщений с10412 до 10412
+2023-08-07 02:38:59,979 INFO m.Main [main] Result sent to user. Message: Вход выполнен успешно
+2023-08-07 02:38:59,984 INFO m.Main [main] Listening started
+2023-08-07 02:39:02,234 INFO m.Main [main] Incoming request
+2023-08-07 02:39:02,244 INFO m.Main [main] Command info executing started
+2023-08-07 02:39:02,254 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-08-07 02:39:02,254 INFO m.Main [main] Listening started
+2023-08-07 02:39:02,265 INFO m.Main [main] Incoming request
+2023-08-07 02:39:02,265 INFO m.Main [main] Command show executing started
+2023-08-07 02:39:02,284 INFO m.Main [main] Result sent to user. Message: Command executed successfully
+2023-08-07 02:39:02,284 INFO m.Main [main] Listening started
+2023-08-07 02:40:11,716 INFO m.Main [main] Incoming request
+2023-08-07 02:40:11,739 INFO m.Main [main] Command add executing started
+2023-08-07 02:40:11,744 INFO m.Main [main] New element successfully added to collection
+2023-08-07 02:40:11,744 INFO m.Main [main] Result sent to user. Message: New element successfully added to collection
+2023-08-07 02:40:11,744 INFO m.Main [main] Listening started
+2023-08-07 02:40:58,514 INFO m.Main [main] Incoming request
+2023-08-07 02:40:58,516 INFO m.Main [main] User disconnected
+2023-08-07 02:40:58,516 INFO m.Main [main] Listening started
