@@ -6,6 +6,7 @@ import commandRealization.specialCommandRealization.ExecuteScriptCommandRealizat
 import commandRealization.specialCommandRealization.ExitCommandRealization;
 import commandRealization.specialCommandRealization.HelpCommandRealization;
 import commandRealization.specialCommandRealization.HistoryCommandRealization;
+import common.Authorization;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
@@ -36,6 +37,8 @@ public class InteractiveMode {
                     new LoadDescription<>(String.class)
             ));
     private boolean isAuthorized = false;
+
+    private Authorization authorization;
     private Map<String, CommandDescription> commandDescriptionMap;
     private final Map<String, Supplier<Result<?>>> authorizationMap = Map.of("l", this::login,
             "r", this::register,
@@ -165,7 +168,7 @@ public class InteractiveMode {
         enterLoginData(registerCommandDescription);
         try {
             try {
-                objectSender.sendObject(registerCommandDescription);
+                sendCommandDescription(registerCommandDescription);
             } catch (IOException ex) {
                 throw new RuntimeException("Error while sending answer, error with server connection.");
             }
@@ -199,6 +202,7 @@ public class InteractiveMode {
         LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
         textReceiver.print("Enter your password:");
         LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
+        authorization = new Authorization(loginDescription.getValue(), passwordDescription.getValue());
         registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
     }
 
@@ -211,8 +215,7 @@ public class InteractiveMode {
     private Result<?> login() {
         enterLoginData(loginCommandDescription);
         try {
-            objectSender.sendObject(loginCommandDescription);
-
+            sendCommandDescription(loginCommandDescription);
             Result<?> loginResult = loadCommandDescriptionMap();
             if (loginResult.isSuccess()) {
                 textReceiver.println("You have successfully logged!");
@@ -248,6 +251,7 @@ public class InteractiveMode {
     }
 
     public void sendCommandDescription(CommandDescription commandDescription) throws IOException {
+        commandDescription.setAuthorization(authorization);
         objectSender.sendObject(commandDescription);
     }
     public Result<?> getResultFromServer(){

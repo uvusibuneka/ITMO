@@ -1,6 +1,7 @@
 package common.descriptions;
 
 import caller.Caller;
+import common.Authorization;
 import managers.AbstractLoader;
 
 import java.io.Serializable;
@@ -15,12 +16,22 @@ public class CommandDescription  implements Serializable, Cloneable{
     protected transient Caller caller;
     protected transient AbstractLoader loader;
 
+    protected Authorization authorization;
+
     public CommandDescription(String name, String description, List<LoadDescription<?>> oneLineArguments) {
         this(name, description, oneLineArguments, null);
     }
 
     public CommandDescription(String name, String description) {
         this(name, description, null, null);
+    }
+
+    public Authorization getAuthorization() {
+        return authorization;
+    }
+
+    public void setAuthorization(Authorization authorization) {
+        this.authorization = authorization;
     }
 
     public CommandDescription(String name, String description, List<LoadDescription<?>> oneLineArguments, List<LoadDescription<?>> arguments) {
