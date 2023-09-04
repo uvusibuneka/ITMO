@@ -26,7 +26,7 @@ public class DBReader<T extends Comparable<T> & IDAccess & DBSavable> extends Re
             info.load(new FileInputStream("db.cfg"));
             Connection conn = DriverManager.getConnection(db_url, info); // starting connection
 
-            PreparedStatement stat = conn.prepareStatement("select * from ?"); // // preparing query
+            PreparedStatement stat = conn.prepareStatement("select * from ?"); // preparing query
             stat.setString(1, source);
 
             DBLoader<T> loader = new DBLoader<>(new BaseTextReceiver() {

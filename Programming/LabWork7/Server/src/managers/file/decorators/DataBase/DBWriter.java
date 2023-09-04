@@ -72,7 +72,8 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
         connection.setAutoCommit(true);
     }
 
-    public boolean insert(T obj) {
+    @Override
+    public Result<Boolean> insert(T obj) {
         PreparedStatement stat = null;
         try {
             stat = connection.prepareStatement("insert into ? values (?);");
@@ -83,13 +84,12 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
                 stat.setString(2, String.join(", ", row.getValue().get()));
             } else {
                 Main.logger.error("Problem with getting field of element. Can not be save in data base. " + row.getMessage());
-                return false;
+                return Result.failure(null, "Problem with getting field of element. Can not be save in data base. " + row.getMessage());
             }
-
-            return stat.execute();
+            return Result.success(stat.execute());
         } catch (SQLException e) {
             Main.logger.error("Error with data base. Element not saved. " + e.getMessage());
-            return false;
+            return Result.failure(e, "Error with data base. Element not saved. " + e.getMessage());
         }
     }
 
@@ -104,7 +104,8 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
         return res;
     }
 
-    public boolean update(T obj, int id) {
+    @Override
+    public Result<Boolean> update(T obj, int id) {
         Statement stat = null;
         try {
             Result<List<String>> row = obj.toFields();
@@ -118,40 +119,42 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
                 }
             } else {
                 Main.logger.error("Problem with getting field of element. Can not be save in data base. " + row.getMessage());
-                return false;
+                return Result.failure(null, "Problem with getting field of element. Can not be save in data base. " + row.getMessage());
             }
             stat = connection.createStatement();
-            return stat.execute("update " + destination + " set " + setter + " where id = " + id + ";");
+            return Result.success(stat.execute("update " + destination + " set " + setter + " where id = " + id + ";"));
         } catch (SQLException e) {
-            Main.logger.error("Error with data base. Element not saved. " + e.getMessage());
-            return false;
+            Main.logger.error("Error with data base. Element not updated. " + e.getMessage());
+            return Result.failure(e, "Error with data base. Element not updated. " + e.getMessage());
         }
     }
 
-    public boolean remove(int id){
+    @Override
+    public Result<Boolean> remove(long id){
         PreparedStatement stat = null;
         try {
             stat = connection.prepareStatement("delete from ? where id = ?;");
             stat.setString(1, destination);
-            stat.setInt(2, id);
-            return stat.execute();
+            stat.setLong(2, id);
+            return Result.success(stat.execute());
         } catch (SQLException e) {
-            Main.logger.error("Error with data base. Element not saved. " + e.getMessage());
-            return false;
+            Main.logger.error("Error with data base. Element not removed. " + e.getMessage());
+            return Result.failure(e, "Error with data base. Element not removed. " + e.getMessage());
         }
     }
 
-    public boolean remove(String col, String val){
+    @Override
+    public Result<Boolean> remove(String col, String val){
         PreparedStatement stat = null;
         try {
             stat = connection.prepareStatement("delete from ? where ? = ?;");
             stat.setString(1, destination);
             stat.setString(2, col);
             stat.setString(3, val);
-            return stat.execute();
+            return Result.success(stat.execute());
         } catch (SQLException e) {
-            Main.logger.error("Error with data base. Element not saved. " + e.getMessage());
-            return false;
+            Main.logger.error("Error with data base. Element not removed. " + e.getMessage());
+            return Result.failure(e, "Error with data base. Element not removed. " + e.getMessage());
         }
     }
 }

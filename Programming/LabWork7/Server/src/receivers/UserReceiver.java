@@ -1,8 +1,6 @@
 package receivers;
 
 import managers.file.*;
-import managers.file.decorators.CSV.CSVReader;
-import managers.file.decorators.CSV.CSVWriter;
 import common.Collection;
 import managers.file.decorators.DataBase.DBReader;
 import managers.file.decorators.DataBase.DBWriter;
@@ -24,10 +22,30 @@ public class UserReceiver extends Receiver<User>{
     private UserReceiver() throws Exception{
         try {
             Collection<User> tmp = new Collection<>();
-            AbstractWriter<User> Collection_to_file_writer = new AbstractWriter<>("Users") {
+            collection_to_file_writer = new AbstractWriter<>("Users") {
                 @Override
                 public void write() throws Exception {
 
+                }
+
+                @Override
+                public Result<Boolean> insert(User user) {
+                    return null;
+                }
+
+                @Override
+                public Result<Boolean> update(User user, int i) {
+                    return null;
+                }
+
+                @Override
+                public Result<Boolean> remove(long i) {
+                    return null;
+                }
+
+                @Override
+                public Result<Boolean> remove(String s, String s1) {
+                    return null;
                 }
             };
             AbstractReader<User> Collection_from_file_loader = new AbstractReader<>("Users", new UserDescription(new UserBuilder()), tmp) {
@@ -37,10 +55,10 @@ public class UserReceiver extends Receiver<User>{
                 }
             };
 
-            Collection_to_file_writer = new DBWriter<>("User", Collection_to_file_writer, new UserDescription(new UserBuilder()));
+            collection_to_file_writer = new DBWriter<>("User", collection_to_file_writer, new UserDescription(new UserBuilder()));
             Collection_from_file_loader = new DBReader<>("User", new UserDescription(new UserBuilder()), Collection_from_file_loader, tmp);
 
-            collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
+            collection = new common.Collection<>(Collection_from_file_loader, collection_to_file_writer);
         } catch (NullPointerException e){
             throw e;
         }
