@@ -3,16 +3,13 @@ package receivers;
 import common.builders.MusicBandBuilder;
 import common.descriptions.LoadDescription;
 import main.Main;
-import managers.file.AbstractFileReader;
-import managers.file.AbstractFileWriter;
-import managers.file.FileReader;
-import managers.file.FileWriter;
-import managers.file.decorators.CSV.CSVReader;
-import managers.file.decorators.CSV.CSVWriter;
+import managers.file.*;
 import common.Album;
 import common.Collection;
 import common.MusicBand;
 import common.descriptions.MusicBandDescription;
+import managers.file.decorators.DataBase.DBReader;
+import managers.file.decorators.DataBase.DBWriter;
 import result.Result;
 
 import java.time.format.DateTimeFormatter;
@@ -51,15 +48,30 @@ public class MusicReceiver extends Receiver<MusicBand> {
         String fileName = System.getenv("FILE_NAME");
         try {
             Collection<MusicBand> tmp = new Collection<>();
-            AbstractFileWriter<MusicBand> Collection_to_file_writer = new FileWriter<>(fileName);
-            AbstractFileReader<MusicBand> Collection_from_file_loader = new FileReader<>(fileName, new MusicBandDescription(), tmp);
 
-            Collection_to_file_writer = new CSVWriter<>(fileName, Collection_to_file_writer);
+            //, new LoadDescription<>("YourLogin", "OwnerLogin", musicBandBuilder::setName, null, String.class) - добавить это и id в MusicBandDescription
+
+            AbstractWriter<MusicBand> Collection_to_file_writer = new AbstractWriter<>("MusicBands") {
+                @Override
+                public void write() throws Exception {
+
+                }
+            };
+            AbstractReader<MusicBand> Collection_from_file_loader = new AbstractReader<>("MusicBands", new MusicBandDescription(), tmp) {
+                @Override
+                public Result<Collection<MusicBand>> read() {
+                    return null;
+                }
+            };
+
+            Collection_to_file_writer = new DBWriter<>("MusicBands", Collection_to_file_writer, new MusicBandDescription());
             MusicBandDescription mbd = new MusicBandDescription();
             ArrayList<LoadDescription<?>> fields = mbd.getFields();
-            fields.add(0, new LoadDescription<Integer>("ID", ((MusicBandBuilder) mbd.getBuilder())::setId, Integer.class));
+            fields.add(0, new LoadDescription<Integer>("ID", "id", ((MusicBandBuilder) mbd.getBuilder())::setId, null, Integer.class));
+            fields.add(new LoadDescription<String>("Your Login", "OwnerLogin", ((MusicBandBuilder) mbd.getBuilder())::setOwnerLogin, null, String.class));
             mbd.setFieldsOfObject(fields);
-            Collection_from_file_loader = new CSVReader<>(fileName, mbd, Collection_from_file_loader, tmp);
+            Collection_from_file_loader = new DBReader<>("MusicBands", mbd, Collection_from_file_loader, tmp);
+
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
         } catch (NullPointerException e){

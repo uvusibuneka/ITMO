@@ -11,13 +11,15 @@ public class LoadDescription<T> implements Serializable {
 
     protected T value;
     protected String description;
+    protected String FieldName;
     protected Class<T> type;
     protected Buildable<T> builder;
     protected SerialFunction<T, ?> fieldOfDescriptionSetter;
     protected ArrayList<LoadDescription<?>> fields = new ArrayList<>();
 
-    public LoadDescription(String description, SerialFunction<T, ?> fieldSetter, Buildable<T> builder, Class<T> type) {
+    public LoadDescription(String description, String FieldName, SerialFunction<T, ?> fieldSetter, Buildable<T> builder, Class<T> type) {
         this.description = description;
+        this.FieldName = FieldName;
         this.fieldOfDescriptionSetter = fieldSetter;
         this.builder = builder;
         this.type = type;
@@ -31,43 +33,7 @@ public class LoadDescription<T> implements Serializable {
 
 
     public LoadDescription(Class<T> type){
-        this(null, null, null, type);
-    }
-
-    public Function<T, ?> getFieldOfDescriptionSetter() {
-        return fieldOfDescriptionSetter;
-    }
-
-    public Buildable<T> getBuilder() {
-        return builder;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Class<T> getType() {
-        return type;
-    }
-
-    @SuppressWarnings("unchecked")
-    public void setField(Object object){
-        if(object.getClass() == type) {
-            fieldOfDescriptionSetter.apply((T) object);
-        }
-        else
-            throw new IllegalArgumentException("Wrong type of field");
-    }
-    public ArrayList<LoadDescription<?>> getFields() {
-        return fields;
-    }
-
-    public void build() {
-        value = builder.build();
-    }
-
-    public void setFieldsOfObject(ArrayList<LoadDescription<?>> fields) {
-        this.fields = fields;
+        this(null, null, null, null, type);
     }
 
     public LoadDescription<T> setValue(T value) {
@@ -79,9 +45,52 @@ public class LoadDescription<T> implements Serializable {
         return value;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFieldName() {
+        return FieldName;
+    }
+
+    public Class<T> getType() {
+        return type;
+    }
+
+    public Buildable<T> getBuilder() {
+        return builder;
+    }
+
     public void setFieldOfDescriptionSetter(SerialFunction<T, ?> fieldOfDescriptionSetter) {
         this.fieldOfDescriptionSetter = fieldOfDescriptionSetter;
     }
+
+    public Function<T, ?> getFieldOfDescriptionSetter() {
+        return fieldOfDescriptionSetter;
+    }
+
+    public void setFieldsOfObject(ArrayList<LoadDescription<?>> fields) {
+        this.fields = fields;
+    }
+
+    public ArrayList<LoadDescription<?>> getFields() {
+        return fields;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public void setField(Object object){
+        if(object.getClass() == type) {
+            fieldOfDescriptionSetter.apply((T) object);
+        }
+        else
+            throw new IllegalArgumentException("Wrong type of field");
+    }
+
+    public void build() {
+        value = builder.build();
+    }
+
 
     @Override
     public String toString() {

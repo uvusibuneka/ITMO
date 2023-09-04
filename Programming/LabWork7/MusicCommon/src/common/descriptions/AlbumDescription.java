@@ -13,10 +13,10 @@ public class AlbumDescription extends LoadDescription<Album> implements Serializ
         AlbumBuilder albumBuilder = new AlbumBuilder();
         this.builder = albumBuilder;
         fields = new ArrayList<>(Arrays.asList(
-                new LoadDescription<String>("Name", albumBuilder::setName, null, String.class),
-                new LoadDescription<Long>("Length of Album", albumBuilder::setLength, null, Long.class),
-                new LoadDescription<Long>("Number of tracks", albumBuilder::setTracks, null, Long.class),
-                new LoadDescription<Float>("Sales", albumBuilder::setSales, null, Float.class)));
+                new LoadDescription<String>("Name", "BestAlbumName", albumBuilder::setName, null, String.class),
+                new LoadDescription<Long>("Length of Album", "BestAlbumLength",  albumBuilder::setLength, null, Long.class),
+                new LoadDescription<Long>("Number of tracks", "BestAlbumTracks",  albumBuilder::setTracks, null, Long.class),
+                new LoadDescription<Float>("Sales", "BestAlbumSales",  albumBuilder::setSales, null, Float.class)));
     }
 
     public AlbumDescription(SerialFunction<Album, Object> fieldSetter) {

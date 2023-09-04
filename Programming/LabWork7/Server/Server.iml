@@ -10,8 +10,10 @@
     <orderEntry type="library" name="Client" level="project" />
     <orderEntry type="library" name="Server" level="project" />
     <orderEntry type="module" module-name="MusicCommon" />
-    <orderEntry type="library" name="MusicCommon" level="project" />
     <orderEntry type="library" name="log4j-api-2.20.0" level="project" />
     <orderEntry type="library" name="log4j-core-2.20.0" level="project" />
+    <orderEntry type="library" name="MusicCommon" level="project" />
+    <orderEntry type="library" name="apache.logging.log4j.api" level="application" />
+    <orderEntry type="library" name="apache.logging.log4j.core" level="application" />
   </component>
 </module>

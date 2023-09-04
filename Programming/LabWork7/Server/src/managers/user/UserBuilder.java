@@ -8,6 +8,7 @@ public class UserBuilder implements Buildable<User> {
     long id;
     String login;
     String password;
+    String salt;
     InetAddress host;
     int port;
 
@@ -31,6 +32,11 @@ public class UserBuilder implements Buildable<User> {
         return this;
     }
 
+    public UserBuilder setSalt(String salt) {
+        this.salt = salt;
+        return this;
+    }
+
     public UserBuilder setPort(int port) {
         this.port = port;
         return this;
@@ -38,6 +44,6 @@ public class UserBuilder implements Buildable<User> {
 
     @Override
     public User build() {
-        return new User(login, password, host, port);
+        return new User(login, password, salt, host, port);
     }
 }

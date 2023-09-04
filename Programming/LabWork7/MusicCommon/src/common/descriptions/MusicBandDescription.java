@@ -13,12 +13,12 @@ public class MusicBandDescription extends LoadDescription<MusicBand> implements 
     {
         MusicBandBuilder musicBandBuilder = new MusicBandBuilder();
         this.builder = musicBandBuilder;
-        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", musicBandBuilder::setName, null, String.class),
+        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", "Name", musicBandBuilder::setName, null, String.class),
                 new CoordinatesDescription(musicBandBuilder::setCoordinates),
-                new LoadDescription<LocalDate>("Creation Date",musicBandBuilder::setCreationDate, null, LocalDate.class),
-                new LoadDescription<Long>("Number of participants", musicBandBuilder::setNumberOfParticipants, null, Long.class),
+                new LoadDescription<LocalDate>("Creation Date", "creationDate", musicBandBuilder::setCreationDate, null, LocalDate.class),
+                new LoadDescription<Long>("Number of participants", "participants", musicBandBuilder::setNumberOfParticipants, null, Long.class),
                 new AlbumDescription(musicBandBuilder::setBestAlbum),
-                new LoadDescription<MusicGenre>("Genre", musicBandBuilder::setGenre, null, MusicGenre.class)));
+                new LoadDescription<MusicGenre>("Genre", "GenreID", musicBandBuilder::setGenre, null, MusicGenre.class)));
     }
 
     public MusicBandDescription(SerialFunction<MusicBand, Object> fieldSetter) {

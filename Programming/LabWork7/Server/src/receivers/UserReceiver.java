@@ -1,12 +1,11 @@
 package receivers;
 
-import managers.file.AbstractFileReader;
-import managers.file.AbstractFileWriter;
-import managers.file.FileReader;
-import managers.file.FileWriter;
+import managers.file.*;
 import managers.file.decorators.CSV.CSVReader;
 import managers.file.decorators.CSV.CSVWriter;
 import common.Collection;
+import managers.file.decorators.DataBase.DBReader;
+import managers.file.decorators.DataBase.DBWriter;
 import managers.user.User;
 import managers.user.UserBuilder;
 import managers.user.UserDescription;
@@ -23,15 +22,23 @@ public class UserReceiver extends Receiver<User>{
     }
 
     private UserReceiver() throws Exception{
-
-        String fileName = System.getenv("USERS_FILE");
         try {
             Collection<User> tmp = new Collection<>();
-            AbstractFileWriter<User> Collection_to_file_writer = new FileWriter<>(fileName);
-            AbstractFileReader<User> Collection_from_file_loader = new FileReader<>(fileName, new UserDescription(new UserBuilder()), tmp);
+            AbstractWriter<User> Collection_to_file_writer = new AbstractWriter<>("Users") {
+                @Override
+                public void write() throws Exception {
 
-            Collection_to_file_writer = new CSVWriter<>(fileName, Collection_to_file_writer);
-            Collection_from_file_loader = new CSVReader<>(fileName, new UserDescription(new UserBuilder()), Collection_from_file_loader, tmp);
+                }
+            };
+            AbstractReader<User> Collection_from_file_loader = new AbstractReader<>("Users", new UserDescription(new UserBuilder()), tmp) {
+                @Override
+                public Result<Collection<User>> read() {
+                    return null;
+                }
+            };
+
+            Collection_to_file_writer = new DBWriter<>("User", Collection_to_file_writer, new UserDescription(new UserBuilder()));
+            Collection_from_file_loader = new DBReader<>("User", new UserDescription(new UserBuilder()), Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
         } catch (NullPointerException e){

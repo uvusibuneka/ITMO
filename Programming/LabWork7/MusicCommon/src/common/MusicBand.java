@@ -4,13 +4,15 @@
  */
 package common;
 
-import managers.file.CSVSavable;
+import managers.file.*;
 import result.Result;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable, CSVSavable {
+public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable, CSVSavable, DBSavable {
 
     /**
      * This field contains an intermediate value for the unique identifier of the group.
@@ -53,6 +55,11 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     private Album bestAlbum;
 
     /**
+     * Creator's login.
+     */
+    private String ownerLogin;
+
+    /**
      * Creates a new music band with the given parameters.
      *
      * @param name                 the name of the group
@@ -62,7 +69,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
      * @param genre                the genre of the group
      * @param bestAlbum            the best album of the group
      */
-    public MusicBand(String name, Coordinates coordinates, LocalDate creationDate, long numberOfParticipants, MusicGenre genre, Album bestAlbum) {
+    public MusicBand(String name, Coordinates coordinates, LocalDate creationDate, long numberOfParticipants, MusicGenre genre, Album bestAlbum, String ownerLogin) {
         this.id = idCounter++;
         this.name = name;
         this.coordinates = coordinates;
@@ -70,6 +77,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
         this.bestAlbum = bestAlbum;
+        this.ownerLogin = ownerLogin;
     }
 
     /**
@@ -83,7 +91,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
      * @param genre                the genre of the group
      * @param bestAlbum            the best album of the group
      */
-    public MusicBand(int id, String name, Coordinates coordinates, LocalDate creationDate, long numberOfParticipants, MusicGenre genre, Album bestAlbum) {
+    public MusicBand(int id, String name, Coordinates coordinates, LocalDate creationDate, long numberOfParticipants, MusicGenre genre, Album bestAlbum, String ownerLogin) {
         this.id = id;
         idCounter = Math.max(idCounter, id + 1);
         this.name = name;
@@ -92,6 +100,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
         this.bestAlbum = bestAlbum;
+        this.ownerLogin = ownerLogin;
     }
 
     /**
@@ -196,7 +205,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
      Returns the number of participants in the music band.
      @return the number of participants in the music band
      */
-    public long getNumberOfParticipants() {
+    public Long getNumberOfParticipants() {
         return numberOfParticipants;
     }
     /**
@@ -240,6 +249,15 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public void setBestAlbum(Album bestAlbum) {
         this.bestAlbum = bestAlbum;
     }
+
+    /**
+     * Sets the login of the creator of this music band.
+     * @param ownerLogin creator's login
+     */
+    public void setOwnerLogin(String ownerLogin) {
+        this.ownerLogin = ownerLogin;
+    }
+
     /**
 
      Compares the music band with another music band.
@@ -319,6 +337,26 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
             return Result.success(sb.toString(), null);
         } catch (Exception e) {
             return Result.failure(e, "Error with parsing CSV format");
+        }
+    }
+
+    @Override
+    public Result<List<String>> toFields() {
+        try {
+            ArrayList<String> res = new ArrayList<>();
+            res.add(this.getName());
+            res.add(this.getCoordinates().getX().toString());
+            res.add(this.getCoordinates().getY().toString());
+            res.add(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            res.add(this.getNumberOfParticipants().toString());
+            res.add(this.getBestAlbum().getName());
+            res.add(this.getBestAlbum().getTracks().toString());
+            res.add(this.getBestAlbum().getLength().toString());
+            res.add(this.getBestAlbum().getSales().toString());
+            res.add(this.getGenre().ordinal()+"");
+            return Result.success(res, null);
+        } catch (Exception e) {
+            return Result.failure(e, "Error with parsing DataBase format");
         }
     }
 }

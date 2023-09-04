@@ -13,8 +13,8 @@ public class CoordinatesDescription extends LoadDescription<Coordinates> impleme
         CoordinatesBuilder coordinatesBuilder = new CoordinatesBuilder();
         this.builder = coordinatesBuilder;
         fields = new ArrayList<>(Arrays.asList(
-                new LoadDescription<Long>("X",coordinatesBuilder::setX, null, Long.class),
-                new LoadDescription<Float>("Y",coordinatesBuilder::setY, null, Float.class)));
+                new LoadDescription<Long>("X", "X-cord", coordinatesBuilder::setX, null, Long.class),
+                new LoadDescription<Float>("Y", "Y-cord", coordinatesBuilder::setY, null, Float.class)));
     }
 
     public CoordinatesDescription(SerialFunction<Coordinates, Object> fieldSetter) {

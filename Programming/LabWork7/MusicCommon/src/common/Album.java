@@ -1,6 +1,5 @@
 /**
-
- The Album class represents a music album and contains information about its name, number of tracks, length, and sales.
+ * The Album class represents a music album and contains information about its name, number of tracks, length, and sales.
  */
 package common;
 
@@ -47,7 +46,7 @@ public class Album implements Serializable {
      *
      * @return the number of tracks in the album
      */
-    public long getTracks() {
+    public Long getTracks() {
         return tracks;
     }
 

@@ -1,8 +1,7 @@
 package managers.file.decorators.CSV;
 
-import common.MusicBand;
 import managers.file.CSVSavable;
-import managers.file.decorators.ReaderDecorator;
+import managers.file.decorators.FileReaderDecorator;
 import common.Collection;
 import common.IDAccess;
 import managers.file.AbstractFileReader;
@@ -14,7 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class CSVReader<T extends Comparable<T> & IDAccess & CSVSavable> extends ReaderDecorator<T> {
+public class CSVReader<T extends Comparable<T> & IDAccess & CSVSavable> extends FileReaderDecorator<T> {
     public CSVReader(String fileName, LoadDescription<T> load_description, AbstractFileReader<T> reader, Collection<T> collection) throws FileNotFoundException, NullPointerException, SecurityException {
         super(fileName, load_description, reader, collection);
     }
@@ -24,7 +23,7 @@ public class CSVReader<T extends Comparable<T> & IDAccess & CSVSavable> extends 
         BufferedReader buffered_reader = null;
         String line;
         try {
-            buffered_reader = new BufferedReader(new FileReader(file));
+            buffered_reader = new BufferedReader(new FileReader(source));
             while (true) {
                 line = buffered_reader.readLine();
                 if (!(line == null || line.equals(""))) {

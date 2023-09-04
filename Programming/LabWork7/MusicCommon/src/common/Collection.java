@@ -4,8 +4,8 @@
  */
 package common;
 
-import managers.file.AbstractFileReader;
-import managers.file.AbstractFileWriter;
+import managers.file.AbstractReader;
+import managers.file.AbstractWriter;
 import result.Result;
 
 import java.io.Serializable;
@@ -21,11 +21,11 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
 
     private LocalDate initializationDate;
 
-    public transient AbstractFileWriter<T> Collection_to_file_writer;
-    public transient AbstractFileReader<T> Collection_from_file_loader;
+    public transient AbstractWriter<T> Collection_to_file_writer;
+    public transient AbstractReader<T> Collection_from_file_loader;
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    public Collection(AbstractFileReader<T> Collection_from_file_loader, AbstractFileWriter<T> Collection_to_file_writer) throws Exception {
+    public Collection(AbstractReader<T> Collection_from_file_loader, AbstractWriter<T> Collection_to_file_writer) throws Exception {
         ids = new HashSet<>();
         this.Collection_to_file_writer = Collection_to_file_writer;
         this.Collection_from_file_loader = Collection_from_file_loader;

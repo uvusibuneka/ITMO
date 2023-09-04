@@ -22,6 +22,7 @@ public class MusicBandBuilder implements Buildable<MusicBand>, Serializable {
     private MusicGenre genre;
     private Album bestAlbum;
     private LocalDate creationDate;
+    private String ownerLogin;
 
     /**
      * Sets the name of the music band.
@@ -93,6 +94,11 @@ public class MusicBandBuilder implements Buildable<MusicBand>, Serializable {
         return this;
     }
 
+    public MusicBandBuilder setOwnerLogin(String login){
+        this.ownerLogin = login;
+        return this;
+    }
+
     /**
      * Creates a new instance of the MusicBand object based on the set property values.
      *
@@ -100,7 +106,7 @@ public class MusicBandBuilder implements Buildable<MusicBand>, Serializable {
      */
     @Override
     public MusicBand build() {
-        return new MusicBand(name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum);
+        return new MusicBand(name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum, ownerLogin);
     }
 
     /**
