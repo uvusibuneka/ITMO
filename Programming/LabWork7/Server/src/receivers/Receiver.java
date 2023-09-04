@@ -2,13 +2,16 @@ package receivers;
 
 import common.*;
 import main.Main;
+import managers.file.AbstractWriter;
+import managers.file.DBSavable;
 import result.Result;
 
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public abstract class Receiver<T extends Comparable<T> & IDAccess> {
+public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
     Collection<T> collection;
+    AbstractWriter<T> collection_to_file_writer;
 
     /**
      * Abstract method for adding an element to the collection.
@@ -16,7 +19,8 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      * @return a Result object that indicates the success or failure of the operation.
      */
     public Result<Void> add(T obj) {
-        try {
+        Result<Boolean> insert_res = collection_to_file_writer.insert(obj);
+        if (insert_res.isSuccess()) {
             Result<Void> addResult = collection.add(obj);
             if (addResult.isSuccess()) {
                 Main.logger.info("New element successfully added to collection");
@@ -24,8 +28,8 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
             } else {
                 return Result.failure(addResult.getError().orElse(null), addResult.getMessage());
             }
-        } catch (Exception e) {
-            return Result.failure(e, "Error with executing add command");
+        } else {
+            return Result.failure(insert_res.getError().orElse(null), insert_res.getMessage());
         }
     }
 
@@ -63,24 +67,29 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      * @return a Result object that indicates the success or failure of the operation.
      */
     public Result<Void> removeById(long id) {
-        try {
-            boolean is_present = collection.getCollection().stream().anyMatch(element -> element.getID()==id);
-            collection.setCollection(collection
-                    .getCollection()
-                    .stream()
-                    .filter((T band) -> band.getID() != id)
-                    .collect(Collectors.toCollection(TreeSet::new))
-            );
-            Main.logger.info("Element removed");
+        Result<Boolean> remove_res = collection_to_file_writer.remove(id);
+        if (remove_res.isSuccess()) {
+            try {
+                boolean is_present = collection.getCollection().stream().anyMatch(element -> element.getID() == id);
+                collection.setCollection(collection
+                        .getCollection()
+                        .stream()
+                        .filter((T band) -> band.getID() != id)
+                        .collect(Collectors.toCollection(TreeSet::new))
+                );
+                Main.logger.info("Element removed");
 
-            return Result.success(null, is_present ? "Element removed" : "No such ID presented");
-        } catch (Exception e) {
-            return Result.failure(e, "Error with removing element");
+                return Result.success(null, is_present ? "Element removed" : "No such ID presented");
+            } catch (Exception e) {
+                return Result.failure(e, "Error with removing element");
+            }
+        } else {
+            return Result.failure(remove_res.getError().orElse(null), remove_res.getMessage());
         }
     }
 
     /**
-     * удаляет из коллекции все элементы, превышающие заданный
+     * Удаляет из коллекции все элементы, превышающие заданный
      *
      * @param element объект, с которым будут сравнивать объекты коллекции
      * @return {@link Result} of executing command (success/error)
@@ -125,30 +134,36 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess> {
      * @return a Result object that indicates the status of the update operation.
      */
     public Result<Void> updateById(long id, T newElement) {
-        try {
-            if (findById(id) == null) {
-                Main.logger.info("No such element");
-                return Result.failure(new Exception("Element with such ID is not found"), "Element with such ID is not found");
-            }
+        if (findById(id) == null) {
+            Main.logger.info("No such element");
+            return Result.failure(new Exception("Element with such ID is not found"), "Element with such ID is not found");
+        }
 
-            Result<Void> result = collection.remove(findById(id));
-            if (result.isSuccess()) {
-                newElement.setID(id);
-                result = collection.add(newElement);
+        Result<Boolean> update_res = collection_to_file_writer.remove(id);
+
+        if (update_res.isSuccess()) {
+            try {
+                Result<Void> result = collection.remove(findById(id));
                 if (result.isSuccess()) {
-                    Main.logger.info("Element updated");
-                    return Result.success(null, "Element successfully updated");
+                    newElement.setID(id);
+                    result = collection.add(newElement);
+                    if (result.isSuccess()) {
+                        Main.logger.info("Element updated");
+                        return Result.success(null, "Element successfully updated");
+                    } else {
+                        Main.logger.info("Element just removed");
+                        return Result.failure(result.getError().get(), result.getMessage());
+                    }
                 } else {
-                    Main.logger.info("Element just removed");
+                    Main.logger.info("Element didn't change");
                     return Result.failure(result.getError().get(), result.getMessage());
                 }
-            } else {
-                Main.logger.info("Element didn't change");
-                return Result.failure(result.getError().get(), result.getMessage());
+            } catch (Exception e) {
+                Main.logger.error(e.getMessage());
+                return Result.failure(e, "Error with executing updateById command");
             }
-        } catch (Exception e) {
-            Main.logger.error(e.getMessage());
-            return Result.failure(e, "Error with executing updateById command");
+        } else {
+            return Result.failure(update_res.getError().orElse(null), update_res.getMessage());
         }
     }
 

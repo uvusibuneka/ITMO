@@ -10,6 +10,7 @@ import common.MusicBand;
 import common.descriptions.MusicBandDescription;
 import managers.file.decorators.DataBase.DBReader;
 import managers.file.decorators.DataBase.DBWriter;
+import managers.user.User;
 import result.Result;
 
 import java.time.format.DateTimeFormatter;
@@ -51,10 +52,30 @@ public class MusicReceiver extends Receiver<MusicBand> {
 
             //, new LoadDescription<>("YourLogin", "OwnerLogin", musicBandBuilder::setName, null, String.class) - добавить это и id в MusicBandDescription
 
-            AbstractWriter<MusicBand> Collection_to_file_writer = new AbstractWriter<>("MusicBands") {
+            collection_to_file_writer = new AbstractWriter<>("MusicBands") {
                 @Override
                 public void write() throws Exception {
 
+                }
+
+                @Override
+                public Result<Boolean> insert(MusicBand musicBand) {
+                    return null;
+                }
+
+                @Override
+                public Result<Boolean> update(MusicBand musicBand, int i) {
+                    return null;
+                }
+
+                @Override
+                public Result<Boolean> remove(long l) {
+                    return null;
+                }
+
+                @Override
+                public Result<Boolean> remove(String col, String val) {
+                    return null;
                 }
             };
             AbstractReader<MusicBand> Collection_from_file_loader = new AbstractReader<>("MusicBands", new MusicBandDescription(), tmp) {
@@ -64,7 +85,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                 }
             };
 
-            Collection_to_file_writer = new DBWriter<>("MusicBands", Collection_to_file_writer, new MusicBandDescription());
+            collection_to_file_writer = new DBWriter<>("MusicBands", collection_to_file_writer, new MusicBandDescription());
             MusicBandDescription mbd = new MusicBandDescription();
             ArrayList<LoadDescription<?>> fields = mbd.getFields();
             fields.add(0, new LoadDescription<Integer>("ID", "id", ((MusicBandBuilder) mbd.getBuilder())::setId, null, Integer.class));
@@ -73,7 +94,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
             Collection_from_file_loader = new DBReader<>("MusicBands", mbd, Collection_from_file_loader, tmp);
 
 
-            collection = new common.Collection<>(Collection_from_file_loader, Collection_to_file_writer);
+            collection = new common.Collection<>(Collection_from_file_loader, collection_to_file_writer);
         } catch (NullPointerException e){
             Main.logger.error(e.getMessage(), e);
             throw new NullPointerException("FILE_NAME is not set");
@@ -98,19 +119,13 @@ public class MusicReceiver extends Receiver<MusicBand> {
         MusicBand newBand, maxBand;
         newBand = obj;
         Result<MusicBand> maxBandResult = collection.getMax();
-        if (maxBandResult.isSuccess()) {
+        if (maxBandResult.isSuccess() && maxBandResult.getValue().isPresent()) {
             maxBand = maxBandResult.getValue().get();
         } else {
-            return Result.failure(maxBandResult.getError().get(), maxBandResult.getMessage());
+            return Result.failure(maxBandResult.getError().orElse(null), maxBandResult.getMessage());
         }
-        if (maxBand == null || newBand.compareTo(maxBand) > 0) {
-            Result<Void> addResult = collection.add(newBand);
-            if (addResult.isSuccess()) {
-                Main.logger.info("New element added to MusicBand collection");
-                return Result.success(null, "New band successfully added to collection.");
-            } else {
-                return Result.failure(addResult.getError().get(), addResult.getMessage());
-            }
+        if (newBand.compareTo(maxBand) > 0) {
+            return this.add(obj);
         } else {
             return Result.success(null, "New band is not the greatest element of collection, element is not added to collection");
         }
@@ -186,6 +201,22 @@ public class MusicReceiver extends Receiver<MusicBand> {
             return Result.success(count, "Number of elements with best album equal to " + bestAlbum + " is " + count);
         } catch (Exception e) {
             return Result.failure(e, "Error with executing countByBestAlbum command");
+        }
+    }
+
+    public Result<Void> clear(String userLogin){
+        Result<Boolean> result = collection_to_file_writer.remove("OwnerLogin", userLogin);
+        if (result.isSuccess()) {
+            collection.setCollection(
+                    collection.getCollection().stream()
+                    .filter((i)-> !i.getOwnerLogin().equals(userLogin))
+                    .collect(Collectors.toCollection(TreeSet::new))
+            );
+            Main.logger.info("User " + userLogin + " elements of collection cleared");
+            return Result.success(null, "Your elements of collection successfully cleared");
+        } else {
+            Main.logger.error("Collection wasn't cleared. " + result.getMessage());
+            return Result.failure(result.getError().orElse(null), result.getMessage());
         }
     }
 }

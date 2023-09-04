@@ -91,7 +91,7 @@ public class Invoker {
 
     public Result<Command<MusicReceiver>> clear(CommandDescription cd) {
         try {
-            return Result.success(new ClearCommand());
+            return Result.success(new ClearCommand(cd.getAuthorization().getLogin()));
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());
         }

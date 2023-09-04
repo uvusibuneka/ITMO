@@ -251,6 +251,13 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     }
 
     /**
+     * Getter for ownerLogin
+     * @return ownerLogin creator's login
+     */
+    public String getOwnerLogin(){
+        return this.ownerLogin;
+    }
+    /**
      * Sets the login of the creator of this music band.
      * @param ownerLogin creator's login
      */

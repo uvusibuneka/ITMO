@@ -1,5 +1,6 @@
 package commands;
 
+import managers.user.User;
 import receivers.*;
 import result.Result;
 
@@ -7,8 +8,10 @@ import result.Result;
  * Class ClearCommand for clearing the collection.
  */
 public class ClearCommand extends Command<MusicReceiver> {
-    public ClearCommand() throws Exception {
+    String userLogin;
+    public ClearCommand(String userLogin) throws Exception {
         super(MusicReceiver.GetInstance());
+        this.userLogin = userLogin;
     }
 
     /**
@@ -17,6 +20,6 @@ public class ClearCommand extends Command<MusicReceiver> {
      */
     @Override
     public Result<Void> execute() {
-        return receiver.clear();
+        return receiver.clear(userLogin);
     }
 }
