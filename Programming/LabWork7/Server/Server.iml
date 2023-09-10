@@ -15,5 +15,6 @@
     <orderEntry type="library" name="MusicCommon" level="project" />
     <orderEntry type="library" name="apache.logging.log4j.api" level="application" />
     <orderEntry type="library" name="apache.logging.log4j.core" level="application" />
+    <orderEntry type="library" name="postgresql" level="project" />
   </component>
 </module>

@@ -14,12 +14,17 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            UserReceiver.GetInstance();
-            MusicReceiver.GetInstance();
-            logger.info("Files loaded");
-            (new ConnectionReceiver()).run(new Invoker());
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            Class.forName("org.postgresql.Driver");
+            try {
+                UserReceiver.GetInstance();
+                MusicReceiver.GetInstance();
+                logger.info("Files loaded");
+                (new ConnectionReceiver()).run(new Invoker());
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            }
+        } catch (ClassNotFoundException e) {
+            logger.error("PostgreSQL JDBC Driver is not found. ", e);
         }
     }
 }

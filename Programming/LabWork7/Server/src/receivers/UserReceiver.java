@@ -55,8 +55,8 @@ public class UserReceiver extends Receiver<User>{
                 }
             };
 
-            collection_to_file_writer = new DBWriter<>("User", collection_to_file_writer, new UserDescription(new UserBuilder()));
-            Collection_from_file_loader = new DBReader<>("User", new UserDescription(new UserBuilder()), Collection_from_file_loader, tmp);
+            collection_to_file_writer = new DBWriter<>("Users", collection_to_file_writer, new UserDescription(new UserBuilder()));
+            Collection_from_file_loader = new DBReader<>("Users", new UserDescription(new UserBuilder()), Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, collection_to_file_writer);
         } catch (NullPointerException e){

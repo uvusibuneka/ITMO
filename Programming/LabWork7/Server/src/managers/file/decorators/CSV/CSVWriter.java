@@ -31,4 +31,24 @@ public class CSVWriter<T extends Comparable<T> & IDAccess & CSVSavable> extends 
         Main.logger.info("Collection saved");
     }
 
+    @Override
+    public Result<Boolean> insert(T t) {
+        return null;
+    }
+
+    @Override
+    public Result<Boolean> update(T t, int i) {
+        return null;
+    }
+
+    @Override
+    public Result<Boolean> remove(long l) {
+        return null;
+    }
+
+    @Override
+    public Result<Boolean> remove(String s, String s1) {
+        return null;
+    }
+
 }
