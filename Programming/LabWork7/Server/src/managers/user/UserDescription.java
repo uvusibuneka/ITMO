@@ -15,6 +15,6 @@ public class UserDescription extends LoadDescription<User> {
         fields = new ArrayList<>(Arrays.asList(new LoadDescription<Long>("ID", "id", ub::setID, null, Long.class),
                 new LoadDescription<String>("login", "login", ub::setLogin, null, String.class),
                 new LoadDescription<String>("password", "password", ub::setPassword, null, String.class),
-                new LoadDescription<String>("salt", "salt", null, null, String.class)));
+                new LoadDescription<String>("salt", "salt", ub::setSalt, null, String.class)));
     }
 }

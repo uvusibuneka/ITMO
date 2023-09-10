@@ -68,7 +68,7 @@ public class UserReceiver extends Receiver<User>{
                 collection.
                 getCollection().
                 stream().
-                anyMatch((User user) -> (user.getLogin().equals(login) && user.getPassword().equals(password))));
+                anyMatch((User user) -> (user.getLogin().equals(login) && user.getHashedPassword(password).equals(user.getPassword()))));
     }
 
     public Result<Void> register(User user){

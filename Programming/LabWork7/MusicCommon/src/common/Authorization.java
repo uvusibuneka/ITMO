@@ -1,6 +1,8 @@
 package common;
 
-public class Authorization {
+import java.io.Serializable;
+
+public class Authorization implements Serializable {
     protected String login;
     protected String password;
 

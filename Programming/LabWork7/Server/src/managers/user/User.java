@@ -83,7 +83,24 @@ public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
         return password;
     }
 
-    public String getHashedPassword() {
+    public String getSalt() {
+        return salt;
+    }
+
+    private String getHashedPassword() {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            return new String(
+                    md.digest(
+                            ("h*3nP(P*ueF32" + password + salt).getBytes(StandardCharsets.UTF_8)
+                    ), StandardCharsets.UTF_8);
+        } catch (NoSuchAlgorithmException e) {
+            Main.logger.error("Password coding error", e);
+        }
+        return "";
+    }
+
+    public String getHashedPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             return new String(
@@ -117,9 +134,9 @@ public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
         try {
             ArrayList<String> res = new ArrayList<>();
             res.add(this.getID() + "");
-            res.add(this.getLogin());
-            res.add(this.getHashedPassword());
-            res.add(this.salt);
+            res.add("'" + this.getLogin() + "'");
+            res.add("'" + this.getHashedPassword() + "'");
+            res.add("'" + this.salt + "'");
             return Result.success(res, null);
         }catch(Exception e){
             return Result.failure(e, "Error with parsing DataBase format");

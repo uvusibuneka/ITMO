@@ -20,17 +20,10 @@ import java.util.function.Function;
 public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends AbstractLoader {
     private final ResultSet resultSet;
     private int i;
-    private final AbstractParser parser;
 
     public DBLoader(BaseTextReceiver textReceiver, ResultSet resultSet) {
         super(textReceiver);
         this.resultSet = resultSet;
-        parser = new AbstractParser() {
-            @Override
-            public <T> T parseComposite(String s, Class<T> type) {
-                return null;
-            }
-        };
     }
 
     public <D extends LoadDescription<T>> Collection<T> load(D description) throws SQLException, ArrayIndexOutOfBoundsException {
@@ -43,8 +36,11 @@ public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends Ab
                 if (e.getCause() instanceof SQLException){
                     throw (SQLException) e.getCause();
                 }
-                if (e.getCause() instanceof ArrayIndexOutOfBoundsException){
+                else if (e.getCause() instanceof ArrayIndexOutOfBoundsException){
                     throw (ArrayIndexOutOfBoundsException) e.getCause();
+                }
+                else {
+                    throw e;
                 }
             }
         }

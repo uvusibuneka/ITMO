@@ -192,8 +192,7 @@ public class InteractiveMode {
             }
 
         } catch (Exception e) {
-            textReceiver.println("Error while sending register command to server, error with server connection.");
-            return Result.failure(e, "Error while sending login command to server, error with server connection.");
+            return Result.failure(e, "Error while sending register command to server, error with server connection.");
         }
     }
 
@@ -225,7 +224,6 @@ public class InteractiveMode {
                 return loginResult;
             }
         } catch (Exception e) {
-            textReceiver.println("Error while sending login command to server, error with server connection.");
             return Result.failure(e, "Error while sending login command to server, error with server connection.");
         }
     }
@@ -240,6 +238,7 @@ public class InteractiveMode {
         System.exit(0);
         return Result.success(null);
     }
+
     public boolean isAuthorized() {
         return isAuthorized;
     }
@@ -254,6 +253,7 @@ public class InteractiveMode {
         commandDescription.setAuthorization(authorization);
         objectSender.sendObject(commandDescription);
     }
+
     public Result<?> getResultFromServer(){
         try {
             Thread.sleep(10);

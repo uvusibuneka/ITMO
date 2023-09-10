@@ -25,7 +25,7 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
         String db_url = System.getenv("DB_URL"); // configure connection params
         Properties info = new Properties();
         info.load(new FileInputStream("db.cfg"));
-        Connection conn = DriverManager.getConnection(db_url, info); // starting connection
+        connection = DriverManager.getConnection(db_url, info); // starting connection
 
         this.descriptionForUpdate = descriptionForUpdate;
     }
@@ -74,19 +74,20 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
 
     @Override
     public Result<Boolean> insert(T obj) {
-        PreparedStatement stat = null;
+        Statement stat = null;
         try {
-            stat = connection.prepareStatement("insert into ? values (?);");
-            stat.setString(1, destination);
+            String sql = "";
+            stat = connection.createStatement();
 
             Result<List<String>> row = obj.toFields();
             if (row.isSuccess()) {
-                stat.setString(2, String.join(", ", row.getValue().get()));
+                sql = "insert into \"" + destination + "\" values (" + String.join(", ", row.getValue().orElse(new ArrayList<>())) + ");";
+                System.out.println(sql);
             } else {
                 Main.logger.error("Problem with getting field of element. Can not be save in data base. " + row.getMessage());
                 return Result.failure(null, "Problem with getting field of element. Can not be save in data base. " + row.getMessage());
             }
-            return Result.success(stat.execute());
+            return Result.success(stat.execute(sql));
         } catch (SQLException e) {
             Main.logger.error("Error with data base. Element not saved. " + e.getMessage());
             return Result.failure(e, "Error with data base. Element not saved. " + e.getMessage());
@@ -111,7 +112,7 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
             Result<List<String>> row = obj.toFields();
             List<String> columns = getFieldsFromDescription(descriptionForUpdate);
             String setter = "";
-            if (row.isSuccess() && columns.size() == row.getValue().get().size()) {
+            if (row.isSuccess() && columns.size() == row.getValue().orElse(new ArrayList<>()).size()) {
                 for (int j=0; j < columns.size(); j+=1){
                     setter += columns.get(j) + " = " + row.getValue().get().get(j);
                     if (j < columns.size()-1)
@@ -122,7 +123,7 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
                 return Result.failure(null, "Problem with getting field of element. Can not be save in data base. " + row.getMessage());
             }
             stat = connection.createStatement();
-            return Result.success(stat.execute("update " + destination + " set " + setter + " where id = " + id + ";"));
+            return Result.success(stat.execute("update \"" + destination + "\" set " + setter + " where id = " + id + ";"));
         } catch (SQLException e) {
             Main.logger.error("Error with data base. Element not updated. " + e.getMessage());
             return Result.failure(e, "Error with data base. Element not updated. " + e.getMessage());
@@ -133,9 +134,8 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
     public Result<Boolean> remove(long id){
         PreparedStatement stat = null;
         try {
-            stat = connection.prepareStatement("delete from ? where id = ?;");
-            stat.setString(1, destination);
-            stat.setLong(2, id);
+            stat = connection.prepareStatement("delete from \"" + destination + "\" where id = ?;");
+            stat.setLong(1, id);
             return Result.success(stat.execute());
         } catch (SQLException e) {
             Main.logger.error("Error with data base. Element not removed. " + e.getMessage());
@@ -147,10 +147,9 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
     public Result<Boolean> remove(String col, String val){
         PreparedStatement stat = null;
         try {
-            stat = connection.prepareStatement("delete from ? where ? = ?;");
-            stat.setString(1, destination);
-            stat.setString(2, col);
-            stat.setString(3, val);
+            stat = connection.prepareStatement("delete from \"" + destination + "\" where ? = ?;");
+            stat.setString(1, col);
+            stat.setString(2, val);
             return Result.success(stat.execute());
         } catch (SQLException e) {
             Main.logger.error("Error with data base. Element not removed. " + e.getMessage());
