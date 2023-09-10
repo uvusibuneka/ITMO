@@ -32,8 +32,8 @@ public class ResultSender {
             byteStream.close();
 
             if (arr.length > ds.getSendBufferSize()){
+                Main.logger.warn("Сообщение очень большое, временно увеличен размер отправляемых сообщений с " + ds.getSendBufferSize() + " до " + arr.length);
                 ds.setSendBufferSize(arr.length);
-                Main.logger.warn("Сообщение очень большое, временно увеличен размер отправляемых сообщений с" + arr.length + " до " + ds.getSendBufferSize());
             }
 
             dp = new DatagramPacket(arr, arr.length, user.getHost(), user.getPort());
