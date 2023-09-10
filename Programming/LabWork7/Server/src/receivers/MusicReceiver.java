@@ -85,13 +85,14 @@ public class MusicReceiver extends Receiver<MusicBand> {
                 }
             };
 
-            collection_to_file_writer = new DBWriter<>("MusicBands", collection_to_file_writer, new MusicBandDescription());
-            MusicBandDescription mbd = new MusicBandDescription();
-            ArrayList<LoadDescription<?>> fields = mbd.getFields();
-            fields.add(0, new LoadDescription<Integer>("ID", "id", ((MusicBandBuilder) mbd.getBuilder())::setId, null, Integer.class));
-            fields.add(new LoadDescription<String>("Your Login", "OwnerLogin", ((MusicBandBuilder) mbd.getBuilder())::setOwnerLogin, null, String.class));
-            mbd.setFieldsOfObject(fields);
-            Collection_from_file_loader = new DBReader<>("MusicBands", mbd, Collection_from_file_loader, tmp);
+            MusicBandDescription mbd_writer = new MusicBandDescription();
+            mbd_writer.getFields().add(new LoadDescription<String>("Your Login", "OwnerLogin", ((MusicBandBuilder) mbd_writer.getBuilder())::setOwnerLogin, null, String.class));
+            collection_to_file_writer = new DBWriter<>("MusicBands", collection_to_file_writer, mbd_writer);
+
+            MusicBandDescription mbd_reader = new MusicBandDescription();
+            mbd_reader.getFields().add(0, new LoadDescription<Integer>("ID", "id", ((MusicBandBuilder) mbd_reader.getBuilder())::setId, null, Integer.class));
+            mbd_reader.getFields().add(new LoadDescription<String>("Your Login", "OwnerLogin", ((MusicBandBuilder) mbd_reader.getBuilder())::setOwnerLogin, null, String.class));
+            Collection_from_file_loader = new DBReader<>("MusicBands", mbd_reader, Collection_from_file_loader, tmp);
 
 
             collection = new common.Collection<>(Collection_from_file_loader, collection_to_file_writer);

@@ -351,16 +351,17 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public Result<List<String>> toFields() {
         try {
             ArrayList<String> res = new ArrayList<>();
-            res.add(this.getName());
+            res.add("'" + this.getName() + "'");
             res.add(this.getCoordinates().getX().toString());
             res.add(this.getCoordinates().getY().toString());
-            res.add(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            res.add("'" + this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "'");
             res.add(this.getNumberOfParticipants().toString());
-            res.add(this.getBestAlbum().getName());
+            res.add("'" + this.getBestAlbum().getName() + "'");
             res.add(this.getBestAlbum().getTracks().toString());
             res.add(this.getBestAlbum().getLength().toString());
             res.add(this.getBestAlbum().getSales().toString());
             res.add(this.getGenre().ordinal()+"");
+            res.add("'" + this.getOwnerLogin() + "'");
             return Result.success(res, null);
         } catch (Exception e) {
             return Result.failure(e, "Error with parsing DataBase format");

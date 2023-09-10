@@ -81,7 +81,20 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
 
             Result<List<String>> row = obj.toFields();
             if (row.isSuccess()) {
-                sql = "insert into \"" + destination + "\" values (" + String.join(", ", row.getValue().orElse(new ArrayList<>())) + ");";
+                List<String> columns = getFieldsFromDescription(descriptionForUpdate);
+
+                String comSepColumns = "";
+                if (columns.size() == row.getValue().orElse(new ArrayList<>()).size()) {
+                    System.out.println("slknfsdf");
+                    for (int j=0; j < columns.size(); j+=1){
+                        comSepColumns += '"' + columns.get(j) + '"';
+                        if (j < columns.size()-1)
+                            comSepColumns += ", ";
+                    }
+                }
+
+                sql = "insert into \"" + destination + "\" ("+ comSepColumns +")" +
+                      " values (" + String.join(", ", row.getValue().orElse(new ArrayList<>())) + ");";
                 System.out.println(sql);
             } else {
                 Main.logger.error("Problem with getting field of element. Can not be save in data base. " + row.getMessage());
