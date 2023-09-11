@@ -105,8 +105,10 @@ public class InteractiveMode {
             throw new RuntimeException("Ошибка при сериализации");
         }
         try {
+            System.out.println(objectInputStream);
             return (T) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

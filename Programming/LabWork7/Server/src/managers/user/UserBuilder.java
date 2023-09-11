@@ -1,6 +1,7 @@
 package managers.user;
 
 import common.builders.Buildable;
+import managers.connection.DatagramManager;
 
 import java.net.InetAddress;
 
@@ -9,11 +10,9 @@ public class UserBuilder implements Buildable<User> {
     String login;
     String password;
     String salt;
-    InetAddress host;
-    int port;
-
-    public UserBuilder setHost(InetAddress host) {
-        this.host = host;
+    DatagramManager dm;
+    public UserBuilder setDM(DatagramManager dm) {
+        this.dm = dm;
         return this;
     }
 
@@ -37,13 +36,8 @@ public class UserBuilder implements Buildable<User> {
         return this;
     }
 
-    public UserBuilder setPort(int port) {
-        this.port = port;
-        return this;
-    }
-
     @Override
     public User build() {
-        return new User(login, password, salt, host, port);
+        return new User(login, password, salt, dm);
     }
 }

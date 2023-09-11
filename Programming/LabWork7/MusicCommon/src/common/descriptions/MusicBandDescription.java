@@ -18,7 +18,8 @@ public class MusicBandDescription extends LoadDescription<MusicBand> implements 
                 new LoadDescription<LocalDate>("Creation Date", "creationDate", musicBandBuilder::setCreationDate, null, LocalDate.class),
                 new LoadDescription<Long>("Number of participants", "participants", musicBandBuilder::setNumberOfParticipants, null, Long.class),
                 new AlbumDescription(musicBandBuilder::setBestAlbum),
-                new LoadDescription<MusicGenre>("Genre", "GenreID", musicBandBuilder::setGenre, null, MusicGenre.class)));
+                new LoadDescription<MusicGenre>("Genre from this list:\n" +
+                        "PSYCHEDELIC_ROCK, POP,POST_ROCK, PUNK_ROCK, POST_PUNK ", "GenreID", musicBandBuilder::setGenre, null, MusicGenre.class)));
     }
 
     public MusicBandDescription(SerialFunction<MusicBand, Object> fieldSetter) {

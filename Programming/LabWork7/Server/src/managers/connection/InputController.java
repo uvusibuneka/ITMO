@@ -1,6 +1,5 @@
 package managers.connection;
 
-import commands.HelpCommand;
 import commands.LoginCommand;
 import commands.RegisterCommand;
 import common.descriptions.AlbumDescription;
@@ -12,30 +11,33 @@ import managers.Invoker;
 import managers.user.User;
 import result.Result;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
+import java.util.concurrent.*;
+import java.util.function.Consumer;
 
 public class InputController {
 
     private final int DISCONNECTING_TIMEOUT = 5;
-
-    ResultSender rs = null;
-    DatagramSocket ds;
+    private final DatagramManager dm;
     HashMap<String, CommandDescription> commands;
 
-    private final Map<String, BiFunction<User, DatagramPacket, Void>> user_connection_commands;
+    ResultSender rs = null;
 
-    public InputController(DatagramSocket ds) {
-        user_connection_commands = new HashMap<>();
-        user_connection_commands.put("login", this::login);
-        user_connection_commands.put("register", this::register);
-        this.ds = ds;
+    private final Map<String, Consumer<User>> user_connection_commands = Map.of("login", this::login, "register", this::register);
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    private final ExecutorService executorService = Executors.newFixedThreadPool(100);
+
+    public InputController(DatagramManager datagramManager) {
+
+        this.dm = datagramManager;
 
         commands = new HashMap<>();
 
@@ -59,80 +61,96 @@ public class InputController {
 
         commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, new ArrayList<>(List.of(new AlbumDescription()))));
 
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                this.getExecutorService().shutdown();
+                Main.logger.info("InputController shutdown finished");
+            } catch (Exception e) {
+                e.printStackTrace();
+                Main.logger.error(e.getMessage(), "Server shutdown finished incorrectly");
+            }
+        }));
     }
 
-    public void parse(CommandDescription cd, Invoker invoker, DatagramPacket dp) {
+
+    public void parse(CommandDescription cd, Invoker invoker) {
         Main.logger.info("Incoming request");
-        Result<?> RESULT = null;
+        Result<?> RESULT;
         if (user_connection_commands.containsKey(cd.getName())) {
             if (cd.getOneLineArguments().size() == 2)
-                user_connection_commands.get(cd.getName()).apply(new User(
+                user_connection_commands.get(cd.getName()).accept(new User(
                         (String) cd.getOneLineArguments().get(0).getValue(),
                         (String) cd.getOneLineArguments().get(1).getValue(),
-                        dp.getAddress(),
-                        dp.getPort()
-                ), dp);
+                        dm
+                ));
             else {
                 Main.logger.error("Incorrect request");
-                ResultSender tmp_sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
+                ResultSender tmp_sender = new ResultSender(new User(null, null, dm));
                 RESULT = Result.failure(new Exception(""), "Ожидается ввод только 2 аргументов: логина и пароля");
-                tmp_sender.send(RESULT);
+                tmp_sender.getExecutorService().execute(() -> {tmp_sender.send(RESULT);});
             }
         } else {
             if (rs == null) {
                 Main.logger.error("Incorrect request: user didn't login");
                 RESULT = Result.failure(new Exception(""), "Войдите в систему");
-                ResultSender tmp_sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
-                tmp_sender.send(RESULT);
-            } else if (rs.user.getPort() == dp.getPort() && rs.user.getHost() == dp.getAddress()) {
+                ResultSender tmp_sender = new ResultSender(new User(null, null, dm));
+                          tmp_sender.send(RESULT);
+            } else if (rs.user.getPort() == dm.getPort() && rs.user.getHost() == dm.getHost()) {
                 if (cd.getName().equals("exit")) {
                     close_client();
                 } else {
-                    RESULT = invoker.executeCommand(cd.getName(), cd);
-                    rs.send(RESULT);
+                    Callable<Result<?>> execution = () -> invoker.executeCommand(cd.getName(), cd);
+                    Future<Result<?>> result = invoker.getExecutorService().submit(execution);
+                    try {
+                        RESULT = result.get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        throw new RuntimeException(e);
+                    }
+                    rs.getExecutorService().execute(() -> {rs.send(RESULT);});
                 }
             } else {
                 RESULT = Result.failure(new Exception(""), "Занят занят работой с другим клиентом");
-                ResultSender tmp_sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
-                tmp_sender.send(RESULT);
+                ResultSender tmp_sender = new ResultSender(new User(null, null, dm));
+                tmp_sender.getExecutorService().execute(() -> {tmp_sender.send(RESULT);});
             }
         }
     }
 
 
-    private Void login(User user, DatagramPacket dp) {
-        ResultSender sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
+    private Void login(User user) {
+        ResultSender sender = new ResultSender(new User(null, null, dm));
         try {
             if (rs == null || LocalDateTime.now().minusMinutes(DISCONNECTING_TIMEOUT).isAfter(rs.user.getLastActivity())) {
                 if ((boolean) (new LoginCommand(user.getLogin(), user.getPassword()).execute().getValue().get())) {
                     if (rs != null) {
-                        rs.send(Result.success(null, "Вы отключены от сервера, так как бездействовали больше " + DISCONNECTING_TIMEOUT + " минут и подключился другой пользователь."));
+                        rs.getExecutorService().execute(() -> {rs.send(Result.success(null, "Вы отключены от сервера, так как бездействовали больше " + DISCONNECTING_TIMEOUT + " минут и подключился другой пользователь."));});
                         close_client();
                     }
-                    rs = new ResultSender(user, ds);
+                    rs = new ResultSender(user);
                     Main.logger.info("New user connected");
-                    rs.send(Result.success(commands, "Вход выполнен успешно"));
+                    rs.getExecutorService().execute(() -> {rs.send(Result.success(commands, "Вход выполнен успешно"));});
                 } else {
-                    sender.send(Result.failure(new Exception(), "Логин или пароль неверны"));
+                    sender.getExecutorService().execute(() -> {sender.send(Result.failure(new Exception(), "Логин или пароль неверны"));});
                 }
             } else
-                sender.send(Result.failure(new Exception(), "Сервер занят занят работой с другим клиентом"));
+                sender.getExecutorService().execute(() -> {sender.send(Result.failure(new Exception(), "Сервер занят занят работой с другим клиентом"));});
         } catch (Exception e) {
             Main.logger.error(e.getMessage(), e); //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение
         }
         return null;
     }
 
-    private Void register(User user, DatagramPacket dp) {
-        ResultSender sender = new ResultSender(new User(null, null, dp.getAddress(), dp.getPort()), ds);
+    private Void register(User user) {
+        ResultSender sender = new ResultSender(new User(null, null, dm));
         try {
             Result<Void> r = new RegisterCommand(user).execute();
             if (r.isSuccess()) {
                 Main.logger.info("New user registered");
-                sender.send(Result.success(null, "Регистрация проведена. Теперь можно войти с этим же аккаунтом"));
+                sender.getExecutorService().execute(() -> {sender.send(Result.failure(new Exception(), "Регистрация проведена. Теперь можно войти с этим же аккаунтом"));});
             } else {
                 Main.logger.error(r.getMessage());
-                sender.send(Result.failure(r.getError().get(), r.getMessage()));
+                sender.getExecutorService().execute(() -> {sender.send(Result.failure(r.getError().get(), r.getMessage()));});
+
             }
         } catch (Exception e) {
             Main.logger.error(e.getMessage(), e);   //если по неизвестной причине UserReceiver, инициализированный в Main, при GetInstance кинет исключение

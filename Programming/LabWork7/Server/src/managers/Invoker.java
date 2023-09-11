@@ -14,6 +14,9 @@ import result.Result;
 import commands.*;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 
 public class Invoker {
@@ -24,6 +27,13 @@ public class Invoker {
      * Constructor for the Invoker class.
      * Creates object of all available commands and registers them in the command list.
      */
+
+    private ExecutorService executorService = Executors.newCachedThreadPool();
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
     public Invoker() {
         command_creators = new HashMap<>();
         command_creators.put("add", this::add);
@@ -48,6 +58,9 @@ public class Invoker {
      * @return an instance of the Result class containing information about the result of executing the command.
      */
     public Result<?> executeCommand(String name, CommandDescription cd) {
+        ReentrantLock lock = new ReentrantLock();
+        lock.lock();
+        try {
         Command<MusicReceiver> commandObj = null;
         if (command_creators.containsKey(name)) {
             Result<Command<MusicReceiver>> r = command_creators.get(name).apply(cd);
@@ -62,6 +75,9 @@ public class Invoker {
         } else {
             Main.logger.error("Wrong command income");
             return Result.failure(new Exception("Команда не найдена"));
+        }
+        } finally {
+            lock.unlock();
         }
     }
 

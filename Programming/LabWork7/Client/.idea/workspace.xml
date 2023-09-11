@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="7" />
+    <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +53,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;fixing&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/alisa/IdeaProjects/ITMO/Programming/LabWork6/MusicCommon&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/Client&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -146,8 +146,9 @@
       <workItem from="1693243286205" duration="1165000" />
       <workItem from="1693856231942" duration="13000" />
       <workItem from="1694344729465" duration="4296000" />
-      <workItem from="1694421536503" duration="4841000" />
-      <workItem from="1694435560393" duration="31000" />
+      <workItem from="1694362605366" duration="2724000" />
+      <workItem from="1694366001460" duration="11000" />
+      <workItem from="1694428252904" duration="1504000" />
     </task>
     <servers />
   </component>

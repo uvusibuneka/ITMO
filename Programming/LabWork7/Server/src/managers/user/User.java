@@ -1,6 +1,7 @@
 package managers.user;
 
 import main.Main;
+import managers.connection.DatagramManager;
 import managers.file.CSVSavable;
 import common.IDAccess;
 import managers.file.DBSavable;
@@ -18,29 +19,36 @@ import java.util.Random;
 public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
     private static long idCounter = 0;
     long id;
+
     String login;
     String password;
+
+    public DatagramManager getDm() {
+        return dm;
+    }
+
+    public void setDm(DatagramManager dm) {
+        this.dm = dm;
+    }
+
+    private DatagramManager dm;
     String salt;
-    InetAddress host;
-    int port;
     LocalDateTime lastActivity;
 
-    public User(String login, String password, String salt, InetAddress host, int port) {
+    public User(String login, String password, String salt,DatagramManager dm) {
         this.id = idCounter++;
+        this.dm = dm;
         this.login = login;
         this.password = password;
         this.salt = salt;
-        this.host = host;
-        this.port = port;
         lastActivity = LocalDateTime.now();
     }
 
-    public User(String login, String password, InetAddress host, int port) {
+    public User(String login, String password, DatagramManager dm) {
         this.id = idCounter++;
+        this.dm = dm;
         this.login = login;
         this.password = password;
-        this.host = host;
-        this.port = port;
         this.salt = getRandomString();
         lastActivity = LocalDateTime.now();
     }
@@ -114,11 +122,11 @@ public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
     }
 
     public InetAddress getHost() {
-        return host;
+        return dm.getHost();
     }
 
     public int getPort() {
-        return port;
+        return dm.getPort();
     }
 
     public LocalDateTime getLastActivity() {

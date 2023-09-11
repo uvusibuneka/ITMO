@@ -29,4 +29,3 @@ public class AlbumDescription extends LoadDescription<Album> implements Serializ
 
 }
 
-
