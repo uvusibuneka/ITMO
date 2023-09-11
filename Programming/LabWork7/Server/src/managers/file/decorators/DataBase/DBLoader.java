@@ -4,18 +4,13 @@ import common.Collection;
 import common.IDAccess;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
-import managers.AbstractParser;
 import managers.BaseTextReceiver;
 import managers.file.DBSavable;
-import result.Result;
+import java.time.LocalDate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+import java.sql.Date;
 
 public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends AbstractLoader {
     private final ResultSet resultSet;
@@ -55,7 +50,8 @@ public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends Ab
     @Override
     public <D extends LoadDescription<?>> D enterDate(D description) {
         try {
-            description.setField(resultSet.getDate(description.getFieldName()));
+            Date sqlDate = resultSet.getDate(description.getFieldName());
+            description.setField(sqlDate.toLocalDate());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

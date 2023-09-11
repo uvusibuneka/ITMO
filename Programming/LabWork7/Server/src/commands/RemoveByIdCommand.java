@@ -8,13 +8,15 @@ import result.Result;
  */
 public class RemoveByIdCommand extends Command<MusicReceiver>  {
     long id;
+    String ownerLogin;
 
     /**
      * Constructor for creating a command object.
      */
-    public RemoveByIdCommand(long id) throws Exception {
+    public RemoveByIdCommand(long id, String ownerLogin) throws Exception {
         super(MusicReceiver.GetInstance());
         this.id = id;
+        this.ownerLogin = ownerLogin;
     }
 
     /**
@@ -23,6 +25,6 @@ public class RemoveByIdCommand extends Command<MusicReceiver>  {
      */
     @Override
     public Result<Void> execute() {
-        return receiver.removeById(id);
+        return ((MusicReceiver) receiver).removeById(id, ownerLogin);
     }
 }

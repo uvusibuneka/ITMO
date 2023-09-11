@@ -26,6 +26,6 @@ public class RemoveGreaterCommand extends Command<MusicReceiver>  {
 
     @Override
     public Result<Void> execute() {
-        return receiver.removeGreater(element);
+        return ((MusicReceiver) receiver).removeGreater(element);
     }
 }

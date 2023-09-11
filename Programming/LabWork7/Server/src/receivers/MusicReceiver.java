@@ -44,7 +44,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
     /**
      * Здесь происходит вся инициализация: инициализация коллекции, подключение к файлу, его чтение и запись данных в коллекцию. Происходит одна один раз - спасибо паттерну одиночка.
      */
-    private MusicReceiver() throws Exception{
+    private MusicReceiver() throws Exception {
 
         String fileName = System.getenv("FILE_NAME");
         try {
@@ -64,7 +64,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                 }
 
                 @Override
-                public Result<Boolean> update(MusicBand musicBand, int i) {
+                public Result<Boolean> update(MusicBand musicBand, long i) {
                     return null;
                 }
 
@@ -90,13 +90,13 @@ public class MusicReceiver extends Receiver<MusicBand> {
             collection_to_file_writer = new DBWriter<>("MusicBands", collection_to_file_writer, mbd_writer);
 
             MusicBandDescription mbd_reader = new MusicBandDescription();
-            mbd_reader.getFields().add(0, new LoadDescription<Integer>("ID", "id", ((MusicBandBuilder) mbd_reader.getBuilder())::setId, null, Integer.class));
+            mbd_reader.getFields().add(0, new LoadDescription<Long>("ID", "id", ((MusicBandBuilder) mbd_reader.getBuilder())::setId, null, Long.class));
             mbd_reader.getFields().add(new LoadDescription<String>("Your Login", "OwnerLogin", ((MusicBandBuilder) mbd_reader.getBuilder())::setOwnerLogin, null, String.class));
             Collection_from_file_loader = new DBReader<>("MusicBands", mbd_reader, Collection_from_file_loader, tmp);
 
 
             collection = new common.Collection<>(Collection_from_file_loader, collection_to_file_writer);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Main.logger.error(e.getMessage(), e);
             throw new NullPointerException("FILE_NAME is not set");
         }
@@ -205,13 +205,13 @@ public class MusicReceiver extends Receiver<MusicBand> {
         }
     }
 
-    public Result<Void> clear(String userLogin){
+    public Result<Void> clear(String userLogin) {
         Result<Boolean> result = collection_to_file_writer.remove("OwnerLogin", userLogin);
         if (result.isSuccess()) {
             collection.setCollection(
                     collection.getCollection().stream()
-                    .filter((i)-> !i.getOwnerLogin().equals(userLogin))
-                    .collect(Collectors.toCollection(TreeSet::new))
+                            .filter((i) -> !i.getOwnerLogin().equals(userLogin))
+                            .collect(Collectors.toCollection(TreeSet::new))
             );
             Main.logger.info("User " + userLogin + " elements of collection cleared");
             return Result.success(null, "Your elements of collection successfully cleared");
@@ -220,4 +220,95 @@ public class MusicReceiver extends Receiver<MusicBand> {
             return Result.failure(result.getError().orElse(null), result.getMessage());
         }
     }
+
+    /**
+     * Abstract method for removing an element from the collection by its ID.
+     *
+     * @return a Result object that indicates the success or failure of the operation.
+     */
+    public Result<Void> removeById(long id, String login) {
+        boolean is_present = collection.getCollection().stream()
+                .anyMatch((MusicBand element) -> (element.getID() == id && element.getOwnerLogin().equals(login)));
+        if (is_present) {
+            Result<Boolean> remove_res = collection_to_file_writer.remove(id);
+            if (remove_res.isSuccess()) {
+                collection.setCollection(collection
+                        .getCollection()
+                        .stream()
+                        .filter((MusicBand band) -> band.getID() != id)
+                        .collect(Collectors.toCollection(TreeSet::new))
+                );
+                Main.logger.info("Element removed");
+
+                return Result.success(null, "Element removed");
+            } else {
+                return Result.failure(remove_res.getError().orElse(null), remove_res.getMessage());
+            }
+        } else {
+            return Result.failure(null, "You aren't owning element with such id");
+        }
+    }
+
+
+    /**
+     * Удаляет из коллекции все элементы, превышающие заданный
+     *
+     * @param element объект, с которым будут сравнивать объекты коллекции
+     * @return {@link Result} of executing command (success/error)
+     */
+    public Result<Void> removeGreater(MusicBand element) {
+        HashSet<MusicBand> bands_to_delete = collection.getCollection().stream()
+                .filter(mb -> mb.compareTo(element) > 0 && mb.getOwnerLogin().equals(element.getOwnerLogin()))
+                .collect(Collectors.toCollection(HashSet::new));
+        int counter = 0;
+        for (MusicBand mb : bands_to_delete) {
+            Result<?> remove_res = removeById(mb.getID(), mb.getOwnerLogin());
+            if (remove_res.isSuccess()){
+                counter++;
+            }
+        }
+        return Result.success(null, counter + "/" + bands_to_delete.size()   + " elements removed");
+    }
+
+
+    /**
+     * Abstract method for updating an element of the collection by ID.
+     *
+     * @return a Result object that indicates the status of the update operation.
+     */
+    public Result<Void> updateById(long id, MusicBand newElement) {
+        boolean is_present = collection.getCollection().stream()
+                .anyMatch((MusicBand element) -> (element.getID() == id && element.getOwnerLogin().equals(newElement.getOwnerLogin())));
+        if (!is_present) {
+            return Result.failure(null, "You aren't owning element with such id");
+        }
+
+        Result<Boolean> update_res = collection_to_file_writer.update(newElement, id);
+
+        if (update_res.isSuccess()) {
+            try {
+                Result<Void> result = collection.remove(findById(id));
+                if (result.isSuccess()) {
+                    newElement.setID(id);
+                    result = collection.add(newElement);
+                    if (result.isSuccess()) {
+                        Main.logger.info("Element updated");
+                        return Result.success(null, "Element successfully updated");
+                    } else {
+                        Main.logger.info("Element just removed");
+                        return Result.failure(result.getError().get(), result.getMessage());
+                    }
+                } else {
+                    Main.logger.info("Element didn't change");
+                    return Result.failure(result.getError().get(), result.getMessage());
+                }
+            } catch (Exception e) {
+                Main.logger.error(e.getMessage());
+                return Result.failure(e, "Error with executing updateById command");
+            }
+        } else {
+            return Result.failure(update_res.getError().orElse(null), update_res.getMessage());
+        }
+    }
+
 }

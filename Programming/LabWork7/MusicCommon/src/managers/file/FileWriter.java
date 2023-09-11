@@ -20,7 +20,7 @@ public class FileWriter<T extends Comparable<T> & IDAccess> extends AbstractFile
 
     }
 
-    public Result<Boolean> update(T obj, int id) {
+    public Result<Boolean> update(T obj, long id) {
         return Result.failure(null, "Я ничего не умею(( Есть парни из группировки декораторов, каждый из них работает со своим файлом. Обратись к ним.");
 
     }

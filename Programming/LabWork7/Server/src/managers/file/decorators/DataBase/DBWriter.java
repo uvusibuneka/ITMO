@@ -85,7 +85,6 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
 
                 String comSepColumns = "";
                 if (columns.size() == row.getValue().orElse(new ArrayList<>()).size()) {
-                    System.out.println("slknfsdf");
                     for (int j=0; j < columns.size(); j+=1){
                         comSepColumns += '"' + columns.get(j) + '"';
                         if (j < columns.size()-1)
@@ -95,7 +94,6 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
 
                 sql = "insert into \"" + destination + "\" ("+ comSepColumns +")" +
                       " values (" + String.join(", ", row.getValue().orElse(new ArrayList<>())) + ");";
-                System.out.println(sql);
             } else {
                 Main.logger.error("Problem with getting field of element. Can not be save in data base. " + row.getMessage());
                 return Result.failure(null, "Problem with getting field of element. Can not be save in data base. " + row.getMessage());
@@ -119,7 +117,7 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
     }
 
     @Override
-    public Result<Boolean> update(T obj, int id) {
+    public Result<Boolean> update(T obj, long id) {
         Statement stat = null;
         try {
             Result<List<String>> row = obj.toFields();
@@ -127,7 +125,7 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
             String setter = "";
             if (row.isSuccess() && columns.size() == row.getValue().orElse(new ArrayList<>()).size()) {
                 for (int j=0; j < columns.size(); j+=1){
-                    setter += columns.get(j) + " = " + row.getValue().get().get(j);
+                    setter += '"' + columns.get(j) + '"' + " = " + row.getValue().get().get(j);
                     if (j < columns.size()-1)
                         setter += ", ";
                 }
@@ -149,6 +147,7 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
         try {
             stat = connection.prepareStatement("delete from \"" + destination + "\" where id = ?;");
             stat.setLong(1, id);
+
             return Result.success(stat.execute());
         } catch (SQLException e) {
             Main.logger.error("Error with data base. Element not removed. " + e.getMessage());

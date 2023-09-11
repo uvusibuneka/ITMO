@@ -106,7 +106,7 @@ public class MusicBandBuilder implements Buildable<MusicBand>, Serializable {
      */
     @Override
     public MusicBand build() {
-        return new MusicBand(name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum, ownerLogin);
+        return new MusicBand(id, name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum, ownerLogin);
     }
 
     /**

@@ -134,9 +134,9 @@ public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
         try {
             ArrayList<String> res = new ArrayList<>();
             res.add(this.getID() + "");
-            res.add("'" + this.getLogin() + "'");
-            res.add("'" + this.getHashedPassword() + "'");
-            res.add("'" + this.salt + "'");
+            res.add("'" + this.getLogin().replace("'", "''") + "'");
+            res.add("'" + this.getHashedPassword().replace("'", "''") + "'");
+            res.add("'" + this.salt.replace("'", "''") + "'");
             return Result.success(res, null);
         }catch(Exception e){
             return Result.failure(e, "Error with parsing DataBase format");

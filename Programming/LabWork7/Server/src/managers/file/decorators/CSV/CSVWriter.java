@@ -37,7 +37,7 @@ public class CSVWriter<T extends Comparable<T> & IDAccess & CSVSavable> extends 
     }
 
     @Override
-    public Result<Boolean> update(T t, int i) {
+    public Result<Boolean> update(T t, long i) {
         return null;
     }
 

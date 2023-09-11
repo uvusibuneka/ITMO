@@ -128,44 +128,5 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
      */
     public abstract Result<Collection<T>> showElementsOfCollection();
 
-    /**
-     * Abstract method for updating an element of the collection by ID.
-     *
-     * @return a Result object that indicates the status of the update operation.
-     */
-    public Result<Void> updateById(long id, T newElement) {
-        if (findById(id) == null) {
-            Main.logger.info("No such element");
-            return Result.failure(new Exception("Element with such ID is not found"), "Element with such ID is not found");
-        }
-
-        Result<Boolean> update_res = collection_to_file_writer.remove(id);
-
-        if (update_res.isSuccess()) {
-            try {
-                Result<Void> result = collection.remove(findById(id));
-                if (result.isSuccess()) {
-                    newElement.setID(id);
-                    result = collection.add(newElement);
-                    if (result.isSuccess()) {
-                        Main.logger.info("Element updated");
-                        return Result.success(null, "Element successfully updated");
-                    } else {
-                        Main.logger.info("Element just removed");
-                        return Result.failure(result.getError().get(), result.getMessage());
-                    }
-                } else {
-                    Main.logger.info("Element didn't change");
-                    return Result.failure(result.getError().get(), result.getMessage());
-                }
-            } catch (Exception e) {
-                Main.logger.error(e.getMessage());
-                return Result.failure(e, "Error with executing updateById command");
-            }
-        } else {
-            return Result.failure(update_res.getError().orElse(null), update_res.getMessage());
-        }
-    }
-
     /*public abstract Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker);*/
 }

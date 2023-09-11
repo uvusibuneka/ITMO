@@ -34,7 +34,7 @@ public class UserReceiver extends Receiver<User>{
                 }
 
                 @Override
-                public Result<Boolean> update(User user, int i) {
+                public Result<Boolean> update(User user, long i) {
                     return null;
                 }
 

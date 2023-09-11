@@ -23,7 +23,7 @@ public abstract class AbstractWriter<T extends Comparable<T> & IDAccess> impleme
     }
     public abstract void write() throws Exception;
     public abstract Result<Boolean> insert(T obj);
-    public abstract Result<Boolean> update(T obj, int id);
+    public abstract Result<Boolean> update(T obj, long id);
     public abstract Result<Boolean> remove(long id);
     public abstract Result<Boolean> remove(String col, String val);
 }

@@ -67,7 +67,9 @@ public class Invoker {
 
     public Result<Command<MusicReceiver>> add(CommandDescription cd) {
         try {
-            return Result.success(new AddCommand((MusicBand) cd.getArguments().get(0).getValue()));
+            MusicBand arg = (MusicBand) cd.getArguments().get(0).getValue();
+            arg.setOwnerLogin(cd.getAuthorization().getLogin());
+            return Result.success(new AddCommand(arg));
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());
         }
@@ -107,9 +109,11 @@ public class Invoker {
 
     public Result<Command<MusicReceiver>> update(CommandDescription cd) {
         try {
+            MusicBand arg = (MusicBand) cd.getArguments().get(0).getValue();
+            arg.setOwnerLogin(cd.getAuthorization().getLogin());
             return Result.success(new UpdateCommand(
                     (Long) cd.getOneLineArguments().get(0).getValue(),
-                    (MusicBand) cd.getArguments().get(0).getValue()
+                    arg
             ));
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());
@@ -118,7 +122,7 @@ public class Invoker {
 
     public Result<Command<MusicReceiver>> remove_by_id(CommandDescription cd) {
         try {
-            return Result.success(new RemoveByIdCommand((Long) cd.getOneLineArguments().get(0).getValue()));
+            return Result.success(new RemoveByIdCommand((Long) cd.getOneLineArguments().get(0).getValue(), cd.getAuthorization().getLogin()));
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());
         }
@@ -126,7 +130,9 @@ public class Invoker {
 
     public Result<Command<MusicReceiver>> add_if_max(CommandDescription cd) {
         try {
-            return Result.success(new AddIfMaxCommand((MusicBand) cd.getArguments().get(0).getValue()));
+            MusicBand arg = (MusicBand) cd.getArguments().get(0).getValue();
+            arg.setOwnerLogin(cd.getAuthorization().getLogin());
+            return Result.success(new AddIfMaxCommand(arg));
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());
         }
@@ -134,7 +140,9 @@ public class Invoker {
 
     public Result<Command<MusicReceiver>> remove_greater(CommandDescription cd) {
         try {
-            return Result.success(new RemoveGreaterCommand((MusicBand) cd.getArguments().get(0).getValue()));
+            MusicBand arg = (MusicBand) cd.getArguments().get(0).getValue();
+            arg.setOwnerLogin(cd.getAuthorization().getLogin());
+            return Result.success(new RemoveGreaterCommand(arg));
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());
         }
