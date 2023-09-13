@@ -1,5 +1,6 @@
 package receivers;
 
+import commands.ShowCommand;
 import common.*;
 import main.Main;
 import managers.file.AbstractWriter;
@@ -7,6 +8,7 @@ import managers.file.DBSavable;
 import result.Result;
 
 import java.util.TreeSet;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
@@ -19,18 +21,24 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
      * @return a Result object that indicates the success or failure of the operation.
      */
     public Result<Void> add(T obj) {
-        Result<Boolean> insert_res = collection_to_file_writer.insert(obj);
-        if (insert_res.isSuccess()) {
-            Result<Void> addResult = collection.add(obj);
-            if (addResult.isSuccess()) {
-                Main.logger.info("New element successfully added to collection");
-                return Result.success(null, "New element successfully added to collection");
+            Result<Boolean> insert_res = collection_to_file_writer.insert(obj);
+            if (insert_res.isSuccess()) {
+                Result<Void> addResult = collection.add(obj);
+                try {
+                    System.out.println(new ShowCommand().execute().getValue());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                if (addResult.isSuccess()) {
+                    Main.logger.info("New element successfully added to collection");
+                    return Result.success(null, "New element successfully added to collection");
+                } else {
+                    return Result.failure(addResult.getError().orElse(null), addResult.getMessage());
+                }
             } else {
-                return Result.failure(addResult.getError().orElse(null), addResult.getMessage());
+                Main.logger.info("Здесь!3");
+                return Result.failure(insert_res.getError().orElse(null), insert_res.getMessage());
             }
-        } else {
-            return Result.failure(insert_res.getError().orElse(null), insert_res.getMessage());
-        }
     }
 
     /**
@@ -39,6 +47,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
      * @return a Result object that indicates the success or failure of the operation.
      */
     public Result<Void> clear() {
+
         Result<Void> result = collection.clear();
         if (result.isSuccess()) {
             Main.logger.info("Collection cleared");
@@ -102,6 +111,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
         } else {
             return Result.failure(new Exception("Greater elements are not found"));
         }
+
     }
 
     public T findById(long id) {
@@ -126,7 +136,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
      *
      * @return a Result object that indicates the status of the display operation.
      */
-    public abstract Result<Collection<T>> showElementsOfCollection();
+    public abstract Result<common.Collection<T>> showElementsOfCollection();
 
     /*public abstract Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker);*/
 }

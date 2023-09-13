@@ -1,10 +1,5 @@
-2023-09-10 16:49:26,955 ERROR m.Main [main] db.cfg (Не удается найти указанный файл)
-java.io.FileNotFoundException: db.cfg (Не удается найти указанный файл)
-	at java.io.FileInputStream.open0(Native Method) ~[?:?]
-	at java.io.FileInputStream.open(FileInputStream.java:216) ~[?:?]
-	at java.io.FileInputStream.<init>(FileInputStream.java:157) ~[?:?]
-	at java.io.FileInputStream.<init>(FileInputStream.java:111) ~[?:?]
-	at managers.file.decorators.DataBase.DBWriter.<init>(DBWriter.java:27) ~[Server/:?]
-	at receivers.UserReceiver.<init>(UserReceiver.java:58) ~[Server/:?]
-	at receivers.UserReceiver.GetInstance(UserReceiver.java:17) ~[Server/:?]
-	at main.Main.main(Main.java:19) [Server/:?]
+2023-09-14 00:00:54,919 INFO m.Main [pool-3-thread-1] New element successfully added to collection
+2023-09-14 00:01:03,368 INFO m.Main [pool-5-thread-2] Result sent to user. Message: New element successfully added to collection
+2023-09-14 00:04:38,539 INFO m.Main [pool-4-thread-3] Incoming request from 2
+2023-09-14 00:04:38,550 INFO m.Main [pool-3-thread-2] Command add executing started
+2023-09-14 00:04:38,561 INFO m.Main [pool-3-thread-2] Запрос к бд insert into "MusicBands" ("name", "X-cord", "Y-cord", "creationDate", "participants", "BestAlbumName", "BestAlbumLength", "BestAlbumTracks", "BestAlbumSales", "GenreID", "OwnerLogin") values ('1', 1, 1.0, '11-11-1111', 1, '1', 1, 1, 1.0, 1, '2');

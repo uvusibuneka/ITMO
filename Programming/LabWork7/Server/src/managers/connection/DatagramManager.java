@@ -7,19 +7,21 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class DatagramManager {
-    protected DatagramSocket ds;
+    protected static DatagramSocket ds;
     protected DatagramPacket dp;
 
     public DatagramManager(DatagramSocket ds, DatagramPacket dp){
-        this.ds = ds;
+        DatagramManager.ds = ds;
         this.dp = dp;
     }
 
+
     public DatagramManager(int port, byte[] arr, int len) throws Exception {
         try {
-            ds = new DatagramSocket(port);
+            DatagramManager.ds = new DatagramSocket(port);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Укажите в переменной SERVER_PORT порт, на котором будет работать приложение. Порт должен быть целым числом");
         } catch (SocketException | SecurityException e) {
@@ -28,6 +30,13 @@ public class DatagramManager {
         dp = new DatagramPacket(arr, len);
     }
 
+    public DatagramManager() throws Exception {
+        if(DatagramManager.ds == null)
+            throw new RuntimeException("Error with socket initialization");
+        byte[] arr = new byte[12288];
+        int len = arr.length;
+        dp = new DatagramPacket(arr, len);
+    }
     public DatagramPacket getDp() {
         return dp;
     }
@@ -70,10 +79,10 @@ public class DatagramManager {
     }
 
     public InetAddress getHost() {
-        return ds.getInetAddress();
+        return dp.getAddress();
     }
 
     public int getPort() {
-        return ds.getPort();
+        return dp.getPort();
     }
 }

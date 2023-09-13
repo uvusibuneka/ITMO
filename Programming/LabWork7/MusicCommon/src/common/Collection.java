@@ -12,12 +12,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.TreeSet;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Collection<T extends Comparable<T> & IDAccess> implements Serializable {
 
     private TreeSet<T> collection;
 
     private HashSet<Long> ids;
+
+    protected final ReentrantLock lock = new ReentrantLock();
 
     private LocalDate initializationDate;
 
@@ -53,16 +56,22 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * Returns a Result object with an exception and an error message in case of failure.
      */
     public Result<Void> add(T element) {
+        lock.lock();
         try {
-            if (!ids.contains(element.getID()))
+            if (!ids.contains(element.getID())) {
                 ids.add(element.getID());
+            }
             else
                 throw new IllegalArgumentException("The id of the element is already in use.");
             collection.add(element);
+            System.out.println("В коллекцию был добавлен вот этот элемент: " + element);
+            collection.forEach((e) ->{System.out.println(element);});
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Error while adding element to collection");
-        }
+        } finally {
+        lock.unlock();
+    }
     }
 
     /**
@@ -72,13 +81,16 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * Returns a Result object with an exception and an error message in case of failure.
      */
     public Result<Void> clear() {
+        lock.lock();
         try {
             collection.clear();
             ids.clear();
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Error while clearing collection");
-        }
+        } finally {
+        lock.unlock();
+    }
     }
 
     /**
@@ -87,7 +99,12 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * @return the collection.
      */
     public TreeSet<T> getCollection() {
-        return collection;
+        lock.lock();
+        try {
+            return collection;
+        }finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -106,14 +123,22 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * Returns a Result object with an exception and an error message in case of failure.
      */
     @SuppressWarnings("OptionalGetWithoutIsPresent")
+
     public Result<T> getMax() {
-        if (this.getSize() == 0) {
-            return Result.failure(new Exception("Collection is empty"), "Collection is empty");
+        lock.lock();
+        try {
+            if (this.getSize() == 0) {
+                return Result.failure(new Exception("Collection is empty"), "Collection is empty");
+            }
+
+            T max = collection.stream().max(T::compareTo).get();
+
+            return Result.success(max);
+        }catch (Exception e){
+            return Result.failure(e);
+        }finally {
+            lock.unlock();
         }
-
-        T max = collection.stream().max(T::compareTo).get();
-
-        return Result.success(max);
     }
 
     /**
@@ -122,7 +147,12 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * @return the number of elements in the collection.
      */
     public int getSize() {
-        return collection.size();
+        lock.lock();
+        try {
+            return collection.size();
+        }finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -131,7 +161,13 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * @return the date when the collection was initialized.
      */
     public String getInitializationDate() {
-        return initializationDate.toString();
+        lock.lock();
+        try {
+            return initializationDate.toString();
+        }finally {
+            lock.unlock();
+        }
+
     }
 
     /**
@@ -142,12 +178,15 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * Returns a Result object with an exception and an error message in case of failure.
      */
     public Result<Void> removeGreater(T element) {
+        lock.lock();
         try {
             collection.removeIf(element_2 -> element_2.compareTo(element) > 0);
             ids.removeIf(id -> collection.stream().noneMatch(element_2 -> element_2.getID() == element.getID()));
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Failed to remove greater elements");
+        }finally {
+            lock.unlock();
         }
     }
 
@@ -159,13 +198,16 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * in case of failure - Result object with an exception and an error message.
      */
     public Result<Void> remove(T element) {
+        lock.lock();
         try {
             collection.remove(element);
             ids.remove(element.getID());
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Failed to remove element");
-        }
+        } finally {
+        lock.unlock();
+    }
     }
 
     /**
@@ -174,7 +216,12 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * @return true if the collection is empty, false otherwise.
      */
     public boolean isEmpty() {
-        return collection.isEmpty();
+        lock.lock();
+        try {
+            return collection.isEmpty();
+        }finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -184,15 +231,24 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
      * @return true if the collection contains the specified element, false otherwise.
      */
     public boolean isUnique(long id) {
-        return !ids.contains(id);
+        lock.lock();
+        try {
+            return !ids.contains(id);
+        }finally {
+            lock.unlock();
+        }
+
     }
 
     public Result<Void> save(){
+        lock.lock();
         try {
             Collection_to_file_writer.write();
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Коллекция не сохранена");
-        }
+        }finally {
+        lock.unlock();
+    }
     }
 }

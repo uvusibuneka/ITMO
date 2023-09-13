@@ -14,8 +14,10 @@ import result.Result;
 import commands.*;
 
 import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 
@@ -28,10 +30,10 @@ public class Invoker {
      * Creates object of all available commands and registers them in the command list.
      */
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
+    private static ExecutorService executionPool = Executors.newCachedThreadPool();
 
-    public ExecutorService getExecutorService() {
-        return executorService;
+    public Future<Result<?>> addExecution(Callable<Result<?>> task){
+       return executionPool.submit(task);
     }
 
     public Invoker() {
@@ -48,6 +50,11 @@ public class Invoker {
         command_creators.put("max_by_best_album", this::max_by_best_album);
         command_creators.put("count_by_best_album", this::count_by_best_album);
         command_creators.put("filter_by_best_album", this::filter_by_best_album);
+        command_creators.put("exit", this::exit);
+    }
+
+    private Result<Command<MusicReceiver>> exit(CommandDescription commandDescription) {
+        return Result.success(null);
     }
 
     /**
@@ -58,27 +65,21 @@ public class Invoker {
      * @return an instance of the Result class containing information about the result of executing the command.
      */
     public Result<?> executeCommand(String name, CommandDescription cd) {
-        ReentrantLock lock = new ReentrantLock();
-        lock.lock();
-        try {
-        Command<MusicReceiver> commandObj = null;
-        if (command_creators.containsKey(name)) {
-            Result<Command<MusicReceiver>> r = command_creators.get(name).apply(cd);
-            if (r.isSuccess())
-                commandObj = r.getValue().get();
-            else
-                return Result.failure(r.getError().get(), r.getMessage()); //если по неизвестной причине MusicReceiver, инициализированный в Main, при GetInstance кинет исключение
-        }
-        if (commandObj != null) {
-            Main.logger.info("Command " + name + " executing started");
-            return commandObj.execute();
-        } else {
-            Main.logger.error("Wrong command income");
-            return Result.failure(new Exception("Команда не найдена"));
-        }
-        } finally {
-            lock.unlock();
-        }
+            Command<MusicReceiver> commandObj = null;
+            if (command_creators.containsKey(name)) {
+                Result<Command<MusicReceiver>> r = command_creators.get(name).apply(cd);
+                if (r.isSuccess())
+                    commandObj = r.getValue().get();
+                else
+                    return Result.failure(r.getError().get(), r.getMessage()); //если по неизвестной причине MusicReceiver, инициализированный в Main, при GetInstance кинет исключение
+            }
+            if (commandObj != null) {
+                Main.logger.info("Command " + name + " executing started");
+                return commandObj.execute();
+            } else {
+                Main.logger.error("Wrong command income");
+                return Result.failure(new Exception("Команда не найдена"));
+            }
     }
 
     public Result<Command<MusicReceiver>> add(CommandDescription cd) {
@@ -186,5 +187,9 @@ public class Invoker {
         } catch (Exception e) {
             return Result.failure(e, e.getMessage());
         }
+    }
+
+    public static void shutdownPool(){
+        executionPool.shutdown();
     }
 }

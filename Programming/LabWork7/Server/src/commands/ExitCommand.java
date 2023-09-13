@@ -1,16 +1,14 @@
 package commands;
 
-import common.Collection;
-import common.MusicBand;
 import receivers.MusicReceiver;
 import result.Result;
 
 /**
  * Class ShowCommand for showing all elements of the collection.
  */
-public class ShowCommand extends Command<MusicReceiver> {
+public class ExitCommand extends Command<MusicReceiver> {
 
-    public ShowCommand() throws Exception {
+    public ExitCommand() throws Exception {
         super(MusicReceiver.GetInstance());
     }
 
@@ -20,7 +18,7 @@ public class ShowCommand extends Command<MusicReceiver> {
      */
 
     @Override
-    public Result<java.util.Collection<MusicBand>> execute() {
-        return receiver.getCollection();
+    public Result<Void> execute() {
+        return Result.success(null);
     }
 }

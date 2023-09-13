@@ -15,31 +15,26 @@ import java.util.concurrent.Executors;
 
 public class ResultSender {
 
-    User user;
+    private User user;
 
-    public ExecutorService getExecutorService() {
-        return executorService;
+    private static ExecutorService sendingPool = Executors.newCachedThreadPool();
+
+    private DatagramManager datagramManager;
+
+    public ResultSender(DatagramManager dm) {
+       this.datagramManager = dm;
+       this.user = null;
     }
 
-    private ExecutorService executorService = Executors.newCachedThreadPool();
-
     public ResultSender(User user) {
-        this.user = user;
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                this.getExecutorService().shutdown();
-                Main.logger.info("ResultSender shutdown finished");
-            } catch (Exception e) {
-                e.printStackTrace();
-                Main.logger.error(e.getMessage(), "Server shutdown finished incorrectly");
-            }
-        }));
+        this.datagramManager = user.getDm();
+        this.user = new User(null, null, null);
     }
 
     public void send(Result<?> to_send){
         if (to_send != null){
             DatagramPacket dp;
-            DatagramSocket ds = user.getDm().getDS();
+            DatagramSocket ds = datagramManager.getDS();
             try {
                 ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(byteStream);
@@ -53,10 +48,10 @@ public class ResultSender {
                     ds.setSendBufferSize(arr.length);
                     Main.logger.warn("Сообщение очень большое, временно увеличен размер отправляемых сообщений с" + arr.length + " до " + ds.getSendBufferSize());
                 }
-
-                dp = new DatagramPacket(arr, arr.length, user.getHost(), user.getPort());
+                dp = new DatagramPacket(arr, arr.length, datagramManager.getHost(), datagramManager.getPort());
                 ds.send(dp);
-                user.refreshLastActivity();
+                if(user != null)
+                    user.refreshLastActivity();
                 Main.logger.info("Result sent to user. Message: " + to_send.getMessage());
                 ds.setSendBufferSize(9216);
             } catch (IOException e) {
@@ -64,11 +59,20 @@ public class ResultSender {
                 dp = new DatagramPacket("Ошибка отправки ответа".getBytes(), "Ошибка отправки ответа".getBytes().length, user.getHost(), user.getPort());
                 try {
                     ds.send(dp);
-                    user.refreshLastActivity();
+                    if(user != null)
+                        user.refreshLastActivity();
                 } catch (IOException ex) {
                     Main.logger.error("Error with sending message about error");
                 }
             }
         }
+    }
+
+    public void addSending(Runnable task){
+        sendingPool.submit(task);
+    }
+
+    public static void shutdownPool(){
+        sendingPool.shutdown();
     }
 }

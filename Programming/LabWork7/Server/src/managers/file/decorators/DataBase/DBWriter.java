@@ -32,6 +32,8 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
 
     @Override
     public void write() throws Exception {
+        PreparedStatement encodingStat = connection.prepareStatement("SET client_encoding TO 'UTF8';");
+        encodingStat.execute();
         connection.setAutoCommit(false);
         connection.setSavepoint();
 
@@ -94,6 +96,7 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
 
                 sql = "insert into \"" + destination + "\" ("+ comSepColumns +")" +
                       " values (" + String.join(", ", row.getValue().orElse(new ArrayList<>())) + ");";
+                Main.logger.info("Запрос к бд " + sql);
             } else {
                 Main.logger.error("Problem with getting field of element. Can not be save in data base. " + row.getMessage());
                 return Result.failure(null, "Problem with getting field of element. Can not be save in data base. " + row.getMessage());

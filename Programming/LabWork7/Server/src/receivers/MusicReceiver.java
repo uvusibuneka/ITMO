@@ -10,17 +10,19 @@ import common.MusicBand;
 import common.descriptions.MusicBandDescription;
 import managers.file.decorators.DataBase.DBReader;
 import managers.file.decorators.DataBase.DBWriter;
-import managers.user.User;
 import result.Result;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
+
 
 /**
  * Класс, хранящий коллекцию и выполняющий все операции с ней. Принимает запросы на выполнение команды. Реализует паттерн одиночка.
  *
  * @author Фролов К.Д.
+ * @author Качанов Д.В.
  */
 public class MusicReceiver extends Receiver<MusicBand> {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -45,8 +47,6 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * Здесь происходит вся инициализация: инициализация коллекции, подключение к файлу, его чтение и запись данных в коллекцию. Происходит одна один раз - спасибо паттерну одиночка.
      */
     private MusicReceiver() throws Exception {
-
-        String fileName = System.getenv("FILE_NAME");
         try {
             Collection<MusicBand> tmp = new Collection<>();
 
@@ -54,9 +54,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
 
             collection_to_file_writer = new AbstractWriter<>("MusicBands") {
                 @Override
-                public void write() throws Exception {
-
-                }
+                public void write() throws Exception {}
 
                 @Override
                 public Result<Boolean> insert(MusicBand musicBand) {
@@ -98,7 +96,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
             collection = new common.Collection<>(Collection_from_file_loader, collection_to_file_writer);
         } catch (NullPointerException e) {
             Main.logger.error(e.getMessage(), e);
-            throw new NullPointerException("FILE_NAME is not set");
+            throw new NullPointerException("Error with collection loading");
         }
     }
 
@@ -107,8 +105,14 @@ public class MusicReceiver extends Receiver<MusicBand> {
      *
      * @return объект {@link Result} с ответом
      */
-    public Result<Collection<MusicBand>> showElementsOfCollection() {
-        return Result.success(collection);
+    public Result<common.Collection<MusicBand>> showElementsOfCollection() {
+            ReentrantLock lock = new ReentrantLock();
+            lock.lock();
+            try {
+                return Result.success(collection);
+            }finally {
+                lock.unlock();
+            }
     }
 
     /**
@@ -119,17 +123,17 @@ public class MusicReceiver extends Receiver<MusicBand> {
     public Result<Void> addIfMax(MusicBand obj) {
         MusicBand newBand, maxBand;
         newBand = obj;
-        Result<MusicBand> maxBandResult = collection.getMax();
-        if (maxBandResult.isSuccess() && maxBandResult.getValue().isPresent()) {
-            maxBand = maxBandResult.getValue().get();
-        } else {
-            return Result.failure(maxBandResult.getError().orElse(null), maxBandResult.getMessage());
-        }
-        if (newBand.compareTo(maxBand) > 0) {
-            return this.add(obj);
-        } else {
-            return Result.success(null, "New band is not the greatest element of collection, element is not added to collection");
-        }
+            Result<MusicBand> maxBandResult = collection.getMax();
+            if (maxBandResult.isSuccess() && maxBandResult.getValue().isPresent()) {
+                maxBand = maxBandResult.getValue().get();
+            } else {
+                return Result.failure(maxBandResult.getError().orElse(null), maxBandResult.getMessage());
+            }
+            if (newBand.compareTo(maxBand) > 0) {
+                return this.add(obj);
+            } else {
+                return Result.success(null, "New band is not the greatest element of collection, element is not added to collection");
+            }
     }
 
     /*public Result<List<Result<?>>> executeQueue(List<CommandDescription> queue, Invoker invoker) {
@@ -154,16 +158,12 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * @return result of executing command (success/error)
      */
     public Result<TreeSet<MusicBand>> filterByBestAlbum(Album album) {
-        try {
             return Result.success(
                     collection.getCollection()
                             .stream()
                             .filter(
                                     (MusicBand band) -> band.getBestAlbum().equals(album))
                             .collect(Collectors.toCollection(TreeSet::new)));
-        } catch (Exception e) {
-            return Result.failure(e, "Error with filtering by best album");
-        }
     }
 
     /**
@@ -172,20 +172,24 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * @return result of executing command (success/error)
      */
     public Result<MusicBand> maxByBestAlbum() {
-        if (collection.getSize() == 0) {
-            return Result.failure(new Exception("Max element of collection does not exist"), "Collection is empty");
-        }
         try {
-            MusicBand maxAlbumBand = collection.getCollection()
-                    .stream()
-                    .max(Comparator.comparing(band -> band.getBestAlbum().getSales()))
-                    .orElse(null);
-            if (maxAlbumBand == null) {
-                return Result.failure(new Exception("Max element of collection does not exist"), "Max element of collection does not exist");
+            if (collection.getSize() == 0) {
+                return Result.failure(new Exception("Max element of collection does not exist"), "Collection is empty");
             }
-            return Result.success(maxAlbumBand);
-        } catch (Exception e) {
-            return Result.failure(e, "Error with finding the maximum by best album");
+            try {
+                MusicBand maxAlbumBand = collection.getCollection()
+                        .stream()
+                        .max(Comparator.comparing(band -> band.getBestAlbum().getSales()))
+                        .orElse(null);
+                if (maxAlbumBand == null) {
+                    return Result.failure(new Exception("Max element of collection does not exist"), "Max element of collection does not exist");
+                }
+                return Result.success(maxAlbumBand);
+            } catch (Exception e) {
+                return Result.failure(e, "Error with finding the maximum by best album");
+            }
+        }catch (Exception e){
+            return Result.failure(e,"Error with finding the maximum by best album");
         }
     }
 
@@ -196,29 +200,26 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * @return the execution result of the command (success/failure) with the number of elements
      */
     public Result<Long> countByBestAlbum(Album bestAlbum) {
-        try {
             long count = collection.getCollection().stream()
                     .filter((MusicBand band) -> band.getBestAlbum().equals(bestAlbum)).count();
             return Result.success(count, "Number of elements with best album equal to " + bestAlbum + " is " + count);
-        } catch (Exception e) {
-            return Result.failure(e, "Error with executing countByBestAlbum command");
-        }
     }
 
     public Result<Void> clear(String userLogin) {
-        Result<Boolean> result = collection_to_file_writer.remove("OwnerLogin", userLogin);
-        if (result.isSuccess()) {
-            collection.setCollection(
-                    collection.getCollection().stream()
-                            .filter((i) -> !i.getOwnerLogin().equals(userLogin))
-                            .collect(Collectors.toCollection(TreeSet::new))
-            );
-            Main.logger.info("User " + userLogin + " elements of collection cleared");
-            return Result.success(null, "Your elements of collection successfully cleared");
-        } else {
-            Main.logger.error("Collection wasn't cleared. " + result.getMessage());
-            return Result.failure(result.getError().orElse(null), result.getMessage());
-        }
+
+            Result<Boolean> result = collection_to_file_writer.remove("OwnerLogin", userLogin);
+            if (result.isSuccess()) {
+                collection.setCollection(
+                        collection.getCollection().stream()
+                                .filter((i) -> !i.getOwnerLogin().equals(userLogin))
+                                .collect(Collectors.toCollection(TreeSet::new))
+                );
+                Main.logger.info("User " + userLogin + " elements of collection cleared");
+                return Result.success(null, "Your elements of collection successfully cleared");
+            } else {
+                Main.logger.error("Collection wasn't cleared. " + result.getMessage());
+                return Result.failure(result.getError().orElse(null), result.getMessage());
+            }
     }
 
     /**
@@ -227,26 +228,27 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * @return a Result object that indicates the success or failure of the operation.
      */
     public Result<Void> removeById(long id, String login) {
-        boolean is_present = collection.getCollection().stream()
-                .anyMatch((MusicBand element) -> (element.getID() == id && element.getOwnerLogin().equals(login)));
-        if (is_present) {
-            Result<Boolean> remove_res = collection_to_file_writer.remove(id);
-            if (remove_res.isSuccess()) {
-                collection.setCollection(collection
-                        .getCollection()
-                        .stream()
-                        .filter((MusicBand band) -> band.getID() != id)
-                        .collect(Collectors.toCollection(TreeSet::new))
-                );
-                Main.logger.info("Element removed");
+            boolean is_present = collection.getCollection().stream()
+                    .anyMatch((MusicBand element) -> (element.getID() == id && element.getOwnerLogin().equals(login)));
+            if (is_present) {
+                Result<Boolean> remove_res = collection_to_file_writer.remove(id);
+                if (remove_res.isSuccess()) {
+                    collection.setCollection(collection
+                            .getCollection()
+                            .stream()
+                            .filter((MusicBand band) -> band.getID() != id)
+                            .collect(Collectors.toCollection(TreeSet::new))
+                    );
+                    Main.logger.info("Element removed");
 
-                return Result.success(null, "Element removed");
+                    return Result.success(null, "Element removed");
+                } else {
+                    return Result.failure(remove_res.getError().orElse(null), remove_res.getMessage());
+                }
             } else {
-                return Result.failure(remove_res.getError().orElse(null), remove_res.getMessage());
+                return Result.failure(null, "You aren't owning element with such id");
             }
-        } else {
-            return Result.failure(null, "You aren't owning element with such id");
-        }
+
     }
 
 
@@ -257,17 +259,17 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * @return {@link Result} of executing command (success/error)
      */
     public Result<Void> removeGreater(MusicBand element) {
-        HashSet<MusicBand> bands_to_delete = collection.getCollection().stream()
-                .filter(mb -> mb.compareTo(element) > 0 && mb.getOwnerLogin().equals(element.getOwnerLogin()))
-                .collect(Collectors.toCollection(HashSet::new));
-        int counter = 0;
-        for (MusicBand mb : bands_to_delete) {
-            Result<?> remove_res = removeById(mb.getID(), mb.getOwnerLogin());
-            if (remove_res.isSuccess()){
-                counter++;
+            HashSet<MusicBand> bands_to_delete = collection.getCollection().stream()
+                    .filter(mb -> mb.compareTo(element) > 0 && mb.getOwnerLogin().equals(element.getOwnerLogin()))
+                    .collect(Collectors.toCollection(HashSet::new));
+            int counter = 0;
+            for (MusicBand mb : bands_to_delete) {
+                Result<?> remove_res = removeById(mb.getID(), mb.getOwnerLogin());
+                if (remove_res.isSuccess()) {
+                    counter++;
+                }
             }
-        }
-        return Result.success(null, counter + "/" + bands_to_delete.size()   + " elements removed");
+            return Result.success(null, counter + "/" + bands_to_delete.size() + " elements removed");
     }
 
 
@@ -277,38 +279,41 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * @return a Result object that indicates the status of the update operation.
      */
     public Result<Void> updateById(long id, MusicBand newElement) {
-        boolean is_present = collection.getCollection().stream()
-                .anyMatch((MusicBand element) -> (element.getID() == id && element.getOwnerLogin().equals(newElement.getOwnerLogin())));
-        if (!is_present) {
-            return Result.failure(null, "You aren't owning element with such id");
-        }
+            boolean is_present = collection.getCollection().stream()
+                    .anyMatch((MusicBand element) -> (element.getID() == id && element.getOwnerLogin().equals(newElement.getOwnerLogin())));
+            if (!is_present) {
+                return Result.failure(null, "You aren't owning element with such id");
+            }
 
-        Result<Boolean> update_res = collection_to_file_writer.update(newElement, id);
+            Result<Boolean> update_res = collection_to_file_writer.update(newElement, id);
 
-        if (update_res.isSuccess()) {
-            try {
-                Result<Void> result = collection.remove(findById(id));
-                if (result.isSuccess()) {
-                    newElement.setID(id);
-                    result = collection.add(newElement);
+            if (update_res.isSuccess()) {
+                try {
+                    Result<Void> result = collection.remove(findById(id));
                     if (result.isSuccess()) {
-                        Main.logger.info("Element updated");
-                        return Result.success(null, "Element successfully updated");
+                        newElement.setID(id);
+                        result = collection.add(newElement);
+                        if (result.isSuccess()) {
+                            Main.logger.info("Element updated");
+                            return Result.success(null, "Element successfully updated");
+                        } else {
+                            Main.logger.info("Element just removed");
+                            return Result.failure(result.getError().get(), result.getMessage());
+                        }
                     } else {
-                        Main.logger.info("Element just removed");
+                        Main.logger.info("Element didn't change");
                         return Result.failure(result.getError().get(), result.getMessage());
                     }
-                } else {
-                    Main.logger.info("Element didn't change");
-                    return Result.failure(result.getError().get(), result.getMessage());
+                } catch (Exception e) {
+                    Main.logger.error(e.getMessage());
+                    return Result.failure(e, "Error with executing updateById command");
                 }
-            } catch (Exception e) {
-                Main.logger.error(e.getMessage());
-                return Result.failure(e, "Error with executing updateById command");
+            } else {
+                return Result.failure(update_res.getError().orElse(null), update_res.getMessage());
             }
-        } else {
-            return Result.failure(update_res.getError().orElse(null), update_res.getMessage());
-        }
     }
 
+    public Result<java.util.Collection<MusicBand>> getCollection(){
+        return Result.success(collection.getCollection());
+    }
 }
