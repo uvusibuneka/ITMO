@@ -24,11 +24,6 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
             Result<Boolean> insert_res = collection_to_file_writer.insert(obj);
             if (insert_res.isSuccess()) {
                 Result<Void> addResult = collection.add(obj);
-                try {
-                    System.out.println(new ShowCommand().execute().getValue());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
                 if (addResult.isSuccess()) {
                     Main.logger.info("New element successfully added to collection");
                     return Result.success(null, "New element successfully added to collection");
@@ -36,7 +31,6 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
                     return Result.failure(addResult.getError().orElse(null), addResult.getMessage());
                 }
             } else {
-                Main.logger.info("Здесь!3");
                 return Result.failure(insert_res.getError().orElse(null), insert_res.getMessage());
             }
     }

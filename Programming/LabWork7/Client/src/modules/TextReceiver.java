@@ -21,7 +21,14 @@ public class TextReceiver implements BaseTextReceiver {
             for(Object o : ((Collection<?>) object).getCollection()) {
                 println(o.toString());
             }
-        else println(object.toString());
+        else
+            if(object instanceof java.util.Collection<?>)
+            {
+                for(Object o : (java.util.Collection<?>) object) {
+                    println(o.toString());
+                }
+            }
+                else println(object.toString());
     }
 
 }
