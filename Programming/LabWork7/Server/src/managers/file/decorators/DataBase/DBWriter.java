@@ -162,9 +162,8 @@ public class DBWriter<T extends Comparable<T> & IDAccess & DBSavable> extends Wr
     public Result<Boolean> remove(String col, String val){
         PreparedStatement stat = null;
         try {
-            stat = connection.prepareStatement("delete from \"" + destination + "\" where ? = ?;");
-            stat.setString(1, col);
-            stat.setString(2, val);
+            stat = connection.prepareStatement("delete from \"" + destination + "\" where \"" + col + "\" = ?;");
+            stat.setString(1, val);
             return Result.success(stat.execute());
         } catch (SQLException e) {
             Main.logger.error("Error with data base. Element not removed. " + e.getMessage());

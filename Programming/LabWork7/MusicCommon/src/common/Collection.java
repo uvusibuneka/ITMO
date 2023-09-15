@@ -64,8 +64,6 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
             else
                 throw new IllegalArgumentException("The id of the element is already in use.");
             collection.add(element);
-            System.out.println("В коллекцию был добавлен вот этот элемент: " + element);
-            collection.forEach((e) ->{System.out.println(element);});
             return Result.success(null);
         } catch (Exception e) {
             return Result.failure(e, "Error while adding element to collection");

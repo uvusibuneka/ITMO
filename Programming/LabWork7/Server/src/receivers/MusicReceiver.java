@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
  */
 public class MusicReceiver extends Receiver<MusicBand> {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
     /**
      * Ссылка на текущий {@link Receiver}. Класс реализует паттерн одиночка.
      */
