@@ -1,5 +1,6 @@
 package modules;
 
+import UserInterface.ConsoleUI;
 import caller.Caller;
 import commandRealization.ServerCommandRealization;
 import commandRealization.specialCommandRealization.ExecuteScriptCommandRealization;
@@ -40,10 +41,6 @@ public class InteractiveMode {
 
     private Authorization authorization;
     private Map<String, CommandDescription> commandDescriptionMap;
-    private final Map<String, Supplier<Result<?>>> authorizationMap = Map.of("l", this::login,
-            "r", this::register,
-            "q", this::exit
-    );
     private static final Map<String, CommandDescription> specialCommands = Map.of("help", new CommandDescription("help","Вывод справки о командах"),
             "history", new CommandDescription("history","Вывод последних 6 команд"),
             "execute_script", new CommandDescription("execute_script","Выполнение скрипта из файла"),
@@ -130,42 +127,11 @@ public class InteractiveMode {
             System.out.println("Программа завершает работу.");
         }));
 
-        textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
-        while (true) {
-            String command = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
-            if (authorizationMap.containsKey(command)) {
-                Result<?> result = authorizationMap.get(command).get();
-                if(result.isSuccess() && command.equals("l")){
-                    break;
-                }
-                textReceiver.println(result.getMessage());
-            } else {
-                textReceiver.println("Unknown command!");
-            }
-        }
-        textReceiver.println("Interactive mode started! Check command help to see available commands.");
-        while (true) {
-            CommandDescription command;
-            try {
-                command = loader.parseCommand(this,
-                        loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue()
-                );
-            } catch (Exception e) {
-                textReceiver.println(e.getMessage());
-                continue;
-            }
-            try {
-                command.getCaller().call();
-            }catch (Exception e) {
-                textReceiver.println(e.getMessage());
-            }
-            history.add(command.getName());
-            callableManager.clear();
-        }
+        ConsoleUI.getInstance(this).start(); // для смены интерфейса требуется поменять эту строчку
     }
 
     @SuppressWarnings({"OptionalGetWithoutIsPresent"})
-    private Result<Void> register() {
+    public Result<Void> register() {
         enterLoginData(registerCommandDescription);
         try {
             try {
@@ -212,7 +178,11 @@ public class InteractiveMode {
                 .forEach(textReceiver::println);
     }
 
-    private Result<?> login() {
+    public void addCommandToHistory(String command) {
+        history.add(command);
+    }
+
+    public Result<?> login() {
         enterLoginData(loginCommandDescription);
         try {
             sendCommandDescription(loginCommandDescription);
@@ -269,6 +239,10 @@ public class InteractiveMode {
 
     public void addCommandToQueue(Caller caller) {
         callableManager.add(caller);
+    }
+
+    public void clearCommandQueue() {
+        callableManager.clear();
     }
 
     public List<Result<?>> executeAll() {
