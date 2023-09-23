@@ -1,5 +1,7 @@
 package modules;
 
+import TextReceivers.LocalizedTextReceiver;
+import TextReceivers.TextReceiver;
 import UserInterface.ConsoleUI;
 import caller.Caller;
 import commandRealization.ServerCommandRealization;
@@ -8,32 +10,33 @@ import commandRealization.specialCommandRealization.ExitCommandRealization;
 import commandRealization.specialCommandRealization.HelpCommandRealization;
 import commandRealization.specialCommandRealization.HistoryCommandRealization;
 import common.Authorization;
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
 import result.Result;
+import result.UpdateWarning;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 
 public class InteractiveMode {
     private static InteractiveMode interactiveMode;
     private final CallableManager callableManager = new CallableManager();
-    private final TextReceiver textReceiver;
+    private LocalizedTextReceiver textReceiver;
     private final ConsoleLoader loader;
     private final ObjectSender objectSender;
     private final RequestHandler requestHandler;
-    private final CommandDescription loginCommandDescription = new CommandDescription("login", "Вход пользователя",
+    private final CommandDescription loginCommandDescription = new CommandDescription("login", LocalizationKeys.LOGIN_COMMAND,
             List.of(new LoadDescription<>(String.class),
                     new LoadDescription<>(String.class)
             ));
-    private final CommandDescription registerCommandDescription = new CommandDescription("register", "Регистрация пользователя",
+    private final CommandDescription registerCommandDescription = new CommandDescription("register", LocalizationKeys.REGISTER_COMMAND,
             List.of(new LoadDescription<>(String.class),
                     new LoadDescription<>(String.class)
             ));
@@ -41,20 +44,20 @@ public class InteractiveMode {
 
     private Authorization authorization;
     private Map<String, CommandDescription> commandDescriptionMap;
-    private static final Map<String, CommandDescription> specialCommands = Map.of("help", new CommandDescription("help","Вывод справки о командах"),
-            "history", new CommandDescription("history","Вывод последних 6 команд"),
-            "execute_script", new CommandDescription("execute_script","Выполнение скрипта из файла"),
-            "exit", new CommandDescription("exit","Завершение работы клиента"));
+    private static final Map<String, CommandDescription> specialCommands = Map.of("help", new CommandDescription("help", LocalizationKeys.HELP_COMMAND),
+            "history", new CommandDescription("history",LocalizationKeys.HISTORY_COMMAND),
+            "execute_script", new CommandDescription("execute_script", LocalizationKeys.EXECUTE_SCRIPT_COMMAND),
+            "exit", new CommandDescription("exit",LocalizationKeys.EXIT_COMMAND));
     private final ArrayDeque<String> history = new ArrayDeque<>();
 
-    private InteractiveMode(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender) {
+    private InteractiveMode(LocalizedTextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender) {
         this.textReceiver = textReceiver;
         this.loader = loader;
         this.requestHandler = requestHandler;
         this.objectSender = objectSender;
     }
 
-    public static InteractiveMode getInstance(TextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender) {
+    public static InteractiveMode getInstance(LocalizedTextReceiver textReceiver, ConsoleLoader loader, RequestHandler requestHandler, ObjectSender objectSender) {
         if (interactiveMode == null) {
             interactiveMode = new InteractiveMode(textReceiver, loader, requestHandler, objectSender);
             specialCommands.get("help").setCaller(new HelpCommandRealization(interactiveMode));
@@ -71,13 +74,12 @@ public class InteractiveMode {
         try {
             Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
             if (!packet.isSuccess()){
-                return Result.failure(packet.getError().get(), "Error while receiving map of commands, error with server connection.");
+                return Result.failure(packet.getError().get(), LocalizationKeys.ERROR_SERVER_CONNECTION);
             }
             Result<HashMap<String, CommandDescription>> commandDescriptionMap = deserialize(packet.getValue().get());
             if (!commandDescriptionMap.isSuccess()){
                 return commandDescriptionMap;
             }
-            textReceiver.println("You are authorized!");
             this.commandDescriptionMap = commandDescriptionMap.getValue().get()
                     .values()
                     .stream()
@@ -89,7 +91,7 @@ public class InteractiveMode {
                     }).collect(Collectors.toMap(CommandDescription::getName, commandDescription -> commandDescription));
             return commandDescriptionMap;
         } catch (Exception e) {
-            return Result.failure(e, "Error while receiving map of commands, error with server connection.");
+            return Result.failure(e, LocalizationKeys.ERROR_SERVER_CONNECTION);
         }
     }
 
@@ -99,7 +101,7 @@ public class InteractiveMode {
         try {
             objectInputStream = new ObjectInputStream(byteArrayInputStream);
         } catch (IOException e){
-            throw new RuntimeException("Ошибка при сериализации");
+            throw new RuntimeException("SERIALIZATION_ERROR");
         }
         try {
             return (T) objectInputStream.readObject();
@@ -116,17 +118,6 @@ public class InteractiveMode {
     }
 
     public void start() {
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if(isAuthorized())
-                try {
-                    exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            System.out.println("Программа завершает работу.");
-        }));
-
         ConsoleUI.getInstance(this).start(); // для смены интерфейса требуется поменять эту строчку
     }
 
@@ -137,21 +128,21 @@ public class InteractiveMode {
             try {
                 sendCommandDescription(registerCommandDescription);
             } catch (IOException ex) {
-                throw new RuntimeException("Error while sending answer, error with server connection.");
+                throw new RuntimeException("");
             }
 
             Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
             if (!packet.isSuccess()){
-                return Result.failure(packet.getError().get(), "Error while receiving answer, error with server connection.");
+                return Result.failure(packet.getError().get(), LocalizationKeys.ERROR_SERVER_CONNECTION);
             }
             Result<Void> registerResult;
             try {
                 registerResult = deserialize(packet.getValue().get());
             } catch (Exception e) {
-                throw new RuntimeException("Incorrect server answer.");
+                throw new RuntimeException("INCORRECT_SERVER_ANSWER");
             }
             if(registerResult.isSuccess()) {
-                textReceiver.println("You have successfully registered!");
+                textReceiver.println(LocalizationKeys.REGISTER_SUCCESS);
                 isAuthorized = true;
                 return Result.success(null);
             }else{
@@ -159,14 +150,14 @@ public class InteractiveMode {
             }
 
         } catch (Exception e) {
-            return Result.failure(e, "Error while sending register command to server, error with server connection.");
+            return Result.failure(e, LocalizationKeys.ERROR_SERVER_CONNECTION);
         }
     }
 
     private void enterLoginData(CommandDescription registerCommandDescription) {
-        textReceiver.print("Enter your login:");
+        textReceiver.print(LocalizationKeys.ENTER_LOGIN);
         LoadDescription<String> loginDescription = loader.enterString(new LoadDescription<>(String.class));
-        textReceiver.print("Enter your password:");
+        textReceiver.print(LocalizationKeys.ENTER_PASSWORD);
         LoadDescription<String> passwordDescription = loader.enterString(new LoadDescription<>(String.class));
         authorization = new Authorization(loginDescription.getValue(), passwordDescription.getValue());
         registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
@@ -188,14 +179,14 @@ public class InteractiveMode {
             sendCommandDescription(loginCommandDescription);
             Result<?> loginResult = loadCommandDescriptionMap();
             if (loginResult.isSuccess()) {
-                textReceiver.println("You have successfully logged!");
+                textReceiver.println(LocalizationKeys.AUTH_SUCCESS);
                 isAuthorized = true;
                 return Result.success(null);
             } else {
                 return loginResult;
             }
         } catch (Exception e) {
-            return Result.failure(e, "Error while sending login command to server, error with server connection.");
+            return Result.failure(e, LocalizationKeys.ERROR_SERVER_CONNECTION);
         }
     }
 
@@ -203,7 +194,7 @@ public class InteractiveMode {
         try {
             requestHandler.closeChannel();
         } catch (IOException e) {
-            textReceiver.println("Error while closing channel.");
+            textReceiver.println(LocalizationKeys.ERROR_CLOSING_CHANNEL);
         }
         isAuthorized = false;
         System.exit(0);
@@ -215,9 +206,11 @@ public class InteractiveMode {
     }
 
     public void printHelp() {
-        textReceiver.println("Available commands:");
+        textReceiver.println(LocalizationKeys.AVAILABLE_COMMANDS);
         commandDescriptionMap.values()
-                .forEach(commandDescription -> textReceiver.println(commandDescription.getName() + " - " + commandDescription.getDescription()));
+                .forEach(commandDescription -> {
+                    textReceiver.print(commandDescription.getName() + " - ");
+                    textReceiver.println(commandDescription.getDescription());});
     }
 
     public void sendCommandDescription(CommandDescription commandDescription) throws IOException {
@@ -226,11 +219,6 @@ public class InteractiveMode {
     }
 
     public Result<?> getResultFromServer(){
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         Result<DatagramPacket> result = requestHandler.receivePacketWithTimeout();
         if(!result.isSuccess())
             return result;
@@ -250,10 +238,18 @@ public class InteractiveMode {
     }
 
     public void printToUser(Object o){
+        textReceiver.printAutoDetectType(o);
+    }
+
+    public void printToUser(LocalizationKeys o){
         textReceiver.println(o);
     }
 
     public boolean isCommandExist(String s) {
         return commandDescriptionMap.containsKey(s);
+    }
+
+    public void setTextReceiver(LocalizedTextReceiver textReceiver) {
+        this.textReceiver = textReceiver;
     }
 }

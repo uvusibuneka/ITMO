@@ -2,6 +2,7 @@ package common.descriptions;
 
 import caller.Caller;
 import common.Authorization;
+import common.LocalizationKeys;
 import managers.AbstractLoader;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class CommandDescription  implements Serializable, Cloneable{
     private String name;
-    private String description;
+    private LocalizationKeys description;
     private List<LoadDescription<?>> oneLineArguments;
     private List<LoadDescription<?>> arguments;
     protected transient Caller caller;
@@ -18,11 +19,11 @@ public class CommandDescription  implements Serializable, Cloneable{
 
     protected Authorization authorization;
 
-    public CommandDescription(String name, String description, List<LoadDescription<?>> oneLineArguments) {
+    public CommandDescription(String name, LocalizationKeys description, List<LoadDescription<?>> oneLineArguments) {
         this(name, description, oneLineArguments, null);
     }
 
-    public CommandDescription(String name, String description) {
+    public CommandDescription(String name, LocalizationKeys description) {
         this(name, description, null, null);
     }
 
@@ -34,7 +35,7 @@ public class CommandDescription  implements Serializable, Cloneable{
         this.authorization = authorization;
     }
 
-    public CommandDescription(String name, String description, List<LoadDescription<?>> oneLineArguments, List<LoadDescription<?>> arguments) {
+    public CommandDescription(String name, LocalizationKeys description, List<LoadDescription<?>> oneLineArguments, List<LoadDescription<?>> arguments) {
         this.name = name;
         this.description = description;
         this.oneLineArguments = oneLineArguments;
@@ -45,11 +46,11 @@ public class CommandDescription  implements Serializable, Cloneable{
         return name;
     }
 
-    public String getDescription() {
+    public LocalizationKeys getDescription() {
         return description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(LocalizationKeys description){
         this.description = description;
     }
 

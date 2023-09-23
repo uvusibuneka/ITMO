@@ -7,6 +7,8 @@ import managers.file.AbstractWriter;
 import managers.file.DBSavable;
 import result.Result;
 
+import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
@@ -26,7 +28,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
                 Result<Void> addResult = collection.add(obj);
                 if (addResult.isSuccess()) {
                     Main.logger.info("New element successfully added to collection");
-                    return Result.success(null, "New element successfully added to collection");
+                    return Result.success(null, LocalizationKeys.SUCCESS);
                 } else {
                     return Result.failure(addResult.getError().orElse(null), addResult.getMessage());
                 }
@@ -45,7 +47,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
         Result<Void> result = collection.clear();
         if (result.isSuccess()) {
             Main.logger.info("Collection cleared");
-            return Result.success(null, "Collection successfully cleared");
+            return Result.success(null, LocalizationKeys.SUCCESS);
         } else {
             Main.logger.error("Collection wasn't cleared. " + result.getMessage());
             return Result.failure(result.getError().orElse(null), result.getMessage());
@@ -57,10 +59,10 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
      *
      * @return a Result object that indicates the success or failure of the operation.
      */
-    public Result<String> info() {
-        return Result.success("Тип коллекции: " + collection.getClass().getName() +
-                "\nКоличество элементов: " + collection.getSize() +
-                "\nДата инициализации: " + collection.getInitializationDate());
+    public Result<?> info() {
+        return Result.success(Map.of(LocalizationKeys.TYPE_OF_COLLECTION, collection.getClass().getName(),
+                LocalizationKeys.NUMBER_OF_ELEMENTS, collection.getSize(),
+                LocalizationKeys.DATE_OF_INITIALIZATION, collection.getInitializationDate()));
     }
 
 
@@ -81,10 +83,12 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
                         .collect(Collectors.toCollection(TreeSet::new))
                 );
                 Main.logger.info("Element removed");
-
-                return Result.success(null, is_present ? "Element removed" : "No such ID presented");
+                if(is_present)
+                    return Result.success(null, LocalizationKeys.SUCCESS);
+                else
+                    return Result.failure(new Exception(), LocalizationKeys.ERROR_NO_SUCH_ELEMENTS);
             } catch (Exception e) {
-                return Result.failure(e, "Error with removing element");
+                return Result.failure(e, LocalizationKeys.ERROR_REMOVING_ELEMENT);
             }
         } else {
             return Result.failure(remove_res.getError().orElse(null), remove_res.getMessage());
@@ -103,7 +107,7 @@ public abstract class Receiver<T extends Comparable<T> & IDAccess & DBSavable> {
             Main.logger.info("Element removed");
             return Result.success(null);
         } else {
-            return Result.failure(new Exception("Greater elements are not found"));
+            return Result.failure(new Exception("ERROR_NO_SUCH_ELEMENTS"));
         }
 
     }

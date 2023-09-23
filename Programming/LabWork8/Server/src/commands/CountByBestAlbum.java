@@ -24,7 +24,7 @@ public class CountByBestAlbum extends Command<MusicReceiver>{
      * @return the result of executing the command (the result of the countByBestAlbum() method of the receiver object)
      */
     @Override
-    public Result<Long> execute() {
+    public Result<?> execute() {
         return receiver.countByBestAlbum(album);
     }
 }

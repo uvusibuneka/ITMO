@@ -1,5 +1,6 @@
 package managers;
 
+import common.LocalizationKeys;
 import common.descriptions.LoadDescription;
 
 import java.time.LocalDate;
@@ -51,13 +52,16 @@ public abstract class AbstractLoader {
     protected <T extends LoadDescription<?>> T enterComposite(T description) {
         description.getFields()
                 .forEach(field -> {
-                    String message = field.getDescription() + ":";
+                    textReceiver.print(String.valueOf(field.getDescription()));
+                    textReceiver.print(":");
                     while (true) {
-                        enterWithMessage(message, field);
+                        enter(field);
                         try {
                             field.setField(field.getValue());
                         }catch (Exception e) {
-                            message = e.getMessage() + "Try again:\n";
+                            textReceiver.println(e.getMessage());
+                            textReceiver.print(String.valueOf(LocalizationKeys.TRY_AGAIN));
+                            textReceiver.print(":");
                             continue;
                         }
                         break;

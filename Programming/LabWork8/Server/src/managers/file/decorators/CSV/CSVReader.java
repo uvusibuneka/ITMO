@@ -49,11 +49,11 @@ public class CSVReader<T extends Comparable<T> & IDAccess & CSVSavable> extends 
             buffered_reader.close();
             return Result.success(collection);
         } catch (IndexOutOfBoundsException e) {
-            return Result.failure(e, "Файл с коллекцией не соответствует структуре хранимых объектов");
+            return Result.failure(e);
         } catch (FileNotFoundException e) {
-            return Result.failure(e, "Ошибка при открытии файла");
+            return Result.failure(e);
         } catch (Exception e) {
-            return Result.failure(e, "Ошибка валидации объекта");
+            return Result.failure(e);
         }
     }
 }

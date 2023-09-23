@@ -3,6 +3,7 @@ package managers.connection;
 import commands.LoginCommand;
 import commands.RegisterCommand;
 import common.Authorization;
+import common.LocalizationKeys;
 import common.descriptions.AlbumDescription;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
@@ -25,7 +26,7 @@ public class InputController {
     private final DatagramManager dm;
     HashMap<String, CommandDescription> commands;
 
-    private final Map<String, Consumer<CommandDescription>> user_connection_commands = Map.of("login", this::login, "register", this::register);
+    private final Map<String, Consumer<User>> user_connection_commands = Map.of("login", this::login, "register", this::register);
     private static final ExecutorService parsingPool = Executors.newFixedThreadPool(100);
 
     public InputController(DatagramManager datagramManager) {
@@ -34,31 +35,42 @@ public class InputController {
 
         commands = new HashMap<>();
 
-        commands.put("info", new CommandDescription("info", "Получить информацию о коллекции"));
-        commands.put("show", new CommandDescription("show", "Получить элементы коллекции"));
-        commands.put("clear", new CommandDescription("clear", "Очистить коллекцию"));
-        commands.put("help", new CommandDescription("help", "Получить справочную информацию"));
-        commands.put("exit", new CommandDescription("exit", "Выйти из приложения"));
-        commands.put("history", new CommandDescription("history", "История введенных команд"));
-        commands.put("max_by_best_album", new CommandDescription("max_by_best_album", "Получить MusicBand с наилучшим Album"));
+        commands.put("info", new CommandDescription("info", LocalizationKeys.INFO_COMMAND));
+        commands.put("show", new CommandDescription("show", LocalizationKeys.SHOW_COMMAND));
+        commands.put("clear", new CommandDescription("clear", LocalizationKeys.CLEAR_COMMAND));
+        commands.put("help", new CommandDescription("help", LocalizationKeys.HELP_COMMAND));
+        commands.put("exit", new CommandDescription("exit", LocalizationKeys.EXIT_COMMAND));
+        commands.put("history", new CommandDescription("history", LocalizationKeys.HISTORY_COMMAND));
+        commands.put("max_by_best_album", new CommandDescription("max_by_best_album", LocalizationKeys.MAX_BY_BEST_ALBUM_COMMAND));
 
-        commands.put("add", new CommandDescription("add", "Добавить элемент в коллекцию", null, new ArrayList<>(List.of(new MusicBandDescription()))));
-        commands.put("add_if_max", new CommandDescription("add_if_max", "Добавить элемент в коллекцию, проверив, что он больше уже имеющихся", null, new ArrayList<>(List.of(new MusicBandDescription()))));
-        commands.put("remove_greater", new CommandDescription("remove_greater", "Удалить из коллекции все элементы, превышающие заданный", null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("add", new CommandDescription("add", LocalizationKeys.ADD_COMMAND, null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("add_if_max", new CommandDescription("add_if_max", LocalizationKeys.ADD_IF_MAX_COMMAND, null, new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("remove_greater", new CommandDescription("remove_greater", LocalizationKeys.REMOVE_GREATER_COMMAND, null, new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("update", new CommandDescription("update", "Обновить элемент коллекции с указанным id", new ArrayList<>(List.of(new LoadDescription<>(Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("update", new CommandDescription("update", LocalizationKeys.UPDATE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("remove_by_id", new CommandDescription("remove_by_id", "Удалить элемент с указанным id из коллекции", new ArrayList<>(List.of(new LoadDescription<>(Long.class))), null));
+        commands.put("remove_by_id", new CommandDescription("remove_by_id", LocalizationKeys.REMOVE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(Long.class))), null));
 
-        commands.put("execute_script", new CommandDescription("execute_script", "Исполнить скрипт", new ArrayList<>(List.of(new LoadDescription<>(String.class))), null));
+        commands.put("execute_script", new CommandDescription("execute_script", LocalizationKeys.EXECUTE_SCRIPT_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(String.class))), null));
 
-        commands.put("count_by_best_album", new CommandDescription("count_by_best_album", "Получить количество элементов, лучший Album которых соответствует заданному", null, new ArrayList<>(List.of(new AlbumDescription()))));
+        commands.put("count_by_best_album", new CommandDescription("count_by_best_album", LocalizationKeys.COUNT_BY_BEST_ALBUM_COMMAND, null, new ArrayList<>(List.of(new AlbumDescription()))));
 
     }
 
     public void addParsing(Runnable task) {
         parsingPool.submit(task);
     }
+
+    private boolean hasPermission(User user) {
+        try {
+            return (boolean) (new LoginCommand(user.getLogin(), user.getPassword()).execute().getValue().get());
+        } catch (Exception e) {
+            System.out.println(user);
+            e.printStackTrace();
+            throw new RuntimeException("Error with login");
+        }
+    }
+
     private boolean hasPermission(CommandDescription cd) {
         try {
             return (boolean) (new LoginCommand(cd.getAuthorization().getLogin(), cd.getAuthorization().getPassword()).execute().getValue().get());
@@ -75,10 +87,14 @@ public class InputController {
         ResultSender tmp_sender = new ResultSender(dm);
         if (user_connection_commands.containsKey(cd.getName())) {
             if (cd.getOneLineArguments().size() == 2)
-                user_connection_commands.get(cd.getName()).accept(cd);
+                user_connection_commands.get(cd.getName()).accept(new User(
+                        (String) cd.getOneLineArguments().get(0).getValue(),
+                        (String) cd.getOneLineArguments().get(1).getValue(),
+                        dm
+                ));
             else {
                 Main.logger.error("Incorrect request");
-                RESULT = Result.failure(new Exception(""), "Ожидается ввод только 2 аргументов: логина и пароля");
+                RESULT = Result.failure(new Exception(""),LocalizationKeys.ERROR_WRONG_NUMBER_OF_ARGUMENTS);
                 tmp_sender.addSending(() -> {
                     tmp_sender.send(RESULT);
                 });
@@ -87,7 +103,7 @@ public class InputController {
         }
         if (!hasPermission(cd)) {
             Main.logger.error("Incorrect request: user didn't login");
-            RESULT = Result.failure(new Exception(""), "Неправильный логин или пароль");
+            RESULT = Result.failure(new Exception(""), LocalizationKeys.ERROR_INCORRECT_LOGIN_OR_PASSWORD);
         } else {
             Callable<Result<?>> execution = () -> invoker.executeCommand(cd.getName(), cd);
             Future<Result<?>> result = invoker.addExecution(execution);
@@ -105,17 +121,17 @@ public class InputController {
 
 
 
-    private Void login(CommandDescription cd) {
+    private Void login(User user) {
         ResultSender sender = new ResultSender(dm);
         try {
-            if(hasPermission(cd)) {
+            if(hasPermission(user)) {
                 Main.logger.info("New user connected");
                 sender.addSending(() -> {
-                    sender.send(Result.success(commands, "Вход выполнен успешно"));
+                    sender.send(Result.success(commands, LocalizationKeys.AUTH_SUCCESS));
                 });
             }else{
                 sender.addSending(() -> {
-                    sender.send(Result.failure(new Exception("Авторизуйтесь"), "Неправильный логин или пароль"));
+                    sender.send(Result.failure(new Exception("YOU_ARE_NOT_LOGGED_IN"), LocalizationKeys.ERROR_INCORRECT_LOGIN_OR_PASSWORD));
                 });
             }
         } catch (Exception e) {
@@ -124,18 +140,13 @@ public class InputController {
         return null;
     }
 
-    private Void register(CommandDescription cd) {
-        User us = new User(
-                (String) cd.getOneLineArguments().get(0).getValue(),
-                (String) cd.getOneLineArguments().get(1).getValue(),
-                dm
-        );
+    private Void register(User user) {
         ResultSender sender = new ResultSender(new User(null, null, dm));
         try {
-            Result<Void> r = new RegisterCommand(us).execute();
+            Result<Void> r = new RegisterCommand(user).execute();
             if (r.isSuccess()) {
                 Main.logger.info("New user registered");
-                sender.addSending(() -> {sender.send(Result.failure(new Exception(), "Регистрация проведена. Теперь можно войти с этим же аккаунтом"));});
+                sender.addSending(() -> {sender.send(Result.failure(new Exception(), LocalizationKeys.REGISTER_SUCCESS));});
             } else {
                 Main.logger.error(r.getMessage());
                 sender.addSending(() -> {sender.send(Result.failure(r.getError().get(), r.getMessage()));});

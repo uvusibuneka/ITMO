@@ -1,6 +1,7 @@
 package commandRealization.specialCommandRealization;
 
 import commandRealization.ClientCommandRealization;
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import modules.InteractiveMode;
 
@@ -9,7 +10,7 @@ public class HistoryCommandRealization extends ClientCommandRealization {
     protected InteractiveMode interactiveMode;
 
     public HistoryCommandRealization(InteractiveMode interactiveMode) {
-        super(new CommandDescription("history","Вывод последних 6 команд"), interactiveMode);
+        super(new CommandDescription("history", LocalizationKeys.HISTORY_COMMAND), interactiveMode);
         this.interactiveMode = interactiveMode;
     }
 

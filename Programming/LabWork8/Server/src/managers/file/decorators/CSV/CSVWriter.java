@@ -25,7 +25,7 @@ public class CSVWriter<T extends Comparable<T> & IDAccess & CSVSavable> extends 
                 buffered_writer.write(csv_row.getValue().get()+"\n");
             else{
                 Main.logger.error("Error while saving collection. " + csv_row.getMessage());
-                throw new Exception(csv_row.getMessage());}
+                throw new Exception(String.valueOf(csv_row.getMessage()));}
         }
         buffered_writer.close();
         Main.logger.info("Collection saved");

@@ -24,7 +24,7 @@ public abstract class AbstractParser {
             try {
                 return LocalDate.parse(s, formatter);
             }catch (Exception e){
-                throw new IllegalArgumentException("Date format is not correct. Use dd-MM-yyyy");
+                throw new IllegalArgumentException("DATE_ERROR");
             }
         });
     }

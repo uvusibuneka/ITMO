@@ -1,5 +1,6 @@
 package commandRealization;
 
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import modules.InteractiveMode;
 
@@ -10,13 +11,13 @@ public class ServerCommandRealization extends CommandRealization {
     @Override
     public void call() {
         if (commandDescription.getArguments() != null)
-            interactiveMode.printToUser("Ввод аргументов для команды...");
+            interactiveMode.printToUser(LocalizationKeys.ENTERING_ARGUMENTS_FOR_COMMAND);
         inputObjectArguments();
-        interactiveMode.printToUser("Происходит выполнение команды " + commandDescription.getName());
+        interactiveMode.printToUser(LocalizationKeys.EXECUTING_COMMAND);
         execution();
-        interactiveMode.printToUser("Отправка запроса на сервер...");
+        interactiveMode.printToUser(LocalizationKeys.REQUEST_SENDING);
         sendRequest();
-        interactiveMode.printToUser("Получение ответа от сервера...");
+        interactiveMode.printToUser(LocalizationKeys.REQUEST_RECEIVING);
         getResultFromServer();
         printInfoForUser();
     }
@@ -29,12 +30,11 @@ public class ServerCommandRealization extends CommandRealization {
         if(commandDescription.getArguments() == null) {
             return;
         }
-
             commandDescription.getArguments()
                     .forEach(loadDescription -> {
-                        commandDescription.getLoader()
-                                .enterWithMessage("Enter arguments of command according to description:\n\""
-                                        + loadDescription.getDescription() + "\":", loadDescription);
+                        interactiveMode.printToUser(LocalizationKeys.ENTER_ARGUMENTS_FROM_DESCRIPTION);
+                        interactiveMode.printToUser(loadDescription.getDescription());
+                        commandDescription.getLoader().enter(loadDescription);
                     });
 
     }

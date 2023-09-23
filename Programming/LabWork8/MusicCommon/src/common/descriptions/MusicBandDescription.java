@@ -1,5 +1,6 @@
 package common.descriptions;
 
+import common.LocalizationKeys;
 import common.builders.MusicBandBuilder;
 import common.MusicBand;
 import common.MusicGenre;
@@ -13,21 +14,20 @@ public class MusicBandDescription extends LoadDescription<MusicBand> implements 
     {
         MusicBandBuilder musicBandBuilder = new MusicBandBuilder();
         this.builder = musicBandBuilder;
-        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>("Name of Music Band", "name", musicBandBuilder::setName, null, String.class),
+        fields = new ArrayList<>(Arrays.asList(new LoadDescription<>(LocalizationKeys.NAME_OF_MUSICBAND, LocalizationKeys.NAME_OF_MUSICBAND_FIELD, musicBandBuilder::setName, null, String.class),
                 new CoordinatesDescription(musicBandBuilder::setCoordinates),
-                new LoadDescription<LocalDate>("Creation Date", "creationDate", musicBandBuilder::setCreationDate, null, LocalDate.class),
-                new LoadDescription<Long>("Number of participants", "participants", musicBandBuilder::setNumberOfParticipants, null, Long.class),
+                new LoadDescription<LocalDate>(LocalizationKeys.CREATION_DATE, LocalizationKeys.CREATION_DATE_FIELD, musicBandBuilder::setCreationDate, null, LocalDate.class),
+                new LoadDescription<Long>(LocalizationKeys.NUMBER_OF_PARTICIPANTS, LocalizationKeys.NUMBER_OF_PARTICIPANTS_FIELD, musicBandBuilder::setNumberOfParticipants, null, Long.class),
                 new AlbumDescription(musicBandBuilder::setBestAlbum),
-                new LoadDescription<MusicGenre>("Genre from this list:\n" +
-                        "PSYCHEDELIC_ROCK, POP,POST_ROCK, PUNK_ROCK, POST_PUNK ", "GenreID", musicBandBuilder::setGenre, null, MusicGenre.class)));
+                new LoadDescription<MusicGenre>(LocalizationKeys.GENRE_LIST, LocalizationKeys.GENRE_FIELD, musicBandBuilder::setGenre, null, MusicGenre.class)));
     }
 
     public MusicBandDescription(SerialFunction<MusicBand, Object> fieldSetter) {
-        super("Music Band", fieldSetter, MusicBand.class);
+        super(LocalizationKeys.MUSIC_BAND, fieldSetter, MusicBand.class);
     }
 
     public MusicBandDescription() {
-        super("Music Band",
+        super(LocalizationKeys.MUSIC_BAND,
                 (SerialFunction<MusicBand, ?>) null,
                 MusicBand.class);
     }

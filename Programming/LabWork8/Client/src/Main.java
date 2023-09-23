@@ -1,4 +1,6 @@
-import common.descriptions.CommandDescription;
+import TextReceivers.LocalizedTextReceiver;
+import TextReceivers.TextReceiver;
+import common.LocalizationKeys;
 import loaders.ConsoleLoader;
 import modules.*;
 
@@ -8,20 +10,20 @@ import java.nio.channels.DatagramChannel;
 
 public class Main {
     public static void main(String[] args) {
+        LocalizedTextReceiver localizedTextReceiver = new LocalizedTextReceiver("en_AU","en_AU");
         int port = 0;
         try {
             port = Integer.parseInt(System.getenv("PORT"));
         }catch (NumberFormatException e){
-            System.out.println("Error while parsing port");
+            localizedTextReceiver.println(LocalizationKeys.ERROR_PARSING_PORT);
             System.exit(0);
         }
-        TextReceiver textReceiver = new TextReceiver();
         DatagramChannel channel = null;
         try {
             channel = DatagramChannel.open();
         }
         catch (IOException e){
-            textReceiver.println("Error while opening channel");
+            localizedTextReceiver.println(LocalizationKeys.ERROR_OPENING_CHANNEL);
             System.exit(0);
         }
 
@@ -29,16 +31,16 @@ public class Main {
         try {
             requestHandler = new RequestHandler(channel, 12288, 6000);
         } catch (IOException e) {
-            textReceiver.println("Error while creating request handler");
+            localizedTextReceiver.println(LocalizationKeys.ERROR_CREATING_REQUEST_HANDLER);
             System.exit(0);
         }
-        ConsoleLoader loader = new ConsoleLoader(textReceiver);
+        ConsoleLoader loader = new ConsoleLoader(localizedTextReceiver);
         ObjectSender objectSender = null;
         try {
             objectSender = new ObjectSender(InetAddress.getLocalHost(), port, channel);
         } catch (Exception e) {
-            textReceiver.println("Error while creating object sender");
+            localizedTextReceiver.println(LocalizationKeys.ERROR_CREATING_OBJECT_SENDER);
         }
-        InteractiveMode.getInstance(textReceiver, loader, requestHandler, objectSender).start();
+        InteractiveMode.getInstance(localizedTextReceiver, loader, requestHandler, objectSender).start();
     }
 }

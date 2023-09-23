@@ -17,7 +17,7 @@ public class InfoCommand extends Command<MusicReceiver> {
      * @return result of executing the command (the result of the info() method of the receiver object)
      */
     @Override
-    public Result<String> execute() {
+    public Result<?> execute() {
         return receiver.info();
     }
 }

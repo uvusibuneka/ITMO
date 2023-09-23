@@ -66,7 +66,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
             collection.add(element);
             return Result.success(null);
         } catch (Exception e) {
-            return Result.failure(e, "Error while adding element to collection");
+            return Result.failure(e, LocalizationKeys.ERROR_ADDING_ELEMENT);
         } finally {
         lock.unlock();
     }
@@ -85,7 +85,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
             ids.clear();
             return Result.success(null);
         } catch (Exception e) {
-            return Result.failure(e, "Error while clearing collection");
+            return Result.failure(e, LocalizationKeys.ERROR_CLEARING_COLLECTION);
         } finally {
         lock.unlock();
     }
@@ -126,7 +126,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
         lock.lock();
         try {
             if (this.getSize() == 0) {
-                return Result.failure(new Exception("Collection is empty"), "Collection is empty");
+                return Result.failure(new Exception("Collection is empty"), LocalizationKeys.ERROR_EMPTY_COLLECTION);
             }
 
             T max = collection.stream().max(T::compareTo).get();
@@ -182,7 +182,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
             ids.removeIf(id -> collection.stream().noneMatch(element_2 -> element_2.getID() == element.getID()));
             return Result.success(null);
         } catch (Exception e) {
-            return Result.failure(e, "Failed to remove greater elements");
+            return Result.failure(e, LocalizationKeys.ERROR_REMOVE_GREATER);
         }finally {
             lock.unlock();
         }
@@ -202,7 +202,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
             ids.remove(element.getID());
             return Result.success(null);
         } catch (Exception e) {
-            return Result.failure(e, "Failed to remove element");
+            return Result.failure(e, LocalizationKeys.ERROR_REMOVING_ELEMENT);
         } finally {
         lock.unlock();
     }
@@ -244,7 +244,7 @@ public class Collection<T extends Comparable<T> & IDAccess> implements Serializa
             Collection_to_file_writer.write();
             return Result.success(null);
         } catch (Exception e) {
-            return Result.failure(e, "Коллекция не сохранена");
+            return Result.failure(e, LocalizationKeys.ERROR_SAVING_COLLECTION);
         }finally {
         lock.unlock();
     }

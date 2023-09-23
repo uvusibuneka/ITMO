@@ -1,8 +1,10 @@
 package receivers;
 
+import common.LocalizationKeys;
 import common.builders.MusicBandBuilder;
 import common.descriptions.LoadDescription;
 import main.Main;
+import managers.connection.Notifier;
 import managers.file.*;
 import common.Album;
 import common.Collection;
@@ -10,7 +12,9 @@ import common.MusicBand;
 import common.descriptions.MusicBandDescription;
 import managers.file.decorators.DataBase.DBReader;
 import managers.file.decorators.DataBase.DBWriter;
+import result.ClearWarning;
 import result.Result;
+import result.UpdateWarning;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -85,12 +89,12 @@ public class MusicReceiver extends Receiver<MusicBand> {
             };
 
             MusicBandDescription mbd_writer = new MusicBandDescription();
-            mbd_writer.getFields().add(new LoadDescription<String>("Your Login", "OwnerLogin", ((MusicBandBuilder) mbd_writer.getBuilder())::setOwnerLogin, null, String.class));
+            mbd_writer.getFields().add(new LoadDescription<String>(LocalizationKeys.LOGIN_COMMAND, LocalizationKeys.OWNER_LOGIN, ((MusicBandBuilder) mbd_writer.getBuilder())::setOwnerLogin, null, String.class));
             collection_to_file_writer = new DBWriter<>("MusicBands", collection_to_file_writer, mbd_writer);
 
             MusicBandDescription mbd_reader = new MusicBandDescription();
-            mbd_reader.getFields().add(0, new LoadDescription<Long>("ID", "id", ((MusicBandBuilder) mbd_reader.getBuilder())::setId, null, Long.class));
-            mbd_reader.getFields().add(new LoadDescription<String>("Your Login", "OwnerLogin", ((MusicBandBuilder) mbd_reader.getBuilder())::setOwnerLogin, null, String.class));
+            mbd_reader.getFields().add(0, new LoadDescription<Long>(LocalizationKeys.ID, LocalizationKeys.ID_FIELD, ((MusicBandBuilder) mbd_reader.getBuilder())::setId, null, Long.class));
+            mbd_reader.getFields().add(new LoadDescription<String>(LocalizationKeys.LOGIN_COMMAND, LocalizationKeys.OWNER_LOGIN, ((MusicBandBuilder) mbd_reader.getBuilder())::setOwnerLogin, null, String.class));
             Collection_from_file_loader = new DBReader<>("MusicBands", mbd_reader, Collection_from_file_loader, tmp);
 
 
@@ -99,6 +103,31 @@ public class MusicReceiver extends Receiver<MusicBand> {
             Main.logger.error(e.getMessage(), e);
             throw new NullPointerException("Error with collection loading");
         }
+    }
+
+    @Override
+    public Result<Void> add(MusicBand obj) {
+       Result<Void> result = super.add(obj);
+       if(result.isSuccess())
+           Notifier.getInstance().warnAll(UpdateWarning.warning(obj, obj.getID()));
+       return result;
+    }
+
+
+    @Override
+    public Result<Void> clear() {
+        Result<Void> result = super.clear();
+        if(result.isSuccess())
+            Notifier.getInstance().warnAll(ClearWarning.warning());
+        return result;
+    }
+
+
+    public Result<Void> removeById(long id) {
+        Result<Void> result = super.removeById(id);
+        if(result.isSuccess())
+            Notifier.getInstance().warnAll(UpdateWarning.warning(null, id));
+        return result;
     }
 
     /**
@@ -115,6 +144,8 @@ public class MusicReceiver extends Receiver<MusicBand> {
                 lock.unlock();
             }
     }
+
+
 
     /**
      * Method to add an element to the collection if it is greater than all elements of the collection
@@ -133,7 +164,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
             if (newBand.compareTo(maxBand) > 0) {
                 return this.add(obj);
             } else {
-                return Result.success(null, "New band is not the greatest element of collection, element is not added to collection");
+                return Result.success(null, LocalizationKeys.NOT_THE_GREATEST_ELEMENT);
             }
     }
 
@@ -175,7 +206,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
     public Result<MusicBand> maxByBestAlbum() {
         try {
             if (collection.getSize() == 0) {
-                return Result.failure(new Exception("Max element of collection does not exist"), "Collection is empty");
+                return Result.failure(new Exception(""), LocalizationKeys.ERROR_EMPTY_COLLECTION);
             }
             try {
                 MusicBand maxAlbumBand = collection.getCollection()
@@ -183,14 +214,14 @@ public class MusicReceiver extends Receiver<MusicBand> {
                         .max(Comparator.comparing(band -> band.getBestAlbum().getSales()))
                         .orElse(null);
                 if (maxAlbumBand == null) {
-                    return Result.failure(new Exception("Max element of collection does not exist"), "Max element of collection does not exist");
+                    return Result.failure(new Exception(""), LocalizationKeys.FAIL);
                 }
                 return Result.success(maxAlbumBand);
             } catch (Exception e) {
-                return Result.failure(e, "Error with finding the maximum by best album");
+                return Result.failure(e);
             }
         }catch (Exception e){
-            return Result.failure(e,"Error with finding the maximum by best album");
+            return Result.failure(e);
         }
     }
 
@@ -200,14 +231,13 @@ public class MusicReceiver extends Receiver<MusicBand> {
      * @param bestAlbum
      * @return the execution result of the command (success/failure) with the number of elements
      */
-    public Result<Long> countByBestAlbum(Album bestAlbum) {
+    public Result<?> countByBestAlbum(Album bestAlbum) {
             long count = collection.getCollection().stream()
                     .filter((MusicBand band) -> band.getBestAlbum().equals(bestAlbum)).count();
-            return Result.success(count, "Number of elements with best album equal to " + bestAlbum + " is " + count);
+            return Result.success("Number of elements with best album equal to " + bestAlbum + " is " + count);
     }
 
     public Result<Void> clear(String userLogin) {
-
             Result<Boolean> result = collection_to_file_writer.remove("OwnerLogin", userLogin);
             if (result.isSuccess()) {
                 collection.setCollection(
@@ -216,7 +246,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                                 .collect(Collectors.toCollection(TreeSet::new))
                 );
                 Main.logger.info("User " + userLogin + " elements of collection cleared");
-                return Result.success(null, "Your elements of collection successfully cleared");
+                return Result.success(null);
             } else {
                 Main.logger.error("Collection wasn't cleared. " + result.getMessage());
                 return Result.failure(result.getError().orElse(null), result.getMessage());
@@ -242,12 +272,12 @@ public class MusicReceiver extends Receiver<MusicBand> {
                     );
                     Main.logger.info("Element removed");
 
-                    return Result.success(null, "Element removed");
+                    return Result.success(null, LocalizationKeys.SUCCESS);
                 } else {
                     return Result.failure(remove_res.getError().orElse(null), remove_res.getMessage());
                 }
             } else {
-                return Result.failure(null, "You aren't owning element with such id");
+                return Result.failure(null,LocalizationKeys.YOU_HAVE_NOT_PERMISSION_TO_SUCH_ELEMENTS);
             }
 
     }
@@ -270,7 +300,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                     counter++;
                 }
             }
-            return Result.success(null, counter + "/" + bands_to_delete.size() + " elements removed");
+            return Result.success(null, LocalizationKeys.SUCCESS);
     }
 
 
@@ -283,7 +313,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
             boolean is_present = collection.getCollection().stream()
                     .anyMatch((MusicBand element) -> (element.getID() == id && element.getOwnerLogin().equals(newElement.getOwnerLogin())));
             if (!is_present) {
-                return Result.failure(null, "You aren't owning element with such id");
+                return Result.failure(null, LocalizationKeys.YOU_HAVE_NOT_PERMISSION_TO_SUCH_ELEMENTS);
             }
 
             Result<Boolean> update_res = collection_to_file_writer.update(newElement, id);
@@ -296,7 +326,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                         result = collection.add(newElement);
                         if (result.isSuccess()) {
                             Main.logger.info("Element updated");
-                            return Result.success(null, "Element successfully updated");
+                            return Result.success(null, LocalizationKeys.SUCCESS);
                         } else {
                             Main.logger.info("Element just removed");
                             return Result.failure(result.getError().get(), result.getMessage());
@@ -307,7 +337,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                     }
                 } catch (Exception e) {
                     Main.logger.error(e.getMessage());
-                    return Result.failure(e, "Error with executing updateById command");
+                    return Result.failure(e, LocalizationKeys.FAIL);
                 }
             } else {
                 return Result.failure(update_res.getError().orElse(null), update_res.getMessage());

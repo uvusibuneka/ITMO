@@ -331,30 +331,6 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
                 '}';
     }
 
-    public Result<String> toCSV() {
-        try {
-            StringBuilder sb = new StringBuilder();
-            sb.append(this.getID()).append(",").
-                    append(this.getName()).append(",").
-                    append(this.getCoordinates().getX()).append(",").
-                    append(this.getCoordinates().getY()).append(",").
-                    append(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(",").
-                    append(this.getNumberOfParticipants()).append(",");
-            Album album = this.getBestAlbum();
-            if (this.getBestAlbum() != null) {
-                sb.append(album.getName()).append(",");
-                sb.append(album.getTracks()).append(",");
-                sb.append(album.getLength()).append(",");
-                sb.append(album.getSales()).append(",");
-            } else {
-                sb.append(",");
-            }
-            sb.append(this.getGenre());
-            return Result.success(sb.toString(), null);
-        } catch (Exception e) {
-            return Result.failure(e, "Error with parsing CSV format");
-        }
-    }
 
     @Override
     public Result<List<String>> toFields() {
@@ -373,8 +349,34 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
             res.add("'" + this.getOwnerLogin().replace("'", "''") + "'");
             return Result.success(res, null);
         } catch (Exception e) {
-            System.out.println(e);
-            return Result.failure(e, "Error with parsing DataBase format");
+            return Result.failure(e, LocalizationKeys.ERROR_PARSING_DATABASE_FORMAT);
         }
     }
+
+    @Override
+    public Result<String> toCSV() {
+            try {
+                StringBuilder sb = new StringBuilder();
+                sb.append(this.getID()).append(",").
+                        append(this.getName()).append(",").
+                        append(this.getCoordinates().getX()).append(",").
+                        append(this.getCoordinates().getY()).append(",").
+                        append(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(",").
+                        append(this.getNumberOfParticipants()).append(",");
+                Album album = this.getBestAlbum();
+                if (this.getBestAlbum() != null) {
+                    sb.append(album.getName()).append(",");
+                    sb.append(album.getTracks()).append(",");
+                    sb.append(album.getLength()).append(",");
+                    sb.append(album.getSales()).append(",");
+                } else {
+                    sb.append(",");
+                }
+                sb.append(this.getGenre());
+                return Result.success(sb.toString(), null);
+            } catch (Exception e) {
+                return Result.failure(e, LocalizationKeys.ERROR_PARSING_CSV_FORMAT);
+            }
+        }
+
 }

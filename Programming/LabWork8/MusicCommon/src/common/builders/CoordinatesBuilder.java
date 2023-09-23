@@ -18,9 +18,9 @@ public class CoordinatesBuilder implements Buildable<Coordinates>, Serializable 
      */
     public CoordinatesBuilder setX(Long x) {
         if(x == null)
-            throw new IllegalArgumentException("The value of the x coordinate cannot be null");
+            throw new IllegalArgumentException("FIELD_Y_CANNOT_BE_NULL");
         if (x <= -129)
-            throw new IllegalArgumentException("The value of the x coordinate must be greater than -129");
+            throw new IllegalArgumentException("FIELD_Y_MUST_BE_GREATER_THAN_MINUS_420");
         this.x = x;
         return this;
     }
@@ -32,11 +32,11 @@ public class CoordinatesBuilder implements Buildable<Coordinates>, Serializable 
      */
     public CoordinatesBuilder setY(Float y) {
         if(y == null)
-            throw new IllegalArgumentException("The value of the y coordinate cannot be null");
+            throw new IllegalArgumentException("FIELD_Y_CANNOT_BE_NULL");
         if(y.isNaN() || y.isInfinite())
-            throw new IllegalArgumentException("The value of the y coordinate is integer between -420 and " + Float.MAX_VALUE);
+            throw new IllegalArgumentException("FIELD_Y_IS_INTEGER");
         if (y <= -420)
-            throw new IllegalArgumentException("The value of the y coordinate must be greater than -420");
+            throw new IllegalArgumentException("FIELD_Y_MUST_BE_GREATER_THAN_MINUS_420");
         this.y = y;
         return this;
     }

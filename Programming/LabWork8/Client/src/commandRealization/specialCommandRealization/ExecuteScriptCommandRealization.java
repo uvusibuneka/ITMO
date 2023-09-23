@@ -1,6 +1,7 @@
 package commandRealization.specialCommandRealization;
 
 import common.Collection;
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.FileLoader;
@@ -25,7 +26,7 @@ public class ExecuteScriptCommandRealization extends SpecialCommandRealization{
         path = (String) commandDescription.getOneLineArguments().get(0).getValue();
         FileLoader fileLoader = new FileLoader(path);
         if (fileNameStack.contains(path)) {
-            throw new RuntimeException("Recursion detected");
+            throw new RuntimeException(String.valueOf(LocalizationKeys.RECURSION_DETECTED));
         }
         fileNameStack.push(path);
 
@@ -39,8 +40,8 @@ public class ExecuteScriptCommandRealization extends SpecialCommandRealization{
                 commandDescription = fileLoader.parseCommand(interactiveMode, s);
             } catch (Exception e) {
                 fileNameStack.clear();
-                commandResult = Result.failure(new Exception("Bad script. " + (e.getMessage() != null ? e.getMessage() : "")));
-                throw new RuntimeException("Bad script. " + (e.getMessage() != null ? e.getMessage() : ""));
+                commandResult = Result.failure(new Exception(String.valueOf(LocalizationKeys.BAD_SCRIPT_FILE)));
+                throw new RuntimeException(String.valueOf(LocalizationKeys.BAD_SCRIPT_FILE));
             }
             if (commandDescription.getName().equals("execute_script"))
                 commandDescription.getCaller().call();

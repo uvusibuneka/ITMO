@@ -1,6 +1,7 @@
 package loaders;
 
 import commandRealization.CommandRealization;
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
@@ -46,7 +47,7 @@ public class ConsoleLoader extends AbstractLoader {
         List<String> commandParts = splitStringWithQuotes(command);
 
         if (commandParts.size() == 0) {
-            throw new RuntimeException("Command is empty!");
+            throw new RuntimeException("ERROR_EMPTY_COMMAND");
         }
         if (interactiveMode.isCommandExist(commandParts.get(0))) {
             CommandDescription commandDescription;
@@ -57,11 +58,11 @@ public class ConsoleLoader extends AbstractLoader {
             }
             if (commandDescription.getOneLineArguments() == null) {
                 if (commandParts.size() != 1) {
-                    throw new RuntimeException("Wrong number of arguments!");
+                    throw new RuntimeException("ERROR_WRONG_NUMBER_OF_ARGUMENTS");
                 }
             } else {
                 if (commandDescription.getOneLineArguments().size() != commandParts.size() - 1) {
-                    throw new RuntimeException("Wrong number of arguments!");
+                    throw new RuntimeException("ERROR_WRONG_NUMBER_OF_ARGUMENTS");
                 }
             }
             if (commandDescription.getOneLineArguments() != null) {
@@ -85,7 +86,7 @@ public class ConsoleLoader extends AbstractLoader {
                         .setCommandDescription(commandDescription);
             return commandDescription;
         } else {
-            throw new RuntimeException("Unknown command!");
+            throw new RuntimeException("UNKNOWN_COMMAND");
         }
     }
 

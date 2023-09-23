@@ -28,7 +28,8 @@ public class ResultSender {
 
     public ResultSender(User user) {
         this.datagramManager = user.getDm();
-        this.user = new User(null, null, null);
+        this.user = user;
+        Notifier.getInstance().addObserver(this);
     }
 
     public void send(Result<?> to_send){

@@ -36,8 +36,7 @@ public class RequestHandler {
             while (true) {
                 int readyChannels = selector.select(timeout);
                 if (readyChannels == 0) {
-                    System.out.println("Timeout reached, try again");
-                    throw new SocketTimeoutException("Timeout reached");
+                    throw new SocketTimeoutException("TIMEOUT_ERROR");
                 }
 
                 Set<SelectionKey> selectedKeys = selector.selectedKeys();

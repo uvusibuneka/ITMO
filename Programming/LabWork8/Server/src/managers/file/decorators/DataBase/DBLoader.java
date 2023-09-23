@@ -5,6 +5,7 @@ import common.IDAccess;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
+import managers.LocalizationManager;
 import managers.file.DBSavable;
 import java.time.LocalDate;
 
@@ -15,6 +16,7 @@ import java.sql.Date;
 public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends AbstractLoader {
     private final ResultSet resultSet;
     private int i;
+    private LocalizationManager lm = new LocalizationManager("en_AU","en_AU");
 
     public DBLoader(BaseTextReceiver textReceiver, ResultSet resultSet) {
         super(textReceiver);
@@ -50,7 +52,7 @@ public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends Ab
     @Override
     public <D extends LoadDescription<?>> D enterDate(D description) {
         try {
-            Date sqlDate = resultSet.getDate(description.getFieldName());
+            Date sqlDate = resultSet.getDate(lm.getLine(description.getFieldName()));
             description.setField(sqlDate.toLocalDate());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -61,7 +63,7 @@ public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends Ab
     @Override
     public <D extends LoadDescription<Enum>> D enterEnum(D description) {
         try {
-            description.setField(description.getType().getEnumConstants()[resultSet.getInt(description.getFieldName())]);
+            description.setField(description.getType().getEnumConstants()[resultSet.getInt(lm.getLine(description.getFieldName()))]);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -71,7 +73,7 @@ public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends Ab
     @Override
     public <D extends LoadDescription<?>> D enterWrapper(D description) {
         try {
-            description.setField(resultSet.getObject(description.getFieldName(), description.getType()));
+            description.setField(resultSet.getObject(lm.getLine(description.getFieldName()), description.getType()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -81,7 +83,7 @@ public class DBLoader<T extends Comparable<T> & IDAccess & DBSavable> extends Ab
     @Override
     public LoadDescription<String> enterString(LoadDescription<String> description) {
         try {
-            description.setField(resultSet.getString(description.getFieldName()));
+            description.setField(resultSet.getString(lm.getLine(description.getFieldName())));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

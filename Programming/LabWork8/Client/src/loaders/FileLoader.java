@@ -1,6 +1,7 @@
 package loaders;
 
 import commandRealization.CommandRealization;
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import managers.AbstractLoader;
@@ -33,18 +34,18 @@ public class FileLoader extends AbstractLoader {
         this.filename = fileName;
         File file = new File(fileName);
         if(!file.exists()){
-            throw new RuntimeException("File not found!");
+            throw new RuntimeException("FILE_NOT_FOUND");
         }
         if(!file.canRead()){
-            throw new RuntimeException("File can't be read!");
+            throw new RuntimeException("FILE_NOT_READABLE");
         }
         if(!file.isFile()){
-            throw new RuntimeException("File is not a file!");
+            throw new RuntimeException("FILE_NOT_FOUND");
         }
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
         } catch (Exception e){
-            throw new RuntimeException("Error while opening file!");
+            throw new RuntimeException("ERROR_OPENING_FILE");
         }
         parser = new AbstractParser() {
             @Override
@@ -125,7 +126,7 @@ public class FileLoader extends AbstractLoader {
     public CommandDescription parseCommand(InteractiveMode interactiveMode, String command) {
         List<String> commandParts = List.of(command.split(" "));
         if (commandParts.size() == 0) {
-            throw new RuntimeException("Command is empty!");
+            throw new RuntimeException("ERROR_EMPTY_COMMAND");
         }
         if (interactiveMode.isCommandExist(commandParts.get(0))) {
             CommandDescription commandDescription = null;
@@ -136,7 +137,7 @@ public class FileLoader extends AbstractLoader {
             }
             if (commandDescription.getOneLineArguments() != null) {
                 if (commandDescription.getOneLineArguments().size() != commandParts.size() - 1) {
-                    throw new RuntimeException("Wrong number of arguments!");
+                throw new RuntimeException("ERROR_WRONG_NUMBER_OF_ARGUMENTS");
                 }
                 CommandDescription finalCommandDescription = commandDescription;
                 IntStream.range(0, commandDescription.getOneLineArguments().size())
@@ -156,7 +157,7 @@ public class FileLoader extends AbstractLoader {
                         .setCommandDescription(commandDescription);
             return commandDescription;
         } else {
-            throw new RuntimeException("Unknown command!");
+            throw new RuntimeException("UNKNOWN_COMMAND");
         }
     }
 

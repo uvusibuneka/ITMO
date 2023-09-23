@@ -54,10 +54,10 @@ public class Coordinates implements Serializable {
      */
     public void setX(Long x) throws IllegalArgumentException {
         if (x == null) {
-            throw new IllegalArgumentException("Field x cannot be null");
+            throw new IllegalArgumentException("FIELD_X_CANNOT_BE_NULL");
         }
         if (x <= -129) {
-            throw new IllegalArgumentException("Field x must be greater than -129");
+            throw new IllegalArgumentException("FIELD_X_MUST_BE_GREATER_THAN_MINUS129");
         }
         this.x = x;
     }
@@ -69,10 +69,10 @@ public class Coordinates implements Serializable {
      */
     public void setY(Float y) throws IllegalArgumentException {
         if (y == null) {
-            throw new IllegalArgumentException("Field y cannot be null");
+            throw new IllegalArgumentException("FIELD_Y_CANNOT_BE_NULL");
         }
         if (y <= -420) {
-            throw new IllegalArgumentException("Field y must be greater than -420");
+            throw new IllegalArgumentException("FIELD_Y_MUST_BE_GREATER_THAN_MINUS_420");
         }
         this.y = y;
     }

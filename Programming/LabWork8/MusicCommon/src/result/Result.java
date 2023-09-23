@@ -1,4 +1,6 @@
 package result;
+import common.LocalizationKeys;
+
 import java.io.Serializable;
 import java.util.Optional;
 
@@ -17,7 +19,7 @@ public class Result<T> implements Serializable {
     /**
      * A message describing the result of the operation.
      */
-    private final String message;
+    private final LocalizationKeys message;
     /**
      * The value returned in case of a successful operation.
      */
@@ -33,7 +35,7 @@ public class Result<T> implements Serializable {
      * @param value the value returned in case of a successful operation.
      * @param error the exception that was thrown in case of a failed operation.
      */
-    private Result(boolean success, String message, T value, Exception error) {
+    protected Result(boolean success, LocalizationKeys message, T value, Exception error) {
         this.success = success;
         this.message = message;
         this.value = value;
@@ -46,7 +48,7 @@ public class Result<T> implements Serializable {
      * @return a new instance of the Result class with a success flag and a value.
      */
     public static <T> Result<T> success(T value) {
-        return new Result<T>(true, "Command executed successfully", value, null);
+        return new Result<T>(true, LocalizationKeys.SUCCESS, value, null);
     }
     /**
      * Creates a new instance of the Result class with a success flag and a value.
@@ -54,7 +56,7 @@ public class Result<T> implements Serializable {
      * @param <T> the type of value to be contained in the Result instance.
      * @return a new instance of the Result class with a success flag and a value.
      */
-    public static <T> Result<T> success(T value, String message) {
+    public static <T> Result<T> success(T value, LocalizationKeys message) {
         return new Result<T>(true, message, value, null);
     }
     /**
@@ -64,7 +66,7 @@ public class Result<T> implements Serializable {
      * @return a new instance of the Result class with a failure flag and an exception.
      */
     public static <T> Result<T> failure(Exception error) {
-        return new Result<T>(false, "An error occurred while executing the command", null, error);
+        return new Result<T>(false, LocalizationKeys.FAIL, null, error);
     }
     /**
      * Creates a new instance of the Result class with a failure flag, a message and an exception.
@@ -73,7 +75,7 @@ public class Result<T> implements Serializable {
      * @param <T> the type of value expected in the Result instance.
      * @return a new instance of the Result class with a failure flag, a message and an exception.
      */
-    public static <T> Result<T> failure(Exception error, String message) {
+    public static <T> Result<T> failure(Exception error, LocalizationKeys message) {
         return new Result<T>(false, message, null, error);
     }
     /**
@@ -103,7 +105,7 @@ public class Result<T> implements Serializable {
      * Returns the message describing the result of the operation.
      * @return the message describing the result of the operation.
      */
-    public String getMessage(){
+    public LocalizationKeys getMessage(){
         return message;
     }
 }

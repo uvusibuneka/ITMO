@@ -31,11 +31,13 @@ public abstract class CommandRealization extends caller.Caller {
     }
 
     protected void printInfoForUser() {
-         if(commandResult.isSuccess() && commandResult.getValue().isPresent())
-            interactiveMode.printToUser(commandResult.getValue().get());
+         if(commandResult.isSuccess() && commandResult.getValue().isPresent()) {
+             interactiveMode.printToUser(commandResult.getValue().get());
+         }
 
-         interactiveMode.printToUser(commandResult.getMessage()
-                 + (commandResult.getError().isPresent() ? commandResult.getError().get() : ""));
+         interactiveMode.printToUser(commandResult.getMessage());
+
+         interactiveMode.printToUser(commandResult.getError().isPresent() ? commandResult.getError().get() : "");
     }
 
     protected void getResultFromServer(){

@@ -1,11 +1,13 @@
 package UserInterface;
 
+import TextReceivers.LocalizedTextReceiver;
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
 import managers.BaseTextReceiver;
 import modules.InteractiveMode;
-import modules.TextReceiver;
+import TextReceivers.TextReceiver;
 import result.Result;
 
 import java.util.Map;
@@ -14,9 +16,10 @@ import java.util.function.Supplier;
 public class ConsoleUI {
 
     private static ConsoleUI consoleUI;
+    private static Map<String, String> localizationMap;
     private InteractiveMode interactiveMode;
 
-    private BaseTextReceiver textReceiver = new TextReceiver();
+    private LocalizedTextReceiver textReceiver = new LocalizedTextReceiver("en_AU", "en_AU");
 
     private ConsoleLoader loader = new ConsoleLoader(textReceiver);
 
@@ -32,11 +35,29 @@ public class ConsoleUI {
                 "r", interactiveMode::register,
                 "q", interactiveMode::exit
         );
+        localizationMap = Map.of("Australian-English", "en_AU",
+                "Russian", "ru",
+                "Danish","da",
+                "Icelandic","is");
+
         return consoleUI;
     }
 
     public void start(){
-        textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            textReceiver.println(LocalizationKeys.EXIT);
+        }));
+        textReceiver.print("Choose localization: ");
+        for (String key : localizationMap.keySet())
+            textReceiver.print(key + " ");
+        String localization = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
+        while (!localizationMap.containsKey(localization)) {
+            textReceiver.println(LocalizationKeys.UNKNOWN_LANGUAGE);
+            localization = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
+        }
+        textReceiver.switchLocalization(localizationMap.get(localization), localizationMap.get(localization));
+        interactiveMode.setTextReceiver(textReceiver);
+        textReceiver.println(LocalizationKeys.WELCOME);
         while (true) {
             String command = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
             if (authorizationMap.containsKey(command)) {
@@ -46,10 +67,10 @@ public class ConsoleUI {
                 }
                 textReceiver.println(result.getMessage());
             } else {
-                textReceiver.println("Unknown command!");
+                textReceiver.println(LocalizationKeys.UNKNOWN_COMMAND);
             }
         }
-        textReceiver.println("Interactive mode started! Check command help to see available commands.");
+        textReceiver.println(LocalizationKeys.INTERACTIVE_START);
         while (true) {
             CommandDescription command;
             try {

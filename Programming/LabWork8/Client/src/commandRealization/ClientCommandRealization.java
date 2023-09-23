@@ -1,5 +1,6 @@
 package commandRealization;
 
+import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import modules.InteractiveMode;
 
@@ -11,9 +12,9 @@ public abstract class ClientCommandRealization extends CommandRealization {
     @Override
     public void call() {
         if (commandDescription.getArguments() != null)
-            interactiveMode.printToUser("Ввод аргументов для команды...");
+            interactiveMode.printToUser(String.valueOf(LocalizationKeys.ENTERING_ARGUMENTS_FOR_COMMAND));
         inputObjectArguments();
-        interactiveMode.printToUser("Происходит выполнение команды " + commandDescription.getName());
+        interactiveMode.printToUser(LocalizationKeys.EXECUTING_COMMAND);
         execution();
         printInfoForUser();
     }

@@ -1,5 +1,6 @@
 package managers.file.decorators.DataBase;
 
+import common.LocalizationKeys;
 import managers.file.AbstractReader;
 import managers.file.DBSavable;
 import managers.file.decorators.ReaderDecorator;
@@ -44,17 +45,17 @@ public class DBReader<T extends Comparable<T> & IDAccess & DBSavable> extends Re
             conn.close();
             return Result.success(collection);
         } catch (SQLTimeoutException e){
-            return Result.failure(e, "База данных долго не отвечает.");
+            return Result.failure(e, LocalizationKeys.ERROR_DATABASE_ANSWER);
         } catch (SQLException e){
-            return Result.failure(e, "Ошибка запроса.");
+            return Result.failure(e, LocalizationKeys.ERROR_REQUEST);
         } catch (FileNotFoundException e) {
-            return Result.failure(e, "Не получилось найти файл с данными для подключения к базе данных");
+            return Result.failure(e, LocalizationKeys.FILE_NOT_FOUND_DATABASE);
         } catch (SecurityException e) {
-            return Result.failure(e, "Недостаточно прав для чтения файла с данными для подключения к базе данных");
+            return Result.failure(e, LocalizationKeys.NOT_PERMISSION_FOR_FILE_FOR_DATABASE);
         } catch (IOException | IllegalArgumentException | NullPointerException e) {
-            return Result.failure(e, "Ошибка чтения файла с данными для подключения к базе данных");
+            return Result.failure(e, LocalizationKeys.ERROR_WITH_FILE_FOR_DATABASE);
         } catch (ArrayIndexOutOfBoundsException e){
-            return Result.failure(e, "Несоответствие enum констант в программе и в базе данных");
+            return Result.failure(e, LocalizationKeys.ERROR_WITH_DATABASE_ENUM);
         }
     }
 }
