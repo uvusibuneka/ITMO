@@ -1,6 +1,7 @@
 package receivers;
 
 import common.MusicBand;
+import common.descriptions.LoadDescription;
 import managers.file.*;
 import common.Collection;
 import managers.file.decorators.DataBase.DBReader;
@@ -58,7 +59,11 @@ public class UserReceiver extends Receiver<User>{
             };
 
             collection_to_file_writer = new DBWriter<>("Users", collection_to_file_writer, new UserDescription(new UserBuilder()));
-            Collection_from_file_loader = new DBReader<>("Users", new UserDescription(new UserBuilder()), Collection_from_file_loader, tmp);
+
+            UserBuilder ub = new UserBuilder();
+            UserDescription userDesc =new UserDescription(ub);
+            userDesc.getFields().add(0, new LoadDescription<Long>("ID", "id", ub::setID, null, Long.class));
+            Collection_from_file_loader = new DBReader<>("Users", userDesc, Collection_from_file_loader, tmp);
 
             collection = new common.Collection<>(Collection_from_file_loader, collection_to_file_writer);
     }

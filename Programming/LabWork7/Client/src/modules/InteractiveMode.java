@@ -120,16 +120,6 @@ public class InteractiveMode {
 
     public void start() {
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if(isAuthorized())
-                try {
-                    exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            System.out.println("Программа завершает работу.");
-        }));
-
         textReceiver.println("Welcome to interactive mode! Are you want to register or login? (r/l). Type \"q\" to exit.");
         while (true) {
             String command = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
