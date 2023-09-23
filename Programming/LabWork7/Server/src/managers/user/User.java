@@ -35,7 +35,7 @@ public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
     String salt;
     LocalDateTime lastActivity;
 
-    public User(String login, String password, String salt,DatagramManager dm) {
+    public User(String login, String password, String salt, DatagramManager dm) {
         this.id = idCounter++;
         this.dm = dm;
         this.login = login;
@@ -48,8 +48,8 @@ public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
         this.id = idCounter++;
         this.dm = dm;
         this.login = login;
-        this.password = password;
         this.salt = getRandomString();
+        this.password = getHashedPassword(password);
         lastActivity = LocalDateTime.now();
     }
 
@@ -141,9 +141,8 @@ public class User implements Comparable<User>, IDAccess, CSVSavable, DBSavable {
     public Result<List<String>> toFields() {
         try {
             ArrayList<String> res = new ArrayList<>();
-            res.add(this.getID() + "");
             res.add("'" + this.getLogin().replace("'", "''") + "'");
-            res.add("'" + this.getHashedPassword().replace("'", "''") + "'");
+            res.add("'" + this.getPassword().replace("'", "''") + "'");
             res.add("'" + this.salt.replace("'", "''") + "'");
             return Result.success(res, null);
         }catch(Exception e){
