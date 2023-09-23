@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Server:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e72c4683-52f1-4f0a-8a37-4a1fa02e6dd7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../LabWork7/Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2R9kNcLW51WjWbEJ7cUEuDikHzZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Кирилл/Documents/GitHub/danil/Programming/LabWork7/Server/lib/postgresql-42.6.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.21724138",
+    "settings.editor.selected.configurable": "database.other",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <envs>
+        <env name="FILE_NAME" value="C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 7\collection.csv" />
+        <env name="SERVER_PORT" value="4444" />
+        <env name="USERS_FILE" value="C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 7\users.csv" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="main.Main" />
+      <module name="Server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e72c4683-52f1-4f0a-8a37-4a1fa02e6dd7" name="Changes" comment="" />
+      <created>1686669646039</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686669646039</updated>
+      <workItem from="1686669647519" duration="3255000" />
+      <workItem from="1686680899902" duration="10275000" />
+      <workItem from="1686697539259" duration="12000" />
+      <workItem from="1686912826566" duration="736000" />
+      <workItem from="1686913791739" duration="2010000" />
+      <workItem from="1691231331861" duration="1344000" />
+      <workItem from="1691570986077" duration="43000" />
+      <workItem from="1691817993812" duration="9511000" />
+      <workItem from="1691905756134" duration="2796000" />
+      <workItem from="1691909628459" duration="14761000" />
+      <workItem from="1692016011156" duration="6288000" />
+      <workItem from="1692269996046" duration="758000" />
+      <workItem from="1692273782368" duration="2000" />
+      <workItem from="1692279320161" duration="2693000" />
+      <workItem from="1693125195208" duration="2634000" />
+      <workItem from="1693240950256" duration="3528000" />
+      <workItem from="1693842697970" duration="11081000" />
+      <workItem from="1694178947062" duration="148000" />
+      <workItem from="1694179952244" duration="1248000" />
+      <workItem from="1694237665940" duration="3156000" />
+      <workItem from="1694338199541" duration="23154000" />
+      <workItem from="1694421693636" duration="12629000" />
+      <workItem from="1694435576397" duration="13000" />
+      <workItem from="1694440750365" duration="134000" />
+      <workItem from="1694548350789" duration="82000" />
+      <workItem from="1694776405316" duration="1960000" />
+      <workItem from="1694781179345" duration="4230000" />
+      <workItem from="1695473956897" duration="360000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
