@@ -26,7 +26,7 @@ public class InputController {
     private final DatagramManager dm;
     HashMap<String, CommandDescription> commands;
 
-    private final Map<String, Consumer<User>> user_connection_commands = Map.of("login", this::login, "register", this::register);
+    private final Map<String, Consumer<CommandDescription>> user_connection_commands = Map.of("login", this::login, "register", this::register);
     private static final ExecutorService parsingPool = Executors.newFixedThreadPool(100);
 
     public InputController(DatagramManager datagramManager) {
@@ -60,17 +60,6 @@ public class InputController {
     public void addParsing(Runnable task) {
         parsingPool.submit(task);
     }
-
-    private boolean hasPermission(User user) {
-        try {
-            return (boolean) (new LoginCommand(user.getLogin(), user.getPassword()).execute().getValue().get());
-        } catch (Exception e) {
-            System.out.println(user);
-            e.printStackTrace();
-            throw new RuntimeException("Error with login");
-        }
-    }
-
     private boolean hasPermission(CommandDescription cd) {
         try {
             return (boolean) (new LoginCommand(cd.getAuthorization().getLogin(), cd.getAuthorization().getPassword()).execute().getValue().get());
@@ -87,11 +76,7 @@ public class InputController {
         ResultSender tmp_sender = new ResultSender(dm);
         if (user_connection_commands.containsKey(cd.getName())) {
             if (cd.getOneLineArguments().size() == 2)
-                user_connection_commands.get(cd.getName()).accept(new User(
-                        (String) cd.getOneLineArguments().get(0).getValue(),
-                        (String) cd.getOneLineArguments().get(1).getValue(),
-                        dm
-                ));
+                user_connection_commands.get(cd.getName()).accept(cd);
             else {
                 Main.logger.error("Incorrect request");
                 RESULT = Result.failure(new Exception(""),LocalizationKeys.ERROR_WRONG_NUMBER_OF_ARGUMENTS);
@@ -121,11 +106,10 @@ public class InputController {
 
 
 
-    private Void login(User user) {
+    private Void login(CommandDescription cd) {
         ResultSender sender = new ResultSender(dm);
         try {
-            if(hasPermission(user)) {
-                Notifier.getInstance().addObserver(sender);
+            if(hasPermission(cd)) {
                 Main.logger.info("New user connected");
                 sender.addSending(() -> {
                     sender.send(Result.success(commands, LocalizationKeys.AUTH_SUCCESS));
@@ -141,10 +125,15 @@ public class InputController {
         return null;
     }
 
-    private Void register(User user) {
+    private Void register(CommandDescription cd) {
+        User us = new User(
+                (String) cd.getOneLineArguments().get(0).getValue(),
+                (String) cd.getOneLineArguments().get(1).getValue(),
+                dm
+        );
         ResultSender sender = new ResultSender(new User(null, null, dm));
         try {
-            Result<Void> r = new RegisterCommand(user).execute();
+            Result<Void> r = new RegisterCommand(us).execute();
             if (r.isSuccess()) {
                 Main.logger.info("New user registered");
                 sender.addSending(() -> {sender.send(Result.failure(new Exception(), LocalizationKeys.REGISTER_SUCCESS));});

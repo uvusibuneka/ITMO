@@ -9,18 +9,296 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a5da70a-9254-4f29-b53c-a3c30f02e6ea" name="Changes" comment="" />
+    <list default="true" id="0a5da70a-9254-4f29-b53c-a3c30f02e6ea" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/artifacts/Client_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/libraries/MusicCommon.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/Client.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/ClientCommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/CommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/ServerCommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/specialCommandRealization/ExitCommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/specialCommandRealization/HelpCommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/specialCommandRealization/HistoryCommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/commandRealization/specialCommandRealization/SpecialCommandRealization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/loaders/ConsoleLoader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/loaders/FileLoader$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/loaders/FileLoader$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/loaders/FileLoader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/modules/CallableManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/modules/ObjectSender.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/modules/RequestHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/modules/TextReceiver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/parsers/Parser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/out/production/Client/s.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/ClientCommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/CommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/ServerCommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/specialCommandRealization/ExitCommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/specialCommandRealization/HelpCommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/specialCommandRealization/HistoryCommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/commandRealization/specialCommandRealization/SpecialCommandRealization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/loaders/ConsoleLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/loaders/FileLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/modules/CallableManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/modules/ObjectSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/modules/RequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/modules/TextReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/parsers/Parser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Client/src/s.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/.idea/artifacts/MusicCommon_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/MusicCommon.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/artifacts/MusicCommon_jar/MusicCommon.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/caller/Caller.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/Album.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/Authorization.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/Collection.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/Coordinates.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/IDAccess.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/MusicBand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/MusicGenre.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/builders/AlbumBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/builders/Buildable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/builders/CoordinatesBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/builders/MusicBandBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/descriptions/AlbumDescription.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/descriptions/CommandDescription.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/descriptions/CoordinatesDescription.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/descriptions/LoadDescription.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/descriptions/MusicBandDescription.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/common/descriptions/SerialFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/AbstractLoader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/AbstractParser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/BaseTextReceiver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/AbstractFileReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/AbstractFileWriter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/AbstractReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/AbstractWriter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/CSVSavable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/DBSavable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/FileReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/FileWriter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/decorators/FileReaderDecorator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/decorators/FileWriterDecorator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/decorators/ReaderDecorator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/managers/file/decorators/WriterDecorator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/out/production/MusicCommon/result/Result.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/caller/Caller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/Album.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/Authorization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/Collection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/Coordinates.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/IDAccess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/MusicBand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/MusicGenre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/builders/AlbumBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/builders/Buildable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/builders/CoordinatesBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/builders/MusicBandBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/descriptions/AlbumDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/descriptions/CommandDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/descriptions/CoordinatesDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/descriptions/LoadDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/descriptions/MusicBandDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/common/descriptions/SerialFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/AbstractLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/AbstractParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/BaseTextReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/AbstractFileReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/AbstractFileWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/AbstractReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/AbstractWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/CSVSavable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/DBSavable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/FileReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/FileWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/decorators/FileReaderDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/decorators/FileWriterDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/decorators/ReaderDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/managers/file/decorators/WriterDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/MusicCommon/src/result/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/artifacts/Server_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/libraries/MusicCommon.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/libraries/log4j_api_2_20_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/libraries/log4j_core_2_20_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/libraries/postgresql.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/db.cfg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/lib/checker-qual-3.31.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/lib/log4j-api-2.20.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/lib/log4j-core-2.20.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/lib/postgresql-42.6.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/AddCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/AddIfMaxCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/ClearCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/Command.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/CountByBestAlbum.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/ExecuteQueueCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/ExitCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/FilterByBestAlbum.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/HelpCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/InfoCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/LoginCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/MaxByBestAlbumCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/RegisterCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/RemoveByIdCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/RemoveGreaterCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/SaveMusicCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/SaveUserCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/ShowCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/commands/UpdateCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/db.cfg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/main/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/Invoker.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/connection/ConnectionReceiver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/connection/DatagramManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/connection/ResultSender.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/CSV/CSVLoader$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/CSV/CSVLoader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/CSV/CSVReader$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/CSV/CSVReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/CSV/CSVWriter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/DataBase/DBLoader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/DataBase/DBReader$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/DataBase/DBReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/file/decorators/DataBase/DBWriter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/managers/user/UserBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/receivers/MusicReceiver$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/receivers/MusicReceiver$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/receivers/MusicReceiver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/out/production/Server/receivers/Receiver.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/AddCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/AddIfMaxCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/ClearCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/CountByBestAlbum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/ExecuteQueueCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/ExitCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/FilterByBestAlbum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/HelpCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/InfoCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/LoginCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/MaxByBestAlbumCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/RegisterCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/RemoveByIdCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/RemoveGreaterCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/SaveMusicCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/SaveUserCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/ShowCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/commands/UpdateCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/db.cfg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/Invoker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/connection/ConnectionReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/connection/DatagramManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/connection/ResultSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/file/decorators/CSV/CSVLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/file/decorators/CSV/CSVReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/file/decorators/CSV/CSVWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/file/decorators/DataBase/DBLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/file/decorators/DataBase/DBReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/file/decorators/DataBase/DBWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/managers/user/UserBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/receivers/MusicReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/Server/src/receivers/Receiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../LabWork7/db.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/artifacts/Client_jar/Client.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/artifacts/Client_jar/Client.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/UserInterface/ConsoleUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/UserInterface/ConsoleUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ClientCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ClientCommandRealization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/CommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/CommandRealization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ServerCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ServerCommandRealization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExitCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExitCommandRealization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HelpCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HelpCommandRealization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HistoryCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HistoryCommandRealization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/ConsoleLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/ConsoleLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/modules/InteractiveMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/modules/InteractiveMode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/modules/RequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/modules/RequestHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/parsers/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/parsers/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Collection.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Collection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Coordinates.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Coordinates.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/MusicBand.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/MusicBand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/builders/CoordinatesBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/builders/CoordinatesBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/AlbumDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/AlbumDescription.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CommandDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CommandDescription.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CoordinatesDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CoordinatesDescription.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/LoadDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/LoadDescription.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/MusicBandDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/MusicBandDescription.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/result/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/result/Result.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-06/app-06-13-2023-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork7/Server/logs/2023-06/app-06-13-2023-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-08/app-08-06-2023-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork7/Server/logs/2023-08/app-08-06-2023-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-10-2023-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork7/Server/logs/2023-09/app-09-10-2023-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-13-2023-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork7/Server/logs/2023-09/app-09-13-2023-1.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-14-2023-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-15-2023-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-18-2023-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-20-2023-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-21-2023-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2023-09/app-09-23-2023-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/log4j2.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Server_jar/Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Server_jar/Server.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/commands/AddCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/commands/AddCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/commands/CountByBestAlbum.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/commands/CountByBestAlbum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/commands/InfoCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/commands/InfoCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/Invoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/Invoker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/connection/InputController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/connection/InputController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/connection/ResultSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/connection/ResultSender.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVWriter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBWriter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/user/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/user/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/user/UserDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/user/UserDescription.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/Receiver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/Invoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/connection/InputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/connection/InputController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/managers/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/user/User.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -28,30 +306,27 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectId" id="2VDFFN6qtI614LBm3v8tY1jlHWk" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2R9kNcLW51WjWbEJ7cUEuDikHzZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/Server/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/Server/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kacha\OneDrive\Рабочий стол\Страдания\ITMO\Programming\LabWork7\Server\resources" />
@@ -60,16 +335,12 @@
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
-        <env name="SERVER_PORT" value="2672" />
-        <env name="DB_URL" value="jdbc:postgresql://localhost:5432/" />
+        <env name="FILE_NAME" value="C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 7\collection.csv" />
+        <env name="SERVER_PORT" value="4444" />
+        <env name="USERS_FILE" value="C:\Users\Кирилл\Desktop\Itmo\Программированние\Лаба 7\users.csv" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="main.Main" />
       <module name="Server" />
-      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
-        <option name="credential" />
-        <option name="region" />
-        <option name="useCurrentConnection" value="false" />
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -79,7 +350,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0a5da70a-9254-4f29-b53c-a3c30f02e6ea" name="Changes" comment="" />
-      <created>1694362639718</created>
+      <created>1686669646039</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1694362639718</updated>
@@ -94,6 +365,7 @@
       <workItem from="1695484020159" duration="20000" />
       <workItem from="1695484538236" duration="6643000" />
       <workItem from="1695562176283" duration="2233000" />
+      <workItem from="1695574865136" duration="330000" />
     </task>
     <servers />
   </component>
@@ -110,15 +382,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="org.postgresql.util.PSQLException" package="org.postgresql.util" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

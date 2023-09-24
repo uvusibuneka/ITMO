@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22550ff5-610d-4751-a063-54b19b5f2242" name="Changes" comment="" />
+    <list default="true" id="3a7b1390-1092-4e19-88e3-fa28c0c4918e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../LabWork7/Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +20,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -29,7 +31,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2VDFDaYdKAmjBa38kOBn0j2KkEn" />
+  <component name="ProjectId" id="2RADBYUHfZg9IZ0ie1PUgl4BpFO" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -40,28 +42,41 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/MusicCommon&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="22550ff5-610d-4751-a063-54b19b5f2242" name="Changes" comment="" />
-      <created>1694362625254</created>
+      <changelist id="3a7b1390-1092-4e19-88e3-fa28c0c4918e" name="Changes" comment="" />
+      <created>1686683856954</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1694362625254</updated>
-      <workItem from="1694362626916" duration="1006000" />
-      <workItem from="1694425077461" duration="821000" />
-      <workItem from="1694598574238" duration="8749000" />
-      <workItem from="1695208185276" duration="11087000" />
-      <workItem from="1695284791838" duration="17081000" />
-      <workItem from="1695315157151" duration="15421000" />
-      <workItem from="1695484839198" duration="6179000" />
+      <updated>1686683856954</updated>
+      <workItem from="1686683858311" duration="4436000" />
+      <workItem from="1686912849583" duration="6000" />
+      <workItem from="1686912861961" duration="474000" />
+      <workItem from="1686915360984" duration="903000" />
+      <workItem from="1691818812553" duration="9780000" />
+      <workItem from="1691905721248" duration="2009000" />
+      <workItem from="1692015975915" duration="1353000" />
+      <workItem from="1692269965115" duration="612000" />
+      <workItem from="1692280712361" duration="87000" />
+      <workItem from="1692281110780" duration="1050000" />
+      <workItem from="1693125136432" duration="2434000" />
+      <workItem from="1693240996396" duration="1900000" />
+      <workItem from="1693842609175" duration="3751000" />
+      <workItem from="1694338204207" duration="7001000" />
+      <workItem from="1694422289660" duration="562000" />
+      <workItem from="1694423415223" duration="7257000" />
+      <workItem from="1694776722922" duration="21000" />
+      <workItem from="1694777538439" duration="1227000" />
+      <workItem from="1694781179148" duration="2025000" />
+      <workItem from="1695474051175" duration="269000" />
     </task>
     <servers />
   </component>
