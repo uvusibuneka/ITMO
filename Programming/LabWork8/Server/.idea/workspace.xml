@@ -9,112 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a5da70a-9254-4f29-b53c-a3c30f02e6ea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/managers/connection/Notifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/Client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Client.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/artifacts/Client_jar/Client.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/artifacts/Client_jar/Client.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/UserInterface/ConsoleUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/UserInterface/ConsoleUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ClientCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ClientCommandRealization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/CommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/CommandRealization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ServerCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/ServerCommandRealization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExitCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/ExitCommandRealization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HelpCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HelpCommandRealization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HistoryCommandRealization.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/commandRealization/specialCommandRealization/HistoryCommandRealization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/ConsoleLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/ConsoleLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/loaders/FileLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/modules/InteractiveMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/modules/InteractiveMode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/modules/RequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/modules/RequestHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/modules/TextReceiver.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/parsers/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/parsers/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/UserInterface/ConsoleUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/UserInterface/ConsoleUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/commandRealization/ClientCommandRealization.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/commandRealization/ClientCommandRealization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/commandRealization/CommandRealization.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/commandRealization/CommandRealization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/commandRealization/ServerCommandRealization.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/commandRealization/ServerCommandRealization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/ExecuteScriptCommandRealization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/ExitCommandRealization.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/ExitCommandRealization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/HelpCommandRealization.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/HelpCommandRealization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/HistoryCommandRealization.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/commandRealization/specialCommandRealization/HistoryCommandRealization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/loaders/ConsoleLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/loaders/ConsoleLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/loaders/FileLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/loaders/FileLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/modules/InteractiveMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/modules/InteractiveMode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/modules/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/modules/RequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/modules/TextReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/TextReceivers/TextReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/parsers/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/parsers/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Collection.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Collection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Coordinates.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/Coordinates.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/MusicBand.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/MusicBand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/builders/CoordinatesBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/builders/CoordinatesBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/AlbumDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/AlbumDescription.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CommandDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CommandDescription.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CoordinatesDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/CoordinatesDescription.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/LoadDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/LoadDescription.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/MusicBandDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/common/descriptions/MusicBandDescription.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/file/FileWriter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/result/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/result/Result.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/Coordinates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/MusicBand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/MusicBand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/MusicGenre.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/MusicGenre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/builders/CoordinatesBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/builders/CoordinatesBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/AlbumDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/AlbumDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/CommandDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/CommandDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/CoordinatesDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/CoordinatesDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/LoadDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/LoadDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/MusicBandDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/common/descriptions/MusicBandDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/managers/AbstractLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/managers/AbstractLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/managers/AbstractParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/managers/AbstractParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/managers/file/FileReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/managers/file/FileWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/src/result/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/src/result/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/log4j2.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/log4j2.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Server_jar/Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Server_jar/Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/commands/AddCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/commands/AddCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/commands/CountByBestAlbum.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/commands/CountByBestAlbum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/commands/InfoCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/commands/InfoCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/Invoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/Invoker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/connection/InputController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/connection/InputController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/connection/ResultSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/connection/ResultSender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVReader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/CSV/CSVWriter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBReader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/file/decorators/DataBase/DBWriter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/user/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/user/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/managers/user/UserDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/managers/user/UserDescription.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/MusicReceiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/Receiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/Receiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/receivers/UserReceiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/CountByBestAlbum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/CountByBestAlbum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/InfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/InfoCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/Invoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/connection/InputController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/connection/InputController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/connection/ResultSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/connection/ResultSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/decorators/CSV/CSVLoader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/decorators/CSV/CSVReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/decorators/CSV/CSVWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/decorators/DataBase/DBLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/decorators/DataBase/DBLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/decorators/DataBase/DBReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/decorators/DataBase/DBReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/file/decorators/DataBase/DBWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/file/decorators/DataBase/DBWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/managers/user/UserDescription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/managers/user/UserDescription.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/receivers/MusicReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/receivers/MusicReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/receivers/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/receivers/Receiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/receivers/UserReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/receivers/UserReceiver.java" afterDir="false" />
-    </list>
+    <list default="true" id="0a5da70a-9254-4f29-b53c-a3c30f02e6ea" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -137,25 +32,26 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2VDFFN6qtI614LBm3v8tY1jlHWk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/Server/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/Server/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kacha\OneDrive\Рабочий стол\Страдания\ITMO\Programming\LabWork7\Server\resources" />
@@ -197,6 +93,7 @@
       <workItem from="1695284796257" duration="21043000" />
       <workItem from="1695484020159" duration="20000" />
       <workItem from="1695484538236" duration="6643000" />
+      <workItem from="1695562176283" duration="2233000" />
     </task>
     <servers />
   </component>

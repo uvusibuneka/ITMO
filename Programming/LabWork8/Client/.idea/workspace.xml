@@ -160,6 +160,7 @@
       <workItem from="1695284797296" duration="43509000" />
       <workItem from="1695484043938" duration="487000" />
       <workItem from="1695484583069" duration="6283000" />
+      <workItem from="1695559641349" duration="6047000" />
     </task>
     <servers />
   </component>
@@ -189,11 +190,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/../MusicCommon/out/production/MusicCommon/managers/AbstractParser.class</url>
-          <line>62</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

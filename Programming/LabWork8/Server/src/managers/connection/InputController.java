@@ -125,6 +125,7 @@ public class InputController {
         ResultSender sender = new ResultSender(dm);
         try {
             if(hasPermission(user)) {
+                Notifier.getInstance().addObserver(sender);
                 Main.logger.info("New user connected");
                 sender.addSending(() -> {
                     sender.send(Result.success(commands, LocalizationKeys.AUTH_SUCCESS));

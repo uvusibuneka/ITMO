@@ -28,6 +28,8 @@ import java.util.stream.Collectors;
 public class InteractiveMode {
     private static InteractiveMode interactiveMode;
     private final CallableManager callableManager = new CallableManager();
+    private final ResultManager resultManager;
+    private Thread listeningThread;
     private LocalizedTextReceiver textReceiver;
     private final ConsoleLoader loader;
     private final ObjectSender objectSender;
@@ -54,6 +56,9 @@ public class InteractiveMode {
         this.textReceiver = textReceiver;
         this.loader = loader;
         this.requestHandler = requestHandler;
+        this.resultManager = new ResultManager(requestHandler);
+        listeningThread = new Thread(() -> {resultManager.start();});
+        listeningThread.start();
         this.objectSender = objectSender;
     }
 
@@ -219,10 +224,13 @@ public class InteractiveMode {
     }
 
     public Result<?> getResultFromServer(){
-        Result<DatagramPacket> result = requestHandler.receivePacketWithTimeout();
-        if(!result.isSuccess())
-            return result;
-        return deserialize(result.getValue().get());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Result<?> result = resultManager.getResult();
+        return result;
     }
 
     public void addCommandToQueue(Caller caller) {
