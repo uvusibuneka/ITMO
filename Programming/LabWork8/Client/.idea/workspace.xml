@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="7" />
+    <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="7">
+      <change beforePath="$PROJECT_DIR$/../../LabWork7/Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork7/Client/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,6 +53,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;303&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;fixing&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/MusicCommon&quot;,
@@ -61,7 +65,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propGUI&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -76,6 +80,7 @@
       <recent name="F:\Рабочий стол\ITMO\Lab5Client\lib" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Кирилл\Documents\GitHub\danil\Programming\LabWork8\Client\src\UserInterface\graphics" />
       <recent name="C:\Users\kacha\OneDrive\Рабочий стол\Страдания\ITMO\Programming\LabWork7\Client\src" />
     </key>
   </component>
@@ -161,6 +166,20 @@
       <workItem from="1695484043938" duration="487000" />
       <workItem from="1695484583069" duration="6283000" />
       <workItem from="1695559641349" duration="6047000" />
+      <workItem from="1695575300178" duration="12917000" />
+      <workItem from="1695634268564" duration="6574000" />
+      <workItem from="1695641300570" duration="2150000" />
+      <workItem from="1695643721572" duration="4000" />
+      <workItem from="1695643736969" duration="2126000" />
+      <workItem from="1695728028080" duration="32000" />
+      <workItem from="1695989517462" duration="21762000" />
+      <workItem from="1696065500098" duration="32765000" />
+      <workItem from="1696156079647" duration="15194000" />
+      <workItem from="1696200450425" duration="2061000" />
+      <workItem from="1696245330397" duration="15015000" />
+      <workItem from="1696268736763" duration="13280000" />
+      <workItem from="1696318800943" duration="18856000" />
+      <workItem from="1696347649513" duration="3010000" />
     </task>
     <servers />
   </component>
@@ -186,9 +205,9 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="1" />
+        <breakpoint type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="5" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

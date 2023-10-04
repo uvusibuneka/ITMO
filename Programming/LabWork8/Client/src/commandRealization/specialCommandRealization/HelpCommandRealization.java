@@ -3,6 +3,7 @@ package commandRealization.specialCommandRealization;
 import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import modules.InteractiveMode;
+import result.Result;
 
 public class HelpCommandRealization extends SpecialCommandRealization {
 
@@ -13,5 +14,6 @@ public class HelpCommandRealization extends SpecialCommandRealization {
     @Override
     public void execution() {
         interactiveMode.printHelp();
+        commandResult = Result.success(interactiveMode.getCommandDescriptionMap());
     }
 }

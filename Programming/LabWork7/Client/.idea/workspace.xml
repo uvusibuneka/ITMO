@@ -10,13 +10,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab08066b-46d6-43f0-99b6-f5449966ee64" name="Changes" comment="7">
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/Server.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/TextReceivers/LocalizedTextReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/TextReceivers/LocalizedTextReceiver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/UserInterface/ConsoleUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/UserInterface/ConsoleUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/da.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/da.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/en_AU.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/en_AU.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/is.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/is.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/modules/InteractiveMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/modules/InteractiveMode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/out/production/Client/ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/resources/da.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/resources/da.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/resources/en_AU.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/resources/en_AU.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/resources/is.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/resources/is.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/resources/ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/resources/ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/src/TextReceivers/LocalizedTextReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/src/TextReceivers/LocalizedTextReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/src/UserInterface/ConsoleUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/src/UserInterface/ConsoleUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Client/src/modules/InteractiveMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Client/src/modules/InteractiveMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/MusicCommon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/MusicCommon/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/MusicCommon/out/production/MusicCommon/common/LocalizationKeys.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/MusicCommon/out/production/MusicCommon/common/LocalizationKeys.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/MusicCommon/out/production/MusicCommon/managers/LocalizationManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/MusicCommon/out/production/MusicCommon/managers/LocalizationManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/MusicCommon/src/common/LocalizationKeys.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/MusicCommon/src/common/LocalizationKeys.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/MusicCommon/src/common/MusicBand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/MusicCommon/src/common/MusicBand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/MusicCommon/src/managers/LocalizationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/MusicCommon/src/managers/LocalizationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Server/db.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Server/db.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Server/out/production/Server/managers/Invoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Server/out/production/Server/managers/Invoker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LabWork8/Server/src/managers/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../LabWork8/Server/src/managers/Invoker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,26 +72,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "fixing",
-    "last_opened_file_path": "C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/Client",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fixing&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kacha/OneDrive/Рабочий стол/Страдания/ITMO/Programming/LabWork7/Client&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="modules" />
@@ -84,16 +104,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
-      <envs>
-        <env name="PORT" value="2672" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="Client" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Client" />
       <method v="2">
@@ -103,6 +113,16 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="Client" />
       <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <envs>
+        <env name="PORT" value="2672" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Client" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -172,6 +192,7 @@
       <workItem from="1694777630896" duration="1101000" />
       <workItem from="1694781182270" duration="1289000" />
       <workItem from="1695559473834" duration="139000" />
+      <workItem from="1696104591632" duration="328000" />
     </task>
     <servers />
   </component>

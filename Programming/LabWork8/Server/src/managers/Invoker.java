@@ -88,7 +88,7 @@ public class Invoker {
             arg.setOwnerLogin(cd.getAuthorization().getLogin());
             return Result.success(new AddCommand(arg));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -96,7 +96,7 @@ public class Invoker {
         try {
             return Result.success(new InfoCommand());
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -104,7 +104,7 @@ public class Invoker {
         try {
             return Result.success(new ShowCommand());
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -112,7 +112,7 @@ public class Invoker {
         try {
             return Result.success(new ClearCommand(cd.getAuthorization().getLogin()));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -120,7 +120,7 @@ public class Invoker {
         try {
             return Result.success(new HelpCommand());
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -133,7 +133,7 @@ public class Invoker {
                     arg
             ));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -141,7 +141,7 @@ public class Invoker {
         try {
             return Result.success(new RemoveByIdCommand((Long) cd.getOneLineArguments().get(0).getValue(), cd.getAuthorization().getLogin()));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -151,7 +151,7 @@ public class Invoker {
             arg.setOwnerLogin(cd.getAuthorization().getLogin());
             return Result.success(new AddIfMaxCommand(arg));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -161,7 +161,7 @@ public class Invoker {
             arg.setOwnerLogin(cd.getAuthorization().getLogin());
             return Result.success(new RemoveGreaterCommand(arg));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -169,7 +169,7 @@ public class Invoker {
         try {
             return Result.success(new MaxByBestAlbumCommand());
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -177,7 +177,7 @@ public class Invoker {
         try {
             return Result.success(new CountByBestAlbum((Album) cd.getArguments().get(0).getValue()));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 
@@ -185,7 +185,7 @@ public class Invoker {
         try {
             return Result.success(new FilterByBestAlbum((Album) cd.getArguments().get(0).getValue()));
         } catch (Exception e) {
-            return Result.failure(e, e.getMessage());
+            return Result.failure(e);
         }
     }
 

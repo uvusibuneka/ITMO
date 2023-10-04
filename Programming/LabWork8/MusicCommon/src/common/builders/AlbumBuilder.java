@@ -32,7 +32,7 @@ public class AlbumBuilder implements Buildable<Album>, Serializable {
      */
     public AlbumBuilder setTracks(Long tracks) {
         if (tracks <= 0)
-            throw new IllegalArgumentException("The number of tracks in the album cannot be negative.");
+            throw new IllegalArgumentException("NUMBER_OF_TRACKS_CANNOT_BE_NEGATIVE");
         this.tracks = tracks;
         return this;
     }
@@ -44,7 +44,7 @@ public class AlbumBuilder implements Buildable<Album>, Serializable {
      */
     public AlbumBuilder setLength(Long length) {
         if (length <= 0)
-            throw new IllegalArgumentException("The length of the album cannot be negative.");
+            throw new IllegalArgumentException("LENGTH_CANNOT_BE_NEGATIVE");
         this.length = length;
         return this;
     }
@@ -56,7 +56,7 @@ public class AlbumBuilder implements Buildable<Album>, Serializable {
      */
     public AlbumBuilder setSales(Float sales) {
         if(sales <= 0)
-            throw new IllegalArgumentException("The number of sales of the album cannot be negative.");
+            throw new IllegalArgumentException("SALES_CANNOT_BE_NEGATIVE");
 
         this.sales = sales;
         return this;

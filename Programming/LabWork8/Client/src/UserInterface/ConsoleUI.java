@@ -44,9 +44,6 @@ public class ConsoleUI {
     }
 
     public void start(){
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            textReceiver.println(LocalizationKeys.EXIT);
-        }));
         textReceiver.print("Choose localization: ");
         for (String key : localizationMap.keySet())
             textReceiver.print(key + " ");
@@ -55,8 +52,9 @@ public class ConsoleUI {
             textReceiver.println(LocalizationKeys.UNKNOWN_LANGUAGE);
             localization = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
         }
-        textReceiver.switchLocalization(localizationMap.get(localization), localizationMap.get(localization));
+        textReceiver.switchLocalization(localizationMap.get(localization));
         interactiveMode.setTextReceiver(textReceiver);
+
         textReceiver.println(LocalizationKeys.WELCOME);
         while (true) {
             String command = loader.enterWithMessage(">", new LoadDescription<>(String.class)).getValue();
@@ -70,6 +68,7 @@ public class ConsoleUI {
                 textReceiver.println(LocalizationKeys.UNKNOWN_COMMAND);
             }
         }
+
         textReceiver.println(LocalizationKeys.INTERACTIVE_START);
         while (true) {
             CommandDescription command;

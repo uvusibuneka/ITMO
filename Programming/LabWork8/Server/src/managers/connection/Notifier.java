@@ -9,7 +9,7 @@ public class Notifier {
     private static Notifier notifier;
 
     public static Notifier getInstance() {
-        if(notifier == null) {
+        if (notifier == null) {
             notifier = new Notifier();
         }
         return notifier;
@@ -23,16 +23,16 @@ public class Notifier {
 
     public void warnAll(UpdateWarning updateWarning) {
         observers.forEach(o ->
-        {
-            try{
-                o.addSending(() -> {
-                o.send(updateWarning);
-            });
-            }
-            catch (Exception e){
-                observers.remove(o);
-            };
-        }
+                {
+                    try {
+                        o.addSending(() -> {
+                            o.send(updateWarning);
+                        });
+                    } catch (Exception e) {
+                        observers.remove(o);
+                    }
+                    ;
+                }
         );
     }
 

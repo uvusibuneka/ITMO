@@ -4,6 +4,7 @@ import commandRealization.ClientCommandRealization;
 import common.LocalizationKeys;
 import common.descriptions.CommandDescription;
 import modules.InteractiveMode;
+import result.Result;
 
 public class HistoryCommandRealization extends ClientCommandRealization {
 
@@ -20,5 +21,6 @@ public class HistoryCommandRealization extends ClientCommandRealization {
     @Override
     public void execution() {
         interactiveMode.history();
+        commandResult = Result.success(interactiveMode.getHistory());
     }
 }

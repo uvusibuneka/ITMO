@@ -47,11 +47,11 @@ public class InputController {
         commands.put("add_if_max", new CommandDescription("add_if_max", LocalizationKeys.ADD_IF_MAX_COMMAND, null, new ArrayList<>(List.of(new MusicBandDescription()))));
         commands.put("remove_greater", new CommandDescription("remove_greater", LocalizationKeys.REMOVE_GREATER_COMMAND, null, new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("update", new CommandDescription("update", LocalizationKeys.UPDATE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("update", new CommandDescription("update", LocalizationKeys.UPDATE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(LocalizationKeys.ID, Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("remove_by_id", new CommandDescription("remove_by_id", LocalizationKeys.REMOVE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(Long.class))), null));
+        commands.put("remove_by_id", new CommandDescription("remove_by_id", LocalizationKeys.REMOVE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(LocalizationKeys.ID, Long.class))), null));
 
-        commands.put("execute_script", new CommandDescription("execute_script", LocalizationKeys.EXECUTE_SCRIPT_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(String.class))), null));
+        commands.put("execute_script", new CommandDescription("execute_script", LocalizationKeys.EXECUTE_SCRIPT_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(LocalizationKeys.PATH, String.class))), null));
 
         commands.put("count_by_best_album", new CommandDescription("count_by_best_album", LocalizationKeys.COUNT_BY_BEST_ALBUM_COMMAND, null, new ArrayList<>(List.of(new AlbumDescription()))));
 
@@ -110,6 +110,7 @@ public class InputController {
         ResultSender sender = new ResultSender(dm);
         try {
             if(hasPermission(cd)) {
+                Notifier.getInstance().addObserver(sender);
                 Main.logger.info("New user connected");
                 sender.addSending(() -> {
                     sender.send(Result.success(commands, LocalizationKeys.AUTH_SUCCESS));
@@ -136,7 +137,7 @@ public class InputController {
             Result<Void> r = new RegisterCommand(us).execute();
             if (r.isSuccess()) {
                 Main.logger.info("New user registered");
-                sender.addSending(() -> {sender.send(Result.failure(new Exception(), LocalizationKeys.REGISTER_SUCCESS));});
+                sender.addSending(() -> {sender.send(Result.success(LocalizationKeys.REGISTER_SUCCESS));});
             } else {
                 Main.logger.error(r.getMessage());
                 sender.addSending(() -> {sender.send(Result.failure(r.getError().get(), r.getMessage()));});
