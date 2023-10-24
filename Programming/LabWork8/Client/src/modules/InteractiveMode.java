@@ -1,7 +1,6 @@
 package modules;
 
 import TextReceivers.LocalizedTextReceiver;
-import TextReceivers.TextReceiver;
 import UserInterface.ConsoleUI;
 import caller.Caller;
 import commandRealization.ServerCommandRealization;
@@ -15,7 +14,6 @@ import common.descriptions.CommandDescription;
 import common.descriptions.LoadDescription;
 import loaders.ConsoleLoader;
 import result.Result;
-import result.UpdateWarning;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -127,7 +125,7 @@ public class InteractiveMode {
     }
 
     @SuppressWarnings({"OptionalGetWithoutIsPresent"})
-    public Result<Void> register() {
+    public Result<?> register() {
         enterLoginData(registerCommandDescription);
         try {
             try {
@@ -136,16 +134,7 @@ public class InteractiveMode {
                 throw new RuntimeException("");
             }
 
-            Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
-            if (!packet.isSuccess()){
-                return Result.failure(packet.getError().get(), LocalizationKeys.ERROR_SERVER_CONNECTION);
-            }
-            Result<Void> registerResult;
-            try {
-                registerResult = deserialize(packet.getValue().get());
-            } catch (Exception e) {
-                throw new RuntimeException("INCORRECT_SERVER_ANSWER");
-            }
+            Result<?> registerResult = getResultFromServer();
             if(registerResult.isSuccess()) {
                 textReceiver.println(LocalizationKeys.REGISTER_SUCCESS);
                 isAuthorized = true;
@@ -167,6 +156,7 @@ public class InteractiveMode {
         authorization = new Authorization(loginDescription.getValue(), passwordDescription.getValue());
         registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
     }
+
 
     public void history() {
         history.stream()
@@ -194,6 +184,57 @@ public class InteractiveMode {
             return Result.failure(e, LocalizationKeys.ERROR_SERVER_CONNECTION);
         }
     }
+
+    public Result<?> loginByText(String login, String password) {
+        LoadDescription<String> loginDescription = new LoadDescription<>(String.class);
+        loginDescription.setValue(login);
+        LoadDescription<String> passwordDescription = new LoadDescription<>(String.class);
+        passwordDescription.setValue(password);
+        authorization = new Authorization(loginDescription.getValue(), passwordDescription.getValue());
+        registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
+        try {
+            sendCommandDescription(loginCommandDescription);
+            Result<?> loginResult = loadCommandDescriptionMap();
+            if (loginResult.isSuccess()) {
+                isAuthorized = true;
+                return Result.success(null);
+            } else {
+                return loginResult;
+            }
+        } catch (Exception e) {
+            return Result.failure(e, LocalizationKeys.ERROR_SERVER_CONNECTION);
+        }
+    }
+
+
+    public Result<?> registerByText(String login, String password) {
+        LoadDescription<String> loginDescription = new LoadDescription<>(String.class);
+        loginDescription.setValue(login);
+        LoadDescription<String> passwordDescription = new LoadDescription<>(String.class);
+        passwordDescription.setValue(password);
+        authorization = new Authorization(loginDescription.getValue(), passwordDescription.getValue());
+        registerCommandDescription.setOneLineArguments(List.of(loginDescription, passwordDescription));
+        try {
+            try {
+                sendCommandDescription(registerCommandDescription);
+            } catch (IOException ex) {
+                throw new RuntimeException("");
+            }
+
+            Result<?> registerResult = getResultFromServer();
+            if(registerResult.isSuccess()) {
+                textReceiver.println(LocalizationKeys.REGISTER_SUCCESS);
+                isAuthorized = true;
+                return Result.success(null);
+            }else{
+                return registerResult;
+            }
+
+        } catch (Exception e) {
+            return Result.failure(e, LocalizationKeys.ERROR_SERVER_CONNECTION);
+        }
+    }
+
 
     public Result<Void> exit() {
         try {
@@ -225,7 +266,7 @@ public class InteractiveMode {
 
     public Result<?> getResultFromServer(){
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

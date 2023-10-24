@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Kachanob Daniil Vladimirovich P3206 WEB lab1">
+    <meta name="author" content="Kachanov Daniil">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #5084e3; /* Цвет текста */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid;
+            border-color: #1c8bfa;
+            padding: 5px;
+        }
+
+        header .introduction {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+            color: white;
+            padding: 5px;
+        }
+
+        header .introduction h3 {
+            margin: 0;
+            padding: 5px;
+        }
+
+        header .introduction strong {
+            margin: 0 0 0 15px;
+        }
+
+        .nav-button {
+            background-color: #3399ff;
+            border: none;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            height: 100%;
+        }
+
+        .nav-button:hover {
+            background-color: #1569bd;
+        }
+
+        header form {
+            font-size: 15px;
+            line-height: 30%;
+            padding: 5px;
+        }
+
+        .canvas-and-selection {
+            margin: 0 0 20px 0;
+            padding: 0 20px 20px 20px;
+            background-color: rgba(185, 180, 206, 0.786);
+            border-radius: 0 0 30px 30px;
+            border: 2px solid #1c8bfa;
+        }
+
+        #canvas {
+            margin: 50px auto;
+            border: 1px solid black;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0 0 30px 0;
+        }
+
+        .params-selection {
+            padding: 15px;
+            line-height: 1px;
+        }
+
+        .Xselection {
+            margin: 20px 20px 30px 20px;
+        }
+
+        .Yselection {
+            margin: 20px 20px 30px 20px;
+        }
+
+        .Yselection-text {
+            width: 100%;
+            padding: 6px 8px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            text-align: center;
+            display:inline
+        }
+
+        #Rselection {
+            padding: 6px 30px 6px 50px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            text-align: center;
+            margin: 20px 20px, 20px, 20px;
+        }
+
+        .error-message {
+            display: none;
+            color: red; 
+            font-size: 12px; 
+            margin-top: 5px; 
+        }
+
+        .btn-block {
+            display: flex;
+        }
+
+        .control-btn {
+            background-color: #3399ff;
+            width: 50%;
+            margin: 20px 20px 20px 20px;
+            border-radius: 4px;
+            padding: 5px 0 5px 0;
+        }
+
+        .data-table {
+           margin: 60px 0 0 0;
+           background-color: rgba(196, 191, 215, 0.786);
+           padding: 20px;
+           border: 1px solid #000; 
+        }
+
+.data-table table {
+    border-collapse: collapse; 
+    width: 100%; 
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #000; 
+    padding: 5px;
+}
+
+.data-table th {
+    background-color: #ccc; 
+}
+
+</style>
+</head>
+<body>
+    <header>
+        <strong>Kachanov Daniil P3206 Variant:1619</strong>
+    </header>
+    <div class="main-container">
+        <div class="params-select">
+            <canvas id="canvas" width="300" height="300"></canvas>
+            <div class="selectionX">
+                <p style="display: inline;">Choose value of X:</p>
+                <select id="Xselection" name="Xvalue">
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                                   
+                <div class="error-message" id="errorX">Invalid X: Please choose a valid value [-3, 5].</div>
+            </div>
+            <div class="inputY">
+                <p style="display: inline;">Enter value of Y:</p>
+                <input type="text" id="Yinput" name="Yvalue" placeholder="Enter Y">
+                <div class="error-message" id="errorY">Invalid X: Please choose a valid value [-3, 5].</div>
+            </div>
+            <div class="inputR"> 
+                <p style="display: inline;">Enter value of R:</p>
+                <input type="text" id="Rinput" name="Rvalue" placeholder="Enter R">
+                <div class="error-message" id="errorR">Invalid R: Please enter a numeric value (2,5).</div>
+            </div>
+            <div class="btn-block">
+                <button class="control-btn btn-process">Process</button>
+                <button class="control-btn btn-clear">Clear table</button>
+            </div>
+
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>R</th>
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>Hit/Miss
+                        <th>Time</th>
+                        <th>Script Execution Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module" src="src/script_buttons.js"></script>
+    <script type="module" src="src/script_validation.js"></script>
+    <script type="module" src="src/script_data_processing.js"></script>
+    <script type="module" src="src/canvas.js"></script>
+</body>
+</html>

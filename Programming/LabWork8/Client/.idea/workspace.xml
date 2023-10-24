@@ -161,6 +161,13 @@
       <workItem from="1695484043938" duration="487000" />
       <workItem from="1695484583069" duration="6283000" />
       <workItem from="1695559641349" duration="6047000" />
+      <workItem from="1695570364787" duration="1544000" />
+      <workItem from="1695638815739" duration="2433000" />
+      <workItem from="1695884969528" duration="61000" />
+      <workItem from="1696167210514" duration="229000" />
+      <workItem from="1696270511415" duration="1231000" />
+      <workItem from="1696285308736" duration="4000" />
+      <workItem from="1696285342529" duration="1225000" />
     </task>
     <servers />
   </component>
@@ -190,6 +197,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/modules/InteractiveMode.java</url>
+          <line>301</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
