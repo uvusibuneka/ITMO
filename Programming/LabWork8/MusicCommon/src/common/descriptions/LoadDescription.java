@@ -32,6 +32,9 @@ public class LoadDescription<T> implements Serializable {
         this.type = type;
     }
 
+    public LoadDescription(LocalizationKeys description, Class<T> type){
+        this(description, null, null, null, type);
+    }
 
     public LoadDescription(Class<T> type){
         this(null, null, null, null, type);

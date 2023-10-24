@@ -16,4 +16,7 @@ public class UpdateWarning extends Result<MusicBand>{
         return new UpdateWarning(value, id);
     }
 
+    public long getId() {
+        return id;
+    }
 }

@@ -32,7 +32,7 @@ public class MusicBandBuilder implements Buildable<MusicBand>, Serializable {
      */
     public MusicBandBuilder setName(String name) {
         if(name == null)
-            throw new IllegalArgumentException("The name of the music band cannot be null");
+            throw new IllegalArgumentException("THE_NAME_CANT_BE_NULL");
         this.name = name;
         return this;
     }
@@ -56,7 +56,7 @@ public class MusicBandBuilder implements Buildable<MusicBand>, Serializable {
      */
     public MusicBandBuilder setNumberOfParticipants(Long numberOfParticipants) {
         if (numberOfParticipants <= 0)
-            throw new IllegalArgumentException("The number of participants in the music band must be greater than 0");
+            throw new IllegalArgumentException("NUMBER_OF_PARTICIPANTS_CANNOT_BE_NEGATIVE");
         this.numberOfParticipants = numberOfParticipants;
         return this;
     }

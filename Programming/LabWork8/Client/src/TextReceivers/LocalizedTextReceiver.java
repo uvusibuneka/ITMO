@@ -14,24 +14,22 @@ import java.util.Map;
 
 public class LocalizedTextReceiver implements BaseTextReceiver {
 
-    private LocalizationManager localizationManager;
+    protected final LocalizationManager localizationManager;
 
     public LocalizedTextReceiver(String language, String baseName) {
         localizationManager = new LocalizationManager(language, baseName);
     }
 
-    public void switchLocalization(String language, String baseName) {
-        localizationManager = new LocalizationManager(language, baseName);
+    public void switchLocalization(String language) {
+        localizationManager.setLanguage(language);
     }
 
+    public void print(LocalizationKeys key) {
+        System.out.print(localizationManager.getLine(key));
+    }
 
-    @Override
-    public void print(String s) {
-        try{
-            print(LocalizationKeys.valueOf(s.trim().toUpperCase(Locale.getDefault())));
-        }catch (Exception e){
-            System.out.print(s);
-        }
+    public void println(LocalizationKeys key) {
+        println(localizationManager.getLine(key));
     }
 
     @Override
@@ -42,8 +40,14 @@ public class LocalizedTextReceiver implements BaseTextReceiver {
             System.out.println(s);
         }
     }
-    public void println(LocalizationKeys key) {
-        println(localizationManager.getLine(key));
+
+    @Override
+    public void print(String s) {
+        try{
+            print(LocalizationKeys.valueOf(s.trim().toUpperCase(Locale.getDefault())));
+        }catch (Exception e){
+            System.out.print(s);
+        }
     }
 
     public void println(Map<LocalizationKeys, ?> hashMap) {
@@ -52,9 +56,6 @@ public class LocalizedTextReceiver implements BaseTextReceiver {
             print(" - ");
             println(hashMap.get(key));
         }
-    }
-    public void print(LocalizationKeys key) {
-        System.out.print(localizationManager.getLine(key));
     }
 
     public void println(Object o) {
@@ -66,7 +67,6 @@ public class LocalizedTextReceiver implements BaseTextReceiver {
             println(e);
         }
     }
-
 
     public void print(Collection<?> c) {
         for (var e: c) {
@@ -89,7 +89,7 @@ public class LocalizedTextReceiver implements BaseTextReceiver {
     public void print(LocalDate localDate) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(localizationManager.getLocale());
         String formattedDate = localDate.format(dateFormatter);
-        System.out.print(formattedDate);
+        println(formattedDate);
     }
 
 }

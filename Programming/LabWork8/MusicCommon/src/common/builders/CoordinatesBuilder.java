@@ -18,9 +18,9 @@ public class CoordinatesBuilder implements Buildable<Coordinates>, Serializable 
      */
     public CoordinatesBuilder setX(Long x) {
         if(x == null)
-            throw new IllegalArgumentException("FIELD_Y_CANNOT_BE_NULL");
+            throw new IllegalArgumentException("FIELD_X_CANNOT_BE_NULL");
         if (x <= -129)
-            throw new IllegalArgumentException("FIELD_Y_MUST_BE_GREATER_THAN_MINUS_420");
+            throw new IllegalArgumentException("FIELD_X_MUST_BE_GREATER_THAN_MINUS_129");
         this.x = x;
         return this;
     }

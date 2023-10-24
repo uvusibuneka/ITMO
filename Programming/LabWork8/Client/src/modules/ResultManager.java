@@ -24,7 +24,7 @@ public class ResultManager {
         ObjectInputStream objectInputStream;
         try {
             objectInputStream = new ObjectInputStream(byteArrayInputStream);
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException("SERIALIZATION_ERROR");
         }
         try {
@@ -35,32 +35,30 @@ public class ResultManager {
         }
     }
 
-    public void start(){
+    public void start(Notifier n) {
         while (true) {
-                Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
-                if(!packet.isSuccess()){
+            Result<DatagramPacket> packet = requestHandler.receivePacketWithTimeout();
+            if (!packet.isSuccess()) {
+                continue;
+            }
+            try {
+                UpdateWarning warning = deserialize(packet.getValue().get());
+                System.out.println("Пришло оповещение! с коллекцией происходит какой-то разврат!!!!!!");
+                n.warnAll(warning);
+            } catch (Exception e) {
+                try {
+                    result = deserialize(packet.getValue().get());
+                    isReady = true;
+                } catch (Exception e1) {
                     continue;
                 }
-                try{
-                    UpdateWarning warning = deserialize(packet.getValue().get());
-                    System.out.println("Пришло оповещение! с коллекцией происходит какой-то разврат!!!!!!");
-                }catch (Exception e){
-                    try{
-                        result = deserialize(packet.getValue().get());
-                        isReady = true;
-                    }
-                    catch (Exception e1){
-                        continue;
-                    }
-                }
+            }
         }
     }
 
-    public boolean isReady(){
-        return isReady;
-    }
+    public boolean isReady() { return isReady; }
 
-    public Result<?> getResult(){
+    public Result<?> getResult() {
         if (!isReady)
             return Result.failure(new Exception(String.valueOf(LocalizationKeys.ERROR_SERVER_CONNECTION)));
         isReady = false;

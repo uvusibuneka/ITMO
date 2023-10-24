@@ -13,9 +13,10 @@ public class UserDescription extends LoadDescription<User> {
     public UserDescription(UserBuilder ub) {
         super(LocalizationKeys.USER, null, null, ub, User.class);
         builder = ub;
-        fields = new ArrayList<>(Arrays.asList(new LoadDescription<Long>(LocalizationKeys.ID, LocalizationKeys.ID_FIELD, ub::setID, null, Long.class),
+        fields = new ArrayList<>(Arrays.asList(
                 new LoadDescription<String>(LocalizationKeys.LOGIN, LocalizationKeys.LOGIN, ub::setLogin, null, String.class),
                 new LoadDescription<String>(LocalizationKeys.PASSWORD, LocalizationKeys.PASSWORD, ub::setPassword, null, String.class),
-                new LoadDescription<String>(LocalizationKeys.SALT, LocalizationKeys.SALT, ub::setSalt, null, String.class)));
+                new LoadDescription<String>(LocalizationKeys.SALT, LocalizationKeys.SALT, ub::setSalt, null, String.class)
+        ));
     }
 }

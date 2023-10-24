@@ -113,16 +113,6 @@ public class MusicReceiver extends Receiver<MusicBand> {
        return result;
     }
 
-
-    @Override
-    public Result<Void> clear() {
-        Result<Void> result = super.clear();
-        if(result.isSuccess())
-            Notifier.getInstance().warnAll(ClearWarning.warning());
-        return result;
-    }
-
-
     public Result<Void> removeById(long id) {
         Result<Void> result = super.removeById(id);
         if(result.isSuccess())
@@ -246,6 +236,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                                 .collect(Collectors.toCollection(TreeSet::new))
                 );
                 Main.logger.info("User " + userLogin + " elements of collection cleared");
+                Notifier.getInstance().warnAll(ClearWarning.warning(userLogin));
                 return Result.success(null);
             } else {
                 Main.logger.error("Collection wasn't cleared. " + result.getMessage());
@@ -272,6 +263,7 @@ public class MusicReceiver extends Receiver<MusicBand> {
                     );
                     Main.logger.info("Element removed");
 
+                    Notifier.getInstance().warnAll(UpdateWarning.warning(null, id));
                     return Result.success(null, LocalizationKeys.SUCCESS);
                 } else {
                     return Result.failure(remove_res.getError().orElse(null), remove_res.getMessage());

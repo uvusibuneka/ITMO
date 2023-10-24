@@ -22,8 +22,10 @@ public class LocalizationManager {
         return language;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setLanguage(String baseName) {
+        this.language = baseName;
+        this.locale = new Locale(baseName);
+        bundle = ResourceBundle.getBundle(language, locale);
     }
 
     public String getLine(LocalizationKeys key){

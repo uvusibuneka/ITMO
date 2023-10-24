@@ -26,7 +26,7 @@ public class InputController {
     private final DatagramManager dm;
     HashMap<String, CommandDescription> commands;
 
-    private final Map<String, Consumer<User>> user_connection_commands = Map.of("login", this::login, "register", this::register);
+    private final Map<String, Consumer<CommandDescription>> user_connection_commands = Map.of("login", this::login, "register", this::register);
     private static final ExecutorService parsingPool = Executors.newFixedThreadPool(100);
 
     public InputController(DatagramManager datagramManager) {
@@ -47,11 +47,11 @@ public class InputController {
         commands.put("add_if_max", new CommandDescription("add_if_max", LocalizationKeys.ADD_IF_MAX_COMMAND, null, new ArrayList<>(List.of(new MusicBandDescription()))));
         commands.put("remove_greater", new CommandDescription("remove_greater", LocalizationKeys.REMOVE_GREATER_COMMAND, null, new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("update", new CommandDescription("update", LocalizationKeys.UPDATE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
+        commands.put("update", new CommandDescription("update", LocalizationKeys.UPDATE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(LocalizationKeys.ID, Long.class))), new ArrayList<>(List.of(new MusicBandDescription()))));
 
-        commands.put("remove_by_id", new CommandDescription("remove_by_id", LocalizationKeys.REMOVE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(Long.class))), null));
+        commands.put("remove_by_id", new CommandDescription("remove_by_id", LocalizationKeys.REMOVE_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(LocalizationKeys.ID, Long.class))), null));
 
-        commands.put("execute_script", new CommandDescription("execute_script", LocalizationKeys.EXECUTE_SCRIPT_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(String.class))), null));
+        commands.put("execute_script", new CommandDescription("execute_script", LocalizationKeys.EXECUTE_SCRIPT_COMMAND, new ArrayList<>(List.of(new LoadDescription<>(LocalizationKeys.PATH, String.class))), null));
 
         commands.put("count_by_best_album", new CommandDescription("count_by_best_album", LocalizationKeys.COUNT_BY_BEST_ALBUM_COMMAND, null, new ArrayList<>(List.of(new AlbumDescription()))));
 
@@ -60,17 +60,6 @@ public class InputController {
     public void addParsing(Runnable task) {
         parsingPool.submit(task);
     }
-
-    private boolean hasPermission(User user) {
-        try {
-            return (boolean) (new LoginCommand(user.getLogin(), user.getPassword()).execute().getValue().get());
-        } catch (Exception e) {
-            System.out.println(user);
-            e.printStackTrace();
-            throw new RuntimeException("Error with login");
-        }
-    }
-
     private boolean hasPermission(CommandDescription cd) {
         try {
             return (boolean) (new LoginCommand(cd.getAuthorization().getLogin(), cd.getAuthorization().getPassword()).execute().getValue().get());
@@ -87,11 +76,7 @@ public class InputController {
         ResultSender tmp_sender = new ResultSender(dm);
         if (user_connection_commands.containsKey(cd.getName())) {
             if (cd.getOneLineArguments().size() == 2)
-                user_connection_commands.get(cd.getName()).accept(new User(
-                        (String) cd.getOneLineArguments().get(0).getValue(),
-                        (String) cd.getOneLineArguments().get(1).getValue(),
-                        dm
-                ));
+                user_connection_commands.get(cd.getName()).accept(cd);
             else {
                 Main.logger.error("Incorrect request");
                 RESULT = Result.failure(new Exception(""),LocalizationKeys.ERROR_WRONG_NUMBER_OF_ARGUMENTS);
@@ -121,10 +106,10 @@ public class InputController {
 
 
 
-    private Void login(User user) {
+    private Void login(CommandDescription cd) {
         ResultSender sender = new ResultSender(dm);
         try {
-            if(hasPermission(user)) {
+            if(hasPermission(cd)) {
                 Notifier.getInstance().addObserver(sender);
                 Main.logger.info("New user connected");
                 sender.addSending(() -> {
@@ -141,13 +126,18 @@ public class InputController {
         return null;
     }
 
-    private Void register(User user) {
+    private Void register(CommandDescription cd) {
+        User us = new User(
+                (String) cd.getOneLineArguments().get(0).getValue(),
+                (String) cd.getOneLineArguments().get(1).getValue(),
+                dm
+        );
         ResultSender sender = new ResultSender(new User(null, null, dm));
         try {
-            Result<Void> r = new RegisterCommand(user).execute();
+            Result<Void> r = new RegisterCommand(us).execute();
             if (r.isSuccess()) {
                 Main.logger.info("New user registered");
-                sender.addSending(() -> {sender.send(Result.failure(new Exception(), LocalizationKeys.REGISTER_SUCCESS));});
+                sender.addSending(() -> {sender.send(Result.success(LocalizationKeys.REGISTER_SUCCESS));});
             } else {
                 Main.logger.error(r.getMessage());
                 sender.addSending(() -> {sender.send(Result.failure(r.getError().get(), r.getMessage()));});

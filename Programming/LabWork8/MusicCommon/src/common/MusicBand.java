@@ -1,11 +1,11 @@
 /**
-
- This class represents a music band with all its characteristics.
+ * This class represents a music band with all its characteristics.
  */
 package common;
 
 import managers.file.*;
 import result.Result;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -160,6 +160,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public String getName() {
         return name;
     }
+
     /**
 
      Sets the name of the music band.
@@ -168,6 +169,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public void setName(String name) {
         this.name = name;
     }
+
     /**
 
      Returns the coordinates of the music band.
@@ -176,6 +178,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public Coordinates getCoordinates() {
         return coordinates;
     }
+
     /**
 
      Sets the coordinates of the music band.
@@ -184,6 +187,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
+
     /**
 
      Returns the creation date of the music band.
@@ -192,6 +196,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public LocalDate getCreationDate() {
         return creationDate;
     }
+
     /**
 
      Sets the creation date of the music band.
@@ -200,6 +205,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
+
     /**
 
      Returns the number of participants in the music band.
@@ -208,6 +214,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public Long getNumberOfParticipants() {
         return numberOfParticipants;
     }
+
     /**
 
      Sets the number of participants in the music band.
@@ -216,6 +223,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public void setNumberOfParticipants(long numberOfParticipants) {
         this.numberOfParticipants = numberOfParticipants;
     }
+
     /**
 
      Returns the genre of the music band.
@@ -224,6 +232,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public MusicGenre getGenre() {
         return genre;
     }
+
     /**
 
      Sets the genre of the music band.
@@ -232,6 +241,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public void setGenre(MusicGenre genre) {
         this.genre = genre;
     }
+
     /**
 
      Returns the best album of the music band.
@@ -240,6 +250,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
     public Album getBestAlbum() {
         return bestAlbum;
     }
+
     /**
      *
 
@@ -254,9 +265,10 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
      * Getter for ownerLogin
      * @return ownerLogin creator's login
      */
-    public String getOwnerLogin(){
+    public String getOwnerLogin() {
         return this.ownerLogin;
     }
+
     /**
      * Sets the login of the creator of this music band.
      * @param ownerLogin creator's login
@@ -305,9 +317,9 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
             return result;
         }
 
-        if(this.id == other.id)
+        if (this.id == other.id)
             return 0;
-        else if(this.id > other.id)
+        else if (this.id > other.id)
             return 1;
         else
             return -1;
@@ -345,7 +357,7 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
             res.add(this.getBestAlbum().getTracks().toString());
             res.add(this.getBestAlbum().getLength().toString());
             res.add(this.getBestAlbum().getSales().toString());
-            res.add(this.getGenre().ordinal()+"");
+            res.add(this.getGenre().ordinal() + "");
             res.add("'" + this.getOwnerLogin().replace("'", "''") + "'");
             return Result.success(res, null);
         } catch (Exception e) {
@@ -355,28 +367,36 @@ public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable,
 
     @Override
     public Result<String> toCSV() {
-            try {
-                StringBuilder sb = new StringBuilder();
-                sb.append(this.getID()).append(",").
-                        append(this.getName()).append(",").
-                        append(this.getCoordinates().getX()).append(",").
-                        append(this.getCoordinates().getY()).append(",").
-                        append(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(",").
-                        append(this.getNumberOfParticipants()).append(",");
-                Album album = this.getBestAlbum();
-                if (this.getBestAlbum() != null) {
-                    sb.append(album.getName()).append(",");
-                    sb.append(album.getTracks()).append(",");
-                    sb.append(album.getLength()).append(",");
-                    sb.append(album.getSales()).append(",");
-                } else {
-                    sb.append(",");
-                }
-                sb.append(this.getGenre());
-                return Result.success(sb.toString(), null);
-            } catch (Exception e) {
-                return Result.failure(e, LocalizationKeys.ERROR_PARSING_CSV_FORMAT);
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append(this.getID()).append(",").
+                    append(this.getName()).append(",").
+                    append(this.getCoordinates().getX()).append(",").
+                    append(this.getCoordinates().getY()).append(",").
+                    append(this.getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))).append(",").
+                    append(this.getNumberOfParticipants()).append(",");
+            Album album = this.getBestAlbum();
+            if (this.getBestAlbum() != null) {
+                sb.append(album.getName()).append(",");
+                sb.append(album.getTracks()).append(",");
+                sb.append(album.getLength()).append(",");
+                sb.append(album.getSales()).append(",");
+            } else {
+                sb.append(",");
             }
+            sb.append(this.getGenre());
+            return Result.success(sb.toString(), null);
+        } catch (Exception e) {
+            return Result.failure(e, LocalizationKeys.ERROR_PARSING_CSV_FORMAT);
         }
+    }
 
+
+    public long getX() {
+        return  coordinates.getX();
+    }
+
+    public long getY() {
+        return coordinates.getY().longValue();
+    }
 }

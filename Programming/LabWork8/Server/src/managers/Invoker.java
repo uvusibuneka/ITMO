@@ -6,7 +6,6 @@
 package managers;
 
 import common.Album;
-import common.LocalizationKeys;
 import common.MusicBand;
 import common.descriptions.CommandDescription;
 import main.Main;
@@ -79,7 +78,7 @@ public class Invoker {
                 return commandObj.execute();
             } else {
                 Main.logger.error("Wrong command income");
-                return Result.failure(new Exception("UNKNOWN_COMMAND"));
+                return Result.failure(new Exception("Команда не найдена"));
             }
     }
 
@@ -89,7 +88,7 @@ public class Invoker {
             arg.setOwnerLogin(cd.getAuthorization().getLogin());
             return Result.success(new AddCommand(arg));
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_ADDING_ELEMENT);
+            return Result.failure(e);
         }
     }
 
@@ -97,7 +96,7 @@ public class Invoker {
         try {
             return Result.success(new InfoCommand());
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_INFO_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -105,7 +104,7 @@ public class Invoker {
         try {
             return Result.success(new ShowCommand());
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_SHOW_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -113,7 +112,7 @@ public class Invoker {
         try {
             return Result.success(new ClearCommand(cd.getAuthorization().getLogin()));
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_CLEAR_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -121,7 +120,7 @@ public class Invoker {
         try {
             return Result.success(new HelpCommand());
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_HELP_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -134,7 +133,7 @@ public class Invoker {
                     arg
             ));
         } catch (Exception e) {
-            return Result.failure(e,LocalizationKeys.ERROR_UPDATE_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -142,7 +141,7 @@ public class Invoker {
         try {
             return Result.success(new RemoveByIdCommand((Long) cd.getOneLineArguments().get(0).getValue(), cd.getAuthorization().getLogin()));
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_REMOVE_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -152,7 +151,7 @@ public class Invoker {
             arg.setOwnerLogin(cd.getAuthorization().getLogin());
             return Result.success(new AddIfMaxCommand(arg));
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_ADD_IF_MAX_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -162,7 +161,7 @@ public class Invoker {
             arg.setOwnerLogin(cd.getAuthorization().getLogin());
             return Result.success(new RemoveGreaterCommand(arg));
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_REMOVE_GREATER_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -170,7 +169,7 @@ public class Invoker {
         try {
             return Result.success(new MaxByBestAlbumCommand());
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_MAX_BY_BEST_ALBUM_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -178,7 +177,7 @@ public class Invoker {
         try {
             return Result.success(new CountByBestAlbum((Album) cd.getArguments().get(0).getValue()));
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_COUNT_BY_BEST_ALBUM_COMMAND);
+            return Result.failure(e);
         }
     }
 
@@ -186,7 +185,7 @@ public class Invoker {
         try {
             return Result.success(new FilterByBestAlbum((Album) cd.getArguments().get(0).getValue()));
         } catch (Exception e) {
-            return Result.failure(e, LocalizationKeys.ERROR_FILTER_BY_BEST_ALBUM_COMMAND);
+            return Result.failure(e);
         }
     }
 
