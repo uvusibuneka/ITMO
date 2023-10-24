@@ -2,17 +2,18 @@
 
 $jsonInput = file_get_contents('php://input');
 $data = json_decode($jsonInput, true);
+
 if (!empty($data)) {
     if (isset($data['X']) && isset($data['Y']) && isset($data['R'])) {
-        $R = floatval($data['R']);
-        $X = floatval($data['X']); 
-        $Y = floatval($data['Y']); 
+        $x_d = $data['X'];
+        $y_d = $data['Y'];
+        $r_d = $data['R'];
+        if (is_numeric($x_d) && is_numeric($y_d) && is_numeric($r_d)){
+            $R = floatval($data['R']);
+            $X = floatval($data['X']); 
+            $Y = floatval($data['Y']); 
 
-        if (is_numeric($R) && is_numeric($X) && is_numeric($Y)
-        && $X >= -3 && $X <= 5
-        && $Y > -3 && $Y < 3
-        && $R > 2 && $R < 5) {
-
+          if (in_array($X,[-3, -2, -1, 0, 1, 2, 3, 4, 5]) && $Y > -3 && $Y < 3 && $R > 2 && $R < 5){
             $time_of_start = microtime(true);
 
             $result = checkPointInArea($R, $X, $Y);
@@ -33,7 +34,14 @@ if (!empty($data)) {
         } else {
             echo 'Invalid data';
         }
+    }else{
+        echo  json_encode('Invalid data');
     }
+    }else{
+        echo  json_encode('Invalid data');
+    }
+}else{
+    echo  json_encode('Invalid data');
 }
 
 function checkPointInArea($R, $X, $Y) {
