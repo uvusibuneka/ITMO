@@ -139,19 +139,19 @@
            border: 1px solid #000; 
         }
 
-.data-table table {
-    border-collapse: collapse; 
-    width: 100%; 
-}
+        .data-table table {
+            border-collapse: collapse; 
+            width: 100%; 
+        }
 
-.data-table th, .data-table td {
-    border: 1px solid #000; 
-    padding: 5px;
-}
+        .data-table th, .data-table td {
+            border: 1px solid #000; 
+            padding: 5px;
+        }
 
-.data-table th {
-    background-color: #ccc; 
-}
+        .data-table th {
+            background-color: #ccc; 
+        }
 
 </style>
 </head>
@@ -176,17 +176,17 @@
                     <option value="5">5</option>
                 </select>
                                    
-                <div class="error-message" id="errorX">Invalid X: Please choose a valid value [-3, 5].</div>
+                <div class="error-message" id="errorX">Invalid X: Please choose a valid value [-3, 5] with length less 15.</div>
             </div>
             <div class="inputY">
                 <p style="display: inline;">Enter value of Y:</p>
                 <input type="text" id="Yinput" name="Yvalue" placeholder="Enter Y">
-                <div class="error-message" id="errorY">Invalid Y: Please choose a valid value (-3, 3).</div>
+                <div class="error-message" id="errorY">Invalid Y: Please choose a valid value (-3, 3) with length less 15.</div>
             </div>
             <div class="inputR"> 
                 <p style="display: inline;">Enter value of R:</p>
                 <input type="text" id="Rinput" name="Rvalue" placeholder="Enter R">
-                <div class="error-message" id="errorR">Invalid R: Please enter a numeric value (2,5).</div>
+                <div class="error-message" id="errorR">Invalid R: Please enter a numeric value (2,5) with length less 15.</div>
             </div>
             <div class="btn-block">
                 <button class="control-btn btn-process">Process</button>
