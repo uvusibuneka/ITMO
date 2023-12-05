@@ -10,11 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a5da70a-9254-4f29-b53c-a3c30f02e6ea" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/modules/InteractiveMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/modules/InteractiveMode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MusicCommon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MusicCommon/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/log4j2.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/log4j2.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Веб/lab1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Веб/lab1/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Веб/lab1/src/script_data_processing.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Веб/lab1/src/script_data_processing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Веб/lab1/src/script_validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Веб/lab1/src/script_validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Веб/lab1/src/server.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Веб/lab1/src/server.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +57,8 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -102,6 +105,16 @@
       <workItem from="1695562176283" duration="2233000" />
       <workItem from="1695570504377" duration="1137000" />
       <workItem from="1696285316068" duration="1887000" />
+      <workItem from="1700316803699" duration="49000" />
+      <workItem from="1700316875859" duration="625000" />
+      <workItem from="1700323889707" duration="63000" />
+      <workItem from="1700324059906" duration="581000" />
+      <workItem from="1700324667658" duration="78000" />
+      <workItem from="1700324768093" duration="603000" />
+      <workItem from="1700326481485" duration="28000" />
+      <workItem from="1700326530795" duration="257000" />
+      <workItem from="1700327273016" duration="102000" />
+      <workItem from="1700327650162" duration="87000" />
     </task>
     <servers />
   </component>
