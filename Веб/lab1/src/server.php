@@ -8,6 +8,7 @@ if (!empty($data)) {
         $x_d = $data['X'];
         $y_d = $data['Y'];
         $r_d = $data['R'];
+        ini_set('precision', strlen($y_d));
         if (is_numeric($x_d) && is_numeric($y_d) && is_numeric($r_d)){
             $R = floatval($data['R']);
             $X = floatval($data['X']); 
