@@ -1,9 +1,40 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" version="24.7.17">
   <diagram name="Page-1" id="sjfizjnfdZs_OY48FhH4">
-    <mxGraphModel>
+    <mxGraphModel dx="1177" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-1" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Personal Computer&lt;/div&gt;" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="80" y="190" width="160" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-2" value="&amp;lt;&amp;lt;web browser&amp;gt;&amp;gt;" style="verticalAlign=top;align=center;shape=cube;size=10;direction=south;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" vertex="1" parent="Bc2B5QMn3hoTuQUKr_DE-1">
+          <mxGeometry width="130" height="100" relative="1" as="geometry">
+            <mxPoint x="10" y="50" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-3" value="&amp;lt;&amp;lt;device&amp;gt;&amp;gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="Bc2B5QMn3hoTuQUKr_DE-1">
+          <mxGeometry x="32" y="10" width="128" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-4" value="&lt;div align=&quot;center&quot;&gt;&amp;lt;&amp;lt;device&amp;gt;&amp;gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;helios&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=center;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="350" y="145" width="180" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-6" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0;exitDx=80;exitDy=0;exitPerimeter=0;entryX=0;entryY=0;entryDx=125;entryDy=180;entryPerimeter=0;" edge="1" parent="1" source="Bc2B5QMn3hoTuQUKr_DE-1" target="Bc2B5QMn3hoTuQUKr_DE-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="300" as="sourcePoint" />
+            <mxPoint x="500" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-7" value="&lt;div&gt;&amp;lt;&amp;lt;protocol&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;http&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Bc2B5QMn3hoTuQUKr_DE-6">
+          <mxGeometry x="-0.0714" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-10" value="&amp;lt;&amp;lt;OS&amp;gt;&amp;gt;" style="verticalAlign=top;align=center;shape=cube;size=10;direction=south;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="365" y="200" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Bc2B5QMn3hoTuQUKr_DE-8" value="&amp;lt;&amp;lt;server&amp;gt;&amp;gt;" style="verticalAlign=top;align=center;shape=cube;size=10;direction=south;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="385" y="235" width="110" height="80" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
